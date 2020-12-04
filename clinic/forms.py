@@ -7,8 +7,6 @@ class DateInput(forms.DateInput):
 
 
 
-
-
 class UserRegister(forms.Form):
     # Name 
     first_name = forms.CharField(max_length=64, label="First Name")

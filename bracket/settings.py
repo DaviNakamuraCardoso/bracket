@@ -11,7 +11,6 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 from pathlib import Path
-import psycopg2
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,7 +20,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'p@b5y5(0hocigugsex12%v56dm%=049jxt&my6oe)+e6b1=#0g'
+SECRET_KEY = '#hnbr@ti!nehr)c3ue+=%e3n7@5w0$rj^@$r+2l^9phm2z*c=3'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -32,13 +31,13 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'clinic', 
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'clinic'
 ]
 
 MIDDLEWARE = [
@@ -69,7 +68,6 @@ TEMPLATES = [
     },
 ]
 
-
 WSGI_APPLICATION = 'bracket.wsgi.application'
 
 
@@ -79,17 +77,17 @@ WSGI_APPLICATION = 'bracket.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'db.sqlite3'
-
-        
-        
+        'NAME': 'fmyjodsy',
+        'HOST': 'tuffi.db.elephantsql.com', 
+        'PORT': '5432', 
+        'PASSWORD': '2Y9WI5KLgD1abYVf1VrpZzpveK0rRjAu',
+        'USER': 'fmyjodsy'
     }
 }
-
+AUTH_USER_MODEL = 'clinic.User'
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
-
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -114,8 +112,6 @@ LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'UTC'
 
-DATE_INPUT_FORMATS = ("%d-%m-%Y")
-
 USE_I18N = True
 
 USE_L10N = True
@@ -127,5 +123,3 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
-
-AUTH_USER_MODEL = 'clinic.User'
