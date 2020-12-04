@@ -4,7 +4,7 @@ from django.test import TestCase, Client
 
 class IndexTestCase(TestCase):
 
-
+    
     def test_index(self):
         # Create the client 
         client = Client()
