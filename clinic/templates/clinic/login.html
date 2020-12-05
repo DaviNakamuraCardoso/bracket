@@ -1,0 +1,13 @@
+{% extends 'clinic/layout.html' %}
+
+{% block title %} Login {% endblock %}
+{% if message %}
+{{ message }}
+{% endif %}
+{% block body %}
+    <form action="{% url 'login' %}" method="post">
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit">
+    </form>
+{% endblock %}
