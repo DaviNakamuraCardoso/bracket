@@ -11,7 +11,7 @@ class UserRegister(forms.Form):
 
     # Email and useful info
     email = forms.EmailField(max_length=64, label="Email")
-    birth = forms.DateField(widget=DateInput())
+    birth = forms.DateField(widget=DateInput)
     trade_number = forms.IntegerField(label="CPF")
 
     # Password and confirmation

@@ -6,7 +6,7 @@ Bracket
 
 
 {% block body %}
-{% if request.user.is_authenticated %}
-<h1>Hello, {{ request.user.first_name }}</h1>
-{% endif %}
+    {% if request.user.is_authenticated %}
+        <h1>Hello, {{ request.user.first_name }}</h1>
+    {% endif %}
 {% endblock %}

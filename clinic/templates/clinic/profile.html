@@ -1,0 +1,19 @@
+{% extends 'clinic/layout.html' %}
+
+    {% block title %} {{ profile.first }} {% endblock %}
+
+    {% block body %}
+        <div class="info">
+            <h1>{{ profile.name }}</h1>
+            <article>
+                <ul>
+                    <li>Age: {{ stats.age }}</li>
+                    <li>Weight {{ stats.weight }}</li>
+                </ul>
+            </article>
+
+        </div>
+
+
+
+    {% endblock %}

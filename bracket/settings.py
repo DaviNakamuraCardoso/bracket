@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 from pathlib import Path
+import sys 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -83,7 +84,15 @@ DATABASES = {
         'PASSWORD': '2Y9WI5KLgD1abYVf1VrpZzpveK0rRjAu',
         'USER': 'fmyjodsy'
     }
+    
 }
+
+if 'test' in sys.argv: 
+    DATABASES['default'] = {
+        'ENGINE': 'django.db.backends.sqlite3', 
+        'NAME': 'db.sqlite3'
+    }
+
 AUTH_USER_MODEL = 'clinic.User'
 
 # Password validation

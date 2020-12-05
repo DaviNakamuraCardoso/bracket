@@ -4,31 +4,36 @@ from django.db import IntegrityError
 
 def register_user(request, c):
     """
-    Handles the register of an user
-    :param c: form cleaned data
+        Handles the register of an user
+        :param: Form cleaned data
     """
     password = c['password']
     confirmation = c['confirmation']
 
+    # Check if the password is correct
     if password != confirmation: 
         return False 
 
     else: 
+        
         try: 
-            user = User(
+            user = User.objects.create_user(
                 password=password, 
                 username=get_username(c), 
                 first_name=c['first_name'], 
                 last_name=c['last_name'], 
                 email=c['email'], 
                 birth=c['birth'],
-                trade_number=str(c['trade_number'])
+                trade_number=str(c['trade_number']) 
             )
+            user.age = user.get_age()
             user.save()
             login(request, user)
             return True 
 
-        except IntegrityError: 
+        # Returns false if the creation is not successful
+        except IntegrityError as e: 
+            print(e)
             return False 
 
     return True 
@@ -40,18 +45,10 @@ def login_user(request, c):
     """
     key = c['key']
     password = c['password']
-    if "@" in key: 
-        user = authenticate(request, email=key, password=password)
 
-    else: 
-        user = authenticate(request, username=key, password=password)
+    user = authenticate(request, email=key, password=password)
     
-    if user is not None: 
-        login(request, user)
-    else: 
-        return False 
-    
-    return True 
+    return user  
 
 
 def get_username(c):
