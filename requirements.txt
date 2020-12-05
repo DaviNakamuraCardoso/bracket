@@ -1,2 +1,4 @@
+setuptools==45.2.0
 Django==3.1.2
 psycopg2==2.8.4
+
