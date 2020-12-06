@@ -1,4 +1,4 @@
-from .models import User 
+from .models import User, Statistics 
 from django.contrib.auth import login, logout, authenticate
 from django.db import IntegrityError
 

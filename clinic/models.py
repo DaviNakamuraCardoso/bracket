@@ -27,8 +27,9 @@ class Statistics(models.Model):
 
     def get_bmi(self):
         bmi = self.weight / self.height ** 2
-        
+
         return bmi 
 
+    
 
 

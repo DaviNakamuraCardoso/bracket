@@ -26,7 +26,8 @@
 
 - [12/2/2020] Initial setup
 - [12/3/2020] GitHub Actions setup, PostgreSQL database setup
-- 
+- [12/04/2020] Authentication process 
+- [12/05/2020] Bug fixes in the authentication
 
 <code>
 

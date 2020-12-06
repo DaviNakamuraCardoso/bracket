@@ -1,5 +1,4 @@
 from django.test import TestCase, Client
-from selenium import webdriver 
 
 # Create your tests here.
 class IndexTestCase(TestCase):
