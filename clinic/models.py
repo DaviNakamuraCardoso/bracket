@@ -17,3 +17,18 @@ class User(AbstractUser):
         return age
 
 
+class Statistics(models.Model):
+    # Each user has its own statistics 
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="statistics")
+
+    # Basics 
+    weight = models.FloatField()
+    height = models.FloatField()
+
+    def get_bmi(self):
+        bmi = self.weight / self.height ** 2
+        
+        return bmi 
+
+
+

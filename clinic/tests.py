@@ -1,4 +1,5 @@
 from django.test import TestCase, Client
+from selenium import webdriver 
 
 # Create your tests here.
 class IndexTestCase(TestCase):
@@ -16,5 +17,12 @@ class IndexTestCase(TestCase):
         # Make sure the request is successful 
         self.assertEqual(response.status_code, 200)
 
+# Test the login and authentication 
+class LoginTestCase(TestCase): 
+    pass 
+
+
+    
+    
 
         
