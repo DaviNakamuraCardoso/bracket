@@ -1,8 +1,12 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}{% endblock %}</title>
+    <link rel="shortcut icon" href="{% static 'clinic/favico.ico' %}" type="image/x-icon">
+    <link rel="icon" href="{% static 'clinic/favicon.ico' %}" type="image/x-icon">
+
 </head>
 <body>
     <!-- Navbar -->
