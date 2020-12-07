@@ -11,8 +11,12 @@ def register_view(request):
         form = RegisterForm(request.POST)
         if form.is_valid(): 
             form.save()
-            
-            return redirect('users:login') 
+            user = User.objects.get(email=form.cleaned_data['email'])
+            user.name = get_name(form.cleaned_data['first_name'], form.cleaned_data['last_name'])
+
+            user.save()
+            login(request, user)
+            return redirect('clinic:index') 
     
     return render(request, 'users/register.html', {
         'form': form
@@ -47,3 +51,12 @@ def logout_view(request):
     if request.user.is_authenticated: 
         logout(request)
     return redirect('clinic:index')
+
+
+def get_name(first, last): 
+    n = len(User.objects.filter(first_name=first, last_name=last))
+    sep = ''
+    f = sep.join(first.split(" ")).lower()
+    l = sep.join(last.split(" ")).lower()
+
+    return f"{f}.{l}.{n+1}"
