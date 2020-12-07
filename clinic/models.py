@@ -12,14 +12,10 @@ class User(AbstractUser):
         return f"{self.first_name} {self.last_name} ({self.username})"
 
     
-    def get_age(self): 
-        age = date.now().year - self.birth.year
-        return age
-
-
+    
 class Statistics(models.Model):
     # Each user has its own statistics 
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="statistics")
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="statistics")
 
     # Basics 
     weight = models.FloatField()
@@ -30,6 +26,10 @@ class Statistics(models.Model):
 
         return bmi 
 
-    
+    def get_age(self): 
+        age = date.now().year - self.user.birth.year
+        return age
+
+
 
 

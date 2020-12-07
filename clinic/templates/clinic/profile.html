@@ -1,14 +1,14 @@
 {% extends 'clinic/layout.html' %}
-
+{% load static %}
     {% block title %} {{ profile.first }} {% endblock %}
 
     {% block body %}
         <div class="info">
             <h1>{{ profile.name }}</h1>
             <article>
-                <ul>
+                <ul id="list-info">
                     <li>Age: {{ stats.age }}</li>
-                    <li>Weight {{ stats.weight }}</li>
+                    <li>Weight: {{ stats.weight }}</li>
                 </ul>
             </article>
 

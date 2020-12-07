@@ -62,3 +62,11 @@ def get_username(c):
 
     equal_users = len(User.objects.all().filter(first_name=first, last_name=last))
     return f'{sep.join(first.lower().split())}.{sep.join(last.lower().split())}.{"{:0>2d}".format(equal_users+1)}'
+
+
+def generate_statistics(c, user):
+    Statistics.objects.create(
+        user=user, 
+        weight=c['weight'], 
+        height=c['height']
+    )

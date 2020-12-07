@@ -26,3 +26,4 @@ class UserLogin(forms.Form):
     # Password 
     password = forms.CharField(max_length=64, widget=forms.PasswordInput())
     
+

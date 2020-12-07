@@ -68,14 +68,10 @@ def logout_view(request):
 def profile(request, username): 
     try: 
         user = User.objects.get(username=username)
-        stats = {
-            "age":user.get_age(), 
-            "weight": 19
-        }
+
     except IntegrityError: 
         return HttpResponseRedirect(reverse('index'))
     
     return render(request, 'clinic/profile.html', {
-        'profile': user, 
-        'stats': stats
+        'profile': user 
     })
