@@ -3,16 +3,22 @@
     {% block title %} {{ profile.first }} {% endblock %}
 
     {% block body %}
-        <div class="info">
-            <h1>{{ profile.name }}</h1>
+        <div class="statistics">
+            <h1>My Statistics</h1>
             <article>
                 <ul id="list-info">
-                    <li>Age: {{ stats.age }}</li>
-                    <li>Weight: {{ stats.weight }}</li>
+                    {% for key in keys %}
+                        <li class="info">{{ key }}: {{ stats.key }}</li>
+                    
+                    {% empty %}
+                        <button id='create'>Create</button>
+                        {{ create_form.as_ul }}
+                    {% endfor %}
                 </ul>
             </article>
 
         </div>
+
 
 
 

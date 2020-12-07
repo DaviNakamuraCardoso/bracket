@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'clinic'
+    'clinic', 
+    'users'
 ]
 
 MIDDLEWARE = [
@@ -76,13 +77,17 @@ WSGI_APPLICATION = 'bracket.wsgi.application'
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
 DATABASES = {
-    'default': {
+    'later': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'vndojows',
         'HOST': 'tuffi.db.elephantsql.com', 
         'PORT': '5432', 
         'PASSWORD': '8VBmvjiNrObC9bLyvnpT6YcLokoFh2Ho',
         'USER': 'vndojows'
+    }, 
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3', 
+        'NAME': 'my_db'
     }
     
 }
@@ -94,10 +99,12 @@ if 'test' in sys.argv:
         'NAME': 'db.sqlite3'
     }
 
-AUTH_USER_MODEL = 'clinic.User'
+LOGIN_URL = 'users:login'
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
+
+AUTH_USER_MODEL = 'users.User'
 
 AUTH_PASSWORD_VALIDATORS = [
     {

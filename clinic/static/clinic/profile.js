@@ -1,9 +1,23 @@
 document.addEventListener("DOMContentLoaded", () => {
     // User list info 
     const info = document.querySelector(".list-info");
-    const edit = document.querySelector("#edit");
 
-    
+
 
 
 });
+
+
+
+
+function editProfile()
+{
+    const listInfo = document.querySelectorAll('.info');
+    listInfo.forEach(item => {
+        let currentValue = item.innerHTML;
+        
+    });
+}
+
+
+   

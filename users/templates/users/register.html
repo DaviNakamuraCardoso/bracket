@@ -1,0 +1,12 @@
+{% extends 'clinic/layout.html' %}
+{% block title %} Register {% endblock %}
+
+
+{% block body %}
+    <form action="{% url 'users:register' %}" method="POST">
+        {% csrf_token %}
+        {{ form.as_ul }}
+        <input type="submit">
+    </form>
+{% endblock %}
+
