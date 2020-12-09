@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 from pathlib import Path
 import sys 
+import subdomains
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -36,11 +37,14 @@ INSTALLED_APPS = [
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
+    'django.contrib.sites', 
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'clinic', 
-    'users'
+    'users' 
 ]
+
+SITE_ID = 1
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -53,6 +57,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'bracket.urls'
+
 
 TEMPLATES = [
     {
