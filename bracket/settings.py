@@ -84,11 +84,11 @@ WSGI_APPLICATION = 'bracket.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'thpgignd',
+        'NAME': 'oadbgero',
         'HOST': 'tuffi.db.elephantsql.com', 
         'PORT': '5432', 
-        'PASSWORD': 'FtgnoVe54NNbY0vT6OqgNwaP60swxpEX',
-        'USER': 'thpgignd'
+        'PASSWORD': 'EiT-6t7EqD7ZjV3MIrUq9p7JGNCCt1tT',
+        'USER': 'oadbgero'
     }, 
     'nomore': {
         'ENGINE': 'django.db.backends.sqlite3', 

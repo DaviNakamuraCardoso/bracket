@@ -1,6 +1,7 @@
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from django.db import models
 from django.utils import timezone
+from django.contrib.postgres.fields import ArrayField
 
 # Create your models here.
 
@@ -88,11 +89,19 @@ class Doctor(models.Model):
 
 
 class Patient(models.Model): 
+    ALLERGIES = [
+        ('Chem', 'Chem'), 
+        ('Gluten', 'Gluten'), 
+        ('Soap', 'Soap')
+    ]
     user = models.OneToOneField(User, on_delete=models.CASCADE, blank=True, null=True)
     # Basic 
     weight = models.DecimalField(max_digits=5, decimal_places=2)
     height = models.DecimalField(max_digits=3, decimal_places=2)
-    
+
+    allergies = ArrayField(models.CharField(max_length=64), size=20, null=True, blank=True)
+
+
     def __str__(self): 
         if self.user is not None: 
             return f"{self.user.first_name} {self.user.last_name}'s ({self.user.name}) Medical Profile"
