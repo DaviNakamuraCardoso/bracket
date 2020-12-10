@@ -101,4 +101,4 @@ def get_name(first, last):
     f = sep.join(first.split(" ")).lower()
     l = sep.join(last.split(" ")).lower()
 
-    return f"{f}.{l}.{n+1}"
+    return f"{f}.{l}.{n}"

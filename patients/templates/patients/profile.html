@@ -1,0 +1,21 @@
+{% extends 'base/layout.html' %}
+
+{% block title %} {{ patient.user.first_name }} {{ patient.user.last_name }} {% endblock %}
+
+{% block body %}
+    <h1>{{ patient.user.first_name }}</h1>
+    <table>
+        <tr>
+            <th>Stat</th>
+            <th>Value</th>
+        </tr>
+            
+        {% for key, value in data.items %}
+            <tr>
+                <td>{{ key }}</td>
+                <td>{{ value }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+    
+{% endblock %}

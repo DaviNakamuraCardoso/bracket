@@ -92,6 +92,24 @@ class Patient(models.Model):
     # Basic 
     weight = models.DecimalField(max_digits=5, decimal_places=2)
     height = models.DecimalField(max_digits=3, decimal_places=2)
+    
+    def __str__(self): 
+        if self.user is not None: 
+            return f"{self.user.first_name} {self.user.last_name}'s ({self.user.name}) Medical Profile"
+        else: 
+            return "Delete Me"
+
+
+    def serialize(self): 
+        return {
+            'B.M.I.': round(self.get_bmi(), 2), 
+            'weight': self.weight, 
+            'height': self.height
+        }
+    def get_bmi(self): 
+        return self.weight / self.height ** 2 
+
+    
 
 
     
