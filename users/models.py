@@ -50,8 +50,12 @@ class User(AbstractBaseUser, PermissionsMixin):
     city = models.CharField(max_length=64, blank=True, null=True)
 
     # User type
-    is_doctor = models.BooleanField(default=False)
-    is_clinic = models.BooleanField(default=False)
+    TYPES = [
+        ('Doctor', 'Doctor'), 
+        ('Patient', 'Patient'), 
+        ('Clinic', 'Clinic')
+    ]
+    user_type = models.CharField(max_length=32, default="Patient", choices=TYPES)
 
     # Date fields 
     last_login = models.DateTimeField(null=True, blank=True)
@@ -72,21 +76,19 @@ class Clinic(models.Model):
 
 
 class Doctor(models.Model): 
-    number = models.UUIDField(primary_key=False) 
-    degree = models.CharField(max_length=64)
-
-
-class Area(models.Model): 
     AREA_CHOICES = [
-        ('Dentist', 'Dentist'), 
-        ('Surgeon', 'Surgeon'), 
-        ('Vet', 'Vet')
+        ('Doctor', 'Doctor'), 
+        ('Vet', 'Vet'), 
+        ('Dentist', 'Dentist')
     ]
-    doctor  = models.ForeignKey(Doctor, on_delete=models.CASCADE, related_name='areas')
-    area = models.CharField(max_length=64, choices=AREA_CHOICES)
+    number = models.IntegerField(unique=True) 
+    degree = models.CharField(max_length=64)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True)
+    area = models.CharField(max_length=64, choices=AREA_CHOICES, blank=True, null=True)
 
 
 class Patient(models.Model): 
+    user = models.OneToOneField(User, on_delete=models.CASCADE, blank=True, null=True)
     # Basic 
     weight = models.DecimalField(max_digits=5, decimal_places=2)
     height = models.DecimalField(max_digits=3, decimal_places=2)
