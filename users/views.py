@@ -1,8 +1,8 @@
+from django.http import HttpResponse, HttpResponseRedirect 
 from django.shortcuts import render, redirect, reverse
-from .models import User, Patient, Clinic, Doctor
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse, HttpResponseRedirect 
+from .models import User, Patient, Clinic, Doctor
 from .forms import RegisterForm, LoginForm, DoctorForm, ClinicForm, PatientForm
 
 # Create your views here.
@@ -40,7 +40,7 @@ def login_view(request):
             user = authenticate(request, username=username, password=password)
             if user is not None: 
                 login(request, user)
-                return redirect('clinic:index')
+                return redirect('base:index')
             else: 
                 return render(request, 'users/login.html', {
                     'form': form, 
@@ -52,11 +52,11 @@ def login_view(request):
         'form': form
     })
 
-
+@login_required
 def logout_view(request): 
     if request.user.is_authenticated: 
         logout(request)
-    return redirect('clinic:index')
+    return redirect('base:index')
 
 @login_required
 def specific_register(request, user_type):
@@ -81,7 +81,7 @@ def specific_register(request, user_type):
 
             if form.is_valid(): 
                 form.save()
-                return redirect('clinic:index')
+                return redirect('base:index')
             
 
     return render(request, 'users/specific.html', {

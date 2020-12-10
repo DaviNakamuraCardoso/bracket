@@ -1,0 +1,55 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+    {% block head %}{% endblock %}
+
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <ul class="navbar-nav">
+            <!-- Index -->
+            <li class="nav-item">
+                <a href="{% url 'base:index' %}" class="nav-link">Bracket</a>
+            </li>
+
+            {% if not request.user.is_authenticated %}
+
+            <!-- Login -->
+            <li class="nav-item">
+                <a href="{% url 'users:login' %}" class="nav-link">Login</a>
+            </li>
+
+            <!-- Register -->
+            <li class="nav-item">
+                <a href="{% url 'users:register' %}" class="nav-link">Register</a>
+            </li>
+
+            {% else %}
+            <!-- Profile page-->
+            <li class="nav-item">
+            </li>
+
+            <!-- Logout -->
+            <li class="nav-item">
+                <a href="{% url 'users:logout' %}" class="nav-link">Logout</a>
+            </li>
+
+            {% endif %}
+
+        </ul>
+        
+    </nav>
+
+    <!-- Body -->
+    <main>
+        {% block body %}
+        {% endblock %}
+    </main>
+
+    
+</body>
+</html>
