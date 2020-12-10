@@ -8,11 +8,6 @@
         <form action="{% url 'users:register' %}" method="POST">
             {% csrf_token %}
             {{ form.as_ul }}
-            <button data-type="doctor">Doctor</button>
-            <button data-type="patient">Patient</button>
-            <button data-type="clinic">Clinic</button>
-
-
             <input type="submit">
 
         </form>

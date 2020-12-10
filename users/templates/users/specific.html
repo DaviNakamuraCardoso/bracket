@@ -1,0 +1,11 @@
+{% extends 'clinic/layout.html' %}
+
+{% block title %} Specific register {% endblock %}
+
+{% block body %}
+    <form action="{% url 'users:specific_register' type %}" method="POST">
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit">
+    </form>
+{% endblock %}

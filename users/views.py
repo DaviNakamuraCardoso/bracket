@@ -1,54 +1,31 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, reverse
 from .models import User, Patient, Clinic, Doctor
 from django.contrib.auth import login, logout, authenticate
-from django.http import HttpResponse 
+from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse, HttpResponseRedirect 
 from .forms import RegisterForm, LoginForm, DoctorForm, ClinicForm, PatientForm
 
 # Create your views here.
 def register_view(request): 
     form = RegisterForm() 
-    doctor = DoctorForm()
-    clinic = ClinicForm() 
-    patient = PatientForm()
 
     if request.method == "POST": 
         form = RegisterForm(request.POST)
-        doctor = DoctorForm(request.POST)
-        clinic = ClinicForm(request.POST) 
-        patient = PatientForm(request.POSt)
 
 
         if form.is_valid(): 
             form.save()
             user = User.objects.get(email=form.cleaned_data['email'])
+            # Automatically defines an username
             user.name = get_name(form.cleaned_data['first_name'], form.cleaned_data['last_name'])
 
             user.save()
-
             login(request, user)
 
-            if doctor.is_valid(): 
-                doctor.save()
-                d = Doctor.objects.get(number=doctor.cleaned_data['number'])
-                d.user = user 
-            elif clinic.is_valid(): 
-                clinic.save()
-                c = Clinic.objects.get(name=clinic.cleaned_data['name'])
-                c.manager = user
-            else: 
-                patient.save()
-                p = Patient.objects.get(weight=patient.cleaned_data['weight'])
-                p.user = user 
-
-            
-            
-            return redirect('clinic:index') 
+            return HttpResponseRedirect(reverse('users:specific_register', args=(user.user_type.lower(), ))) 
     
     return render(request, 'users/register.html', {
-        'form': form, 
-        'doctor': doctor, 
-        'patient': patient, 
-        'clinic': clinic 
+        'form': form 
     })
 
 
@@ -80,6 +57,42 @@ def logout_view(request):
     if request.user.is_authenticated: 
         logout(request)
     return redirect('clinic:index')
+
+@login_required
+def specific_register(request, user_type):
+    TYPES = {
+        'clinic': {'form': ClinicForm, 'model': Clinic}, 
+        'patient': {'form': PatientForm, 'model': Patient}, 
+        'doctor': {'form': DoctorForm, 'model': Doctor}
+    }
+    if user_type not in TYPES.keys():
+        return HttpResponse("No such type.")
+    else: 
+        # Get the specific form and model for the user type
+        t = TYPES[user_type]
+        form = t['form']()
+        if request.method == "POST":
+
+            # Starts the type object with the user set to the current user
+            u = t['model'](user=request.user) 
+
+
+            form = t['form'](request.POST, instance=u)
+
+            if form.is_valid(): 
+                form.save()
+                return redirect('clinic:index')
+            
+
+    return render(request, 'users/specific.html', {
+        'form': form, 
+        'type': user_type
+    })
+
+
+
+
+
 
 
 def get_name(first, last): 
