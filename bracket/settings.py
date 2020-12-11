@@ -89,20 +89,10 @@ DATABASES = {
         'PORT': '5432', 
         'PASSWORD': 'EiT-6t7EqD7ZjV3MIrUq9p7JGNCCt1tT',
         'USER': 'oadbgero'
-    }, 
-    'nomore': {
-        'ENGINE': 'django.db.backends.sqlite3', 
-        'NAME': 'my_db'
     }
     
 }
 
-# Uses the local database for testing 
-if 'test' in sys.argv: 
-    DATABASES['default'] = {
-        'ENGINE': 'django.db.backends.sqlite3', 
-        'NAME': 'db.sqlite3'
-    }
 
 LOGIN_URL = 'users:login'
 
