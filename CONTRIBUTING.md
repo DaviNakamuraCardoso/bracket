@@ -1,6 +1,6 @@
 # Contributing
 All contributing should follow the CS50's rules on academic honesty, pasted below: 
-*## Academic Honesty
+<em>## Academic Honesty
 
 This course’s philosophy on academic honesty is best stated as “be reasonable.” The course recognizes that interactions with classmates and others can facilitate mastery of the course’s material. However, there remains a line between enlisting the help of another and submitting the work of another. This policy characterizes both sides of that line.
 
@@ -29,4 +29,4 @@ Below are rules of thumb that (inexhaustively) characterize acts that the course
 - Splitting a problem set’s workload with another individual and combining your work.
 - Submitting (after possibly modifying) the work of another individual beyond the few lines allowed herein.
 - Submitting the same or similar work to this course that you have submitted or will submit to another.
-- Viewing another’s solution to a problem set’s problem and basing your own solution on it.*
+- Viewing another’s solution to a problem set’s problem and basing your own solution on it.</em>
