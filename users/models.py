@@ -103,17 +103,15 @@ class Patient(models.Model):
 
 
     def __str__(self): 
-        if self.user is not None: 
-            return f"{self.user.first_name} {self.user.last_name}'s ({self.user.name}) Medical Profile"
-        else: 
-            return "Delete Me"
+        return f"{self.user.first_name} {self.user.last_name}'s ({self.user.name}) Medical Profile"
 
 
     def serialize(self): 
         return {
             'B.M.I.': round(self.get_bmi(), 2), 
             'weight': self.weight, 
-            'height': self.height
+            'height': self.height, 
+            'allergies': ', '.join(self.allergies)
         }
     def get_bmi(self): 
         return self.weight / self.height ** 2 

@@ -2,7 +2,7 @@ from django.contrib.auth.forms import UserCreationForm
 from .models import User, Patient, Doctor, Clinic  
 from django.db import models 
 from django import forms
-from django.forms import ModelForm
+from django.forms import ModelForm, Textarea
 from django.contrib.postgres.forms import SimpleArrayField
 
 
@@ -20,7 +20,10 @@ class PatientForm(ModelForm):
     class Meta: 
         model = Patient 
         exclude = ['user']
-        allergies = SimpleArrayField(forms.CharField(max_length=64))
+        widgets = {
+            'allergies': Textarea(attrs={'id': 'allergies'})
+        }
+
         
     
 

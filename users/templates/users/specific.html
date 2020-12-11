@@ -1,11 +1,20 @@
 {% extends 'base/layout.html' %}
+{% load static %}
 
 {% block title %} Specific register {% endblock %}
+
+{% block head %} 
+    
+    <script src="{% static 'patients/register.js' %}"></script>
+    
+{% endblock %}
+
 
 {% block body %}
     <form action="{% url 'users:specific_register' type %}" method="POST">
         {% csrf_token %}
         {{ form }}
         <input type="submit">
+        <ul id="list"></ul>
     </form>
 {% endblock %}
