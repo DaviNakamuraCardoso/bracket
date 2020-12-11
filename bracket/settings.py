@@ -96,7 +96,7 @@ DATABASES = {
 if 'test' in sys.argv: 
     DATABASES['default'] = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2', 
-        'NAME': 'bracket0', 
+        'NAME': 'test.sql', 
         'HOST': '127.0.0.1', 
         'PASSWORD': 'davi123', 
         'USER': 'davi', 
