@@ -2,11 +2,6 @@
 {% load static %}
 {% block title %} {{ patient.user.first_name }} {{ patient.user.last_name }} {% endblock %}
 
-{% block head %} 
-    <script href="{% static 'patients/register.js' %}"></script>
-{% endblock %}
-
-
 {% block body %}
     <h1>{{ patient.user.first_name }}</h1>
     <table>

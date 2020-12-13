@@ -5,6 +5,8 @@ from django import forms
 from django.forms import ModelForm, Textarea
 from django.contrib.postgres.forms import SimpleArrayField
 
+class DateInput(forms.DateInput): 
+    input_type = 'date'
 
 class RegisterForm(UserCreationForm): 
     class Meta: 
@@ -21,11 +23,10 @@ class PatientForm(ModelForm):
         model = Patient 
         exclude = ['user']
         widgets = {
-            'allergies': Textarea(attrs={'id': 'allergies'})
+            'allergies': Textarea(attrs={'id': 'allergies'}), 
+            'birth': DateInput
         }
 
-        
-    
 
 class DoctorForm(ModelForm): 
     class Meta: 

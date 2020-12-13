@@ -2,6 +2,9 @@ from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, Permis
 from django.db import models
 from django.utils import timezone
 from django.contrib.postgres.fields import ArrayField
+from datetime import datetime, timezone 
+import time
+import math
 
 # Create your models here.
 
@@ -58,6 +61,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     ]
     user_type = models.CharField(max_length=32, default="Patient", choices=TYPES)
 
+
     # Date fields 
     last_login = models.DateTimeField(null=True, blank=True)
     date_joined = models.DateTimeField(auto_now_add=True)
@@ -99,7 +103,11 @@ class Patient(models.Model):
     weight = models.DecimalField(max_digits=5, decimal_places=2)
     height = models.DecimalField(max_digits=3, decimal_places=2)
 
+    # Important medical information
+    birth = models.DateTimeField(null=True, blank=True)
     allergies = ArrayField(models.CharField(max_length=64), size=20, null=True, blank=True)
+    medical_conditions = ArrayField(models.CharField(max_length=64), null=True, blank=True)
+    current_medications = ArrayField(models.CharField(max_length=64), null=True, blank=True)
 
 
     def __str__(self): 
@@ -111,10 +119,27 @@ class Patient(models.Model):
             'B.M.I.': round(self.get_bmi(), 2), 
             'weight': self.weight, 
             'height': self.height, 
-            'allergies': ', '.join(self.allergies)
+            'allergies': ', '.join(self.allergies), 
+            'Chronic Conditions': ', '.join(self.medical_conditions), 
+            'Current Medications': ', '.join(self.current_medications), 
+            'birth': self.birth.strftime("%B %d, %Y"), 
+            'age': self.get_age()
         }
+
     def get_bmi(self): 
         return self.weight / self.height ** 2 
+
+
+    def get_age(self): 
+        age = datetime.now(timezone.utc) - self.birth 
+        years = age.days / 365.25
+        months = (years - math.floor(years)) * 365.25 / 30.5
+        days = (months - math.floor(months)) * 30.5
+
+        return f"{math.floor(years)} years {math.floor(months)} months and {math.floor(days)} days." 
+
+
+
 
     
 
