@@ -24,8 +24,12 @@ class PatientForm(ModelForm):
         exclude = ['user']
         widgets = {
             'allergies': Textarea(attrs={'id': 'allergies'}), 
-            'birth': DateInput
+            'birth': DateInput, 
+            'current_medications': Textarea(attrs={'id': 'medications'}), 
+            'medical_conditions': Textarea(attrs={'id': 'conditions'})
         }
+    
+
 
 
 class DoctorForm(ModelForm): 
