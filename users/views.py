@@ -2,8 +2,8 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect, reverse
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
-from .models import User, Patient, Clinic, Doctor
-from .forms import RegisterForm, LoginForm, DoctorForm, ClinicForm, PatientForm
+from users.models import User, Patient, Clinic, Doctor
+from users.forms import RegisterForm, LoginForm, DoctorForm, ClinicForm, PatientForm
 
 # Create your views here.
 def register_view(request): 
@@ -89,16 +89,3 @@ def specific_register(request, user_type):
         'type': user_type
     })
 
-
-
-
-
-
-
-def get_name(first, last): 
-    n = len(User.objects.filter(first_name=first, last_name=last))
-    sep = ''
-    f = sep.join(first.split(" ")).lower()
-    l = sep.join(last.split(" ")).lower()
-
-    return f"{f}.{l}.{n+1}"
