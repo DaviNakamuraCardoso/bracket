@@ -12,7 +12,6 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 from pathlib import Path
 import sys 
-import subdomains
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -41,7 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'base', 
-    'users' 
+    'users', 
+    'patients' 
 ]
 
 SITE_ID = 1
@@ -82,26 +82,22 @@ WSGI_APPLICATION = 'bracket.wsgi.application'
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
 DATABASES = {
-    'later': {
+    'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'vndojows',
+        'NAME': 'oadbgero',
         'HOST': 'tuffi.db.elephantsql.com', 
         'PORT': '5432', 
-        'PASSWORD': '8VBmvjiNrObC9bLyvnpT6YcLokoFh2Ho',
-        'USER': 'vndojows'
-    }, 
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3', 
-        'NAME': 'my_db'
+        'PASSWORD': 'EiT-6t7EqD7ZjV3MIrUq9p7JGNCCt1tT',
+        'USER': 'oadbgero'
     }
     
 }
 
-# Uses the local database for testing 
 if 'test' in sys.argv: 
     DATABASES['default'] = {
-        'ENGINE': 'django.db.backends.sqlite3', 
-        'NAME': 'db.sqlite3'
+        'ENGINE': 'django.db.backends.postgresql_psycopg2', 
+        'NAME': 'test.sql', 
+        'PORT': '5432'
     }
 
 LOGIN_URL = 'users:login'
