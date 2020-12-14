@@ -1,11 +1,10 @@
 from django.contrib import admin
-from .models import User, Doctor, Patient, Clinic 
+from .models import User, Doctor, Clinic 
 from django.contrib.sites.models import Site
 # Register your models here.
 
 admin.site.register(User)
 admin.site.register(Doctor)
-admin.site.register(Patient)
 admin.site.register(Clinic)
 admin.site.unregister(Site)
 class SiteAdmin(admin.ModelAdmin):
