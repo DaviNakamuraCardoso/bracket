@@ -1,4 +1,5 @@
 {% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -31,6 +32,7 @@
             {% else %}
             <!-- Profile page-->
             <li class="nav-item">
+                <a href="{% url 'patients:profile' request.user.name %}">Medical Info</a>
             </li>
 
             <!-- Logout -->

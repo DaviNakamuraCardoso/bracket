@@ -1,8 +1,13 @@
 from django.contrib.auth.forms import UserCreationForm 
-from .models import User, Patient, Doctor, Clinic  
+from users.models import User, Doctor, Clinic  
+from patients.models import Patient
+from django.db import models 
 from django import forms
-from django.forms import ModelForm
+from django.forms import ModelForm, Textarea
+from django.contrib.postgres.forms import SimpleArrayField
 
+class DateInput(forms.DateInput): 
+    input_type = 'date'
 
 class RegisterForm(UserCreationForm): 
     class Meta: 
@@ -17,8 +22,16 @@ class LoginForm(forms.Form):
 class PatientForm(ModelForm): 
     class Meta: 
         model = Patient 
-        fields = ['weight', 'height']
+        exclude = ['user']
+        widgets = {
+            'allergies': Textarea(attrs={'id': 'allergies'}), 
+            'birth': DateInput, 
+            'current_medications': Textarea(attrs={'id': 'medications'}), 
+            'medical_conditions': Textarea(attrs={'id': 'conditions'})
+        }
     
+
+
 
 class DoctorForm(ModelForm): 
     class Meta: 

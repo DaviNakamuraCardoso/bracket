@@ -2,12 +2,16 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect, reverse
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
-from users.models import User, Patient, Clinic, Doctor
-from users.forms import RegisterForm, LoginForm, DoctorForm, ClinicForm, PatientForm
+
+from .models import User, Clinic, Doctor
+from patients.models import Patient 
+from .forms import RegisterForm, LoginForm, DoctorForm, ClinicForm, PatientForm
+from .utils import get_name 
 
 
 # Create your views here.
 def register_view(request): 
+    """"""
     form = RegisterForm() 
 
     if request.method == "POST": 
@@ -31,7 +35,11 @@ def register_view(request):
 
 
 def login_view(request): 
+<<<<<<< HEAD
     """"""
+=======
+    """Handles the user login."""
+>>>>>>> 9f213d5ff3d271ed3f7a214c5b38f4eec5cac771
     form = LoginForm()
     if request.method == "POST": 
         form = LoginForm(request.POST)
@@ -78,7 +86,6 @@ def specific_register(request, user_type):
             # Starts the type object with the user set to the current user
             u = t['model'](user=request.user) 
 
-
             form = t['form'](request.POST, instance=u)
 
             if form.is_valid(): 
@@ -90,4 +97,3 @@ def specific_register(request, user_type):
         'form': form, 
         'type': user_type
     })
-
