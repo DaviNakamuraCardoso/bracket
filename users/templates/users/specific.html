@@ -5,7 +5,7 @@
 {% block body %}
     <form action="{% url 'users:specific_register' type %}" method="POST">
         {% csrf_token %}
-        {{ form }}
+        {{ form.as_p }}
         <input type="submit">
     </form>
 {% endblock %}

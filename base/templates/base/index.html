@@ -1,12 +1,14 @@
 {% extends 'base/layout.html' %}
 
-{% block title %}
-Bracket
-{% endblock %}
+{% block title %} Bracket {% endblock %} 
 
 
 {% block body %}
     {% if request.user.is_authenticated %}
         <h1>Hello, {{ request.user.first_name }}</h1>
+    {% else %}
+        <a href="{% url 'users:register' %}"><h1>Join Today</h1></a>
     {% endif %}
+
+
 {% endblock %}

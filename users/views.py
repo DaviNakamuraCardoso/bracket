@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required
 from users.models import User, Patient, Clinic, Doctor
 from users.forms import RegisterForm, LoginForm, DoctorForm, ClinicForm, PatientForm
 
+
 # Create your views here.
 def register_view(request): 
     form = RegisterForm() 
@@ -30,6 +31,7 @@ def register_view(request):
 
 
 def login_view(request): 
+    """"""
     form = LoginForm()
     if request.method == "POST": 
         form = LoginForm(request.POST)
