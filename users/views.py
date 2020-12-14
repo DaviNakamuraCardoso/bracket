@@ -35,11 +35,7 @@ def register_view(request):
 
 
 def login_view(request): 
-<<<<<<< HEAD
-    """"""
-=======
     """Handles the user login."""
->>>>>>> 9f213d5ff3d271ed3f7a214c5b38f4eec5cac771
     form = LoginForm()
     if request.method == "POST": 
         form = LoginForm(request.POST)
