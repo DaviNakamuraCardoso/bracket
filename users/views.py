@@ -2,6 +2,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect, reverse
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
+
 from .models import User, Clinic, Doctor
 from patients.models import Patient 
 from .forms import RegisterForm, LoginForm, DoctorForm, ClinicForm, PatientForm
@@ -91,5 +92,3 @@ def specific_register(request, user_type):
         'form': form, 
         'type': user_type
     })
-
-
