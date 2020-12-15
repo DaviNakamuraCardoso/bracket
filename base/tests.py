@@ -1,7 +1,6 @@
-from django.test import TestCase, Client
-
+from django.test import TestCase, Client, SimpleTestCase
 # Create your tests here.
-class IndexTestCase(TestCase):
+class IndexTestCase(SimpleTestCase):
 
     def test_index(self):
         """
@@ -17,7 +16,7 @@ class IndexTestCase(TestCase):
         self.assertEqual(response.status_code, 200)
 
 # Test the login and authentication 
-class LoginTestCase(TestCase): 
+class LoginTestCase(SimpleTestCase): 
     pass 
 
 
