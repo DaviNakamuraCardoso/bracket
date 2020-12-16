@@ -1,47 +1,17 @@
 document.addEventListener('DOMContentLoaded', () => 
 {
-    // Allergies
-    const allergiesArray = [];
-    const allergies = document.querySelector("#allergies");
-    const allergiesList = document.querySelector("#list");
-    
-    allergies.onkeyup = function(event) 
+    const title = document.querySelector("#title");
+
+    if (title.innerHTML == 'Patient')
     {
-        listChoices(event, allergiesArray, allergies, allergiesList);
+        registerPatient();
+        console.log("patient it is");
     }
-
-    // Conditions
-    const conditionsArray = [];
-    const conditions = document.querySelector("#conditions");
-    const conditionsList = document.querySelector("#list2");
-     
-    conditions.onkeyup = function(event)
+    else if (title.innerHTML == 'Doctor')
     {
-        listChoices(event, conditionsArray, conditions, conditionsList);
-    }
-
-    // Medications
-    const medicationsArray = [];
-    const medications = document.querySelector("#medications");
-    const medicationsList = document.querySelector("#list3");
-
-    medications.onkeyup = function(event)
-    {
-        listChoices(event, medicationsArray, medications, medicationsList);
+        registerDoctor();
     }
     
-    // Keeping track of conditions
-    //const conditions = document.querySelector("id");
-    
-    const form = document.querySelector('form');
-    form.onsubmit = () => 
-    {
-        allergies.value = allergiesArray.join();
-        conditions.value = conditionsArray.join();
-        medications.value = medicationsArray.join();
-        
-        return true;
-    }
 
 });
 
@@ -85,4 +55,71 @@ function listChoices(event, array, field, list)
     }
 
     
+}
+
+function registerPatient()
+{
+    // Allergies
+    const allergiesArray = [];
+    const allergies = document.querySelector("#allergies");
+    const allergiesList = document.querySelector("#list");
+    
+    allergies.onkeyup = function(event) 
+    {
+        listChoices(event, allergiesArray, allergies, allergiesList);
+    }
+
+    // Conditions
+    const conditionsArray = [];
+    const conditions = document.querySelector("#conditions");
+    const conditionsList = document.querySelector("#list2");
+     
+    conditions.onkeyup = function(event)
+    {
+        listChoices(event, conditionsArray, conditions, conditionsList);
+    }
+
+    // Medications
+    const medicationsArray = [];
+    const medications = document.querySelector("#medications");
+    const medicationsList = document.querySelector("#list3");
+
+    medications.onkeyup = function(event)
+    {
+        listChoices(event, medicationsArray, medications, medicationsList);
+    }
+    
+    
+    const form = document.querySelector('form');
+    form.onsubmit = () => 
+    {
+        allergies.value = allergiesArray.join();
+        conditions.value = conditionsArray.join();
+        medications.value = medicationsArray.join();
+        
+        return true;
+    }
+}
+
+
+function registerDoctor()
+{
+    const areas = document.querySelector("#areas");
+    let areasArray = [];
+    const areasList = document.querySelector("#list");
+
+    areas.onkeyup = (event) => 
+    {
+        listChoices(event, areasArray, areas, areasList);
+
+    }
+
+    const form = document.querySelector("form");
+    form.onsubmit = () => 
+    {
+        areas.value = areasArray.join();
+        return true;
+    }
+    
+
 }
