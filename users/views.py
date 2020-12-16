@@ -3,7 +3,8 @@ from django.shortcuts import render, redirect, reverse
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 
-from .models import User, Clinic, Doctor
+from .models import User, Clinic 
+from doctors.models import Doctor 
 from patients.models import Patient 
 from .forms import RegisterForm, LoginForm, DoctorForm, ClinicForm, PatientForm
 from .utils import get_name 

@@ -1,7 +1,7 @@
 {% extends 'base/layout.html' %}
 {% load static %}
 
-{% block title %} Specific register {% endblock %}
+{% block title %} {{ type.capitalize }} {% endblock %}
 
 {% block head %} 
     
@@ -11,6 +11,7 @@
 
 
 {% block body %}
+    <h1 id="title">{{ type.capitalize }}</h1>
     <form action="{% url 'users:specific_register' type %}" method="POST">
         {% csrf_token %}
         {{ form.as_p }}

@@ -4,7 +4,6 @@ from django.utils import timezone
 from django.contrib.postgres.fields import ArrayField
 from datetime import datetime, timezone 
 import time
-import math
 
 # Create your models here.
 
@@ -79,17 +78,6 @@ class Clinic(models.Model):
     email = models.EmailField()
     city = models.CharField(max_length=64)
 
-
-class Doctor(models.Model): 
-    AREA_CHOICES = [
-        ('Doctor', 'Doctor'), 
-        ('Vet', 'Vet'), 
-        ('Dentist', 'Dentist')
-    ]
-    number = models.IntegerField(unique=True) 
-    degree = models.CharField(max_length=64)
-    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True)
-    area = models.CharField(max_length=64, choices=AREA_CHOICES, blank=True, null=True)
 
 
 

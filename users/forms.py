@@ -1,6 +1,7 @@
 from django.contrib.auth.forms import UserCreationForm 
-from users.models import User, Doctor, Clinic  
+from users.models import User, Clinic  
 from patients.models import Patient
+from doctors.models import Doctor 
 from django.db import models 
 from django import forms
 from django.forms import ModelForm, Textarea
@@ -31,14 +32,18 @@ class PatientForm(ModelForm):
         }
     
 
-
-
 class DoctorForm(ModelForm): 
     class Meta: 
         model = Doctor 
-        fields = ['number', 'degree']
+        exclude = ['user']
+        widgets = {
+            'areas': Textarea(attrs={'id': 'areas'})
+        }
+        
     
+
 class ClinicForm(ModelForm): 
     class Meta: 
         model = Clinic 
         fields = ['name', 'email', 'city']
+        
