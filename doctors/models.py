@@ -9,7 +9,7 @@ class Doctor(models.Model):
         ('Vet', 'Vet'), 
         ('Dentist', 'Dentist')
     ]
-    number = models.IntegerField(unique=True) 
+    number = models.IntegerField() 
     degree = models.CharField(max_length=64)
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True)
     areas = ArrayField(models.CharField(max_length=64), null=True ,blank=True)
