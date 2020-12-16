@@ -107,10 +107,12 @@ function registerDoctor()
     const areas = document.querySelector("#areas");
     let areasArray = [];
     const areasList = document.querySelector("#list");
+    const areasInput = document.querySelector("#id_temp_areas");
+    areas.style.display = 'none';
 
-    areas.onkeyup = (event) => 
+    areasInput.onkeyup = (event) => 
     {
-        listChoices(event, areasArray, areas, areasList);
+        listChoices(event, areasArray, areasInput, areasList);
 
     }
 

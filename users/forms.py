@@ -33,6 +33,7 @@ class PatientForm(ModelForm):
     
 
 class DoctorForm(ModelForm): 
+    temp_areas = forms.CharField(max_length=64, widget=forms.Textarea, label="Areas", required=False)
     class Meta: 
         model = Doctor 
         exclude = ['user']
