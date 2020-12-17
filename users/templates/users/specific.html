@@ -1,22 +1,31 @@
 {% extends 'base/layout.html' %}
 {% load static %}
 
-{% block title %} Specific register {% endblock %}
+{% block title %} {{ type.capitalize }} {% endblock %}
 
 {% block head %} 
     
-    <script src="{% static 'patients/register.js' %}"></script>
+    <script src="{% static 'users/register.js' %}"></script>
     
 {% endblock %}
-
+    
 
 {% block body %}
+    <h1 id="title">{{ type.capitalize }}</h1>
     <form action="{% url 'users:specific_register' type %}" method="POST">
         {% csrf_token %}
-        {{ form.as_p }}
+        {% for field in form %}
+            <div class="form-field" id=>
+                {% if not field.is_hidden %}
+                    {{ field.errors }}
+                    {{ field.label_tag }}
+
+                {% endif %}
+                {{ field }}
+                <ul id="{{ field.id_for_label }}_ul"></ul>
+            </div>
+
+        {% endfor %}
         <input type="submit">
-        <ul id="list"></ul>
-        <ul id="list2"></ul>
-        <ul id="list3"></ul>
     </form>
 {% endblock %}

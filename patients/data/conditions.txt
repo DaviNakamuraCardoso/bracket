@@ -1,0 +1,219 @@
+Addison's disease
+Alcohol Abuse 
+Appendix cancer 
+Arthritis 
+Asthma
+Atrial Fibrillation
+Autism
+Astrocytoma
+Brainstem glioma
+Pilocytic astrocytoma
+Ependymoma
+Primitive neuroectodermal tumor
+Cerebellar astrocytoma
+Cerebral astrocytoma
+Glioblastoma
+Glioma
+Breast cancer
+Invasive lobular carcinoma
+Tubular carcinoma
+Invasive cribriform carcinoma
+Medullary carcinoma
+Male breast cancer
+Adrenocortical carcinoma
+Islet cell carcinoma (endocrine pancreas)
+Multiple endocrine neoplasia syndrome
+Parathyroid cancer
+Pheochromocytoma
+Uveal melanoma
+Retinoblastoma
+Thyroid cancer
+Anal cancer
+Appendix cancer
+cholangiocarcinoma
+Carcinoid tumor, gastrointestinal
+Colon cancer
+Extrahepatic bile duct cancer
+Gallbladder cancer
+Gastric (stomach) cancer
+Gastrointestinal carcinoid tumor
+Gastrointestinal stromal tumor (GIST)
+Hepatocellular cancer
+Pancreatic cancer, islet cell
+Rectal cancer
+Bladder cancer
+Cervical cancer
+Endometrial cancer
+Extragonadal germ cell tumor
+Ovarian cancer
+Ovarian epithelial cancer (surface epithelial-stromal tumor)
+Ovarian germ cell tumor
+Penile cancer
+Renal cell carcinoma
+Renal pelvis and ureter, transitional cell cancer
+Prostate cancer
+Testicular cancer
+Gestational trophoblastic tumor
+Ureter and renal pelvis, transitional cell cancer
+Urethral cancer
+Uterine sarcoma
+Vaginal cancer
+Vulvar cancer
+Wilms tumor
+Merkel cell carcinoma
+Phyllodes tumor
+Inflammatory Breast Cancer
+Medulloblastoma
+Neuroblastoma
+Oligodendroglioma
+Pineal astrocytoma
+Esophageal cancer
+Head and neck cancer
+Nasopharyngeal carcinoma
+Oral cancer
+Oropharyngeal cancer
+Paranasal sinus and nasal cavity cancer
+Pharyngeal cancer
+Salivary gland cancer
+Hypopharyngeal cancer
+Acute biphenotypic leukemia
+Acute eosinophilic leukemia
+Acute lymphoblastic leukemia
+Acute myeloid leukemia
+Acute myeloid dendritic cell leukemia
+AIDS-related lymphoma
+Anaplastic large cell lymphoma
+Angioimmunoblastic T-cell lymphoma
+B-cell prolymphocytic leukemia
+Burkitt's lymphoma
+Chronic lymphocytic leukemia
+Chronic myelogenous leukemia
+Cutaneous T-cell lymphoma
+Diffuse large B-cell lymphoma
+Follicular lymphoma
+Hairy cell leukemia
+Hepatosplenic T-cell lymphoma
+Hodgkin's lymphoma
+Hairy cell leukemia
+Intravascular large B-cell lymphoma
+Large granular lymphocytic leukemia
+Lymphoplasmacytic lymphoma
+Lymphomatoid granulomatosis
+Mantle cell lymphoma
+Marginal zone B-cell lymphoma
+Mast cell leukemia
+Mediastinal large B cell lymphoma
+Multiple myeloma/plasma cell neoplasm
+Myelodysplastic syndromes
+Mucosa-associated lymphoid tissue lymphoma
+Mycosis fungoides
+Nodal marginal zone B cell lymphoma
+Non-Hodgkin lymphoma
+Precursor B lymphoblastic leukemia
+Primary central nervous system lymphoma
+Primary cutaneous follicular lymphoma
+Primary cutaneous immunocytoma
+Primary effusion lymphoma
+Plasmablastic lymphoma
+Sézary syndrome
+Splenic marginal zone lymphoma
+T-cell prolymphocytic leukemia
+Pituitary adenoma
+Visual pathway and hypothalamic glioma
+Breast Cancer 
+Bronchiectasis
+Cardiac failure
+Cardiomyopathy
+Basal cell carcinoma
+Squamous cell carcinoma
+Skin adnexal tumors (e.g. sebaceous carcinoma)
+Melanoma
+Merkel cell carcinoma
+Sarcomas of primary cutaneous origin (e.g. dermatofibrosarcoma protuberans)
+Lymphomas of primary cutaneous origin (e.g. mycosis fungoides)
+Chronic Kydney Disease
+Bronchial adenomas/carcinoids
+Small cell lung cancer
+Mesothelioma
+Epithelioid hemangioendothelioma (EHE)
+Attention deficit hyperactivity disorder 
+Lupus 
+Desmoplastic small round cell tumor
+Liposarcoma
+Kaposi sarcoma
+Non-small cell lung cancer
+Pleuropulmonary blastoma
+Laryngeal cancer
+Thymoma and thymic carcinoma
+Chronic obstructive pulmonary disorder
+Chronic renal disease  
+Coronary artery disease
+Colorectal Cancer 
+Crohn's disease  
+Depression
+Diabetes insipidus
+Diabetes mellitus type 1
+Diabetes mellitus type 2
+Dysrhythmias  
+Drug abuse 
+Epilepsy
+Glaucoma  
+Haemophilia
+Hear Failure 
+Hepatitis Chronic Viral B 
+Hepatitis C 
+HIV/AIDS 
+Hyperlipidaemia (High Cholesterol)
+Hypertension (High blood pressure)
+Hypothyroidism
+Ischemic Heart Disease 
+Lung Cancer 
+Multiple sclerosis
+Osteoporosis
+Parkinson's disease
+Prostate Cancer 
+Rheumatoid arthritis
+Schizophrenia
+Stroke
+Systemic lupus erythematosus
+Cerebral palsy 
+Coeliac disease
+Hashimoto's thyroiditis
+Relapsing polychondritis 
+Asperger's Syndrome 
+Blindness 
+Deafness and hearing impairment
+Ehlers–Danlos syndrome 
+Endometriosis
+Epilepsy
+Fetal alcohol spectrum disorder
+Fibromyalgia
+HIV/AIDS
+Huntington's disease
+Hypertension
+Lyme Disease
+Mental illness
+Migraines
+Multiple sclerosis
+Myalgic encephalomyelitis (a.k.a. chronic fatigue syndrome)
+Narcolepsy
+Obesity
+Osteoporosis
+Parkinson's disease
+Periodontal disease
+Polycystic Ovarian Syndrome
+Postural orthostatic tachycardia syndrome
+Sickle cell anemia and other hemoglobin disorders
+Substance Abuse Disorders
+Sleep apnea
+Atopic Dermatitis 
+Rheumatoid arthritis 
+Osteoarthritis 
+Post-vasectomy pain syndrome 
+Complex regional pain syndrome 
+Psoriasis
+Tick-borne illness
+Thyroid disease
+Tobacco 
+Ulcerative colitis
+Bipolar Mood Disorder

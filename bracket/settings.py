@@ -31,17 +31,18 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
-INSTALLED_APPS = [
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
+INSTALLED_APPS = [ 
+    'django.contrib.admin', 
+    'django.contrib.auth', 'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.sites', 
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'base', 
     'users', 
-    'patients' 
+    'patients', 
+    'doctors', 
+    'floppyforms'
 ]
 
 SITE_ID = 1
@@ -95,6 +96,7 @@ DATABASES = {
 
 
 LOGIN_URL = 'users:login'
+
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
