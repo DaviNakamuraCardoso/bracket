@@ -1,9 +1,10 @@
 from django.contrib.auth.forms import UserCreationForm 
-from users.models import User, Clinic  
-from patients.models import Patient
 from patients.data import drugs, allergies, conditions
 from doctors.data import areas 
+from users.models import User  
 from doctors.models import Doctor 
+from clinics.models import Clinic
+from patients.models import Patient
 from django.db import models 
 from django import forms
 from django.forms import ModelForm, Textarea

@@ -1,12 +1,9 @@
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from django.db import models
 from django.utils import timezone
-from django.contrib.postgres.fields import ArrayField
-from datetime import datetime, timezone 
-import time
+
 
 # Create your models here.
-
 class UserManager(BaseUserManager):
 
     def _create_user(self, email, password, is_staff, is_superuser, **extra_fields):
@@ -59,6 +56,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         ('Clinic', 'Clinic')
     ]
     user_type = models.CharField(max_length=32, default="Patient", choices=TYPES)
+    
 
 
     # Date fields 
@@ -70,13 +68,6 @@ class User(AbstractBaseUser, PermissionsMixin):
     REQUIRED_FIELDS = []
 
     objects = UserManager()
-
-
-class Clinic(models.Model): 
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="clinics")
-    name = models.CharField(max_length=128)
-    email = models.EmailField()
-    city = models.CharField(max_length=64)
 
 
 
