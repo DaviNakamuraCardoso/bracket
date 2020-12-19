@@ -56,6 +56,10 @@ class User(AbstractBaseUser, PermissionsMixin):
         ('Clinic', 'Clinic')
     ]
     user_type = models.CharField(max_length=32, default="Patient", choices=TYPES)
+    is_doctor = models.BooleanField(default=False)
+    is_patient = models.BooleanField(default=False)
+    is_clinic = models.BooleanField(default=False)
+
     
 
 

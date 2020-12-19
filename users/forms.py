@@ -59,4 +59,5 @@ class ClinicForm(ModelForm):
     class Meta: 
         model = Clinic 
         fields = ['name', 'email', 'city']
+
         

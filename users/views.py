@@ -87,8 +87,15 @@ def specific_register(request, user_type):
                 context = get_clinic_name(request)
                 u.base_name = context[0]
                 u.clinic_name = context[1] 
-            
-            
+                request.user.is_clinic = True 
+            elif user_type == 'doctor':  
+                request.user.is_doctor = True 
+
+            elif user_type == 'patient': 
+                request.user.is_patient = True
+
+            request.user.save()
+
             # Gets the form for the specific type of user 
             form = t['form'](request.POST, instance=u)
 
