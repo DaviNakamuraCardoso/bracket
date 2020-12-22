@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'users', 
     'patients', 
     'doctors', 
+    'clinics', 
     'floppyforms'
 ]
 

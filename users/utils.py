@@ -1,4 +1,5 @@
 from users.models import User 
+from clinics.models import Clinic
 
 
 def get_name(first, last): 
@@ -10,4 +11,16 @@ def get_name(first, last):
     l = sep.join(last.split(" ")).lower()
 
     return f"{f}.{l}.{n}"
+
+
+def get_clinic_name(request):
+    """Get the name for the url."""
+    name = request.POST['name'].split(' ')
+    sep = ''
+    base = sep.join(name).lower()
+    l = len(Clinic.objects.filter(base_name=base))
+    appendix = f".{l}" if l > 0 else ''
+    
+
+    return [base, f"{base}{appendix}"]
 

@@ -1,0 +1,17 @@
+{% extends 'base/layout.html' %}
+{% block title %} {{ clinic.name }} {% endblock %}
+
+
+{% block body %}
+    <h1>{{ clinic.name }}</h1>
+
+    <table>
+        {% for key, value in data.items %}
+            <tr>
+                <td>{{ key }}</td>
+                <td>{{ value }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+
+{% endblock %}

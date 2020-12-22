@@ -30,16 +30,30 @@
             </li>
 
             {% else %}
-            <!-- Profile page-->
+
+            {% if request.user.is_clinic %}
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'clinics:profile'  clinic.clinic_name %}">{{ clinic.name }}</a>
+
+            </li>
+            {% endif %}
+            <!-- Doctors Profile Page-->
                 
+            {% if request.user.is_doctor %}
             <li class="nav-item">
                 <a href="{% url 'doctors:profile' request.user.name %}" class="nav-link">Doctor profile</a>
 
             </li>
+            {% endif %}
+
+            <!-- Users' page -->
+            {% if request.user.is_patient %}
             <li class="nav-item">
                 <a href="{% url 'patients:profile' request.user.name %}">Medical Info</a>
             </li>
+            {% endif %}
 
+            
             <!-- Logout -->
             <li class="nav-item">
                 <a href="{% url 'users:logout' %}" class="nav-link">Logout</a>

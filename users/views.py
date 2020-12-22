@@ -1,13 +1,13 @@
-from django.http import HttpResponse, HttpResponseRedirect 
 from django.shortcuts import render, redirect, reverse
-from django.contrib.auth import login, logout, authenticate
+from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
-
-from .models import User, Clinic 
+from django.contrib.auth import logout, login, authenticate 
+from .models import User 
 from doctors.models import Doctor 
 from patients.models import Patient 
+from clinics.models import Clinic 
 from .forms import RegisterForm, LoginForm, DoctorForm, ClinicForm, PatientForm
-from .utils import get_name 
+from .utils import get_name, get_clinic_name
 
 
 # Create your views here.
@@ -83,12 +83,27 @@ def specific_register(request, user_type):
             # Starts the type object with the user set to the current user
             u = t['model'](user=request.user) 
 
+            if user_type == 'clinic': 
+                context = get_clinic_name(request)
+                u.base_name = context[0]
+                u.clinic_name = context[1] 
+                request.user.is_clinic = True 
+            elif user_type == 'doctor':  
+                request.user.is_doctor = True 
+
+            elif user_type == 'patient': 
+                request.user.is_patient = True
+
+            request.user.save()
+
+            # Gets the form for the specific type of user 
             form = t['form'](request.POST, instance=u)
+
 
             if form.is_valid(): 
                 form.save()
                 return redirect('base:index')
-            
+                        
 
     return render(request, 'users/specific.html', {
         'form': form, 
