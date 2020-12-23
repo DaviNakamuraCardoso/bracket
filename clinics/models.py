@@ -1,5 +1,6 @@
 from django.db import models
 from users.models import User 
+from doctors.models import Doctor 
 
 
 # Create your models here.
@@ -11,6 +12,7 @@ class Clinic(models.Model):
     email = models.EmailField()
     city = models.CharField(max_length=64)
 
+    doctors = models.ManyToManyField(Doctor, blank=True, related_name='clinics')
 
     def serialize(self): 
         return {
@@ -18,6 +20,9 @@ class Clinic(models.Model):
             'email': self.email, 
             'city': self.city
         }
+    
+    def __str__(self): 
+        return f"{self.name}"
 
-
-
+    def add_doctor(self, doctor): 
+        self.doctors.add(doctor)
