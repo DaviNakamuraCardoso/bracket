@@ -18,4 +18,6 @@ def profile(request, clinic_name):
         'clinic': clinic, 
         'data': clinic.serialize()
     })
+
+
     

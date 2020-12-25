@@ -1,6 +1,9 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from doctors.models import Doctor 
+from doctors.utils import get_doctor 
+from clinics.utils import get_clinic 
+from base.models import Notification 
 
 # Create your views here.
 
@@ -9,12 +12,19 @@ def index(request):
 
 
 def profile(request, name): 
-    try: 
-        doctor = Doctor.objects.get(user__name=name)
-    except Doctor.DoesNotExist: 
-        return HttpResponse("Error 404")
-    
+    doctor = get_doctor(name)
     return render(request, 'doctors/profile.html', {
         'doctor': doctor, 
         'data': doctor.serialize()
     })
+
+
+def invite(request, name): 
+    doctor = get_doctor(name=name)
+    clinic = get_clinic(request) 
+    invite_text = f""
+    Notification.objects.create(user=doctor, text=)
+
+    
+
+
