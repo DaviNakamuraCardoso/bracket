@@ -1,13 +1,29 @@
 from clinics.models import Clinic 
+from django.http import HttpResponseRedirect
+from django.shortcuts import reverse 
 
 
 def get_clinic(request): 
     user = request.user 
 
+    clinic = None 
     if user.is_authenticated: 
         if user.is_clinic: 
-            clinic = Clinic.objects.get(user__name=user.name)
+            try: 
+                clinic = Clinic.objects.get(user__name=user.name)
+            except Clinic.DoesNotExist: 
+                return HttpResponseRedirect(reverse('base:error'))
     
-    return clinic 
+        return clinic 
+
+
+def check_clinic(function):
+    def inner(request, *args, **kwargs): 
+        if not request.user.is_clinic: 
+            return HttpResponseRedirect(reverse('base:error'))
+        
+        return function(request, *args, **kwargs)
+            
+    return inner 
 
     
