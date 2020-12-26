@@ -4,8 +4,6 @@ from django.contrib.auth.decorators import login_required
 from patients.models import Patient
 
 # Create your views here.
-
-
 @login_required 
 def profile(request, name): 
     try: 

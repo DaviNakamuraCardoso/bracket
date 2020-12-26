@@ -1,8 +1,6 @@
 from django.db import models
 from users.models import User 
 from doctors.models import Doctor 
-
-
 # Create your models here.
 class Clinic(models.Model): 
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="clinics")

@@ -41,15 +41,6 @@ class Patient(models.Model):
 
     def get_age(self): 
         age = datetime.now(timezone.utc) - self.birth
-        # Total years (float)
-        years = age.days / 365.25
-
-        # From the float part of the years, get the months
-        months = (years - math.floor(years)) * 365.25 / 30.4375 
-
-        # From the float part of the months, get the days
-        days = (months - math.floor(months)) * 30.4375
-
         # Returns the integer part of years, months and days 
         str_age = strfdelta(years, months, days)
         return str_age  

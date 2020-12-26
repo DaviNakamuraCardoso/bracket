@@ -17,7 +17,7 @@ def get_clinic(request):
         return clinic 
 
 
-def check_clinic(function):
+def clinic_required(function):
     def inner(request, *args, **kwargs): 
         if not request.user.is_clinic: 
             return HttpResponseRedirect(reverse('base:error'))
