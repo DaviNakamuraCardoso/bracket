@@ -10,3 +10,7 @@ def index(request):
         'user': request.user, 
         'clinic': get_clinic(request) 
     })
+
+
+def error(request): 
+    return render(request, 'base/error.html')

@@ -47,9 +47,3 @@ def patient(function):
         return HttpResponseRedirect(reverse('base:error'))
     
     return inner 
-
-
-
-
-
-

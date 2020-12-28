@@ -5,7 +5,6 @@ from doctors.models import Doctor
 
 def get_doctor(name=None): 
     """Receive a name and returns a doctor object."""
-
     try: 
         doctor = Doctor.objects.get(user__name=name)
     except Doctor.DoesNotExist: 
@@ -21,7 +20,6 @@ def get_user_doctor(request):
 
     
     return HttpResponseRedirect(reverse('base:error'))
-
 
 
 def doctor(function): 
