@@ -25,7 +25,3 @@ def invite(request, name):
     invite_text = f""
     Notification.objects.create(user=doctor.user, text=invite_text)
     return HttpResponseRedirect(reverse('base:index'))
-
-    
-
-

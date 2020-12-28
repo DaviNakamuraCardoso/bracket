@@ -23,3 +23,15 @@ def get_user_doctor(request):
     return HttpResponseRedirect(reverse('base:error'))
 
 
+
+def doctor(function): 
+    def inner(request, *args, **kwargs): 
+        if request.user.is_authenticated: 
+            if request.user.is_patient: 
+                return function(request, *args, **kwargs)
+        
+
+        return HttpResponseRedirect(reverse('base:error'))
+    
+    return inner 
+
