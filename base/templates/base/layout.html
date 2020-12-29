@@ -31,11 +31,15 @@
 
             {% else %}
 
-            {% if request.user.is_clinic %}
-            <li class="nav-item">
-                <a class="nav-link" href="{% url 'clinics:profile'  clinic.clinic_name %}">{{ clinic.name }}</a>
+            <!-- Clinic Profiles -->
 
-            </li>
+            {% if request.user.is_clinic %}
+                {% for clinic in request.user.clinics.all %}
+                    <li class="nav-item">
+                        <a href="{% url 'clinics:profile' clinic.clinic_name %}">{{ clinic.name }}</a>
+                    
+                    </li>
+                {% endfor %}
             {% endif %}
             <!-- Doctors Profile Page-->
                 
@@ -46,13 +50,18 @@
             </li>
             {% endif %}
 
-            <!-- Users' page -->
+            <!-- User page -->
             {% if request.user.is_patient %}
             <li class="nav-item">
                 <a href="{% url 'patients:profile' request.user.name %}">Medical Info</a>
             </li>
             {% endif %}
 
+            <!-- Notifications -->
+            <li class="nav-item">
+                <a href="#"></a>
+
+            </li>
             
             <!-- Logout -->
             <li class="nav-item">

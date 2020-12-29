@@ -2,11 +2,20 @@ from django.db import models
 from users.models import User 
 from doctors.models import Doctor 
 # Create your models here.
+
 class Clinic(models.Model): 
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="clinics")
+
+    # The actuall name  
     name = models.CharField(max_length=128)
+
+    # Url name 
     clinic_name = models.CharField(max_length=128, null=True, blank=True)
+
+    # Base to know how many equal urls are there
     base_name = models.CharField(max_length=128, null=True, blank=True)
+
+    # Useful info 
     email = models.EmailField()
     city = models.CharField(max_length=64)
 
