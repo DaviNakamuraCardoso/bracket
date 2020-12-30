@@ -1,4 +1,6 @@
-from django.test import TestCase, Client, SimpleTestCase
+from django.test import TestCase, Client, SimpleTestCase 
+from django.shortcuts import reverse 
+
 # Create your tests here.
 class IndexTestCase(SimpleTestCase):
 
@@ -15,12 +17,17 @@ class IndexTestCase(SimpleTestCase):
         # Make sure the request is successful 
         self.assertEqual(response.status_code, 200)
 
-# Test the login and authentication 
-class LoginTestCase(SimpleTestCase): 
-    pass 
 
+class ErrorTestCase(SimpleTestCase): 
+    """Test the error page."""
+    def test_error(self): 
+        """Send a get request to the error page, expecting 200 as status code."""
+        # Create a client 
+        c = Client()
 
+        # Get the response 
+        response = c.get(reverse('base:error'))
+
+        # Make sure the response is successful 
+        self.assertEqual(response.status_code, 200)
     
-    
-
-        
