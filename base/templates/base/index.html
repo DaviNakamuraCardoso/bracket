@@ -11,4 +11,13 @@
     {% endif %}
 
 
+    {% for clinic in clinics %}
+        <div>
+            <h1>{{ clinic.name }}</h1>
+            <h2>{{ clinic.city }}</h2>
+        </div>
+
+    {% endfor %}
+
+
 {% endblock %}

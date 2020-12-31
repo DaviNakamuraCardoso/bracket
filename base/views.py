@@ -8,7 +8,8 @@ def index(request):
         
     return render(request, 'base/index.html', {
         'user': request.user, 
-        'clinic': get_clinic(request) 
+        'clinic': get_clinic(request), 
+        'clinics': Clinic.objects.all()
     })
 
 

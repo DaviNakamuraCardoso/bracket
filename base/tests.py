@@ -3,6 +3,7 @@ from django.shortcuts import reverse
 
 # Create your tests here.
 class IndexTestCase(SimpleTestCase):
+    """Test the index page."""
 
     def test_index(self):
         """
