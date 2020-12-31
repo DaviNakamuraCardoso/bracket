@@ -5,13 +5,14 @@ from clinics.utils import get_clinic
 # Create your views here.
 
 def index(request): 
+    """Render all the clinics in the same city as the user."""
         
     return render(request, 'base/index.html', {
         'user': request.user, 
-        'clinic': get_clinic(request), 
         'clinics': Clinic.objects.all()
     })
 
 
 def error(request): 
+    """Return an error page for bad requests."""
     return render(request, 'base/error.html')

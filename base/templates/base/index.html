@@ -13,7 +13,9 @@
 
     {% for clinic in clinics %}
         <div>
-            <h1>{{ clinic.name }}</h1>
+            <a href="{% url 'clinics:profile' clinic.clinic_name %}">
+                <h1>{{ clinic.name }}</h1>
+            </a>
             <h2>{{ clinic.city }}</h2>
         </div>
 
