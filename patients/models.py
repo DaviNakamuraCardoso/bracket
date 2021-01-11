@@ -1,8 +1,8 @@
 from django.db import models
-from users.models import User
-from .utils import strfdelta
 from django.contrib.postgres.fields import ArrayField 
+from users.models import User
 from datetime import datetime, timezone
+from base.time import intftimedelta, strfage 
 import math
 
 # Patient related models
@@ -41,9 +41,11 @@ class Patient(models.Model):
 
     def get_age(self): 
         age = datetime.now(timezone.utc) - self.birth
-        # Returns the integer part of years, months and days 
-        str_age = strfdelta(years, months, days)
+        
+        # Exact value of years, months and days
+        al = intftimedelta(age)
+
+        # Formatted string with the patient's age
+        str_age = strfage(al['days'], al['months'], al['years'])
+
         return str_age  
-
-
-
