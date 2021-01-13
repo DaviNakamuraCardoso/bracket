@@ -23,7 +23,7 @@ def intftimedelta(timedelta=None, timestamp=None):
     # ... months , get the weeks 
     weeks = (months - floor(months)) * 30.4375 / 7
 
-    # ... months , get the days
+    # ... weeks , get the days
     days = (weeks - floor(weeks)) * 7 
 
     #  days, get the hours 
@@ -81,7 +81,9 @@ def strfdelta(delta):
 
             return f"{number} {word} ago"
 
-    return f"{intftimedelta(delta)['years']} years ago"
+    number = intftimedelta(delta)['years']
+    word = 'years' if number > 1 else 'year' 
+    return f"{number} {word} ago"
 
         
 def strfage(d, m, y): 

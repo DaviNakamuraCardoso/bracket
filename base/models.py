@@ -1,5 +1,6 @@
 from django.db import models
 from users.models import User 
+from base.time import strfdelta 
 
 # Create your models here.
 class Notification(models.Model): 
@@ -10,3 +11,8 @@ class Notification(models.Model):
 
     def __str__(self): 
         return f"{self.user.name}: {self.text} on {self.timestamp}"
+    
+    def time(self):
+        return strfdelta(timestamp=self.timestamp) 
+    
+        

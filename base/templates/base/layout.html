@@ -6,15 +6,19 @@
     <meta charset="UTF-8">
     <title>{% block title %}{% endblock %}</title>
     {% block head %}{% endblock %}
+    <script src="https://kit.fontawesome.com/f0d3ee0f06.js" crossorigin="anonymous"></script>
+    <script src="{% static 'base/script/main.js' %}"></script>
+    <link href="{% static 'base/style/main.css' %}" rel="stylesheet">
 
 </head>
 <body>
+
     <!-- Navbar -->
     <nav class="navbar">
         <ul class="navbar-nav">
             <!-- Index -->
             <li class="nav-item">
-                <a href="{% url 'base:index' %}" class="nav-link">Bracket</a>
+                <a href="{% url 'base:index' %}" class="nav-link">Final Project</a>
             </li>
 
             {% if not request.user.is_authenticated %}
@@ -52,20 +56,40 @@
 
             <!-- User page -->
             {% if request.user.is_patient %}
-            <li class="nav-item">
-                <a href="{% url 'patients:profile' request.user.name %}">Medical Info</a>
-            </li>
+                <li class="nav-item">
+                    <a href="{% url 'patients:profile' request.user.name %}"><i class="fas fa-clipboard-list"></i></a>
+                </li>
             {% endif %}
 
             <!-- Notifications -->
             <li class="nav-item">
-                <a href="#"></a>
+                <div class="icon">
+                    <i class="fas fa-bell" id="bell">
+                        {% if request.user.notifications.all %}
+                            <span class="notifi-number">{{ notifications.length }}</span>
+                        {% endif %}
+                    </i>
 
+                    
+                </div>
+                <div class="notifi-box" id="box">
+                    <h2 class="notifi-t">Notifications</h2>
+                    {% for notification in request.user.notifications.all %}
+                    <div class="notifi-item">
+                        <div class="text">
+                            <h4 class="notifi-title">{{ notification.title }}</h4>
+                            <p class="notifi-text">{{ notification.text }}</p>
+                            <p class="notifi-timestamp">{{ notification.time }}</p>
+                        </div>
+                    </div>
+
+                    {% endfor %}
+                </div>
             </li>
-            
+                        
             <!-- Logout -->
             <li class="nav-item">
-                <a href="{% url 'users:logout' %}" class="nav-link">Logout</a>
+                <a href="{% url 'users:logout' %}" class="nav-link"><i class="fas fa-sign-out-alt"></i></a>
             </li>
 
             {% endif %}
