@@ -2,17 +2,29 @@ from datetime import datetime, timezone
 from math import floor
 
 
-def intftimedelta(delta): 
-    """Gets the number of years, months and days and returns a formatted string."""
+def intftimedelta(timedelta=None, timestamp=None): 
+    """
+        Gets a timedelta or a timestamp and returns a dictionary with 
+        the number of seconds, minutes, hours, days, months and years.
+    """
+
+    if timestamp is not None: 
+        delta = datetime.now(timezone.utc) - timestamp 
+
+    else: 
+        delta = timedelta 
+    
     # Total years (float)
     years = delta.days / 365.25
 
     # From the float part of the years, get the months
     months = (years - floor(years)) * 365.25 / 30.4375 
 
-    # ... months , get the days
-    days = (months - floor(months)) * 30.4375
+    # ... months , get the weeks 
+    weeks = (months - floor(months)) * 30.4375 / 7
 
+    # ... months , get the days
+    days = (weeks - floor(weeks)) * 7 
 
     #  days, get the hours 
     hours = (delta.seconds - (floor(days) * 24 * 60 * 60)) / 3600
@@ -27,6 +39,7 @@ def intftimedelta(delta):
     # Rounded numbers 
     y = floor(years)  
     m = floor(months)   
+    w = round(weeks)
     d = round(days)
     h = round(hours)
     minu = round(minutes)
@@ -38,6 +51,7 @@ def intftimedelta(delta):
         'minutes': minu, 
         'hours': h, 
         'days': d,   
+        'weeks': w, 
         'months': m, 
         'years': y
     }
@@ -51,7 +65,8 @@ def strfdelta(delta):
         ['seconds', 60], 
         ['minutes', 60], 
         ['hours', 24], 
-        ['days', 30],
+        ['days', 7],
+        ['weeks', 30.4375 / 7], 
         ['months', 12]
 
     ]
@@ -61,11 +76,12 @@ def strfdelta(delta):
         ago *= order[1]
 
         if  (delta.days * 3600 * 24 ) + delta.seconds < ago: 
-            return f"{intftimedelta(delta)[order[0]]} {order[0]} ago"
-    
+            number = max(1, intftimedelta(delta)[order[0]])
+            word = order[0] if number > 1 else order[0].rstrip('s')
+
+            return f"{number} {word} ago"
 
     return f"{intftimedelta(delta)['years']} years ago"
-
 
         
 def strfage(d, m, y): 
