@@ -57,8 +57,13 @@ def intftimedelta(timedelta=None, timestamp=None):
     }
 
 
-def strfdelta(delta):
+def strfdelta(timedelta=None, timestamp=None):
     """Gets a timestamp and returns a proper string."""
+
+    if timestamp is not None: 
+        delta = datetime.now(timezone.utc) - timestamp 
+    else: 
+        delta = timedelta 
 
     # Setting the values for months, days, hours, minutes and seconds
     time = [

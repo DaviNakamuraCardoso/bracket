@@ -10,6 +10,7 @@
     <script src="{% static 'base/script/main.js' %}"></script>
     <link href="{% static 'base/style/main.css' %}" rel="stylesheet">
 
+
 </head>
 <body>
 
@@ -66,7 +67,8 @@
                 <div class="icon">
                     <i class="fas fa-bell" id="bell">
                         {% if request.user.notifications.all %}
-                            <span class="notifi-number">{{ notifications.length }}</span>
+                            
+                            <span class="notifi-number"></span>
                         {% endif %}
                     </i>
 
@@ -74,10 +76,10 @@
                 </div>
                 <div class="notifi-box" id="box">
                     <h2 class="notifi-t">Notifications</h2>
-                    {% for notification in request.user.notifications.all %}
+                    {% for notification in request.user.sorted_notifications %}
                     <div class="notifi-item">
                         <div class="text">
-                            <h4 class="notifi-title">{{ notification.title }}</h4>
+                            <h4 class="notifi-title">{{ notification.origin.first_name }} {{ notification.origin.last_name }}</h4>
                             <p class="notifi-text">{{ notification.text }}</p>
                             <p class="notifi-timestamp">{{ notification.time }}</p>
                         </div>

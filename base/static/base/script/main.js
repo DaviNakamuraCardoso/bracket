@@ -7,6 +7,15 @@ document.addEventListener("DOMContentLoaded", () =>
         box.classList.toggle('open');
     });
 
+    const notificationsLength = document.querySelectorAll('.notifi-item').length;
+
+    if (notificationsLength > 0)
+    {
+        const number = document.querySelector('.notifi-number');
+        number.innerHTML = notificationsLength;
+    }
+    
+
 });
 
 
