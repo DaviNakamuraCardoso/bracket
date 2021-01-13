@@ -1,6 +1,7 @@
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from django.db import models
 from django.utils import timezone
+from users.data.cities import cities
 
 
 # Create your models here.
@@ -47,7 +48,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_superuser = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
 
-    city = models.CharField(max_length=64, blank=True, null=True)
+    city = models.CharField(max_length=64, blank=True, null=True, choices=cities)
 
     # User type
     TYPES = [
@@ -72,6 +73,9 @@ class User(AbstractBaseUser, PermissionsMixin):
     REQUIRED_FIELDS = []
 
     objects = UserManager()
+
+    def sorted_notifications(self): 
+        return self.notifications.all().order_by('-timestamp')
 
 
 
