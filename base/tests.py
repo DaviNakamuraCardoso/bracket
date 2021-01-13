@@ -1,7 +1,8 @@
 from django.test import TestCase, Client, SimpleTestCase 
 from django.shortcuts import reverse 
 from base.time import intftimedelta, strfdelta
-from datetime import timedelta, date
+from datetime import timedelta, date, datetime, timezone 
+from time import mktime 
 
 # Create your tests here.
 class IndexTestCase(SimpleTestCase):
@@ -53,11 +54,19 @@ class IntftimedeltaTestCase(SimpleTestCase):
     
 
     def test_20_days(self): 
+        """From a 20 days input, we expect a 2 weeks and 6 days output"""
         delta = timedelta(days=20)
 
         result = intftimedelta(delta)
 
-        self.assertEqual(result['days'], 20)
+        self.assertEqual(result['days'], 6)
+
+    def test_2_weeks(self): 
+        delta = timedelta(days=15)
+
+        result = intftimedelta(delta)
+
+        self.assertEqual(result['weeks'], 2)
 
 
     def test_3_months(self): 
@@ -74,6 +83,43 @@ class IntftimedeltaTestCase(SimpleTestCase):
         result = intftimedelta(delta)
 
         self.assertEqual(result['years'], 2)
+
+    def test_2_seconds_from_timestamp(self): 
+        delta = timedelta(seconds=2)
+
+        timestamp = datetime.now(timezone.utc) - delta 
+
+        result = intftimedelta(timestamp=timestamp)
+
+        self.assertEqual(result['seconds'], 2)
+
+    def test_3_minutes_from_timestamp(self): 
+        delta = timedelta(minutes=3)
+
+        timestamp = datetime.now(timezone.utc) - delta 
+
+        result = intftimedelta(timestamp=timestamp)
+
+        self.assertEqual(result['minutes'], 3)
+
+
+    def test_5_hours_from_timestamp(self): 
+        delta = timedelta(hours=5)
+
+        timestamp = datetime.now(timezone.utc) - delta 
+
+        result = intftimedelta(timestamp=timestamp)
+
+        self.assertEqual(result['hours'], 5)
+
+    def test_6_days_from_timestamp(self): 
+        delta = timedelta(days=6)
+
+        timestamp = datetime.now(timezone.utc) - delta 
+
+        result = intftimedelta(timestamp=timestamp)
+
+        self.assertEqual(result['days'], 6)
 
 
 class StrfdeltaTestCase(SimpleTestCase): 
@@ -99,17 +145,47 @@ class StrfdeltaTestCase(SimpleTestCase):
 
         self.assertEqual(result, '4 hours ago')
 
-    def test_8_days(self): 
-        delta = timedelta(days=8)
+    def test_3_days(self): 
+        delta = timedelta(days=3)
 
         result = strfdelta(delta)
 
-        self.assertEqual(result, '8 days ago')
+        self.assertEqual(result, '3 days ago')
 
+    def test_4_weeks(self): 
+        delta = timedelta(days=28)
+
+        result = strfdelta(delta)
+
+        self.assertEqual(result, '4 weeks ago')
+    
     def test_9_months(self): 
         delta = timedelta(days=9*30.4375 + 1)
 
         result = strfdelta(delta)
 
         self.assertEqual(result, '9 months ago')
+
+    def test_1_week(self): 
+        delta = timedelta(days=7)
+
+        result = strfdelta(delta)
+
+        self.assertEqual(result, '1 week ago')
+
+    def test_1_month(self): 
+        delta = timedelta(days=30.4375)
+
+        result = strfdelta(delta)
+
+        self.assertEqual(result, '1 month ago')
+    
+    def test_1_year(self): 
+        delta = timedelta(days=370)
+
+        result = strfdelta(delta)
+
+        self.assertEqual(result, '1 year ago')
+    
+    
 
