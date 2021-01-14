@@ -1,7 +1,7 @@
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from django.db import models
 from django.utils import timezone
-from users.data.cities import cities
+import csv
 
 
 # Create your models here.
@@ -36,6 +36,24 @@ class UserManager(BaseUserManager):
         return user
 
 
+class City(models.Model): 
+    # Name and state 
+    city = models.CharField(max_length=128)
+    state = models.CharField(max_length=64)
+    state_id = models.CharField(max_length=2)
+
+    # Location 
+    lat = models.FloatField()
+    lng = models.FloatField()
+
+    # Timezone
+    timezone = models.CharField(max_length=32)
+    
+
+    def __str__(self): 
+        return f"{self.city}, {self.state_id}"
+
+
 class User(AbstractBaseUser, PermissionsMixin):
     # Name and email  
     first_name = models.CharField(max_length=64, null=True, blank=True)
@@ -48,8 +66,6 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_superuser = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
 
-    city = models.CharField(max_length=64, blank=True, null=True, choices=cities)
-
     # User type
     TYPES = [
         ('Doctor', 'Doctor'), 
@@ -61,7 +77,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_patient = models.BooleanField(default=False)
     is_clinic = models.BooleanField(default=False)
 
-    
+    city = models.ForeignKey(City, on_delete=models.CASCADE, related_name='citizens', blank=True, null=True)
 
 
     # Date fields 
@@ -77,10 +93,3 @@ class User(AbstractBaseUser, PermissionsMixin):
     def sorted_notifications(self): 
         return self.notifications.all().order_by('-timestamp')
 
-
-
-
-    
-
-
-    

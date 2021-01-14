@@ -1,22 +1,28 @@
 import csv 
 from pprint import pformat 
 
+
 def main(): 
-    get_cities('uscities.csv')
+    create_py('uscities.csv')
 
 
-def get_cities(filename): 
-    cities = []
+def create_py(filename): 
     with open(filename) as csvfile: 
         reader = csv.reader(csvfile)
+        cities = []
+
         for row in reader: 
-            cities_string = f"{row[0]}, {row[2]}"
-            cities_tuple = (cities_string, cities_string)
-            cities.append(cities_tuple)
-    
-    python_file = open('cities.py', 'w')
-    python_file.write(f'cities = {pformat(cities)}')
-            
+            cities.append(row)
+        
+        py_file = open('cities.py', 'w')
+
+        py_file.write(f'cities = {pformat(cities)}')
+
+        py_file.close()
+
 
 if __name__ == '__main__': 
     main()
+
+
+        

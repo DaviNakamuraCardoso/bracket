@@ -2,12 +2,13 @@ from django.shortcuts import render, redirect, reverse
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout, login, authenticate 
-from .models import User 
+from .models import User, City
 from doctors.models import Doctor 
 from patients.models import Patient 
 from clinics.models import Clinic 
 from .forms import RegisterForm, LoginForm, DoctorForm, ClinicForm, PatientForm
 from .utils import get_name, get_clinic_name
+from users.data.cities import cities
 
 
 # Create your views here.
@@ -109,3 +110,21 @@ def specific_register(request, user_type):
         'form': form, 
         'type': user_type
     })
+
+
+def create_cities(request): 
+    if not request.user.is_superuser:
+        return HttpResponseRedirect(reverse('base:error'))
+    
+    for city in cities: 
+        City.objects.create(
+            city=city[0], 
+            state=city[3], 
+            state_id=city[2], 
+            lat=float(city[6]), 
+            lng=float(city[7])
+        )
+
+    return HttpResponseRedirect(reverse('base:index')) 
+
+    

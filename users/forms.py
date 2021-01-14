@@ -2,7 +2,6 @@ from django.contrib.auth.forms import UserCreationForm
 from patients.data import drugs, allergies, conditions
 from doctors.data import areas 
 from users.models import User  
-from users.data.cities import cities
 from doctors.models import Doctor 
 from clinics.models import Clinic
 from patients.models import Patient
@@ -20,7 +19,7 @@ class DateInput(forms.DateInput):
 class RegisterForm(UserCreationForm): 
     class Meta: 
         model = User 
-        fields = ['email', 'first_name', 'last_name', 'city', 'user_type', 'password1', 'password2']
+        fields = ['email', 'first_name', 'last_name', 'user_type', 'password1', 'password2']
 
 
 class LoginForm(forms.Form): 
