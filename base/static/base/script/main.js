@@ -1,13 +1,17 @@
 document.addEventListener("DOMContentLoaded", () => 
 {
-    const box = document.querySelector("#box");
-    const bell = document.querySelector("#bell");
+    const icons = document.querySelectorAll(".icon");
 
-    bell.addEventListener('click', () => {
-        box.classList.toggle('open');
+    icons.forEach(icon => {
+        icon.addEventListener('click', () => {
+            const box = icon.parentElement.lastElementChild;
+            box.classList.toggle('open');
+        });
+
+
+
     });
-
-    const notificationsLength = document.querySelectorAll('.notifi-item').length;
+        const notificationsLength = document.querySelectorAll('.notifi-item').length;
 
     if (notificationsLength > 0)
     {

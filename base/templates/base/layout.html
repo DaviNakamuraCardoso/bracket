@@ -74,14 +74,14 @@
 
                     
                 </div>
-                <div class="notifi-box" id="box">
-                    <h2 class="notifi-t">Notifications</h2>
+                <div class="dropdown" id="box">
+                    <h2 class="drop-t">Notifications</h2>
                     {% for notification in request.user.sorted_notifications %}
-                    <div class="notifi-item">
+                    <div class="drop-item">
                         <div class="text">
-                            <h4 class="notifi-title">{{ notification.origin.first_name }} {{ notification.origin.last_name }}</h4>
-                            <p class="notifi-text">{{ notification.text }}</p>
-                            <p class="notifi-timestamp">{{ notification.time }}</p>
+                            <h4 class="drop-title">{{ notification.origin.first_name }} {{ notification.origin.last_name }}</h4>
+                            <p class="drop-text">{{ notification.text }}</p>
+                            <p class="drop-timestamp">{{ notification.time }}</p>
                         </div>
                     </div>
 
@@ -91,9 +91,30 @@
                         
             <!-- Logout -->
             <li class="nav-item">
-                <a href="{% url 'users:logout' %}" class="nav-link"><i class="fas fa-sign-out-alt"></i></a>
-            </li>
+                <div class="icon">
+                    <i class="fas fa-user">
 
+                    </i>
+                </div>
+
+                <div class="dropdown">
+                    <h2 class="drop-t">Signed in as <strong>{{ request.user.first_name }} {{ request.user.last_name }}</strong></h2>
+                    <div class="drop-item">
+                        <div class="text">
+                            <a class="drop-link" href="{% url 'users:logout' %}">
+                                <i class="fas fa-sign-out-alt"></i>
+                                <p class="drop-text">Logout</p>
+
+                            </a>
+                        
+                        </div>
+                    </div>
+
+
+                </div>
+
+            </li>
+            
             {% endif %}
 
         </ul>
