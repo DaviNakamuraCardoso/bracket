@@ -2,10 +2,12 @@
 
 /* Colors */
 $main: #370CF2;
+$gray: #777;
 
 
 /* Font */
-$small: 0.8rem;
+$smallest: 0.6rem;
+$small: 1rem;
 $medium: 1.6rem;
 $large: 2rem;
 
@@ -18,7 +20,6 @@ $shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 {
     padding: 0;
     margin: 0;
-    box-sizing: border-box;
 }
 
 html
@@ -29,7 +30,6 @@ html
 body
 {
     font-family: sans-serif;
-    
 }
 
 a 
@@ -42,19 +42,26 @@ a
 li 
 {
     list-style: none;
+}
 
+ul
+{
+    list-style-type: none;
+    
 }
 
 /* Classes */
 
+/* _____ Navbar _____ */
 
 .navbar 
 {
-    font-size: 4rem;
+    font-size: $large;
     position: relative;
-    background: $main;
+    background: #fff;
     height: 10vh;
-    color: #fff;
+    color: $main;
+    border-bottom: $white_border;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -65,16 +72,18 @@ li
     display: flex;
     justify-content: space-around;
     text-align: center;
+    align-items: center;
     width: 100%;
-
 }
+
+/* _____ Notifications _____ */
 
 .icon 
 {
     cursor: pointer;
 }
 
-.notifi-number 
+.drop-number 
 {
     background: red;
     font-family: monospace;
@@ -86,61 +95,81 @@ li
     margin-left: -7px;
 }
 
-.notifi-box
+.dropdown
 {
     position: absolute;
-    width: 30vw;
+    width: 300px;
     top: 10vh;
-    right: inherit;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    transform: translateX(-50%);
+    box-shadow: $shadow; 
+    border-radius: 30px;
     height: 0px;
-    opacity: 0;
-    pointer-events: none;
+    display: none;
 }
 
-.notifi-box.open 
+.dropdown.open 
 {
     height: 300px;
-    opacity: 1;
+    display: block;
+    z-index: 9999;
+    background: white;
 }
 
-.notifi-t 
+.drop-t 
 {
     font-size: 1.6rem;
     padding: 10px;
     border-bottom: $white_border;
     color: #999;
+    strong 
+    {
+        color: $main;
+    }
 }
 
-.notifi-item 
+.drop-item 
 {
     display: flex;
     border-bottom: $white_border;
     padding: 15px 5px;
-    margin-bottom: 15px;
-    cursor: pointer;
+    margin-bottom: 15px; 
     text-align: justify;
+    justify-content: space-between;
 }
-.notifi-title
+.drop-title
 {
-    color: #777;
+    color: $gray;
     font-size: $medium;
+    
 }
 
-.notifi-timestamp
+.drop-timestamp
 {
-    color: #777;
+    color: $gray;
     font-size: $small;
 }
 
-.notifi-text 
+.drop-text 
 {
-    color: #666;
+    color: $gray;
     font-size: $medium;
-
+    padding-left: $smallest;
 }
+
+.drop-link 
+{
+    display: flex;
+    i 
+    {
+        padding-left: $smallest;
+        color: $gray;
+    }
+    
+}
+
+.text 
+{
+    background: white;
+}
+
 /* Animations */
-
-
-
-
