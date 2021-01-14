@@ -1,18 +1,21 @@
 {% extends 'base/layout.html' %}
+{% load static %}
 
 {% block title %} Bracket {% endblock %} 
+{% block head %}
+    <link href="{% static 'base/style/index.css' %}" rel="stylesheet">
+{% endblock %}
 
 
 {% block body %}
     {% if request.user.is_authenticated %}
         <h1>Hello, {{ request.user.first_name }}</h1>
-    {% else %}
-        <a href="{% url 'users:register' %}"><h1>Join Today</h1></a>
     {% endif %}
 
+    <div class="clinic-container">
 
     {% for clinic in clinics %}
-        <div>
+        <div class="clinic-card">
             <a href="{% url 'clinics:profile' clinic.clinic_name %}">
                 <h1>{{ clinic.name }}</h1>
             </a>
@@ -22,4 +25,6 @@
     {% endfor %}
 
 
+    </div>
+    
 {% endblock %}
