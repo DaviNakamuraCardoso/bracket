@@ -2,11 +2,23 @@ document.addEventListener("DOMContentLoaded", () =>
 {
     const icons = document.querySelectorAll(".icon");
 
+
     icons.forEach(icon => {
+    
+        const box = icon.parentElement.lastElementChild;
         icon.addEventListener('click', () => {
-            const box = icon.parentElement.lastElementChild;
             box.classList.toggle('open');
+            
         });
+        box.onmouseover = () => {
+            document.removeEventListener('click');
+        
+        }
+        box.onmouseout = () => {
+            document.addEventListener('click', () => {
+                box.classList.remove('open');
+            });
+        }
 
 
 

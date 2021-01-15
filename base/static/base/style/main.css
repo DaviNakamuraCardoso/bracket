@@ -85,7 +85,6 @@ ul {
   display: flex;
   border-bottom: 1px solid #eee;
   padding: 15px 5px;
-  margin-bottom: 15px;
   text-align: justify;
   justify-content: space-between; }
 
@@ -99,13 +98,12 @@ ul {
 
 .drop-text {
   color: #777;
-  font-size: 1.6rem;
-  padding-left: 0.6rem; }
+  font-size: 1.6rem; }
 
 .drop-link {
   display: flex; }
   .drop-link i {
-    padding-left: 0.6rem;
+    padding: 0 0.6rem;
     color: #777; }
 
 .text {

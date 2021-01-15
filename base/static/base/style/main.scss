@@ -132,7 +132,6 @@ ul
     display: flex;
     border-bottom: $white_border;
     padding: 15px 5px;
-    margin-bottom: 15px; 
     text-align: justify;
     justify-content: space-between;
 }
@@ -153,7 +152,6 @@ ul
 {
     color: $gray;
     font-size: $medium;
-    padding-left: $smallest;
 }
 
 .drop-link 
@@ -161,7 +159,7 @@ ul
     display: flex;
     i 
     {
-        padding-left: $smallest;
+        padding: 0 $smallest;
         color: $gray;
     }
     
