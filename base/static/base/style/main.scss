@@ -50,6 +50,12 @@ ul
     
 }
 
+body::-webkit-scrollbar-track 
+{
+    background: $main;
+    width: 2rem;
+}
+
 /* Classes */
 
 /* _____ Navbar _____ */
@@ -159,7 +165,7 @@ ul
     display: flex;
     i 
     {
-        padding: 0 $smallest;
+        padding: 0 $small;
         color: $gray;
     }
     
