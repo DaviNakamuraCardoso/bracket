@@ -9,6 +9,15 @@
 
 {% block body %}
 
+    {% if not request.user.is_authenticated %}
+        <div>
+            <form action="{% url 'users:register' %}" method="POST">
+                {% csrf_token %}
+                {{ form.as_ul }}
+                <input type="submit" value="Sign Up">
+            </form>
+        </div>
+    {% endif %}
     <div class="clinic-container">
 
     {% for clinic in clinics %}
