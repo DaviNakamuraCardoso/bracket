@@ -10,10 +10,20 @@
 {% block body %}
 
     {% if not request.user.is_authenticated %}
-        <div>
-            <form action="{% url 'users:register' %}" method="POST">
+        <div class="form">
+            <form class="register" action="{% url 'users:register' %}" method="POST">
                 {% csrf_token %}
-                {{ form.as_ul }}
+                {% for field in form %}
+                    <div class="field">
+                        {{ field }}
+                        <label for="{{ field.id_for_label }}" class="label-field">
+                            <span class="content-label">{{ field.label }} </span>
+                        </label>
+
+                    </div>
+
+                    
+                {% endfor %}
                 <input type="submit" value="Sign Up">
             </form>
         </div>
