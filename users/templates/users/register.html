@@ -1,18 +1,37 @@
 {% extends 'base/layout.html' %}
+{% load static %}
+
+
 {% block title %} Register {% endblock %}
+
+{% block head %}
+
+    <link href="{% static 'users/styles/forms.css' %}" rel="stylesheet">
+
+{% endblock %}
 
 
 {% block body %}
-    <div id="basic">
+    
+    {% if not request.user.is_authenticated %}
+        <div class="form">
+            <form class="register" action="{% url 'users:register' %}" method="POST">
+                {% csrf_token %}
+                {% for field in form %}
+                    <div class="field">
+                        {{ field }}
+                        <label for="{{ field.id_for_label }}" class="label-field">
+                            <span class="content-label">{{ field.label }} </span>
+                        </label>
 
-        <form action="{% url 'users:register' %}" method="POST">
-            {% csrf_token %}
-            {{ form.as_ul }}
-            <input type="submit">
+                    </div>
 
-        </form>
-
-    </div>
+                    
+                {% endfor %}
+                <input type="submit" value="Sign Up">
+            </form>
+        </div>
+    {% endif %}
     
 
 {% endblock %}
