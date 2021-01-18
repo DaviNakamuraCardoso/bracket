@@ -1,17 +1,24 @@
 document.addEventListener("DOMContentLoaded", () => 
 {
     const icons = document.querySelectorAll(".icon");
-
-
     icons.forEach(icon => addIconListeners(icon));
     
-    const notificationsLength = document.querySelectorAll('.notifi-item').length;
+    document.addEventListener('click', () => {
+      
+        const e = window.event;
+        const x = e.clientX;
+        const y = e.clientY;
 
-    if (notificationsLength > 0)
-    {
-        const number = document.querySelector('.notifi-number');
-        number.innerHTML = notificationsLength;
-    }
+        const element = document.elementFromPoint(x, y);
+
+        if (!element.classList.contains('drop'))
+        {
+            closeAllDrops(icons);
+        }
+
+        
+    });
+
     
 
 });
@@ -25,7 +32,15 @@ function toggleClass(box)
 
 function removeClass(box)
 {
-    box.classList.remove('open');
+    box.classList.toggle('open', false);
+}
+
+function closeAllDrops(icons)
+{
+    icons.forEach(icon => {
+        let box = icon.parentElement.lastElementChild;
+        removeClass(box);
+    });
 }
 
 function addIconListeners(icon)

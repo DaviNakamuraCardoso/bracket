@@ -68,9 +68,9 @@
             <!-- User page -->
 
             <!-- Notifications -->
-            <li class="nav-item">
-                <div class="icon">
-                    <i class="fas fa-bell" id="bell">
+            <li class="drop nav-item">
+                <div class="drop icon">
+                    <i class="drop fas fa-bell" id="bell">
                         {% if request.user.notifications.all %}
                             <span class="notifi-number"></span>
                         {% endif %}
@@ -78,14 +78,14 @@
 
                     
                 </div>
-                <div class="dropdown" id="box">
-                    <h2 class="drop-t">Notifications</h2>
+                <div class="drop dropdown" id="box">
+                    <h2 class="drop drop-t">Notifications</h2>
                     {% for notification in request.user.sorted_notifications %}
-                        <div class="drop-item">
-                            <div class="text">
-                                <h4 class="drop-title">{{ notification.origin.first_name }} {{ notification.origin.last_name }}</h4>
-                                <p class="drop-text">{{ notification.text }}</p>
-                                <p class="drop-timestamp">{{ notification.time }}</p>
+                        <div class="drop drop-item">
+                            <div class="drop text">
+                                <h4 class="drop drop-title">{{ notification.origin.first_name }} {{ notification.origin.last_name }}</h4>
+                                <p class="drop drop-text">{{ notification.text }}</p>
+                                <p class="drop drop-timestamp">{{ notification.time }}</p>
                             </div>
                         </div>
 
@@ -93,22 +93,20 @@
                 </div>
             </li>
                         
-            <li class="nav-item">
-                <div class="icon">
-                    <i class="fas fa-user">
-
-                    </i>
+            <li class="drop nav-item">
+                <div class="drop icon">
+                    <i class="drop fas fa-user"></i>
                 </div>
 
-                <div class="dropdown">
-                    <h2 class="drop-t">Signed in as <strong>{{ request.user.first_name }} {{ request.user.last_name }}</strong></h2>
+                <div class="drop dropdown">
+                    <h2 class="drop drop-t">Signed in as <strong>{{ request.user.first_name }} {{ request.user.last_name }}</strong></h2>
                     
                     <!-- Medical Info -->
-                    <div class="drop-item">
-                        <div class="text">
-                            <a class="drop-link" href="{% url 'patients:profile' request.user.name %}">
-                                <i class="fas fa-clipboard"></i>
-                                <p class="drop-text">Medical Info</p>
+                    <div class="drop drop-item">
+                        <div class="drop text">
+                            <a class="drop drop-link" href="{% url 'patients:profile' request.user.name %}">
+                                <i class="drop fas fa-clipboard"></i>
+                                <p class="drop drop-text">Medical Info</p>
 
                             </a>
                             
@@ -118,11 +116,11 @@
                     
 
                     <!-- Logout -->
-                    <div class="drop-item">
-                        <div class="text">
-                            <a class="drop-link" href="{% url 'users:logout' %}">
-                                <i class="fas fa-sign-out-alt"></i>
-                                <p class="drop-text">Logout</p>
+                    <div class="drop drop-item">
+                        <div class="drop text">
+                            <a class="drop drop-link" href="{% url 'users:logout' %}">
+                                <i class="drop fas fa-sign-out-alt"></i>
+                                <p class="drop drop-text">Logout</p>
                             </a>
                         </div>
                     </div>
