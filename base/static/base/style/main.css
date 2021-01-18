@@ -1,6 +1,7 @@
 /* Colors */
 /* Font */
 /* Shadow and effects */
+/* Width and Height */
 /* HTML tags */
 * {
   padding: 0;
@@ -23,6 +24,15 @@ li {
 ul {
   list-style-type: none; }
 
+body::-webkit-scrollbar-track {
+  background: #fff; }
+
+body::-webkit-scrollbar-thumb {
+  background: #370CF2; }
+
+body::-webkit-scrollbar {
+  width: 0.35rem; }
+
 /* Classes */
 /* _____ Navbar _____ */
 .navbar {
@@ -32,16 +42,40 @@ ul {
   height: 10vh;
   color: #370CF2;
   border-bottom: 1px solid #eee;
-  display: flex;
-  flex-direction: row;
-  align-items: center; }
+  align-items: center;
+  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  grid-template-rows: 1fr;
+  grid-template-areas: "logo search double"; }
 
 .navbar-nav {
   display: flex;
   justify-content: space-around;
   text-align: center;
-  align-items: center;
-  width: 100%; }
+  align-items: center; }
+
+#logo {
+  grid-area: logo; }
+
+#search {
+  grid-area: search; }
+
+.double {
+  grid-area: double; }
+
+#sign-in, #sign-up {
+  font-size: 1.6rem;
+  border-radius: 1rem;
+  padding: 0.6rem;
+  width: 7rem; }
+
+#sign-in {
+  border: 1px solid #777;
+  color: #777; }
+
+#sign-up {
+  border: 1px solid #370CF2; }
 
 /* _____ Notifications _____ */
 .icon {
@@ -103,7 +137,7 @@ ul {
 .drop-link {
   display: flex; }
   .drop-link i {
-    padding: 0 0.6rem;
+    padding: 0 1rem;
     color: #777; }
 
 .text {

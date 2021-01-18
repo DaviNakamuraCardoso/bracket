@@ -27,7 +27,8 @@
   height: 50px;
   position: relative;
   font-size: 1.4rem;
-  margin: 2rem auto; }
+  margin: 2rem auto;
+  color: #595f6e; }
 
 .field input {
   width: 100%;

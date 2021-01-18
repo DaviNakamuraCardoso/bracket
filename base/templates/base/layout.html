@@ -15,23 +15,33 @@
 <body>
 
     <!-- Navbar -->
+    
     <nav class="navbar">
-        <ul class="navbar-nav">
-            <!-- Index -->
+        <ul class="navbar-nav" id="logo">
             <li class="nav-item">
                 <a href="{% url 'base:index' %}" class="nav-link">Final Project</a>
+
             </li>
+            
+        </ul>
+
+        <ul class="navbar-nav" id="search">
+
+        </ul>
+
+        <ul class="navbar-nav double">
 
             {% if not request.user.is_authenticated %}
 
-            <!-- Login -->
-            <li class="nav-item">
-                <a href="{% url 'users:login' %}" class="nav-link">Login</a>
-            </li>
 
+            <!-- Login -->
+            <li class="nav-item" id="sign-in">
+                <a href="{% url 'users:login' %}" class="nav-link">Log In</a>
+            </li>
+        
             <!-- Register -->
-            <li class="nav-item">
-                <a href="{% url 'users:register' %}" class="nav-link">Register</a>
+            <li class="nav-item" id="sign-up">
+                <a href="{% url 'users:register' %}" class="nav-link">Sign Up</a>
             </li>
 
             {% else %}

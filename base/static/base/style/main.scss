@@ -15,6 +15,10 @@ $large: 2rem;
 $white_border: 1px solid #eee;
 $shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 
+
+/* Width and Height */ 
+$small-width: 7rem;
+
 /* HTML tags */
 *
 {
@@ -52,8 +56,17 @@ ul
 
 body::-webkit-scrollbar-track 
 {
+    background: #fff;
+}
+
+body::-webkit-scrollbar-thumb 
+{
     background: $main;
-    width: 2rem;
+}
+
+body::-webkit-scrollbar 
+{
+    width: 0.35rem;
 }
 
 /* Classes */
@@ -68,9 +81,13 @@ body::-webkit-scrollbar-track
     height: 10vh;
     color: $main;
     border-bottom: $white_border;
-    display: flex;
-    flex-direction: row;
     align-items: center;
+    justify-content: space-between;
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    grid-template-rows: 1fr;
+    grid-template-areas: 
+        "logo search double";
 }
 
 .navbar-nav 
@@ -79,8 +96,44 @@ body::-webkit-scrollbar-track
     justify-content: space-around;
     text-align: center;
     align-items: center;
-    width: 100%;
 }
+
+#logo
+{
+    grid-area: logo;
+}
+
+#search 
+{
+    grid-area: search;
+}
+
+.double
+{
+    grid-area: double;
+
+}
+
+#sign-in, #sign-up 
+{
+    font-size: $medium;
+    border-radius: $small;
+    padding: $smallest;
+    width: $small-width;
+}
+
+#sign-in 
+{
+    border: 1px solid $gray;
+    color: $gray;
+}
+
+#sign-up 
+{
+    border: 1px solid $main;
+}
+
+    
 
 /* _____ Notifications _____ */
 
@@ -145,7 +198,6 @@ body::-webkit-scrollbar-track
 {
     color: $gray;
     font-size: $medium;
-    
 }
 
 .drop-timestamp
