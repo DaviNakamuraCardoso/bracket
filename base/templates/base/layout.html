@@ -16,7 +16,7 @@
 
     <!-- Navbar -->
     
-    <nav class="navbar">
+    <nav class="navbar" id="menu">
         <ul class="navbar-nav" id="logo">
             <li class="nav-item">
                 <a href="{% url 'base:index' %}" class="nav-link">Final Project</a>
@@ -138,8 +138,19 @@
         
     </nav>
 
+    <nav class="navbar" id="sidebar">
+
+        <ul class="navbar-nav" id="sidebar-list">
+            <li class="nav-item"><i class="fas fa-notes-medical"></i></li>
+            <li class="nav-item"><i class="fas fa-stethoscope"></i></li>
+            <li class="nav-item"><i class="fas fa-hospital-user"></i></li>
+            
+        </ul>
+
+    </nav>
+
     <!-- Body -->
-    <main>
+    <main id="main">
         {% block body %}
         {% endblock %}
     </main>

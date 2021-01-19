@@ -2,6 +2,7 @@
 /* Font */
 /* Shadow and effects */
 /* Width and Height */
+/* Global Vars */
 /* HTML tags */
 * {
   padding: 0;
@@ -37,9 +38,11 @@ body::-webkit-scrollbar {
 /* _____ Navbar _____ */
 .navbar {
   font-size: 2rem;
-  position: relative;
+  top: 0;
+  position: fixed;
   background: #fff;
   height: 10vh;
+  width: 90vw;
   color: #370CF2;
   border-bottom: 1px solid #eee;
   align-items: center;
@@ -47,13 +50,19 @@ body::-webkit-scrollbar {
   display: grid;
   grid-template-columns: 1fr 2fr 1fr;
   grid-template-rows: 1fr;
-  grid-template-areas: "logo search double"; }
+  grid-template-areas: "logo search double";
+  z-index: 9; }
 
 .navbar-nav {
   display: flex;
   justify-content: space-around;
   text-align: center;
   align-items: center; }
+
+/* _____ Menu _____ */
+#menu {
+  z-index: 10;
+  margin-left: 10vw; }
 
 #logo {
   grid-area: logo; }
@@ -76,6 +85,22 @@ body::-webkit-scrollbar {
 
 #sign-up {
   border: 1px solid #370CF2; }
+
+/* ____ Sidebar ____ */
+#sidebar {
+  height: 100vh;
+  width: 10vw;
+  display: flex; }
+
+#sidebar-list {
+  display: flex;
+  flex-direction: column;
+  height: 60%;
+  width: 100%; }
+
+#main {
+  margin-top: 10vh;
+  margin-left: 10vw; }
 
 /* _____ Notifications _____ */
 .icon {
