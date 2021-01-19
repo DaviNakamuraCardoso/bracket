@@ -12,7 +12,7 @@
   - [x] Clinics
   Creating, for each one, a model, register system and profile
 
-- [ ] Clinics should be able to invite and accept doctors
+  - [ ] Clinics should be able to invite and accept doctors
   - [ ] The services offered by that doctor should be added to the clinic services
 
 - [ ] Browse for services based on the user location

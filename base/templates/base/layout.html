@@ -46,26 +46,6 @@
 
             {% else %}
 
-            <!-- Clinic Profiles -->
-
-            {% if request.user.is_clinic %}
-                {% for clinic in request.user.clinics.all %}
-                    <li class="nav-item">
-                        <a href="{% url 'clinics:profile' clinic.clinic_name %}">{{ clinic.name }}</a>
-                    
-                    </li>
-                {% endfor %}
-            {% endif %}
-            <!-- Doctors Profile Page-->
-                
-            {% if request.user.is_doctor %}
-            <li class="nav-item">
-                <a href="{% url 'doctors:profile' request.user.name %}" class="nav-link">Doctor profile</a>
-
-            </li>
-            {% endif %}
-
-            <!-- User page -->
 
             <!-- Notifications -->
             <li class="drop nav-item">
@@ -83,7 +63,13 @@
                     {% for notification in request.user.sorted_notifications %}
                         <div class="drop drop-item">
                             <div class="drop text">
-                                <h4 class="drop drop-title">{{ notification.origin.first_name }} {{ notification.origin.last_name }}</h4>
+                                <div class="drop drop-title-container">
+
+                                    {% if not notification.read %}
+                                        <div class="drop circle"></div>
+                                    {% endif %}
+                                    <h4 class="drop drop-title">{{ notification.origin.first_name }} {{ notification.origin.last_name }}</h4>
+                                </div>
                                 <p class="drop drop-text">{{ notification.text }}</p>
                                 <p class="drop drop-timestamp">{{ notification.time }}</p>
                             </div>
@@ -141,9 +127,15 @@
     <nav class="navbar" id="sidebar">
 
         <ul class="navbar-nav" id="sidebar-list">
-            <li class="nav-item"><i class="fas fa-notes-medical"></i></li>
-            <li class="nav-item"><i class="fas fa-stethoscope"></i></li>
-            <li class="nav-item"><i class="fas fa-hospital-user"></i></li>
+            <li class="nav-item">
+                <i class="fas fa-notes-medical"></i>
+            </li>
+            <li class="nav-item">
+                <i class="fas fa-stethoscope"></i>
+            </li>
+            <li class="nav-item">
+                <i class="fas fa-hospital-user"></i>
+            </li>
             
         </ul>
 

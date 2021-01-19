@@ -13,7 +13,6 @@ $large: 2rem;
 
 /* Shadow and effects */
 $white_border: 1px solid #eee;
-$smooth-border: 1px solid rgba(225, 225, 225, 0.8);
 $shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 
 
@@ -207,8 +206,26 @@ body::-webkit-scrollbar
 {
     height: 300px;
     display: block;
-    z-index: 9999;
+    z-index: 10;
     background: white;
+}
+
+.circle 
+{
+   z-index: 11;
+   width: 10px;
+   height: 10px;
+   border-radius: 50%;
+   background: $main;
+
+}
+
+.drop-title-container
+{
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    width: 80%;
 }
 
 .drop-t 
@@ -225,11 +242,10 @@ body::-webkit-scrollbar
 
 .drop-item 
 {
-    display: flex;
     border-bottom: $white_border;
     padding: 15px 5px;
+    position: relative;
     text-align: justify;
-    justify-content: space-between;
 }
 .drop-title
 {
@@ -247,6 +263,8 @@ body::-webkit-scrollbar
 {
     color: $gray;
     font-size: $medium;
+    width: 100%;
+
 }
 
 .drop-link 
