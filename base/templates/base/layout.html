@@ -68,9 +68,11 @@
                             {% endif %}
                             <div class="drop text">
 
-                                <h4 class="drop drop-title">{{ notification.origin.first_name }} {{ notification.origin.last_name }}</h4>
+                                <h4 class="drop drop-title">{{ notification.origin }}</h4>
                                 <p class="drop drop-text">{{ notification.text }}</p>
                                 <p class="drop drop-timestamp">{{ notification.time }}</p>
+                                <button data-url="{{ notification.url }}" data-val="accept">Accept</button>
+                                <button data-url="{{ notification.url }}" data-val="deny">Deny</button>
                             </div>
                         </div>
 
