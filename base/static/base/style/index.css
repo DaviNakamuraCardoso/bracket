@@ -2,18 +2,23 @@
 /* Colors */
 /* Shadows */
 /* Dimensions */
-.clinic-card, .clinic-container {
+.clinic-card {
   display: flex; }
 
 .clinic-card {
   position: relative;
   margin: 1rem auto;
   justify-content: space-between;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   padding: 1.2rem;
-  width: 80%; }
+  background: #f9f9f9;
+  width: 80%;
+  height: 120px; }
 
 .clinic-container {
-  flex-direction: column; }
+  display: grid;
+  grid-template-columns: 1fr 1fr; }
+
+.not-logged {
+  height: 80vh; }
 
 /*# sourceMappingURL=index.css.map */

@@ -7,6 +7,7 @@ $medium: 1.4rem;
 $main: #370CF2;
 $complementary: #F24324;
 $gray: #595f6e;
+$white: #f9f9f9;
 
 
 /* Shadows */
@@ -19,7 +20,7 @@ $small-padding: 1.2rem;
 $small: 1rem;
 
 
-.clinic-card, .clinic-container 
+.clinic-card 
 {
     display: flex;
 }
@@ -29,13 +30,21 @@ $small: 1rem;
     position: relative;
     margin: $small auto;
     justify-content: space-between;
-    box-shadow: $shadow;
     padding: $small-padding;
+    background: $white;
     width: 80%;
+    height: 120px;
 }
 
 .clinic-container
 {
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+
 }
 
+
+.not-logged
+{
+    height: 80vh;
+}
