@@ -22,6 +22,6 @@ def profile(request, name):
 def invite(request, name): 
     doctor = get_doctor(name=name)
     clinic = get_clinic(request) 
-    invite_text = f""
-    Notification.objects.create(user=doctor.user, text=invite_text)
+    invite_text = f"is inviting you to work in their clinic."
+    Notification.objects.create(user=doctor.user, text=invite_text, origin=clinic.name, url=reverse('doctors:invite', args=(name, )))
     return HttpResponseRedirect(reverse('base:index'))
