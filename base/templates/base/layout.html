@@ -62,14 +62,13 @@
                     <h2 class="drop drop-t">Notifications</h2>
                     {% for notification in request.user.sorted_notifications %}
                         <div class="drop drop-item">
-                            <div class="drop text">
-                                <div class="drop drop-title-container">
 
-                                    {% if not notification.read %}
-                                        <div class="drop circle"></div>
-                                    {% endif %}
-                                    <h4 class="drop drop-title">{{ notification.origin.first_name }} {{ notification.origin.last_name }}</h4>
-                                </div>
+                            {% if not notification.read %}
+                                <div class="drop circle"></div>
+                            {% endif %}
+                            <div class="drop text">
+
+                                <h4 class="drop drop-title">{{ notification.origin.first_name }} {{ notification.origin.last_name }}</h4>
                                 <p class="drop drop-text">{{ notification.text }}</p>
                                 <p class="drop drop-timestamp">{{ notification.time }}</p>
                             </div>
@@ -123,6 +122,7 @@
         </ul>
         
     </nav>
+    {% if request.user.is_authenticated %}
 
     <nav class="navbar" id="sidebar">
 
@@ -140,6 +140,7 @@
         </ul>
 
     </nav>
+    {% endif %}
 
     <!-- Body -->
     <main id="main">
