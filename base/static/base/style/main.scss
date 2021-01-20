@@ -213,20 +213,15 @@ body::-webkit-scrollbar
 .circle 
 {
    z-index: 11;
-   width: 10px;
-   height: 10px;
+   width: 7px;
+   height: 7px;
+   align-self: center;
+   margin: auto;
    border-radius: 50%;
    background: $main;
 
 }
 
-.drop-title-container
-{
-    position: relative;
-    display: flex;
-    justify-content: space-between;
-    width: 80%;
-}
 
 .drop-t 
 {
@@ -246,6 +241,11 @@ body::-webkit-scrollbar
     padding: 15px 5px;
     position: relative;
     text-align: justify;
+    display: grid;
+    flex-direction: row;
+    grid-template-columns: 1fr 7fr;
+    align-content: center;
+    
 }
 .drop-title
 {
