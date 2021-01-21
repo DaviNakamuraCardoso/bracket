@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse 
 from clinics.models import Clinic 
+import json 
 
 # Create your views here.
 
@@ -19,5 +20,11 @@ def profile(request, clinic_name):
         'data': clinic.serialize()
     })
 
+def invitation(request, clinic_name): 
+    clinic = Clinic.objects.get(clinic_name=clinic_name)
+    if request.method == "PUT": 
+        data = json.loads(request.body)
+        
+    return HttpResponse('OK')
 
     
