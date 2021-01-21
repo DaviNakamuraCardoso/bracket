@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const replyButtons = document.querySelectorAll('.notifi-reply-btn');
 
     replyButtons.forEach(replyButton => {
-        let answer; 
+        var answer; 
         if (replyButton.dataset.val == 'accept')
         {
             answer = true;
@@ -20,11 +20,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     confirm: answer 
                 })
             })
-            .then(response => response.json())
-            .then(result => {
 
-                console.log(result.message);
-            });
         }
     });
 });

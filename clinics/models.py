@@ -25,7 +25,8 @@ class Clinic(models.Model):
         return {
             'owner': f"{self.user.first_name} {self.user.last_name}", 
             'email': self.email, 
-            'city': self.city
+            'city': self.city, 
+            'doctors': [doctor for doctor in self.doctors.all()]
         }
     
     def __str__(self): 
