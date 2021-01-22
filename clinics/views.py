@@ -30,12 +30,12 @@ def invitation(request, clinic_name):
         data = json.loads(request.body)
         if data['confirm']: 
             clinic.doctors.add(doctor)
-            return JsonResponse({"message": f"Succesfully joined {clinic.name}"}, status=204)
+            return JsonResponse({"message": f"Succesfully joined {clinic.name}"}, status=204, safe=False)
         else: 
             request.user.notifications.get(origin=clinic.name).delete()
-            return JsonResponse({"message": f"Succesfully refused to join {clinic.name}"}, status=204) 
+            return JsonResponse({"message": f"Succesfully refused to join {clinic.name}"}, status=204, safe=False) 
     
-    return JsonResponse({"message": "Method must be PUT."}, status=400)
+    return JsonResponse({"message": "Method must be PUT."}, status=400, safe=False)
             
 
 
