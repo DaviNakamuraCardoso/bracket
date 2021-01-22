@@ -19,3 +19,5 @@ class Doctor(models.Model):
             'email': self.user.email
         }
 
+    def __str__(self): 
+        return f"Dr. {self.user.first_name} {self.user.last_name}"

@@ -19,12 +19,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 body: JSON.stringify({
                     confirm: answer 
                 })
-            })
-            .then(response => response.json())
-            .then(response => {
-                console.log(response.message);
             });
-
+            console.log(response.json());
         }
     });
 });

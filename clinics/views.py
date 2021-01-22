@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponse, JsonResponse
+from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from clinics.models import Clinic 
 import json 
@@ -28,11 +28,12 @@ def invitation(request, clinic_name):
     doctor = request.user.doctor
     if request.method == "PUT": 
         data = json.loads(request.body)
+        request.user.notifications.get(origin=clinic.name).delete()
+
         if data['confirm']: 
             clinic.doctors.add(doctor)
             return JsonResponse({"message": f"Succesfully joined {clinic.name}"}, status=204, safe=False)
         else: 
-            request.user.notifications.get(origin=clinic.name).delete()
             return JsonResponse({"message": f"Succesfully refused to join {clinic.name}"}, status=204, safe=False) 
     
     return JsonResponse({"message": "Method must be PUT."}, status=400, safe=False)
