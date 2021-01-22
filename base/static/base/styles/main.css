@@ -25,6 +25,12 @@ li {
 ul {
   list-style-type: none; }
 
+button {
+  background: none;
+  outline: none;
+  border: none;
+  text-transform: uppercase; }
+
 body::-webkit-scrollbar-track {
   background: #fff; }
 
@@ -177,6 +183,23 @@ body::-webkit-scrollbar {
   .drop-link i {
     padding: 0 1rem;
     color: #777; }
+
+.notifi-reply-btn {
+  width: 80px;
+  border: 1px solid #370CF2;
+  color: #370CF2;
+  padding: 2px 0;
+  border-radius: 5px;
+  cursor: pointer; }
+
+.reply-btn-container {
+  margin: auto;
+  display: flex;
+  justify-content: space-evenly; }
+
+.deny {
+  color: red;
+  border: 1px solid red; }
 
 .text {
   background: white; }

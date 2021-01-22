@@ -2,6 +2,7 @@
 
 /* Colors */
 $main: #370CF2;
+$comp: red;
 $gray: #777;
 
 
@@ -55,6 +56,14 @@ li
 ul
 {
     list-style-type: none;
+}
+
+button 
+{
+    background: none; 
+    outline: none;
+    border: none;
+    text-transform: uppercase;
 }
 
 body::-webkit-scrollbar-track 
@@ -278,9 +287,39 @@ body::-webkit-scrollbar
     
 }
 
+.notifi-reply-btn 
+{
+    width: 80px;
+    border: 1px solid $main;
+    color: $main;
+    padding: 2px 0;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.reply-btn-container
+{
+    margin: auto;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.deny 
+{
+    color: $comp;
+    border: 1px solid $comp;
+    
+}
+
+
+
+
+
 .text 
 {
     background: white;
 }
+
+
 
 /* Animations */

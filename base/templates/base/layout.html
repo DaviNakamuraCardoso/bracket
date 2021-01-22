@@ -8,17 +8,15 @@
     {% block head %}{% endblock %}
     <script src="https://kit.fontawesome.com/f0d3ee0f06.js" crossorigin="anonymous"></script>
     <script src="{% static 'base/scripts/main.js' %}"></script>
-    {% if request.user.is_doctor %}
-        <script src="{% static 'doctors/scripts/profile.js' %}"></script>
-    {% endif %}
+    <script src="{% static 'base/scripts/notifications.js' %}"></script>
     <link href="{% static 'base/styles/main.css' %}" rel="stylesheet">
+    <link href="{% static 'base/styles/index.css' %}" rel="stylesheet">
 
 
 </head>
 <body>
 
     <!-- Navbar -->
-    
     <nav class="navbar" id="menu">
         <ul class="navbar-nav" id="logo">
             <li class="nav-item">
@@ -74,8 +72,10 @@
                                 <h4 class="drop drop-title">{{ notification.origin }}</h4>
                                 <p class="drop drop-text">{{ notification.text }}</p>
                                 <p class="drop drop-timestamp">{{ notification.time }}</p>
-                                <button class="drop notifi-reply-btn" data-url="{{ notification.url }}" data-val="accept">Accept</button>
-                                <button class="drop notifi-reply-btn" data-url="{{ notification.url }}" data-val="deny">Deny</button>
+                                <div class="drop reply-btn-container">
+                                    <button class="drop accept notifi-reply-btn" data-url="{{ notification.url }}" data-val="accept">Accept</button>
+                                    <button class="drop deny notifi-reply-btn" data-url="{{ notification.url }}" data-val="deny">Deny</button>
+                                </div>
                             </div>
                         </div>
 
@@ -133,13 +133,21 @@
 
         <ul class="navbar-nav" id="sidebar-list">
             <li class="nav-item">
-                <i class="fas fa-notes-medical"></i>
+                <a href="{% url 'patients:index' %}">
+                    <i class="fas fa-notes-medical"></i>
+                </a>
             </li>
             <li class="nav-item">
-                <i class="fas fa-stethoscope"></i>
+                <a href="{% url 'doctors:index' %}">
+                    <i class="fas fa-stethoscope"></i>
+
+                </a>
             </li>
             <li class="nav-item">
-                <i class="fas fa-hospital-user"></i>
+                <a href="{% url 'base:index' %}">
+                    <i class="fas fa-hospital-user"></i>
+
+                </a>
             </li>
             
         </ul>
