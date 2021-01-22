@@ -3,5 +3,16 @@
 {% block title %} Doctors {% endblock %}
 
 {% block body %}
-    <h1>Hello Doc!</h1>
+    <div class="clinic-container">
+        {% for doctor in doctors %}
+            <div class="clinic-card">
+                <a href="{% url 'doctors:profile' doctor.user.name %}">
+
+                    <h1>Dr. {{ doctor.user.first_name }} {{ doctor.user.last_name }}</h1>
+                </a>
+                <h2>{{ doctor.degree }}</h2>
+                
+            </div>
+        {% endfor %}
+    </div>
 {% endblock %}

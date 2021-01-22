@@ -1,0 +1,21 @@
+{% extends 'base/layout.html' %}
+
+
+{% block title %} Patients {% endblock %}
+
+{% block body %}
+    <div class="clinic-container">
+
+        {% for patient in patients %}
+        
+            <div class="clinic-card">
+                <a href="{% url 'patients:profile' patient.user.name %}">
+                    <h1>{{ patient.user.first_name }} {{ patient.user.last_name }}</h1>
+                </a>
+                <h2>{{ patient.user.name }}</h2>
+
+            </div>
+        {% endfor %}
+
+    </div>
+{% endblock %}

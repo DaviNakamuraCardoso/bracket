@@ -5,6 +5,11 @@
 {% block body %}
     <h1>Dr. {{ doctor.user.first_name }} {{ doctor.user.last_name }}</h1>
 
+    {% if request.user.is_clinic %}
+        <a href="{% url 'doctors:invite' doctor.user.name %}">Invite</a>
+    {% endif %}
+    
+
 
     <table>
         
@@ -18,5 +23,6 @@
                 </td>
             </tr>
         {% endfor %}
+
     </table>
 {% endblock %}

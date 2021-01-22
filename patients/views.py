@@ -4,6 +4,12 @@ from django.contrib.auth.decorators import login_required
 from patients.models import Patient
 
 # Create your views here.
+
+
+def index(request): 
+    return render(request, 'patients/index.html', {
+        'patients': Patient.objects.all()
+    })
 @login_required 
 def profile(request, name): 
     try: 

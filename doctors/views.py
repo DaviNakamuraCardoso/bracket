@@ -7,7 +7,9 @@ from base.models import Notification
 # Create your views here.
 
 def index(request): 
-    return render(request, 'doctors/index.html')
+    return render(request, 'doctors/index.html', {
+        'doctors': Doctor.objects.all()
+    })
 
 
 def profile(request, name): 
