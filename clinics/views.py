@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, reverse
 from django.http import JsonResponse, HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from clinics.models import Clinic 
@@ -49,23 +49,23 @@ def invitation(request, clinic_name):
     return JsonResponse({"message": "Succesfully refused to join the clinic."}) 
 
 @csrf_exempt 
-def join(request, name): 
+def join_clinic(request, clinic_name): 
     if request.method != "PUT": 
         return JsonResponse({"message": "Method must be PUT"})
 
     doctor = get_doctor(request=request)
-    clinic = get_clinic(name=name)
+    clinic = Clinic.objects.get(clinic_name=clinic_name)
     data = json.loads(request.body)
 
-    if data['invite']: 
-        notification = Notification.objects.get(origin=doctor.user.name, user__name=clinic.user.name)
+    if not data['invite']: 
+        notification = Notification.objects.get(origin=doctor.str(), user__name=clinic.user.name)
         notification.delete()
 
         return JsonResponse({"message": "Join request cancelled succesfully"})
 
     invite_text = f"Is asking to join {clinic.name}"
     invite_url = reverse('doctors:accept', args=(doctor.user.name, ))
-    Notification.objects.create(user=clinic.user, text=invite_text, url=invite_url)
+    Notification.objects.create(user=clinic.user, text=invite_text, url=invite_url, origin=doctor.str())
 
     return JsonResponse({"message": "Request sent succesfully."})
 

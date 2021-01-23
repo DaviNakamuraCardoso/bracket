@@ -7,6 +7,7 @@ app_name = 'doctors'
 urlpatterns = [
     path("", views.index, name="index"), 
     path("<str:name>", views.profile, name="profile"), 
-    path("<str:name>/invite", views.invite, name="invite")
+    path("<str:name>/invite", views.invite, name="invite"), 
+    path("<str:name>/accept", views.accept, name="accept")
 
 ]

@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const value = replyButton.dataset.val;
 
         // The answer is true if the value is equal to 'accept', else false
-        var answer = ((value == 'accept') ? true : false)
+        var answer = ((value == 'accept') ? true : false);
 
         replyButton.onclick = () => {
             fetch(replyButton.dataset.url, {

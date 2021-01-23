@@ -55,7 +55,7 @@ def accept(request, name):
     data = json.loads(request.body)
 
     try: 
-        request.user.notifications.get(origin=doctor.user.name).delete()
+        request.user.notifications.get(origin=doctor.__str__()).delete()
 
     except Notification.DoesNotExist: 
         return JsonResponse({"message": "Could not accept the request. Probably, the user cancelled it."})
