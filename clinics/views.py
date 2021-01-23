@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import JsonResponse, HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from clinics.models import Clinic 
+from base.models import Notification
 import json 
 
 # Create your views here.
@@ -24,24 +25,25 @@ def profile(request, clinic_name):
 
 @csrf_exempt 
 def invitation(request, clinic_name): 
+    if request.method != "PUT": 
+        return JsonResponse({"message": "Method must be PUT"})
+
     clinic = Clinic.objects.get(clinic_name=clinic_name)
     doctor = request.user.doctor
-    if request.method == "PUT": 
-        data = json.loads(request.body)
+    data = json.loads(request.body)
+
+    # In both cases, the notification is deleted 
+    try: 
         request.user.notifications.get(origin=clinic.name).delete()
 
-        if data['confirm']: 
-            clinic.doctors.add(doctor)
-            return JsonResponse({"message": "Succesfully joined the clinic."}) 
-        else: 
-            return JsonResponse({"message": "Succesfully refused to join the clinic."}) 
+    except Notification.DoesNotExist: 
+        # If there is no notification to delete, it means that the clinic cancelled the invitation
+        return JsonResponse({"message": "Could not join the accept the invitation. The clinic probably canceled it."})
+
+    if data['confirm']: 
+        clinic.doctors.add(doctor)
+        return JsonResponse({"message": "Succesfully joined the clinic."}) 
     
-    return JsonResponse({"message": "Method must be PUT."}, status=400, safe=False)
-            
-
-
-    
-
-        
+    return JsonResponse({"message": "Succesfully refused to join the clinic."}) 
 
     

@@ -93,3 +93,6 @@ class User(AbstractBaseUser, PermissionsMixin):
     def sorted_notifications(self): 
         return self.notifications.all().order_by('-timestamp')
 
+
+    def notification_origins(self): 
+        return [notification.origin for notification in self.notifications.all()]

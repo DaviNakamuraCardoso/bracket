@@ -3,15 +3,11 @@ document.addEventListener("DOMContentLoaded", () => {
     const replyButtons = document.querySelectorAll('.notifi-reply-btn');
 
     replyButtons.forEach(replyButton => {
-        var answer; 
-        if (replyButton.dataset.val == 'accept')
-        {
-            answer = true;
-        }
-        else 
-        {
-            answer = false;
-        }
+        // Value can be accept or deny 
+        const value = replyButton.dataset.val;
+
+        // The answer is true if the value is equal to 'accept', else false
+        var answer = ((value == 'accept') ? true : false)
 
         replyButton.onclick = () => {
             fetch(replyButton.dataset.url, {

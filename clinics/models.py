@@ -4,7 +4,7 @@ from doctors.models import Doctor
 # Create your models here.
 
 class Clinic(models.Model): 
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="clinics")
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
 
     # The actuall name  
     name = models.CharField(max_length=128)

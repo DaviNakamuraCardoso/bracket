@@ -1,15 +1,25 @@
 {% extends 'base/layout.html' %}
+{% load static %}
 
-{% block title %} {{ doctor.user.first_name }} {{ doctor.user.last_name }} {% endblock %}
+{% block title %} Dr. {{ doctor.user.first_name }} {{ doctor.user.last_name }} {% endblock %}
+
+{% block head %}
+    <script src="{% static 'clinics/scripts/invite.js' %}"></script>
+{% endblock %}
 
 {% block body %}
     <h1>Dr. {{ doctor.user.first_name }} {{ doctor.user.last_name }}</h1>
 
     {% if request.user.is_clinic %}
-        <a href="{% url 'doctors:invite' doctor.user.name %}">Invite</a>
+        {% if request.user.clinic.name in doctor.user.notification_origins %}
+
+            <button id="invite" data-val="deny" data-url="{% url 'doctors:invite' doctor.user.name %}">Cancel Invitation</button>
+        {% else %}
+            <button id="invite" data-val="accept" data-url="{% url 'doctors:invite' doctor.user.name %}">Invite</button>
+
+        {% endif %}
     {% endif %}
     
-
 
     <table>
         
