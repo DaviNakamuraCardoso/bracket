@@ -12,16 +12,8 @@ function inviteHandler(button)
 {
     button.style.pointerEvents = "none";
     let value = button.dataset.val;
-    let isInvite; 
-    if (value == "accept")
-    {
-        isInvite = true; 
-    }
-    else 
-    {
-        isInvite = false;
-    }
-
+    const isInvite = ((value == "accept") ? true : false);
+    
     fetch(button.dataset.url, {
         method: "PUT", 
         body: JSON.stringify({

@@ -43,3 +43,27 @@ def invite(request, name):
     Notification.objects.create(user=doctor.user, text=invite_text, origin=clinic.name, url=reverse('clinics:invitation', args=(clinic.clinic_name, )))
 
     return JsonResponse({"message": "Invite sent succesfully."})
+
+
+@csrf_exempt
+def accept(request, name):
+    if request.method != "PUT": 
+        return JsonResponse({"message": "Method must be PUT"})
+    
+    clinic = get_clinic(request)
+    doctor = get_doctor(name=name)
+    data = json.loads(request.body)
+
+    try: 
+        request.user.notifications.get(origin=doctor.user.name).delete()
+
+    except Notification.DoesNotExist: 
+        return JsonResponse({"message": "Could not accept the request. Probably, the user cancelled it."})
+    
+    if data['confirm']: 
+        clinic.doctors.add(doctor)
+        return JsonResponse({"message": "Succesfully accepted the doctor"})
+
+
+    return JsonResponse({"message": "Succesfully refused to accept the user"})
+
