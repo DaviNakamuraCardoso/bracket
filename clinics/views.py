@@ -68,13 +68,3 @@ def join_clinic(request, clinic_name):
     Notification.objects.create(user=clinic.user, text=invite_text, url=invite_url, origin=doctor.str())
 
     return JsonResponse({"message": "Request sent succesfully."})
-
-
-
-
-
-
-
-    
-
-    

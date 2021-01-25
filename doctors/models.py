@@ -9,8 +9,6 @@ class Doctor(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True)
     areas = ArrayField(models.CharField(max_length=64), null=True ,blank=True)
     
-
-
     def serialize(self): 
         return {
             'number': self.number, 

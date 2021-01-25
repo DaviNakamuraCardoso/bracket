@@ -1,14 +1,24 @@
 document.addEventListener("DOMContentLoaded", () => {
 
+    // Get the reply buttons
     const replyButtons = document.querySelectorAll('.notifi-reply-btn');
 
+    // For all of them, 
     replyButtons.forEach(replyButton => {
-        // Value can be accept or deny 
+        listenForReply(replyButton);
+    });
+});
+
+
+function listenForReply(replyButton) 
+{
+        // Value can be 'accept' or 'deny' 
         const value = replyButton.dataset.val;
 
         // The answer is true if the value is equal to 'accept', else false
         var answer = ((value == 'accept') ? true : false);
 
+        // When a button is clicked, send a PUT request to the server, with the answer
         replyButton.onclick = () => {
             fetch(replyButton.dataset.url, {
                 method: "PUT", 
@@ -24,15 +34,4 @@ document.addEventListener("DOMContentLoaded", () => {
 
             });
         }
-    });
-});
-
-
-function hide(element)
-{
-    element.style.animationName = 'hide'; 
-    element.style.animationPlayState = 'running';
-    element.addEventListener('animationend', () => {
-        element.style.display = 'none';
-    });
 }
