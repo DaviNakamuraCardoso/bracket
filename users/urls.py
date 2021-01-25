@@ -4,9 +4,16 @@ from . import views
 app_name = 'users'
 
 urlpatterns = [
-    path("register", views.register_view, name='register'), 
+    # Login / Logout
     path("login", views.login_view, name='login'), 
     path('logout', views.logout_view, name='logout'), 
-    path('register/<str:user_type>', views.specific_register, name='specific_register'), 
+
+    # Register and specifics
+    path("register", views.register_view, name='register'), 
+    path('register/patient', views.patient, name='patient'), 
+    path('register/doctor', views.doctor, name='doctor'), 
+    path('register/clinic', views.clinic, name='clinic'), 
+
+    # Utils
     path('create', views.create_cities, name='create')
 ]

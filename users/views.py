@@ -27,13 +27,21 @@ def register_view(request):
             user.name = get_name(form.cleaned_data['first_name'], form.cleaned_data['last_name'])
 
             user.save()
-            login(request, user)
 
-            return HttpResponseRedirect(reverse('users:specific_register', args=(user.user_type.lower(), ))) 
+            return HttpResponseRedirect(reverse(f'users:{user.type.lower()}')) 
     
     return render(request, 'users/register.html', {
         'form': form 
     })
+
+def patient(request): 
+    pass 
+
+def doctor(request): 
+    pass 
+
+def clinic(request): 
+    pass
 
 
 def login_view(request): 
@@ -66,50 +74,6 @@ def logout_view(request):
         logout(request)
     return redirect('base:index')
 
-@login_required
-def specific_register(request, user_type):
-    TYPES = {
-        'clinic': {'form': ClinicForm, 'model': Clinic}, 
-        'patient': {'form': PatientForm, 'model': Patient}, 
-        'doctor': {'form': DoctorForm, 'model': Doctor}
-    }
-    if user_type not in TYPES.keys():
-        return HttpResponse("No such type.")
-    else: 
-        # Get the specific form and model for the user type
-        t = TYPES[user_type]
-        form = t['form']()
-        if request.method == "POST":
-
-            # Starts the type object with the user set to the current user
-            u = t['model'](user=request.user) 
-
-            if user_type == 'clinic': 
-                context = get_clinic_name(request)
-                u.base_name = context[0]
-                u.clinic_name = context[1] 
-                request.user.is_clinic = True 
-            elif user_type == 'doctor':  
-                request.user.is_doctor = True 
-
-            elif user_type == 'patient': 
-                request.user.is_patient = True
-
-            request.user.save()
-
-            # Gets the form for the specific type of user 
-            form = t['form'](request.POST, instance=u)
-
-
-            if form.is_valid(): 
-                form.save()
-                return redirect('base:index')
-                        
-
-    return render(request, 'users/specific.html', {
-        'form': form, 
-        'type': user_type
-    })
 
 
 def create_cities(request): 
