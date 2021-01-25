@@ -14,7 +14,7 @@
     {% if not request.user.is_authenticated %}
         <div class="not-logged">
 
-            <div class="form">
+            <div class="form" id="">
                 <form class="register" action="{% url 'users:register' %}" method="POST">
                     {% csrf_token %}
                     {% for field in form %}
