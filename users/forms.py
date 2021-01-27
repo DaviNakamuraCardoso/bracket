@@ -1,68 +1,29 @@
-from django.contrib.auth.forms import UserCreationForm 
-from patients.data import drugs, allergies, conditions
-from doctors.data import areas 
-from users.models import User  
-from doctors.models import Doctor 
-from clinics.models import Clinic
-from patients.models import Patient
-from django.db import models 
-from django import forms
-from django.forms import ModelForm, Textarea
-from django.contrib.postgres.forms import SimpleArrayField
-from floppyforms.widgets import Input 
+from django import forms 
+from datetime import datetime
+from patients.data import allergies, conditions, drugs
+
+class PatientForm(forms.Form): 
+    day = forms.IntegerField(min_value=1, max_value=31)
+    month = forms.IntegerField(min_value=1, max_value=12)
+    year = forms.IntegerField(min_value=1900, max_value=datetime.now().year)
+
+    weight = forms.FloatField(min_value=0, max_value=300)
+    height = forms.FloatField(min_value=0, max_value=3)
+
+    choices_conditions = forms.ChoiceField(choices=[('1', '1'), ('2', '2')])
+    conditions = forms.HiddenInput()
+
+    choices_medications = forms.ChoiceField(choices=[('1', '1')])
+    medications = forms.HiddenInput()
+
+    choices_allergies = forms.ChoiceField(choices=[('1', '1')])
+    allergies = forms.HiddenInput()
 
 
-class DateInput(forms.DateInput): 
-    input_type = 'date'
 
-
-class RegisterForm(UserCreationForm): 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields['first_name'].required = True
-        self.fields['last_name'].required = True
-        
-    class Meta: 
-        model = User 
-        fields = ['email', 'first_name', 'last_name', 'user_type', 'password1', 'password2']
-
-
-class LoginForm(forms.Form): 
-    username = forms.CharField(max_length=64)
-    password = forms.CharField(max_length=64, widget=forms.PasswordInput())
-    
-
-class PatientForm(ModelForm): 
-    
-    temp_allergies = forms.ChoiceField(label="Allergies", required=False, widget=Input(datalist=allergies.allergies))
-    temp_conditions = forms.ChoiceField(label="Conditions", required=False, widget=Input(datalist=conditions.conditions))
-    temp_medications = forms.ChoiceField(choices=drugs.drugs, label="Medications", required=False, widget=Input(datalist=drugs.drugs))
-
-    class Meta: 
-        model = Patient 
-        exclude = ['user']
-        widgets = {
-            'allergies': forms.HiddenInput(attrs={'id': 'allergies'}), 
-            'birth': DateInput, 
-            'current_medications': forms.HiddenInput(attrs={'id': 'medications'}), 
-            'medical_conditions': forms.HiddenInput(attrs={'id': 'conditions'})
-        }
-    
-
-class DoctorForm(ModelForm): 
-
-    temp_areas = forms.ChoiceField(label="Areas", required=False, widget=Input(datalist=areas.areas))
-    class Meta: 
-        model = Doctor 
-        exclude = ['user']
-        widgets = {
-            'areas': forms.HiddenInput(attrs={'id': 'areas'})
-        }
-        
-
-class ClinicForm(ModelForm): 
-    class Meta: 
-        model = Clinic 
-        fields = ['name', 'email', 'city']
-
-        
+class BaseForm(forms.Form): 
+    email = forms.EmailField(max_length=64)
+    first_name = forms.CharField(max_length=64)
+    last_name = forms.CharField(max_length=64)
+    password = forms.CharField(max_length=64, widget=forms.PasswordInput)
+    password_confirmation = forms.CharField(max_length=64, widget=forms.PasswordInput)
