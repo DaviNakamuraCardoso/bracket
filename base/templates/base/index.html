@@ -15,9 +15,21 @@
         <div class="not-logged">
 
             <div class="form" id="">
-                <form class="register" action="{% url 'users:register' %}" method="POST">
+                <form class="register" action="{% url 'users:patient' %}" method="POST">
                     {% csrf_token %}
+                    {% for field in base_form %}
+                    <div class="base field">
+                        {{ field }}
+
+                        <label for="{{ field.id_for_label }}" class="label-field">
+                            <span class="content-label">{{ field.label }} </span>
+                        </label>
+
+                    </div>
+                    {% endfor %}
+
                     {% for field in form %}
+
                         <div class="field">
                             {{ field }}
                             <label for="{{ field.id_for_label }}" class="label-field">
