@@ -1,5 +1,7 @@
 from users.models import User 
 from clinics.models import Clinic
+from django.shortcuts import render, reverse 
+from django.http import HttpResponseRedirect
 
 
 def get_name(first, last): 
@@ -23,4 +25,35 @@ def get_clinic_name(request):
     
 
     return [base, f"{base}{appendix}"]
+
+
+def register(request, user_type): 
+    data = request.POST 
+
+    # Create the basic user model 
+    user = User.objects.create(
+        password=data['password'], 
+        user_type=user_type, 
+        first_name=first, 
+        last_name=last, 
+        email=data['email'], 
+        is_doctor=user_type=='doctor', 
+        is_patient=user_type=='patient', 
+        is_clinic=user_type=='clinic'
+
+    )
+    # For users that aren't clinics, set the first and last name
+    if user_type != 'clinic': 
+        first = data['first']
+        last = data['last']
+        
+        user.name = get_name(first, last)
+        user.first = first 
+        user.last_name = last 
+
+        user.save()
+    
+    return user 
+
+
 

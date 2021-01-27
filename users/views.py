@@ -1,41 +1,37 @@
 from django.shortcuts import render, redirect, reverse
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth import logout, login, authenticate 
+from django.contrib.auth import logout, login, authenticate
 from .models import User, City
 from doctors.models import Doctor 
 from patients.models import Patient 
 from clinics.models import Clinic 
-from .forms import RegisterForm, LoginForm, DoctorForm, ClinicForm, PatientForm
-from .utils import get_name, get_clinic_name
+from users.utils import register 
 from users.data.cities import cities
+import datetime
 
 
 # Create your views here.
-def register_view(request): 
-    """"""
-    form = RegisterForm() 
 
-    if request.method == "POST": 
-        form = RegisterForm(request.POST)
-
-
-        if form.is_valid(): 
-            form.save()
-            user = User.objects.get(email=form.cleaned_data['email'])
-            # Automatically defines an username
-            user.name = get_name(form.cleaned_data['first_name'], form.cleaned_data['last_name'])
-
-            user.save()
-
-            return HttpResponseRedirect(reverse(f'users:{user.type.lower()}')) 
-    
-    return render(request, 'users/register.html', {
-        'form': form 
-    })
 
 def patient(request): 
-    pass 
+    if request.method == "POST": 
+        user = register(request.POST, 'patient')
+        data = request.POST
+        
+        day, month, year = (data['day'], data['month'], data['year'])
+        strbirth = f"{day}/{month}/{year}"
+        date = datetime.datetime.strptime(strbirth, "%d/%m/%Y")
+        timestamp = datetime.datetime.timestamp(date)
+
+        patient = Patient.objects.create(
+            user=user, 
+            weight=request.POST['weight'], 
+            height=request.POST['height'], 
+            birth=timestamp
+        )
+        
+
 
 def doctor(request): 
     pass 
