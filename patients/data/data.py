@@ -1,3 +1,5 @@
+import pprint
+
 def main(): 
     get_drugs()
     get_allergies()
@@ -28,7 +30,7 @@ def get_drugs():
     
     result_file = open('drugs.py', 'w')
     print("Writing results...")
-    result_file.write('drugs = ' + str(array))
+    result_file.write(f"drugs = {pprint.pformat(array)}")
     result_file.close()
     print("Done.")
 
@@ -44,7 +46,7 @@ def get_allergies():
 
     allergies.sort()
     python_file = open('allergies.py', 'w')
-    python_file.write('allergies = ' + str(allergies))
+    python_file.write(f'allergies = {pprint.pformat(allergies)}')
     python_file.close()
 
         
@@ -61,7 +63,7 @@ def get_conditions():
     conditions.sort()
 
     python_file = open('conditions.py', 'w')
-    python_file.write('conditions = ' + str(conditions))
+    python_file.write(f'conditions = {pprint.pformat(conditions)}')
     python_file.close()
 
 
