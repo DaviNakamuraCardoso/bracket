@@ -1,6 +1,7 @@
 from django import forms 
 from datetime import datetime
 from patients.data import allergies, conditions, drugs
+from floppyforms.widgets import Input
 
 class PatientForm(forms.Form): 
     day = forms.IntegerField(min_value=1, max_value=31)
@@ -10,15 +11,14 @@ class PatientForm(forms.Form):
     weight = forms.FloatField(min_value=0, max_value=300)
     height = forms.FloatField(min_value=0, max_value=3)
 
-    choices_conditions = forms.ChoiceField(choices=[('1', '1'), ('2', '2')])
-    conditions = forms.HiddenInput()
+    choices_conditions = forms.CharField(max_length=64, widget=Input(datalist=conditions.conditions))  
+    conditions = forms.CharField(max_length=256, widget=forms.HiddenInput)
 
-    choices_medications = forms.ChoiceField(choices=[('1', '1')])
-    medications = forms.HiddenInput()
+    choices_medications = forms.CharField(max_length=64, widget=Input(datalist=drugs.drugs)) 
+    medications = forms.CharField(max_length=256, widget=forms.HiddenInput)
 
-    choices_allergies = forms.ChoiceField(choices=[('1', '1')])
-    allergies = forms.HiddenInput()
-
+    choices_allergies = forms.CharField(max_length=64, widget=Input(datalist=allergies.allergies))
+    allergies = forms.CharField(max_length=256, widget=forms.HiddenInput)
 
 
 class BaseForm(forms.Form): 

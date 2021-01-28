@@ -31,24 +31,23 @@ def register(request, user_type):
     data = request.POST 
 
     # Create the basic user model 
-    user = User.objects.create(
+    User.objects.create(
         password=data['password'], 
         user_type=user_type, 
-        first_name=first, 
-        last_name=last, 
         email=data['email'], 
         is_doctor=user_type=='doctor', 
         is_patient=user_type=='patient', 
         is_clinic=user_type=='clinic'
 
     )
+    user = User.objects.get(email=data['email'])
     # For users that aren't clinics, set the first and last name
     if user_type != 'clinic': 
-        first = data['first']
-        last = data['last']
+        first = data['first_name']
+        last = data['last_name']
         
         user.name = get_name(first, last)
-        user.first = first 
+        user.first_name = first 
         user.last_name = last 
 
         user.save()

@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, reverse
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, JsonResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout, login, authenticate
 from .models import User, City
@@ -16,20 +16,23 @@ import datetime
 
 def patient(request): 
     if request.method == "POST": 
-        user = register(request.POST, 'patient')
+        user = register(request, 'patient')
         data = request.POST
         
         day, month, year = (data['day'], data['month'], data['year'])
         strbirth = f"{day}/{month}/{year}"
         date = datetime.datetime.strptime(strbirth, "%d/%m/%Y")
-        timestamp = datetime.datetime.timestamp(date)
 
         patient = Patient.objects.create(
             user=user, 
             weight=request.POST['weight'], 
             height=request.POST['height'], 
-            birth=timestamp
+            birth=date
         )
+        login(request=request, user=user)
+        return HttpResponseRedirect(reverse('base:index'))
+    
+    return JsonResponse({"message": "Method must be POST."})
         
 
 
