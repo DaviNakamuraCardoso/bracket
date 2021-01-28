@@ -1,24 +1,95 @@
-document.addEventListener("DOMContentLoaded", () => {
-    
-    const userTypeButton = document.querySelector("#id_user_type"); 
+document.addEventListener('DOMContentLoaded', () => 
+{
+    const title = document.querySelector("#title");
 
-    userTypeButton.onchance = () => {
-        const type = this.value;
-        loadForm(type);
+    if (title.innerHTML == 'Patient')
+    {
+        registerPatient();
     }
+    else if (title.innerHTML == 'Doctor')
+    {
+        registerDoctor();
+    }
+    
+
 });
 
 
-function loadForm(type)
+function listChoices(array, field, list)
 {
-    const rightForm = document.querySelector(`#id_${type}`);
-    if (rightForm.classList.contains('hide'))
-    {
-        const allForms = document.querySelectorAll('.form');
-        allForms.forEach(form => {
-            form.classList.toggle('hide', true);
-        })
+     
+    // Adding the allergy value to the list 
+    array.push(field.value);
 
-        rigthForm.classList.toggle('hide', false);
-    }
+    // Creating an li element to show the allergy
+    const li = document.createElement('li');
+    const btn = document.createElement('button');
+    const val = document.createElement('span');
+
+    val.innerHTML = field.value;
+    btn.innerHTML = 'x';
+
+    btn.addEventListener('click', () => {
+
+        // Deletes the list element when clicked 
+        const element = btn.parentElement;
+        const v = element.firstChild;
+        const index = array.indexOf(v.innerHTML);
+            
+        array.splice(index, 1);
+        element.remove();
+    });
+
+    // Adding the allergy to the list
+    li.append(val);
+    li.append(btn);
+    list.append(li);
+
+    // Reset the field value
+    field.value = '';
 }
+
+
+function registerPatient()
+{
+
+    // Allergies 
+    watchSelection('allergies');
+
+    // Medications 
+    watchSelection('medications');
+
+    // Conditions 
+    watchSelection('conditions');
+
+}
+
+
+function registerDoctor()
+{
+    // Areas 
+    watchSelection("areas");
+}
+
+function watchSelection(id)
+{
+    // Getting the essential elements 
+    let array = [];
+    const element = document.querySelector(`#id_${id}`);
+    const elementInput = document.querySelector(`#id_temp_${id}`);
+    const elementList = document.querySelector(`#id_temp_${id}_ul`);
+    const form = document.querySelector('form');
+
+    elementInput.onchange = function() 
+    {
+        listChoices(array, elementInput, elementList);
+    }
+
+    form.addEventListener("submit", () => 
+    {
+        element.value = array.join();
+    });
+}
+
+        
+    
