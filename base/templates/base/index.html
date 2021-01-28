@@ -17,29 +17,120 @@
             <div class="form" id="">
                 <form class="register" action="{% url 'users:patient' %}" method="POST">
                     {% csrf_token %}
-                    {% for field in base_form %}
-                    <div class="base field">
-                        {{ field }}
+                    
+                    <div class="form-wrapper">
+                        <div class="base field">
+                            {{ base_form.email }}
 
-                        <label for="{{ field.id_for_label }}" class="label-field">
-                            <span class="content-label">{{ field.label }} </span>
-                        </label>
+                            <label for="{{ field.id_for_label }}" class="label-field">
+                                <span class="content-label">{{ base_form.email.label }} </span>
+                            </label>
+
+                        </div>
 
                     </div>
-                    {% endfor %}
+                    <div class="form-wrapper">
+                        <div class="base field">
+                            {{ base_form.first_name }}
 
-                    {% for field in form %}
-
-                        <div class="field">
-                            {{ field }}
                             <label for="{{ field.id_for_label }}" class="label-field">
-                                <span class="content-label">{{ field.label }} </span>
+                                <span class="content-label">{{ base_form.first_name.label }} </span>
+                            </label>
+
+                        </div>
+                        <div class="base field">
+                            {{ base_form.last_name }}
+
+                            <label for="{{ field.id_for_label }}" class="label-field">
+                                <span class="content-label">{{ base_form.last_name.label }} </span>
+                            </label>
+
+                        </div>
+
+                    </div>
+                    <div class="form-wrapper">
+                        <div class="base field">
+                            {{ base_form.password }}
+
+                            <label for="{{ field.id_for_label }}" class="label-field">
+                                <span class="content-label">{{ base_form.password.label }} </span>
+                            </label>
+
+                        </div>
+                        <div class="base field">
+                            {{ base_form.password_confirmation }}
+
+                            <label for="{{ field.id_for_label }}" class="label-field">
+                                <span class="content-label">{{ base_form.password_confirmation.label }} </span>
+                            </label>
+
+                        </div>
+
+                    </div>
+                                    
+
+                    <div class="form-wrapper">
+                        <div class="field">
+                            {{ form.weight }}
+                            <label for="{{ field.id_for_label }}" class="label-field">
+                                <span class="content-label">{{ form.weight.label }} </span>
+                            </label>
+
+                        </div>
+                        <div class="field">
+                            {{ form.height }}
+                            <label for="{{ field.id_for_label }}" class="label-field">
+                                <span class="content-label">{{ form.height.label }} </span>
                             </label>
 
                         </div>
 
 
-                    {% endfor %}
+                    </div>
+                    <div class="form-wrapper">
+                        <div class="field">
+                            {{ form.choices_conditions }}
+                            <label for="{{ field.id_for_label }}" class="label-field">
+                                <span class="content-label">{{ form.choices_conditions.label }} </span>
+                            </label>
+
+                        </div>
+                        {{ form.conditions }}
+                        <ul class="form-ul">
+                        </ul>
+
+
+
+                    </div>
+                    <div class="form-wrapper">
+                        <div class="field">
+                            {{ form.choices_medications }}
+                            <label for="{{ field.id_for_label }}" class="label-field">
+                                <span class="content-label">{{ form.choices_medications.label }} </span>
+                            </label>
+
+                        </div>
+                        {{ form.medications }}
+                        <ul class="form-ul">
+                            
+                        </ul>
+                        
+                    </div>
+
+                    <div class="form-wrapper">
+                        <div class="field">
+                            {{ form.choices_allergies }}
+                            <label for="{{ field.id_for_label }}" class="label-field">
+                                <span class="content-label">{{ form.choices_allergies.label }} </span>
+                            </label>
+
+                        </div>
+                        <ul class="form-ul">
+                            
+                        </ul>
+                        {{ form.allergies }}
+                        
+                    </div>
                     <input type="submit" value="Sign Up">
                 </form>
             </div>
