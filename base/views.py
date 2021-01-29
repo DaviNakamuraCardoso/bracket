@@ -1,22 +1,15 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect 
 from clinics.models import Clinic
-from users.forms import PatientForm, BaseForm, DoctorForm
+from users.forms import FORMS_CONTEXT
 # Create your views here.
 
 def index(request): 
     """Render all the clinics in the same city as the user."""
-    form = PatientForm()
-    base_form = BaseForm()
-    doctor_form = DoctorForm()
+    local_context = {'user': request.user, 'clinics': Clinic.objects.all()}
+    context = {**local_context, **FORMS_CONTEXT}
         
-    return render(request, 'base/index.html', {
-        'user': request.user, 
-        'clinics': Clinic.objects.all(), 
-        'form': form, 
-        'base_form': base_form, 
-        'doctor_form': doctor_form
-    })
+    return render(request, 'base/index.html', context=context)
 
 
 def error(request): 
