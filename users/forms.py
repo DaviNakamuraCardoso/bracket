@@ -35,3 +35,25 @@ class DoctorForm(forms.Form):
     number = forms.IntegerField(max_value=99999999999)
     choices_areas = forms.CharField(max_length=128, widget=Input(datalist=areas.areas), required=False)
     areas = forms.CharField(max_length=2000, widget=forms.HiddenInput)
+
+
+class ClinicBaseForm(forms.Form):
+    clinic_email = forms.EmailField(max_length=64, label="Clinic Email")
+    clinic_name = forms.CharField(max_length=128)
+    clinic_password = forms.CharField(max_length=64, widget=forms.PasswordInput, label="Password")
+    clinic_password_confirmation = forms.CharField(max_length=64, widget=forms.PasswordInput, label="Password Confirmation")
+
+
+class ClinicForm(forms.Form):
+    address = forms.CharField(max_length=64, label="Area and Street")
+    locality = forms.CharField(max_length=64)
+    pin_code = forms.CharField(max_length=20)
+
+
+FORMS_CONTEXT = {
+    'form': PatientForm(), 
+    'base_form': BaseForm(), 
+    'clinic_base': ClinicBaseForm(), 
+    'doctor_form': DoctorForm(), 
+    'clinic_form': ClinicForm()
+}
