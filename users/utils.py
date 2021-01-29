@@ -2,6 +2,7 @@ from users.models import User
 from clinics.models import Clinic
 from django.shortcuts import render, reverse 
 from django.http import HttpResponseRedirect
+from users.data import sorted_cities
 
 
 def get_name(first, last): 
@@ -55,3 +56,5 @@ def register(request, user_type):
         user.save()
     
     return user 
+
+

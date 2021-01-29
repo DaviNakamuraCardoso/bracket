@@ -12,9 +12,14 @@ urlpatterns = [
     path('register/patient', views.patient, name='patient'), 
     path('register/doctor', views.doctor, name='doctor'), 
     path('register/clinic', views.clinic, name='clinic'), 
+    
 
     # Utils
     path('create', views.create_cities, name='create'), 
+    path('eliminate', views.eliminate), 
     path('create_patients', views.create_patient), 
-    path('create_doctors', views.create_doctor)
+    path('create_doctors', views.create_doctor), 
+
+    # APIs 
+    path('location/<str:lat>/<str:lon>', views.location, name='location')
 ]

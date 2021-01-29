@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 from pathlib import Path
+import os 
 import sys 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -93,7 +94,6 @@ DATABASES = {
     }
     
 }
-
 
 LOGIN_URL = 'users:login'
 

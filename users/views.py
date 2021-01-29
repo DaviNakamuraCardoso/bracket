@@ -6,11 +6,13 @@ from .models import User, City
 from doctors.models import Doctor, Area
 from patients.models import Patient, Allergy, Condition, Medication
 from clinics.models import Clinic 
-from users.utils import register 
+from users.utils import register
 from users.data.cities import cities
+from users.data.geolocation import locate
 from patients.data import allergies, drugs, conditions
 from doctors.data import areas 
 import datetime
+from users.forms import FORMS_CONTEXT
 
 
 # Create your views here.
@@ -103,8 +105,8 @@ def logout_view(request):
     return redirect('base:index')
 
 
-
 def create_cities(request): 
+    global cities
     if not request.user.is_superuser:
         return HttpResponseRedirect(reverse('base:error'))
     
@@ -119,8 +121,25 @@ def create_cities(request):
 
     return HttpResponseRedirect(reverse('base:index')) 
 
+def eliminate(request): 
+    global cities 
+    if not request.user.is_superuser:
+        return HttpResponseRedirect(reverse('base:index'))
+    
+    for city in cities: 
+        array = City.objects.filter(city=city[0], state=city[3])
+        if len(array) > 1:
+            for trash in array[:len(array)-1]:
+                trash.delete()
+    
+    return HttpResponseRedirect(reverse('doctors:index'))
+
+
+
 
 def create_patient(request): 
+    global allergies, drugs, conditions 
+
     if not request.user.is_superuser:
         return HttpResponseRedirect(reverse('base:index'))
     
@@ -146,7 +165,22 @@ def create_doctor(request):
         
     
     return HttpResponseRedirect(reverse('doctors:index'))
-    
 
 
+def location(request, lat, lon):
     
+    lat = float(lat)
+    lon = float(lon)
+    # Ensures that the location is in the United States
+    if lat > 71 or lat < 14 or lon < 64 or lon > 144: 
+        return JsonResponse({'message': "Could not fetch the location for your area."})
+
+    city_names = locate(lat=lat, lon=lon)
+    cities = []
+
+    for city_name in city_names[:20]: 
+        cities.append(City.objects.get(lat=city_name[6], lng=city_name[7]).serialize())
+
+
+    return JsonResponse({"cities":cities})
+

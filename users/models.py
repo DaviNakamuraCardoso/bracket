@@ -52,6 +52,14 @@ class City(models.Model):
 
     def __str__(self): 
         return f"{self.city}, {self.state_id}"
+    
+    
+    def serialize(self): 
+        return {
+            'city': self.city, 
+            'id': self.id, 
+            'state_id': self.state_id
+        }
 
 
 class User(AbstractBaseUser, PermissionsMixin):

@@ -23,7 +23,6 @@ class Clinic(models.Model):
 
     def serialize(self): 
         return {
-            'owner': f"{self.user.first_name} {self.user.last_name}", 
             'email': self.email, 
             'city': self.city, 
             'doctors': [doctor for doctor in self.doctors.all()]
