@@ -1,0 +1,279 @@
+{% extends 'base/layout.html' %}
+{% load static %}
+
+
+{% block head %}
+    <script src="{% static 'users/scripts/register.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'users/styles/forms.css' %}">
+    {% block extended_head %}{% endblock %}
+{% endblock %}
+
+
+{% block body %}
+    {% if not request.user.is_authenticated %}
+
+        <div class="not-logged">
+
+            <div class="form" id="">
+                <h1>New account for</h1>
+                <select id="type">
+                    <option value="{% url 'users:patient' %}">patient</option>
+                    <option value="{% url 'users:doctor' %}">doctor</option>
+                    <option value="{% url 'users:clinic' %}">clinic</option>
+                </select>
+                
+                <form class="register" action="{% url 'users:patient' %}" method="POST">
+                    {% csrf_token %}
+                    
+                    <div id="base"></div>
+                    <button id="next-btn">Next</button>
+                    <div id="next">
+                    </div>
+                    <input type="submit" value="Sign Up">
+
+                </form>
+                    
+                    <div id="base-form" class="hidden">
+
+                        <div class="form-wrapper">
+                            <div class="base field">
+                                {{ base_form.email }}
+
+                                <label for="{{ field.id_for_label }}" class="label-field">
+                                    <span class="content-label">{{ base_form.email.label }} </span>
+                                </label>
+
+                            </div>
+
+                        </div>
+                        <div class="form-wrapper">
+                            <div class="base field">
+                                {{ base_form.first_name }}
+
+                                <label for="{{ field.id_for_label }}" class="label-field">
+                                    <span class="content-label">{{ base_form.first_name.label }} </span>
+                                </label>
+
+                            </div>
+                            <div class="base field">
+                                {{ base_form.last_name }}
+
+                                <label for="{{ field.id_for_label }}" class="label-field">
+                                    <span class="content-label">{{ base_form.last_name.label }} </span>
+                                </label>
+
+                            </div>
+
+                        </div>
+                        <div class="form-wrapper">
+                            <div class="base field">
+                                {{ base_form.password }}
+
+                                <label for="{{ field.id_for_label }}" class="label-field">
+                                    <span class="content-label">{{ base_form.password.label }} </span>
+                                </label>
+
+                            </div>
+                            <div class="base field">
+                                {{ base_form.password_confirmation }}
+
+                                <label for="{{ field.id_for_label }}" class="label-field">
+                                    <span class="content-label">{{ base_form.password_confirmation.label }} </span>
+                                </label>
+
+                            </div>
+
+                        </div>
+                    </div>
+                    
+
+                    <div id="patient" class="hidden">
+
+                        <div class="form-wrapper">
+                            <div class="field">
+                                {{ form.day }}
+                                <label for="{{ field.id_for_label }}" class="label-field">
+                                    <span class="content-label">{{ form.day.label }} </span>
+                                </label>
+
+                            </div>
+                            <div class="field">
+                                {{ form.month }}
+                                <label for="{{ field.id_for_label }}" class="label-field">
+                                    <span class="content-label">{{ form.month.label }} </span>
+                                </label>
+
+                            </div>
+                            <div class="field">
+                                {{ form.year }}
+                                <label for="{{ field.id_for_label }}" class="label-field">
+                                    <span class="content-label">{{ form.year.label }} </span>
+                                </label>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="form-wrapper">
+                            <div class="field">
+                                {{ form.weight }}
+                                <label for="{{ field.id_for_label }}" class="label-field">
+                                    <span class="content-label">{{ form.weight.label }} </span>
+                                </label>
+
+                            </div>
+                            <div class="field">
+                                {{ form.height }}
+                                <label for="{{ field.id_for_label }}" class="label-field">
+                                    <span class="content-label">{{ form.height.label }} </span>
+                                </label>
+
+                            </div>
+
+
+                        </div>
+                        <div class="choices">
+                            <div class="field">
+                                {{ form.choices_conditions }}
+                                <label for="{{ field.id_for_label }}" class="label-field">
+                                    <span class="content-label">{{ form.choices_conditions.label }} </span>
+                                </label>
+
+                            </div>
+                            <div class="form-list">
+                                <ul class="form-ul"></ul>
+                            </div>
+                            {{ form.conditions }}
+
+                        </div>
+                        <div class="choices">
+                            <div class="field">
+                                {{ form.choices_medications }}
+                                <label for="{{ field.id_for_label }}" class="label-field">
+                                    <span class="content-label">{{ form.choices_medications.label }} </span>
+                                </label>
+
+                            </div>
+                            <div class="form-list">
+                                <ul class="form-ul"></ul>
+                            </div>
+                            {{ form.medications }}
+
+                        </div>
+
+                        <div class="choices">
+                            <div class="field">
+                                {{ form.choices_allergies }}
+                                <label for="{{ field.id_for_label }}" class="label-field">
+                                    <span class="content-label">{{ form.choices_allergies.label }} </span>
+                                </label>
+
+                            </div>
+                            <div class="form-list">
+                                <ul class="form-ul"></ul>
+                            
+
+                            </div>
+
+                            {{ form.allergies }}
+
+                        </div>
+                    </div>
+                    <div id="doctor" class="hidden">
+                        <div class="form-wrapper">
+                            <div class="field">
+                                {{ doctor_form.degree }}
+                                <label for="{{ doctor_form.degree.id_for_label }}" class="label-field">
+                                    <span class="content-label">{{ doctor_form.degree.label }}</span>
+                                </label>
+
+                            </div>
+
+
+                        </div>
+                        <div class="form-wrapper">
+                            <div class="field">
+                                {{ doctor_form.number }}
+                                <label for="{{ doctor_form.number.id_for_label }}" class="label-field">
+                                    <span class="content-label">{{ doctor_form.number.label }}</span>
+                                </label>
+
+                            </div>
+
+
+                        </div>
+                        <div class="choices">
+                            <div class="field">
+                                {{ doctor_form.choices_areas }}
+                                <label for="{{ doctor_form.number.id_for_label }}" class="label-field">
+                                    <span class="content-label">{{ doctor_form.choices_areas.label }}</span>
+                                </label>
+
+                            </div>
+                            <div class="form-list">
+                                <ul class="form-ul"></ul>
+                            </div>
+                            {{ doctor_form.areas }}
+
+
+                        </div>
+                        
+                    </div>
+
+                    <div id="clinic-base" class="hidden">
+                        <div class="form-wrapper">
+                            <div class="field">
+                                {{ clinic_base.clinic_email }}
+                                <label for="{{ field.id_for_label }}" class="label-field">
+                                    <span class="content-label">{{ clinic_base.clinic_email.label }}</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-wrapper">
+                            <div class="field">
+                                {{ clinic_base.clinic_name }}
+                                <label for="{{ clinic_base.clinic_name.id_for_label }}" class="label-field">
+                                    <span class="content-label">{{ clinic_base.clinic_name.label }}</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-wrapper">
+                            <div class="field">
+                                {{ clinic_base.clinic_password }}
+                                <label for="{{ clinic_base.clinic_name.id_for_label }}" class="label-field">
+                                    <span class="content-label">{{ clinic_base.clinic_password.label }}</span>
+                                </label>
+                                
+                            </div>
+                            <div class="field">
+                                {{ clinic_base.clinic_password_confirmation }}
+                                <label for="{{ clinic_base.clinic_name.id_for_label }}" class="label-field">
+                                    <span class="content-label">{{ clinic_base.clinic_password_confirmation.label }}</span>
+                                </label>
+                                
+                            </div>
+
+                        </div>
+                    </div>
+                    <div id="clinic" class="hidden">
+                        {% for field in clinic_form %}
+                        <div class="form-wrapper">
+                            <div class="field">
+                                {{ field }}
+                                <label for="{{ field.id_for_label }}" class="label-field">
+                                    <span class="content-label">{{ field.label }}</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        {% endfor %}
+                    </div>
+            </div>
+
+        </div>
+    
+    {% endif %}
+    {% block extended_body %}{% endblock %}
+
+{% endblock %}
