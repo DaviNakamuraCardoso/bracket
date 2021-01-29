@@ -3,7 +3,7 @@ from pprint import pformat
 
 
 def main(): 
-    create_py('uscities.csv')
+    pass
 
 
 def create_py(filename): 
