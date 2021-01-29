@@ -1,11 +1,31 @@
 from django.db import models
-from django.contrib.postgres.fields import ArrayField 
 from users.models import User
 from datetime import datetime, timezone
 from base.time import intftimedelta, strfage 
 import math
 
 # Patient related models
+
+class Allergy(models.Model):
+    allergy = models.CharField(max_length=128)
+
+    def __str__(self): 
+        return self.allergy
+
+
+class Condition(models.Model):
+    condition = models.CharField(max_length=128)
+
+    def __str__(self): 
+        return self.condition 
+
+class Medication(models.Model):
+    medication = models.CharField(max_length=128)
+
+    def __str__(self):
+        return self.medication
+
+
 class Patient(models.Model): 
     user = models.OneToOneField(User, on_delete=models.CASCADE, blank=True, null=True)
     # Basic 
@@ -14,9 +34,9 @@ class Patient(models.Model):
 
     # Important medical information
     birth = models.DateTimeField(null=True, blank=True)
-    allergies = ArrayField(models.CharField(max_length=64), size=20, null=True, blank=True)
-    medical_conditions = ArrayField(models.CharField(max_length=64), null=True, blank=True)
-    current_medications = ArrayField(models.CharField(max_length=64), null=True, blank=True)
+    allergies = models.ManyToManyField(Allergy, blank=True, related_name='allergic')
+    conditions = models.ManyToManyField(Condition, blank=True, related_name='people')
+    medications = models.ManyToManyField(Medication, blank=True, related_name='users')
 
 
     def __str__(self): 
@@ -28,9 +48,6 @@ class Patient(models.Model):
             'B.M.I.': round(self.get_bmi(), 2), 
             'weight': self.weight, 
             'height': self.height, 
-            'allergies': ', '.join(self.allergies), 
-            'Chronic Conditions': ', '.join(self.medical_conditions), 
-            'Current Medications': ', '.join(self.current_medications), 
             'birth': self.birth.strftime("%B %d, %Y"), 
             'age': self.get_age(), 
         }
@@ -49,3 +66,4 @@ class Patient(models.Model):
         str_age = strfage(al['days'], al['months'], al['years'])
 
         return str_age  
+
