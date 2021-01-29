@@ -60,7 +60,7 @@ select {
   .choices .form-list {
     margin: auto; }
 
-#patient, #doctor {
+.hidden {
   display: none; }
 
 /*# sourceMappingURL=forms.css.map */
