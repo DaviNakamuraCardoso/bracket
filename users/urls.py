@@ -14,5 +14,7 @@ urlpatterns = [
     path('register/clinic', views.clinic, name='clinic'), 
 
     # Utils
-    path('create', views.create_cities, name='create')
+    path('create', views.create_cities, name='create'), 
+    path('create_patients', views.create_patient), 
+    path('create_doctors', views.create_doctor)
 ]

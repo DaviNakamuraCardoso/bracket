@@ -96,3 +96,4 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def notification_origins(self): 
         return [notification.origin for notification in self.notifications.all()]
+    

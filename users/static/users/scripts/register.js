@@ -1,24 +1,86 @@
 document.addEventListener('DOMContentLoaded', () => 
 {
-    const title = document.querySelector("#title");
-
-    if (title.innerHTML == 'Patient')
-    {
-        registerPatient();
-    }
-    else if (title.innerHTML == 'Doctor')
-    {
-        registerDoctor();
-    }
+    
+    const userTypeSelect = document.querySelector("select");
+    const form = document.querySelector("form");
+    const next = document.querySelector("#next");
     
 
+    next.innerHTML = document.querySelector("#patient").innerHTML;
+
+    updateChoices();
+    validate();
+
+    userTypeSelect.onchange = () => {
+
+        form.action = userTypeSelect.value;
+        let text = userTypeSelect.options[userTypeSelect.selectedIndex].text;
+        next.innerHTML = document.getElementById(text).innerHTML;
+        updateChoices();
+
+    }
+
+
+
 });
+function validate()
+{
+    
+    const baseForm = document.querySelector("#base-form");
+    const next = document.querySelector("#next");
+    const inputs = baseForm.querySelectorAll('input');
+    const button = document.querySelector("#next-btn");
+
+    button.disabled = true;
+    next.style.display = 'none';
+    for (i = 0; i < inputs.length; i++)
+    {
+        inputs[i].addEventListener('input', () => {
+            let values = [];
+            inputs.forEach(v => values.push(v.value));
+            button.disabled = values.includes('');
+
+        });
+    }
+    button.onclick = () => {
+        next.style.display = 'block';
+        baseForm.style.display = 'none';
+
+    }
+
+}
+
+
+
+function updateChoices()
+{
+    const choices = document.querySelectorAll('.choices');
+    choices.forEach(choice => {
+        const divField = choice.firstElementChild;
+        const input = divField.firstElementChild;
+        const ul = choice.children[1].firstElementChild;
+        const hiddenInput = choice.lastElementChild;
+        const form = document.querySelector('form');
+
+        let array = [];
+        input.onchange = () => {
+
+            listChoices(array, input, ul);
+        }
+
+        form.addEventListener('submit', () => {
+            hiddenInput.value = array.join();
+        });
+
+        
+    });
+}
 
 
 function listChoices(array, field, list)
 {
      
-    // Adding the allergy value to the list 
+    // Adding the field value to the list 
     array.push(field.value);
 
     // Creating an li element to show the allergy
@@ -49,47 +111,3 @@ function listChoices(array, field, list)
     field.value = '';
 }
 
-
-function registerPatient()
-{
-
-    // Allergies 
-    watchSelection('allergies');
-
-    // Medications 
-    watchSelection('medications');
-
-    // Conditions 
-    watchSelection('conditions');
-
-}
-
-
-function registerDoctor()
-{
-    // Areas 
-    watchSelection("areas");
-}
-
-function watchSelection(id)
-{
-    // Getting the essential elements 
-    let array = [];
-    const element = document.querySelector(`#id_${id}`);
-    const elementInput = document.querySelector(`#id_temp_${id}`);
-    const elementList = document.querySelector(`#id_temp_${id}_ul`);
-    const form = document.querySelector('form');
-
-    elementInput.onchange = function() 
-    {
-        listChoices(array, elementInput, elementList);
-    }
-
-    form.addEventListener("submit", () => 
-    {
-        element.value = array.join();
-    });
-}
-
-        
-    

@@ -3,11 +3,13 @@ from django.http import HttpResponseRedirect, JsonResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout, login, authenticate
 from .models import User, City
-from doctors.models import Doctor 
-from patients.models import Patient 
+from doctors.models import Doctor, Area
+from patients.models import Patient, Allergy, Condition, Medication
 from clinics.models import Clinic 
 from users.utils import register 
 from users.data.cities import cities
+from patients.data import allergies, drugs, conditions
+from doctors.data import areas 
 import datetime
 
 
@@ -29,15 +31,42 @@ def patient(request):
             height=request.POST['height'], 
             birth=date
         )
+        allergies = data['allergies'].split(',')
+        conditions = data['conditions'].split(',')
+        medications = data['medications'].split(',')
+
+        if data['allergies'] != '': 
+            for allergy in allergies:
+                patient.allergies.add(Allergy.objects.get(allergy=allergy))
+        
+        if data['medications'] != '': 
+            for medication in medications: 
+                patient.medications.add(Medication.objects.get(medication=medication))
+
+        if data['conditions'] != '': 
+            for condition in conditions: 
+                patient.conditions.add(Condition.objects.get(condition=condition))
+        
         login(request=request, user=user)
         return HttpResponseRedirect(reverse('base:index'))
     
     return JsonResponse({"message": "Method must be POST."})
-        
 
 
 def doctor(request): 
-    pass 
+    if request.method == "POST":
+        user = register(request=request, user_type='doctor')
+        data = request.POST 
+        doctor_object = Doctor.objects.create(
+            user=user, 
+            number=data['number'], 
+            degree=data['degree']
+        )
+        if data['areas'] != '':
+
+            for area in data['areas'].split(','):
+                doctor_object.areas.add(Area.objects.get(area=area))
+        
 
 def clinic(request): 
     pass
@@ -89,5 +118,35 @@ def create_cities(request):
         )
 
     return HttpResponseRedirect(reverse('base:index')) 
+
+
+def create_patient(request): 
+    if not request.user.is_superuser:
+        return HttpResponseRedirect(reverse('base:index'))
+    
+    for allergy in allergies.allergies:
+        Allergy.objects.create(allergy=allergy)
+
+    for drug in drugs.drugs: 
+        Medication.objects.create(medication=drug) 
+    
+    for condition in conditions.conditions: 
+        Condition.objects.create(condition=condition)
+    
+    return HttpResponseRedirect(reverse('patients:index'))
+
+
+    
+def create_doctor(request): 
+    if not request.user.is_superuser: 
+        return HttpResponseRedirect(reverse('base:index'))
+    
+    for area in areas.areas: 
+        Area.objects.create(area=area)
+        
+    
+    return HttpResponseRedirect(reverse('doctors:index'))
+    
+
 
     
