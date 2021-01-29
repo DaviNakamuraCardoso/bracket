@@ -3,11 +3,19 @@ from django.contrib.postgres.fields import ArrayField
 from users.models import User 
 
 # Create your models here.
+
+class Area(models.Model): 
+    area = models.CharField(max_length=128)
+
+    def __str__(self): 
+        return self.area
+
+
 class Doctor(models.Model): 
-    number = models.IntegerField() 
+    number = models.BigIntegerField() 
     degree = models.CharField(max_length=64)
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True)
-    areas = ArrayField(models.CharField(max_length=64), null=True ,blank=True)
+    areas = models.ManyToManyField(Area, blank=True, related_name='doctors')
     
     def serialize(self): 
         return {
