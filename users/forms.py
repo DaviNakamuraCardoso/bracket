@@ -21,6 +21,8 @@ class PatientForm(forms.Form):
     choices_allergies = forms.CharField(max_length=64, widget=Input(datalist=allergies.allergies), required=False)
     allergies = forms.CharField(max_length=256, widget=forms.HiddenInput)
 
+    city = forms.ChoiceField()
+
 
 class BaseForm(forms.Form): 
     email = forms.EmailField(max_length=64)

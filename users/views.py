@@ -8,15 +8,15 @@ from patients.models import Patient, Allergy, Condition, Medication
 from clinics.models import Clinic 
 from users.utils import register
 from users.data.cities import cities
+from users.data.sorted_cities import latitude_sorted
 from users.data.geolocation import locate
 from patients.data import allergies, drugs, conditions
 from doctors.data import areas 
 import datetime
+import json 
 from users.forms import FORMS_CONTEXT
 
-
 # Create your views here.
-
 
 def patient(request): 
     if request.method == "POST": 
@@ -106,20 +106,34 @@ def logout_view(request):
 
 
 def create_cities(request): 
-    global cities
+    global latitude_sorted 
     if not request.user.is_superuser:
         return HttpResponseRedirect(reverse('base:error'))
     
-    for city in cities: 
-        City.objects.create(
-            city=city[0], 
-            state=city[3], 
-            state_id=city[2], 
-            lat=float(city[6]), 
-            lng=float(city[7])
+    for city in latitude_sorted[5000:]: 
+        try: 
+            city_obj = City.objects.get(lat=city['lat'], lng=city['lng'])
+            city_obj.timezone = city['timezone']
+            city_obj.save()
+            
+        except City.DoesNotExist: 
+            City.objects.create(
+            city=city['city'], 
+            state=city['state'], 
+            state_id=city['state_id'], 
+            lat=float(city['lat']), 
+            lng=float(city['lng']), 
+            timezone=city['timezone']
         )
+        except City.MultipleObjectsReturned: 
+            cities = City.objects.filter(lat=city['lat'], lng=city['lng'])
+            for c in cities[1:]: 
+                c.delete()
+            cities[0].timezone = city['timezone']
+            cities[0].save()
 
-    return HttpResponseRedirect(reverse('base:index')) 
+
+    return HttpResponseRedirect(reverse('doctors:index')) 
 
 def eliminate(request): 
     global cities 
@@ -167,20 +181,16 @@ def create_doctor(request):
     return HttpResponseRedirect(reverse('doctors:index'))
 
 
-def location(request, lat, lon):
-    
+def location(request, lat, lng):
     lat = float(lat)
-    lon = float(lon)
-    # Ensures that the location is in the United States
-    if lat > 71 or lat < 14 or lon < 64 or lon > 144: 
-        return JsonResponse({'message': "Could not fetch the location for your area."})
+    lng = float(lng)
 
-    city_names = locate(lat=lat, lon=lon)
+    city_names = locate(lat=lat, lng=lng)
     cities = []
 
-    for city_name in city_names[:20]: 
-        cities.append(City.objects.get(lat=city_name[6], lng=city_name[7]).serialize())
+    for city_name in city_names: 
+        cities.append(City.objects.get(lat=city_name['lat'], lng=city_name['lng']).serialize())
 
 
     return JsonResponse({"cities":cities})
-
+    

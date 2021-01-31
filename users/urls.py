@@ -16,10 +16,10 @@ urlpatterns = [
 
     # Utils
     path('create', views.create_cities, name='create'), 
-    path('eliminate', views.eliminate), 
-    path('create_patients', views.create_patient), 
-    path('create_doctors', views.create_doctor), 
+#    path('eliminate', views.eliminate), 
+#    path('create_patients', views.create_patient), 
+#    path('create_doctors', views.create_doctor), 
 
     # APIs 
-    path('location/<str:lat>/<str:lon>', views.location, name='location')
+    path('location/<str:lat>/<str:lng>', views.location, name='location')
 ]
