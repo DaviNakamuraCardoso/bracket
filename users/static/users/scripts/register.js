@@ -148,12 +148,22 @@ function setPosition(position)
     let lat = position.coords.latitude;
     let lng = position.coords.longitude;
 
-    console.log(lat);
-    console.log(lng);
     fetch(`/auth/location/${lat}/${lng}`)
     .then(response => response.json())
     .then(result => {
-        console.log(result);
+        const cities = result.cities; 
+        console.log(cities); 
+        const form = document.querySelector("form");
+        const select = form.querySelector("#id_city");
+        console
+        cities.forEach(city => {
+            const option = document.createElement('option');
+            option.innerHTML = city['city'];
+            select.add(option); 
+
+        });
+    
+
     })
 
 }
@@ -161,7 +171,7 @@ function setPosition(position)
 function getCities()
 {
     var positionArr = navigator.geolocation.getCurrentPosition(setPosition);
-    // const citiesInput = form.querySelector('.position');
+
     
 }
 
