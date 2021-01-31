@@ -1,13 +1,15 @@
-from .sorted_cities import latitude_sorted
 import pprint
 import sys
+from .sorted_cities import latitude_sorted
+from .cities import cities
 
-LATITUDE_INDEX = 6
-LONGITUDE_INDEX = 7
+
+LATITUDE_INDEX = 'lat' 
+LONGITUDE_INDEX = 'lng' 
 
 
 def sort_cities(array):
-    by_x = sorted(array, key=lambda array: float(array[6])) 
+    by_x = sorted(array, key=lambda array: array['lat']) 
     by_x_file = open('sorted_cities.py', 'w')
     by_x_file.write(f'latitude_sorted = {pprint.pformat(by_x)}\n')
 
@@ -19,44 +21,44 @@ def bs(n, array, start, end, index):
     if end == start: 
         return end  
     
-    elif n > float(array[middle][index]): 
+    elif n > array[middle][index]: 
         return bs(n, array, middle+1, end, index)
     
     return bs(n, array, start, middle-1, index)
 
 
-def locate(lat, lon, distance=0.5): 
-    global latitude_sorted, LATITUDE_INDEX, LONGITUDE_INDEX
+def locate(lat, lng, distance=0.5): 
+    global latitude_sorted
 
     l = len(latitude_sorted)
     try: 
-        north = bs(lat+distance, latitude_sorted, 0, l, LATITUDE_INDEX)
+        north = bs(lat+distance, latitude_sorted, 0, l, 'lat')
     except RecursionError: 
-        return locate(lat, lon, distance-0.2)
+        return locate(lat, lng, distance-0.1)
         
     try: 
-        south = bs(lat-distance, latitude_sorted, 0, l, LATITUDE_INDEX)
+        south = bs(lat-distance, latitude_sorted, 0, l, 'lat')
     except RecursionError: 
-        return locate(lat, lon, distance-0.2)
+        return locate(lat, lng, distance-0.1)
 
-    arr = sorted(latitude_sorted[south:north], key=lambda array: float(array[7]))
+    arr = sorted(latitude_sorted[south:north], key=lambda array: float(array['lng']))
     l = len(arr)
     try: 
 
-        left = bs(lon-distance, arr, 0, l, LONGITUDE_INDEX)
+        left = bs(lng-distance, arr, 0, l, 'lng')
     except RecursionError: 
-        return locate(lat, lon, distance-0.2)
+        return locate(lat, lng, distance-0.1)
 
     try: 
-        right = bs(lon+distance, arr, 0, l, LONGITUDE_INDEX)
+        right = bs(lng+distance, arr, 0, l, 'lng')
     except RecursionError: 
-        return locate(lat, lon, distance-0.2)
+        return locate(lat, lng, distance-0.1)
 
-    final = sorted(arr[left:right], key=lambda array: ((float(array[LATITUDE_INDEX]) - lat)**2 + (float(array[LONGITUDE_INDEX]) - lon)**2))
+    final = sorted(arr[left:right], key=lambda array: ((array['lat'] - lat)**2 + (array['lng'] - lng)**2))
 
     return final 
 
 
 if __name__ == "__main__": 
-    pprint.pprint(locate(40.69, -73.92, 0.5)[:10])
+    sort_cities(cities)
 
