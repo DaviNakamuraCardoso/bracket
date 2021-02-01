@@ -1,5 +1,5 @@
 from django.db import models
-from users.models import User 
+from users.models import User, City 
 from doctors.models import Doctor 
 # Create your models here.
 
@@ -17,7 +17,7 @@ class Clinic(models.Model):
 
     # Useful info 
     email = models.EmailField()
-    city = models.CharField(max_length=64)
+    city = models.ForeignKey(City, on_delete=models.CASCADE, related_name='clinics', blank=True, null=True)
 
     doctors = models.ManyToManyField(Doctor, blank=True, related_name='clinics')
 
