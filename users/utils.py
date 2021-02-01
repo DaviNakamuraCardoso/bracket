@@ -1,4 +1,4 @@
-from users.models import User 
+from users.models import User, City
 from clinics.models import Clinic
 from django.shortcuts import render, reverse 
 from django.http import HttpResponseRedirect
@@ -19,14 +19,14 @@ def get_name(first, last):
 
 def get_clinic_name(request):
     """Get the name for the url."""
-    name = request.POST['name'].split(' ')
+    name = request.POST['clinic_name'].split(' ')
     sep = ''
     base = sep.join(name).lower()
     l = len(Clinic.objects.filter(base_name=base))
     appendix = f".{l}" if l > 0 else ''
     
 
-    return [base, f"{base}{appendix}"]
+    return {'base': base, 'name': f"{base}{appendix}"}
 
 
 def register(request, user_type): 
@@ -40,8 +40,8 @@ def register(request, user_type):
         email=data['email'], 
         is_doctor=user_type=='doctor', 
         is_patient=user_type=='patient', 
-        is_clinic=user_type=='clinic'
-
+        is_clinic=user_type=='clinic', 
+        city=City.objects.get(pk=data['city'])
     )
     user = User.objects.get(email=data['email'])
     # For users that aren't clinics, set the first and last name

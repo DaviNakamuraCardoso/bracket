@@ -6,7 +6,7 @@ from .models import User, City
 from doctors.models import Doctor, Area
 from patients.models import Patient, Allergy, Condition, Medication
 from clinics.models import Clinic 
-from users.utils import register
+from users.utils import register, get_clinic_name
 from users.data.cities import cities
 from users.data.sorted_cities import latitude_sorted
 from users.data.geolocation import locate
@@ -14,8 +14,7 @@ from patients.data import allergies, drugs, conditions
 from doctors.data import areas 
 import datetime
 import json 
-from users.forms import FORMS_CONTEXT
-
+from users.forms import FORMS_CONTEXT, LoginForm
 # Create your views here.
 
 def patient(request): 
@@ -68,10 +67,33 @@ def doctor(request):
 
             for area in data['areas'].split(','):
                 doctor_object.areas.add(Area.objects.get(area=area))
+
+    
+    return HttpResponseRedirect(reverse('base:index'))
         
 
 def clinic(request): 
-    pass
+    if request.method == "POST": 
+        data = request.POST 
+        user = User.objects.create(
+            email=data['clinic_email'], 
+            password=data['clinic_password'],
+            is_clinic=True,
+            user_type='clinic', 
+            city=City.objects.get(pk=data['city'])
+        )
+        Clinic.objects.create(
+            user=user, 
+            name=data['clinic_name'], 
+            clinic_name=get_clinic_name(request)['name'], 
+            base_name=get_clinic_name(request)['base'], 
+            email=user.email, 
+            city=user.city
+        )
+        login(request, user)
+
+    return HttpResponseRedirect(reverse('base:index'))
+    
 
 
 def login_view(request): 
@@ -193,4 +215,3 @@ def location(request, lat, lng):
 
 
     return JsonResponse({"cities":cities})
-    
