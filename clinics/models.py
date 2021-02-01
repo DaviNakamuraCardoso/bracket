@@ -1,6 +1,5 @@
 from django.db import models
 from users.models import User, City 
-from doctors.models import Doctor 
 # Create your models here.
 
 class Clinic(models.Model): 
@@ -19,7 +18,6 @@ class Clinic(models.Model):
     email = models.EmailField()
     city = models.ForeignKey(City, on_delete=models.CASCADE, related_name='clinics', blank=True, null=True)
 
-    doctors = models.ManyToManyField(Doctor, blank=True, related_name='clinics')
 
     def serialize(self): 
         return {

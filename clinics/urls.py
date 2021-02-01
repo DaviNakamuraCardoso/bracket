@@ -8,5 +8,4 @@ urlpatterns = [
     path('<str:clinic_name>', views.profile, name='profile'), 
     path('<str:clinic_name>/invitation', views.invitation, name='invitation'), 
     path('<str:clinic_name>/join', views.join_clinic, name='join')
-
 ]
