@@ -27,7 +27,7 @@ class UserManager(BaseUserManager):
 
     def create_user(self, email=None, password=None, **extra_fields):
         
-        user = self._create_user(email, password, False, False, first_name, last_name, **extra_fields)
+        user = self._create_user(email, password, False, False, **extra_fields)
         return user 
 
     def create_superuser(self, email, password, **extra_fields):
@@ -105,3 +105,9 @@ class User(AbstractBaseUser, PermissionsMixin):
     def notification_origins(self): 
         return [notification.origin for notification in self.notifications.all()]
     
+
+class Day(models.Model): 
+    day = models.CharField(max_length=32)
+
+    def __str__(self): 
+        return self.day 

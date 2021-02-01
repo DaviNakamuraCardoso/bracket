@@ -34,7 +34,7 @@ def register(request, user_type):
     data = request.POST 
 
     # Create the basic user model 
-    User.objects.create(
+    user = User.objects.create_user(
         password=data['password'], 
         user_type=user_type, 
         email=data['email'], 
@@ -43,7 +43,7 @@ def register(request, user_type):
         is_clinic=user_type=='clinic', 
         city=City.objects.get(pk=data['city'])
     )
-    user = User.objects.get(email=data['email'])
+    user.save()
     # For users that aren't clinics, set the first and last name
     if user_type != 'clinic': 
         first = data['first_name']

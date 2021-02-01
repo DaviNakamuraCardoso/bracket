@@ -67,6 +67,8 @@ def doctor(request):
 
             for area in data['areas'].split(','):
                 doctor_object.areas.add(Area.objects.get(area=area))
+            
+        login(request, user)
 
     
     return HttpResponseRedirect(reverse('base:index'))
@@ -75,7 +77,7 @@ def doctor(request):
 def clinic(request): 
     if request.method == "POST": 
         data = request.POST 
-        user = User.objects.create(
+        user = User.objects.create_user(
             email=data['clinic_email'], 
             password=data['clinic_password'],
             is_clinic=True,
