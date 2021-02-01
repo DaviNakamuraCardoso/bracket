@@ -1,13 +1,16 @@
-{% extends 'users/signup.html' %}
+{% extends 'base/layout.html' %}
 {% load static %}
-{% block extended_head %}
+{% block head %}
 
     <link rel="stylesheet" href="{% static 'base/styles/index.css' %}">
 
 {% endblock %}
 
 
-{% block extended_body %}
+{% block body %}
+    {% if not request.user.is_authenticated %}
+        {% include 'users/signup.html' %}
+    {% endif %}
     <div class="clinic-container">
 
     {% for clinic in clinics %}

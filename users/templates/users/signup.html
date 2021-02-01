@@ -1,16 +1,12 @@
-{% extends 'base/layout.html' %}
+
+
 {% load static %}
 
 
-{% block head %}
     <script src="{% static 'users/scripts/register.js' %}"></script>
     <link rel="stylesheet" href="{% static 'users/styles/forms.css' %}">
-    {% block extended_head %}{% endblock %}
-{% endblock %}
 
 
-{% block body %}
-    {% if not request.user.is_authenticated %}
 
         <div class="not-logged">
 
@@ -214,7 +210,7 @@
                         <div class="choices">
                             <div class="field">
                                 {{ doctor_form.choices_areas }}
-                                <label for="{{ doctor_form.number.id_for_label }}" class="label-field">
+                                <label for="{{ doctor_form.city.id_for_label }}" class="label-field">
                                     <span class="content-label">{{ doctor_form.choices_areas.label }}</span>
                                 </label>
 
@@ -225,6 +221,15 @@
                             {{ doctor_form.areas }}
 
 
+                        </div>
+                        <div class="form-wrapper">
+                            {{ doctor_form.city }}
+                            <label for="{{ doctor_form.city.id_for_label }}" class="label-field">
+                                    <span class="content-label">{{ doctor_form.city.label }}</span>
+                            </label>
+
+
+                            
                         </div>
                         
                     </div>
@@ -281,7 +286,3 @@
 
         </div>
     
-    {% endif %}
-    {% block extended_body %}{% endblock %}
-
-{% endblock %}

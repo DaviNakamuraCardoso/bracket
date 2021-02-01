@@ -10,8 +10,8 @@ document.addEventListener('DOMContentLoaded', () =>
     next.innerHTML = copyElement(document.querySelector("#patient")).innerHTML;
     base.innerHTML = copyElement(document.querySelector("#base-form")).innerHTML;
 
-    updateChoices();
     validate();
+    updateChoices();
 
     const relations = {
         "clinic": "clinic-base", 
@@ -26,8 +26,8 @@ document.addEventListener('DOMContentLoaded', () =>
 
         base.innerHTML = copyElement(document.getElementById(relations[text])).innerHTML;
         next.innerHTML = copyElement(document.getElementById(text)).innerHTML;
-        updateChoices();
         validate(); 
+        updateChoices();
 
     }
 
