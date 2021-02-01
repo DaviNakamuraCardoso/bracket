@@ -37,6 +37,7 @@ class DoctorForm(forms.Form):
     number = forms.IntegerField(max_value=99999999999)
     choices_areas = forms.CharField(max_length=128, widget=Input(datalist=areas.areas), required=False)
     areas = forms.CharField(max_length=2000, widget=forms.HiddenInput)
+    city = forms.ChoiceField()
 
 
 class ClinicBaseForm(forms.Form):
@@ -50,6 +51,12 @@ class ClinicForm(forms.Form):
     address = forms.CharField(max_length=64, label="Area and Street")
     locality = forms.CharField(max_length=64)
     pin_code = forms.CharField(max_length=20)
+    city = forms.ChoiceField()
+
+
+class LoginForm(forms.Form): 
+    username = forms.EmailField(max_length=128)
+    password = forms.CharField(max_length=128, widget=forms.PasswordInput)
 
 
 FORMS_CONTEXT = {
