@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', () =>
     const base = document.querySelector("#base");
     
 
-    next.innerHTML = document.querySelector("#patient").innerHTML;
+    next.innerHTML = copyElement(document.querySelector("#patient")).innerHTML;
     base.innerHTML = copyElement(document.querySelector("#base-form")).innerHTML;
 
     updateChoices();
@@ -22,16 +22,14 @@ document.addEventListener('DOMContentLoaded', () =>
     userTypeSelect.onchange = () => {
 
         form.action = userTypeSelect.value;
-
         let text = userTypeSelect.options[userTypeSelect.selectedIndex].text;
 
         base.innerHTML = copyElement(document.getElementById(relations[text])).innerHTML;
-        next.innerHTML = document.getElementById(text).innerHTML;
+        next.innerHTML = copyElement(document.getElementById(text)).innerHTML;
         updateChoices();
+        validate(); 
 
     }
-
-
 
 });
 
@@ -45,7 +43,7 @@ function copyElement(element)
         var e = descendents[i];
         if (e.id != '')
         {
-            e.id = e.id + "_copy";
+            e.id = `${e.id}_copy`;
 
         }
     }
@@ -55,6 +53,11 @@ function copyElement(element)
 }
 function validate()
 {
+    const allInputs = document.querySelectorAll('input'); 
+    allInputs.forEach(input => {
+        cleanse(input); 
+
+    }); 
     
     const baseForm = document.querySelector("#base");
     const next = document.querySelector("#next");
@@ -75,11 +78,21 @@ function validate()
     button.onclick = () => {
         next.style.display = 'block';
         baseForm.style.display = 'none';
-        getCities();
+        navigator.geolocation.getCurrentPosition(setPosition);
+        var submit = document.createElement('input');
+        submit.type = 'submit'; 
+        submit.value = 'Sign Up'; 
+        button.parentElement.replaceChild(submit, button); 
 
 
     }
 
+}
+
+function cleanse(element)
+{
+    const newElement = element.cloneNode(true); 
+    element.parentElement.replaceChild(newElement, element); 
 }
 
 
@@ -154,11 +167,12 @@ function setPosition(position)
         const cities = result.cities; 
         console.log(cities); 
         const form = document.querySelector("form");
-        const select = form.querySelector("#id_city");
+        const select = form.querySelector("#id_city_copy");
         console
         cities.forEach(city => {
             const option = document.createElement('option');
             option.innerHTML = city['city'];
+            option.value = city['id']; 
             select.add(option); 
 
         });
@@ -166,13 +180,6 @@ function setPosition(position)
 
     })
 
-}
-
-function getCities()
-{
-    var positionArr = navigator.geolocation.getCurrentPosition(setPosition);
-
-    
 }
 
 
