@@ -1,0 +1,18 @@
+{% extends 'base/layout.html' %}
+{% load static %}
+
+
+{% block title %} New Schedule {% endblock %}
+{% block head %}
+    <link href="{% static 'doctors/styles/schedule.css' %}" rel="stylesheet">
+    <script src="{% static 'doctors/scripts/schedule.js' %}"></script>
+{% endblock %}
+
+{% block body %}
+
+    <h1>New Schedule</h1>
+    {% if request.user.id == doctor.user.id %}
+        {% include 'doctors/schedule_form.html' %}
+    {% endif %}
+    
+{% endblock %}

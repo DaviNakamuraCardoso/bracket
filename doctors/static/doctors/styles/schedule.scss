@@ -1,0 +1,71 @@
+/* Variables */
+$main: #370CF2;
+
+
+
+.container
+{
+    display: flex; 
+    margin: auto; 
+    max-width: 1200px;
+    flex-wrap: wrap;
+    width: 80vw;
+    flex-direction: column;
+}
+
+.day-container 
+{
+    display: flex; 
+    margin: auto; 
+    max-width: 1200px;
+    flex-wrap: wrap;
+    width: 80vw;
+
+}
+.day-div
+{
+    margin: 10px; 
+}
+
+.day-label
+{
+    cursor: pointer;
+    }
+
+.day-span 
+{
+    position: relative; 
+    display: inherit-block;
+    background: #e1e1e1;
+    padding: 10px 30px;
+    color: #a1a1a1;
+    border-radius: 30px;
+    transition: 0.5s; 
+    -webkit-user-select: none;
+    
+}
+.day-input
+{
+    display: none;
+}
+.day-input:checked ~ span 
+{
+    background: $main;
+    color: white;
+    
+}
+
+#next 
+{
+    border: 1px solid $main; 
+    color: $main;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    align-self: center;
+}
+
+#form-container
+{
+    display: none;
+}

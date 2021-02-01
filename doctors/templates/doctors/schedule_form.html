@@ -1,0 +1,27 @@
+<div class="container">
+    <form method="POST">
+        <div class="day-container">
+            {% for value, title in form.days.field.choices %}
+                <div class="day-div">
+                    <label class="day-label">
+                        <input type="checkbox" value="{{ value }}" class="day-input">
+                        <span class="day-span">{{ title }}</span>
+                    </label>
+                </div>
+            {% endfor %}
+        </div>
+        <button id="next"><i class="fas fa-chevron-right"></i></button>
+        <div class="container"></div>
+
+    </form>
+    
+    {{ form }}
+
+
+
+    <div class="day-card">
+        <h1 class="card-title"></h1>
+    </div>
+
+
+</div>

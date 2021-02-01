@@ -3,6 +3,7 @@ from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from doctors.models import Doctor 
 from doctors.utils import get_doctor 
+from doctors.forms import ShiftForm 
 from clinics.utils import get_clinic, clinic_required  
 from base.models import Notification 
 import json 
@@ -22,6 +23,15 @@ def profile(request, name):
     })
 
 
+def schedule_view(request, name): 
+    doctor =  get_doctor(name)
+    form = ShiftForm(user=request.user)
+    return render(request, 'doctors/appointments.html', {
+        'doctor': doctor, 
+        'form': form
+    })
+
+    
 @csrf_exempt 
 @clinic_required  
 def invite(request, name): 
