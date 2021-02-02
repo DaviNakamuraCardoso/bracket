@@ -2,6 +2,10 @@
 $main: #370CF2;
 
 
+label 
+{
+    text-transform: uppercase;
+}
 
 .container
 {
@@ -86,8 +90,19 @@ $main: #370CF2;
     position: relative;
 }
 
-.wrapper 
+
+.form-wrapper 
 {
-    position: relative;
-    display: block;
+    display: flex; 
 }
+
+#form-container
+{
+    display: none; 
+    flex-direction: column;
+    height: 100vh;
+    justify-content: space-around;
+
+}
+
+

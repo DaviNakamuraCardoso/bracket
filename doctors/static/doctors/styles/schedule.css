@@ -1,4 +1,7 @@
 /* Variables */
+label {
+  text-transform: uppercase; }
+
 .container {
   display: flex;
   margin: auto;
@@ -62,8 +65,13 @@
   overflow: hidden;
   position: relative; }
 
-.wrapper {
-  position: relative;
-  display: block; }
+.form-wrapper {
+  display: flex; }
+
+#form-container {
+  display: none;
+  flex-direction: column;
+  height: 100vh;
+  justify-content: space-around; }
 
 /*# sourceMappingURL=schedule.css.map */
