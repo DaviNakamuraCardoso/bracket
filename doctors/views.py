@@ -25,7 +25,10 @@ def profile(request, name):
 
 def schedule_view(request, name): 
     doctor =  get_doctor(name)
-    form = ShiftForm(user=request.user)
+    form = ShiftForm(user=request.user, initial={
+        'start': "08:00:00", 
+        'end': "18:00:00"
+    })
     return render(request, 'doctors/appointments.html', {
         'doctor': doctor, 
         'form': form

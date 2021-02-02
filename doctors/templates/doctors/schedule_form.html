@@ -13,14 +13,50 @@
                 </div>
             {% endfor %}
         </div>
-        <button id="next"><i class="fas fa-chevron-right"></i></button>
-        <div class="container"></div>
+        <button id="next" type="button"><i class="fas fa-chevron-right"></i></button>
+        <div id="container"></div>
 
-            </form>
+    </form>
     
     <div id="form-container">
     
-        <h1 class="form-title"></h1>
+            <h1 class="form-title"></h1>
+                <div class="form-wrapper">
+                    <div class="field">
+                        <label for="{{ form.clinic.id_for_label }}">{{ form.clinic.label }}</label>
+                        {{ form.clinic }}
+                    </div>
+                </div>
+                <div class="form-wrapper">
+                <div class="field">
+                    <label for="{{ form.areas.id_for_label">
+                        <span>{{ form.areas.label }}</span>
+                    </label>
+
+                </div>
+            
+            {% for value, title in form.areas.field.choices %}
+                <div class="day-div">
+                    <label class="day-label">
+                        <input type="checkbox" value="{{ value }}" class="day-input">
+                        <span class="day-span">{{ title }}</span>
+                    </label>
+                </div>
+                
+            {% endfor %}
+            
+            </div>
+            
+            <div class="form-wrapper">
+                <div class="field">
+                    <label for="{{ form.duration.id_for_label }}">{{ form.duration.label }}</label>
+                     {{form.duration_hours}} 
+                     <label for="{{ form.duration_hours.id_for_label}}">{{ form.duration_hours.label }}</label>
+                     {{form.duration_minutes}}
+                     <label for="{{ form.duration_minutes.id_for_label}}">{{ form.duration_minutes.label }}</label>
+                     {{forms.duration}}
+                </div>
+            </div>
 
             <div class="form-wrapper">
                 <div class="field">
@@ -39,13 +75,25 @@
                     
                 </div>
             </div>
+            <div class="form-wrapper">
+                <div class="field">
+                    <label for="{{ form.break_time.id_for_label }}">
+
+                        <span>{{ form.break_time.label }}</span>
+                    </label>
+                    {{ form.break_time }}
+                    
+                </div>
+                <div class="field">
+                    
+                    <label for="{{ form.break_end.id_for_label }}">
+                        <span>{{ form.break_end.label }}</span>
+                    </label>
+                    {{ form.break_end }}
+                </div>
+            </div>
             
+        
             
-    </div>
-    <input type="date" class="time">
-    
-
-
-
-
+    </div>    
 </div>

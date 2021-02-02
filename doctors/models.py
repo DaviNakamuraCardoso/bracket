@@ -41,9 +41,11 @@ class Shift(models.Model):
     day = models.ForeignKey(Day, on_delete=models.CASCADE, related_name='shifts')
 
     # Duration
+    duration = models.DurationField(blank=True, null=True)
     start = models.TimeField(blank=True, null=True)
     end = models.TimeField(blank=True, null=True)
     break_time = models.TimeField(blank=True, null=True)
+    break_end =  models.TimeField(blank=True, null=True)
 
     # Area and clinic 
     areas = models.ManyToManyField(Area, blank=True, related_name='shifts')
