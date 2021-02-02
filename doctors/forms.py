@@ -8,13 +8,12 @@ class ShiftForm(forms.ModelForm):
         model = Shift  
         exclude = ['doctor']
         widgets = {
-            'start': forms.TimeInput(format="%H:%M", attrs={'type': 'time'}), 
-            'end': forms.TimeInput(format="%H:%M", attrs={'type': 'time'}), 
-            'duration': forms.TimeInput(format="%H:%M"), 
-            'break_time': forms.TimeInput(format="%H:%M") 
+            'start': forms.TimeInput(attrs={'type': 'time', 'class': 'time'}), 
+            'end': forms.TimeInput(attrs={'type': 'time', 'class':'time'}), 
+            'duration': forms.TimeInput(attrs={'type': 'time', 'class': 'time'}), 
+            'break_time': forms.TimeInput(attrs={'type': 'time', 'class':'time'}) 
         }
-    
-    
+
     days = forms.ModelMultipleChoiceField(
         queryset=Day.objects.all(), 
         widget=forms.CheckboxSelectMultiple

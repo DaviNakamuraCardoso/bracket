@@ -1,4 +1,7 @@
+{% load static %}
+
 <div class="container">
+    <script src="{% static 'doctors/scripts/schedule.js' %}"></script>
     <form method="POST">
         <div class="day-container">
             {% for value, title in form.days.field.choices %}
@@ -13,15 +16,36 @@
         <button id="next"><i class="fas fa-chevron-right"></i></button>
         <div class="container"></div>
 
-    </form>
+            </form>
     
-    {{ form }}
+    <div id="form-container">
+    
+        <h1 class="form-title"></h1>
 
-
-
-    <div class="day-card">
-        <h1 class="card-title"></h1>
+            <div class="form-wrapper">
+                <div class="field">
+                    <label for="{{ form.start.id_for_label }}" class="label-field">
+                        <span>{{ form.start.label }}</span>
+                    </label>
+                    {{ form.start }}
+                    
+                    
+                </div>
+                <div class="field">
+                    <label for="{{ form.end.id_for_label }}" class="label-field">
+                        <span>{{ form.end.label }}</span>
+                    </label>
+                    {{ form.end }}
+                    
+                </div>
+            </div>
+            
+            
     </div>
+    <input type="date" class="time">
+    
+
+
 
 
 </div>

@@ -35,4 +35,6 @@
         {% endfor %}
 
     </table>
+    <a href="{% url 'doctors:schedule' doctor.user.name %}">Schedule</a>
+
 {% endblock %}
