@@ -1,10 +1,11 @@
 /* Variables */
 $main: #370CF2;
+$complementary: #F2D80C;
 
-
-label 
+input 
 {
-    text-transform: uppercase;
+    font-family: sans-serif;
+    border: none;
 }
 
 .container
@@ -17,7 +18,7 @@ label
     flex-direction: column;
 }
 
-.day-container 
+.checkbox-container 
 {
     display: flex; 
     margin: auto; 
@@ -26,17 +27,17 @@ label
     width: 80vw;
 
 }
-.day-div
+.checkbox-div
 {
     margin: 10px; 
 }
 
-.day-label
+.checkbox-label
 {
     cursor: pointer;
     }
 
-.day-span 
+.checkbox-span 
 {
     position: relative; 
     display: inherit-block;
@@ -48,11 +49,11 @@ label
     -webkit-user-select: none;
     
 }
-.day-input
+.checkbox-input
 {
     display: none;
 }
-.day-input:checked ~ span 
+.checkbox-input:checked ~ span 
 {
     background: $main;
     color: white;
@@ -85,7 +86,6 @@ label
 }
 .time 
 {
-    width: 200px;
     overflow: hidden; 
     position: relative;
 }
@@ -105,4 +105,78 @@ label
 
 }
 
+.form-wrapper
+{
+    display: flex; 
+    margin: 2rem 0; 
 
+}
+.field 
+{
+    display: flex;
+}
+.field input 
+{
+
+}
+
+.day-container
+{
+    position: relative; 
+    max-width: 90vw; 
+    padding: 20px; 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    flex-wrap: wrap; 
+}
+
+.day-card 
+{
+    position: relative; 
+    width: 300px; 
+    height: 420px; 
+    background: #fff; 
+    margin: 20px; 
+    border-radius: 20px; 
+    overflow:hidden; 
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.2);
+    transition: 0.5s; 
+    
+}
+
+.day-circle 
+{
+    position: relative; 
+    width: 100%; 
+    height: 100%; 
+    background: $complementary; 
+    clip-path: circle(180px at center 0); 
+    padding: 50px 0; 
+}
+.day-title 
+{
+    text-align: center;
+    color: white;
+    font-size: 3rem;
+    text-transform: uppercase;  
+}
+.day-content 
+{
+    position: absolute; 
+    bottom: 10px; 
+    color: #666;
+    padding: 1rem;
+}
+.day-container:hover .day-card
+{
+    filter: blur(20px); 
+    transform: scale(0.9); 
+    opacity: 0.5; 
+}
+.day-container .day-card:hover 
+{
+    filter: blur(0px); 
+    transform: scale(1.1); 
+    opacity: 1;
+}

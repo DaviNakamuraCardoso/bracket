@@ -3,12 +3,12 @@
 <div class="container">
     <script src="{% static 'doctors/scripts/schedule.js' %}"></script>
     <form method="POST">
-        <div class="day-container">
+        <div class="checkbox-container">
             {% for value, title in form.days.field.choices %}
-                <div class="day-div">
-                    <label class="day-label">
-                        <input type="checkbox" value="{{ value }}" class="day-input">
-                        <span class="day-span">{{ title }}</span>
+                <div class="checkbox-div">
+                    <label class="checkbox-label">
+                        <input type="checkbox" value="{{ value }}" class="checkbox-input">
+                        <span class="checkbox-span">{{ title }}</span>
                     </label>
                 </div>
             {% endfor %}
@@ -20,7 +20,11 @@
     
     <div id="form-container">
     
-            <h1 class="form-title"></h1>
+        <div class="day-circle">
+            <h2 class="day-title">02</h2>
+        </div>
+        <div class="day-content">
+    
                 <div class="form-wrapper">
                     <div class="field">
                         <label for="{{ form.clinic.id_for_label }}">{{ form.clinic.label }}</label>
@@ -36,10 +40,10 @@
                 </div>
             
             {% for value, title in form.areas.field.choices %}
-                <div class="day-div">
-                    <label class="day-label">
-                        <input type="checkbox" value="{{ value }}" class="day-input">
-                        <span class="day-span">{{ title }}</span>
+                <div class="checkbox-div">
+                    <label class="checkbox-label">
+                        <input type="checkbox" value="{{ value }}" class="checkbox-input">
+                        <span class="checkbox-span">{{ title }}</span>
                     </label>
                 </div>
                 
@@ -93,7 +97,7 @@
                 </div>
             </div>
             
-        
+        </div>
             
     </div>    
 </div>

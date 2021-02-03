@@ -1,6 +1,7 @@
 /* Variables */
-label {
-  text-transform: uppercase; }
+input {
+  font-family: sans-serif;
+  border: none; }
 
 .container {
   display: flex;
@@ -10,20 +11,20 @@ label {
   width: 80vw;
   flex-direction: column; }
 
-.day-container {
+.checkbox-container {
   display: flex;
   margin: auto;
   max-width: 1200px;
   flex-wrap: wrap;
   width: 80vw; }
 
-.day-div {
+.checkbox-div {
   margin: 10px; }
 
-.day-label {
+.checkbox-label {
   cursor: pointer; }
 
-.day-span {
+.checkbox-span {
   position: relative;
   display: inherit-block;
   background: #e1e1e1;
@@ -33,10 +34,10 @@ label {
   transition: 0.5s;
   -webkit-user-select: none; }
 
-.day-input {
+.checkbox-input {
   display: none; }
 
-.day-input:checked ~ span {
+.checkbox-input:checked ~ span {
   background: #370CF2;
   color: white; }
 
@@ -61,7 +62,6 @@ label {
   width: 100%; }
 
 .time {
-  width: 200px;
   overflow: hidden;
   position: relative; }
 
@@ -73,5 +73,62 @@ label {
   flex-direction: column;
   height: 100vh;
   justify-content: space-around; }
+
+.form-wrapper {
+  display: flex;
+  margin: 2rem 0; }
+
+.field {
+  display: flex; }
+
+.day-container {
+  position: relative;
+  max-width: 90vw;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap; }
+
+.day-card {
+  position: relative;
+  width: 300px;
+  height: 420px;
+  background: #fff;
+  margin: 20px;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.2);
+  transition: 0.5s; }
+
+.day-circle {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: #F2D80C;
+  clip-path: circle(180px at center 0);
+  padding: 50px 0; }
+
+.day-title {
+  text-align: center;
+  color: white;
+  font-size: 3rem;
+  text-transform: uppercase; }
+
+.day-content {
+  position: absolute;
+  bottom: 10px;
+  color: #666;
+  padding: 1rem; }
+
+.day-container:hover .day-card {
+  filter: blur(20px);
+  transform: scale(0.9);
+  opacity: 0.5; }
+
+.day-container .day-card:hover {
+  filter: blur(0px);
+  transform: scale(1.1);
+  opacity: 1; }
 
 /*# sourceMappingURL=schedule.css.map */
