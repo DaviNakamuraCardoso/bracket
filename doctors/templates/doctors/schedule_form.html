@@ -2,12 +2,15 @@
 
 <div class="container">
     <script src="{% static 'doctors/scripts/schedule.js' %}"></script>
-    <form method="POST">
-        <div class="checkbox-container">
+    <form method="POST" action="{% url 'doctors:schedule' request.user.name %}">
+        {% csrf_token %}
+        <div class="checkbox-container" id="days-checkbox">
+            <input list="days-list" name="days" id="days">
+            
             {% for value, title in form.days.field.choices %}
                 <div class="checkbox-div">
                     <label class="checkbox-label">
-                        <input type="checkbox" value="{{ value }}" class="checkbox-input">
+                        <input type="checkbox" value="{{ title }}" class="checkbox-input" id="checkbox_{{ title }}">
                         <span class="checkbox-span">{{ title }}</span>
                     </label>
                 </div>
@@ -15,12 +18,16 @@
         </div>
         <button id="next" type="button"><i class="fas fa-chevron-right"></i></button>
         <div id="container"></div>
+        <input type="submit">
 
     </form>
     
     <div id="form-container">
+
+        <button class="day-close" type="button">X</button>
     
         <div class="day-circle">
+
             <h2 class="day-title">02</h2>
         </div>
         <div class="day-content">
@@ -32,24 +39,23 @@
                     </div>
                 </div>
                 <div class="form-wrapper">
-                <div class="field">
-                    <label for="{{ form.areas.id_for_label">
-                        <span>{{ form.areas.label }}</span>
-                    </label>
+                    <div class="field">
+                        <label for="{{ form.areas.id_for_label">
+                            <span>{{ form.areas.label }}</span>
+                        </label>
+                        <input name="areas" id="areas" type="hidden">
+                        {% for value, title in form.areas.field.choices %}
+                            
+                            <div class="checkbox-div">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="areas_{{ value }}" value="{{ value }}" class="checkbox-input day-checkbox" id="checkbox_{{ title }}">
+                                    <span class="checkbox-span">{{ title }}</span>
+                                </label>
+                            </div>
+                        {% endfor %}
+                    </div>
 
                 </div>
-            
-            {% for value, title in form.areas.field.choices %}
-                <div class="checkbox-div">
-                    <label class="checkbox-label">
-                        <input type="checkbox" value="{{ value }}" class="checkbox-input">
-                        <span class="checkbox-span">{{ title }}</span>
-                    </label>
-                </div>
-                
-            {% endfor %}
-            
-            </div>
             
             <div class="form-wrapper">
                 <div class="field">
