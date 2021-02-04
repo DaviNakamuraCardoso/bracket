@@ -10,7 +10,7 @@ def get_clinic(request):
     if user.is_authenticated: 
         if user.is_clinic: 
             try: 
-                clinic = Clinic.objects.get(user__name=user.name)
+                clinic = Clinic.objects.get(user__email=user.email)
             except Clinic.DoesNotExist: 
                 return HttpResponseRedirect(reverse('base:error'))
     
