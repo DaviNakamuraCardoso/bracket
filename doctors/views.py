@@ -2,9 +2,9 @@ from django.shortcuts import render, reverse
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from doctors.models import Doctor 
-from doctors.utils import get_doctor 
+from doctors.utils import get_doctor, make_schedule 
 from doctors.forms import ShiftForm 
-from clinics.utils import get_clinic, clinic_required  
+from clinics.utils import get_clinic, clinic_required
 from base.models import Notification 
 import json 
 # Create your views here.
@@ -23,13 +23,21 @@ def profile(request, name):
     })
 
 
+
 def schedule_view(request, name): 
     doctor =  get_doctor(name)
+    if len(doctor.clinics.all()) == 0: 
+        return HttpResponseRedirect(reverse('base:index'))
+        
     form = ShiftForm(user=request.user, initial={
         'start': "08:00:00", 
         'end': "18:00:00"
     })
-    return render(request, 'doctors/appointments.html', {
+    if request.method == 'POST': 
+        make_schedule(request)
+
+
+    return render(request, 'doctors/schedule.html', {
         'doctor': doctor, 
         'form': form
     })

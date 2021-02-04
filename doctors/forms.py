@@ -32,8 +32,8 @@ class ShiftForm(forms.ModelForm):
     
     areas = forms.ModelMultipleChoiceField(
         queryset=None, 
-        widget=forms.CheckboxSelectMultiple, 
-        label='With: '
+        label='With: ', 
+        widget=forms.CheckboxSelectMultiple
     )
     
     clinic = forms.ModelChoiceField(
