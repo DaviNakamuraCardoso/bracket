@@ -3,7 +3,10 @@ from users.models import User, City
 # Create your models here.
 
 class Clinic(models.Model): 
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    admin = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_clinics', blank=True, null=True)
+
+    staff = models.ManyToManyField(User, blank=True, related_name='staff_clinics')
+
 
     # The actuall name  
     name = models.CharField(max_length=128)

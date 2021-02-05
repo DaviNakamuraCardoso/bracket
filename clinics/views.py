@@ -58,13 +58,13 @@ def join_clinic(request, clinic_name):
     data = json.loads(request.body)
 
     if not data['invite']: 
-        notification = Notification.objects.get(origin=doctor.str(), user__name=clinic.user.name)
+        notification = Notification.objects.get(origin=doctor.str(), user__name=clinic.admin.name)
         notification.delete()
 
         return JsonResponse({"message": "Join request cancelled succesfully"})
 
     invite_text = f"Is asking to join {clinic.name}"
     invite_url = reverse('doctors:accept', args=(doctor.user.name, ))
-    Notification.objects.create(user=clinic.user, text=invite_text, url=invite_url, origin=doctor.str())
+    Notification.objects.create(user=clinic.admin, text=invite_text, url=invite_url, origin=doctor.str())
 
     return JsonResponse({"message": "Request sent succesfully."})
