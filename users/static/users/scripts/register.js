@@ -1,37 +1,73 @@
 document.addEventListener('DOMContentLoaded', () => 
 {
+    let types = ['user']; 
     
-    const userTypeSelect = document.querySelector("select");
-    const form = document.querySelector("form");
-    const next = document.querySelector("#next");
-    const base = document.querySelector("#base");
+    const nextButton = document.querySelector("#next"); 
     
+    nextButton.onclick = () => {
 
-    next.innerHTML = copyElement(document.querySelector("#patient")).innerHTML;
-    base.innerHTML = copyElement(document.querySelector("#base-form")).innerHTML;
+        const checkBoxes = document.querySelectorAll('.checkbox-input'); 
+        checkBoxes.forEach(checkBox => {
 
-    validate();
-    updateChoices();
+            if (checkBox.checked)
+            {
+                const value = checkBox.value; 
+                types.push(value); 
+                const specificForm = document.querySelector(`#${value}-form`); 
+                specificForm.innerHTML; 
+                specificForm.append(copyElement(document.getElementById(value)));  
+            }
+        }); 
+        const typesInput = document.querySelector("#id_types"); 
+        typesInput.value = types.join(); 
 
-    const relations = {
-        "clinic": "clinic-base", 
-        "patient": "base-form", 
-        "doctor": "base-form"
-    };
-
-    userTypeSelect.onchange = () => {
-
-        form.action = userTypeSelect.value;
-        let text = userTypeSelect.options[userTypeSelect.selectedIndex].text;
-
-        base.innerHTML = copyElement(document.getElementById(relations[text])).innerHTML;
-        next.innerHTML = copyElement(document.getElementById(text)).innerHTML;
-        validate(); 
-        updateChoices();
+        updateChoices(); 
+        navigator.geolocation.getCurrentPosition(setPosition);
+        
+        
+        next(types, 0, nextButton); 
 
     }
 
 });
+
+
+function next(array, index, button)
+{
+
+    if (index > 0)
+    {
+        let previous = document.querySelector(`#${array[index-1]}-form`); 
+        hide(previous); 
+    }
+    const e = document.querySelector(`#${array[index]}-form`); 
+    show(e.firstElementChild); 
+
+    if (index == array.length-1)
+    {
+        button.type = 'submit'; 
+    }
+    else 
+    {
+        validate(e.firstElementChild); 
+    
+        button.onclick = () => 
+        {
+            next(array, index+1, button); 
+        }
+    }
+}
+
+
+function show(element)
+{
+    element.classList.toggle('hidden', false); 
+}
+
+function hide(element)
+{
+    element.classList.toggle('hidden', true); 
+}
 
 
 function copyElement(element)
@@ -51,40 +87,30 @@ function copyElement(element)
     return (newElement);
 
 }
-function validate()
-{
-    const allInputs = document.querySelectorAll('input'); 
-    allInputs.forEach(input => {
-        cleanse(input); 
 
-    }); 
-    
-    const baseForm = document.querySelector("#base");
-    const next = document.querySelector("#next");
-    const inputs = baseForm.querySelectorAll('input');
-    const button = document.querySelector("#next-btn");
+
+function validate(element)
+{
+    const button = document.querySelector("#next");
+    const inputs = element.querySelectorAll('input'); 
 
     button.disabled = true;
-    next.style.display = 'none';
     for (i = 0; i < inputs.length; i++)
     {
         inputs[i].addEventListener('input', () => {
             let values = [];
-            inputs.forEach(v => values.push(v.value));
+            inputs.forEach(input => {
+                if (input.required)
+                {
+                    values.push(input.value)
+
+                }
+
+            });
+        
             button.disabled = values.includes('');
 
         });
-    }
-    button.onclick = () => {
-        next.style.display = 'block';
-        baseForm.style.display = 'none';
-        navigator.geolocation.getCurrentPosition(setPosition);
-        var submit = document.createElement('input');
-        submit.type = 'submit'; 
-        submit.value = 'Sign Up'; 
-        button.parentElement.replaceChild(submit, button); 
-
-
     }
 
 }
@@ -165,19 +191,19 @@ function setPosition(position)
     .then(response => response.json())
     .then(result => {
         const cities = result.cities; 
-        console.log(cities); 
         const form = document.querySelector("form");
-        const select = form.querySelector("#id_city_copy");
-        console
-        cities.forEach(city => {
-            const option = document.createElement('option');
-            option.innerHTML = city['city'];
-            option.value = city['id']; 
-            select.add(option); 
+        const selects = form.querySelectorAll(".city-field");
+        selects.forEach(select => {
+            cities.forEach(city => {
+                const option = document.createElement('option');
+                option.innerHTML = city['city'];
+                option.value = city['id']; 
+                select.add(option); 
 
-        });
+            });
     
-
+        }); 
+        
     })
 
 }

@@ -9,9 +9,7 @@ urlpatterns = [
     path('logout', views.logout_view, name='logout'), 
 
     # Register and specifics
-    path('register/patient', views.patient, name='patient'), 
-    path('register/doctor', views.doctor, name='doctor'), 
-    path('register/clinic', views.clinic, name='clinic'), 
+    path('register', views.register_view, name='register'), 
     
 
     # Utils

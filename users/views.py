@@ -6,7 +6,7 @@ from .models import User, City
 from doctors.models import Doctor, Area
 from patients.models import Patient, Allergy, Condition, Medication
 from clinics.models import Clinic 
-from users.utils import register, get_clinic_name
+from users.utils import new_clinic, new_doctor, new_patient, new_user
 from users.data.cities import cities
 from users.data.sorted_cities import latitude_sorted
 from users.data.geolocation import locate
@@ -17,85 +17,24 @@ import json
 from users.forms import FORMS_CONTEXT, LoginForm
 # Create your views here.
 
-def patient(request): 
+def register_view(request): 
     if request.method == "POST": 
-        user = register(request, 'patient')
         data = request.POST
-        
-        day, month, year = (data['day'], data['month'], data['year'])
-        strbirth = f"{day}/{month}/{year}"
-        date = datetime.datetime.strptime(strbirth, "%d/%m/%Y")
+        # Create the user object 
+        user = new_user(request) 
 
-        patient = Patient.objects.create(
-            user=user, 
-            weight=request.POST['weight'], 
-            height=request.POST['height'], 
-            birth=date
-        )
-        allergies = data['allergies'].split(',')
-        conditions = data['conditions'].split(',')
-        medications = data['medications'].split(',')
+        # Attempt to create all the different types of users
+        doctor = new_doctor(request, user)
+        patient = new_patient(request, user)
+        clinic = new_clinic(request, user)
 
-        if data['allergies'] != '': 
-            for allergy in allergies:
-                patient.allergies.add(Allergy.objects.get(allergy=allergy))
+        if doctor is not None and clinic is not None: 
+            clinic.doctors.add(doctor)
         
-        if data['medications'] != '': 
-            for medication in medications: 
-                patient.medications.add(Medication.objects.get(medication=medication))
-
-        if data['conditions'] != '': 
-            for condition in conditions: 
-                patient.conditions.add(Condition.objects.get(condition=condition))
-        
-        login(request=request, user=user)
+        login(request, user)
         return HttpResponseRedirect(reverse('base:index'))
     
-    return JsonResponse({"message": "Method must be POST."})
-
-
-def doctor(request): 
-    if request.method == "POST":
-        user = register(request=request, user_type='doctor')
-        data = request.POST 
-        doctor_object = Doctor.objects.create(
-            user=user, 
-            number=data['number'], 
-            degree=data['degree']
-        )
-        if data['areas'] != '':
-
-            for area in data['areas'].split(','):
-                doctor_object.areas.add(Area.objects.get(area=area))
-            
-        login(request, user)
-
-    
-    return HttpResponseRedirect(reverse('base:index'))
-        
-
-def clinic(request): 
-    if request.method == "POST": 
-        data = request.POST 
-        user = User.objects.create_user(
-            email=data['clinic_email'], 
-            password=data['clinic_password'],
-            is_clinic=True,
-            user_type='clinic', 
-            city=City.objects.get(pk=data['city'])
-        )
-        Clinic.objects.create(
-            user=user, 
-            name=data['clinic_name'], 
-            clinic_name=get_clinic_name(request)['name'], 
-            base_name=get_clinic_name(request)['base'], 
-            email=user.email, 
-            city=user.city
-        )
-        login(request, user)
-
-    return HttpResponseRedirect(reverse('base:index'))
-    
+    return render(request, 'users/register.html', FORMS_CONTEXT)
 
 
 def login_view(request): 
@@ -121,6 +60,7 @@ def login_view(request):
     return render(request, 'users/login.html', {
         'form': form
     })
+
 
 @login_required
 def logout_view(request): 
