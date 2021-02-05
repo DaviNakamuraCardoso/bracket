@@ -70,3 +70,4 @@ def make_schedule(request):
 
 def daystr(day, i, string): 
     return f"{string}_{day}_{i}"
+    

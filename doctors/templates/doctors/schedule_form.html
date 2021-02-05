@@ -2,6 +2,7 @@
 
 <div class="container">
     <script src="{% static 'doctors/scripts/schedule.js' %}"></script>
+    <link href="{% static 'base/styles/checkbox.css' %}" rel="stylesheet">
     <form method="POST" action="{% url 'doctors:schedule' request.user.name %}">
         {% csrf_token %}
         <div class="checkbox-container" id="days-checkbox">
@@ -10,7 +11,7 @@
             {% for value, title in form.days.field.choices %}
                 <div class="checkbox-div">
                     <label class="checkbox-label">
-                        <input type="checkbox" value="{{ title }}" class="checkbox-input" id="checkbox_{{ title }}">
+                        <input type="checkbox" value="{{ title }}" class="checkbox-input day-checkbox-input" id="checkbox_{{ title }}">
                         <span class="checkbox-span">{{ title }}</span>
                     </label>
                 </div>

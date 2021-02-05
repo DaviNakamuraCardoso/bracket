@@ -31,11 +31,11 @@ def schedule_view(request, name):
         
     form = ShiftForm(user=request.user, initial={
         'start': "08:00:00", 
-        'end': "18:00:00"
+        'end': "18:00:00", 
+        'clinic': doctor.clinics.all()[0]
     })
     if request.method == 'POST': 
         make_schedule(request)
-
 
     return render(request, 'doctors/schedule.html', {
         'doctor': doctor, 
