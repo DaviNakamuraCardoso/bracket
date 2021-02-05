@@ -35,7 +35,7 @@ function updateAllCards()
 
 {
         const days = document.querySelector("#days"); 
-        const checkBoxes = document.querySelectorAll(".checkbox-input");
+        const checkBoxes = document.querySelectorAll(".day-checkbox-input");
         const formContainer = document.querySelector("#form-container"); 
         const container = document.querySelector('#container'); 
 
@@ -101,10 +101,6 @@ function updateRemovers()
                 const checkBox = document.querySelector(`#checkbox_${day}`); 
                 checkBox.checked = false; 
                 updateAllCards(); 
-                
-
-
-                
             }
             else
             {

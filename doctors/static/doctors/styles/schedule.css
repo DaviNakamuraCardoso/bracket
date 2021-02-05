@@ -15,36 +15,6 @@ input[type='number'] {
   width: 80vw;
   flex-direction: column; }
 
-.checkbox-container {
-  display: flex;
-  margin: auto;
-  max-width: 1200px;
-  flex-wrap: wrap;
-  width: 80vw; }
-
-.checkbox-div {
-  margin: 10px; }
-
-.checkbox-label {
-  cursor: pointer; }
-
-.checkbox-span {
-  position: relative;
-  display: inherit-block;
-  background: #e1e1e1;
-  padding: 10px 30px;
-  color: #a1a1a1;
-  border-radius: 30px;
-  transition: 0.5s;
-  -webkit-user-select: none; }
-
-.checkbox-input {
-  display: none; }
-
-.checkbox-input:checked ~ span {
-  background: #370CF2;
-  color: white; }
-
 #next {
   border: 1px solid #370CF2;
   color: #370CF2;
