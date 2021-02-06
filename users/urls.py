@@ -10,6 +10,7 @@ urlpatterns = [
 
     # Register and specifics
     path('register', views.register_view, name='register'), 
+
     
 
     # Utils
@@ -19,5 +20,6 @@ urlpatterns = [
 #    path('create_doctors', views.create_doctor), 
 
     # APIs 
-    path('location/<str:lat>/<str:lng>', views.location, name='location')
+    path('location/<str:lat>/<str:lng>', views.location, name='location'), 
+    path('calendar/<int:year>/<int:month>', views.calendar, name='calendar')
 ]

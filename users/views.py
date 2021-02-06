@@ -6,10 +6,11 @@ from .models import User, City
 from doctors.models import Doctor, Area
 from patients.models import Patient, Allergy, Condition, Medication
 from clinics.models import Clinic 
-from users.utils import new_clinic, new_doctor, new_patient, new_user
+from users.utils import new_clinic, new_doctor, new_patient, new_user 
 from users.data.cities import cities
 from users.data.sorted_cities import latitude_sorted
 from users.data.geolocation import locate
+from users.data.time import get_calendar
 from patients.data import allergies, drugs, conditions
 from doctors.data import areas 
 import datetime
@@ -157,3 +158,9 @@ def location(request, lat, lng):
 
 
     return JsonResponse({"cities":cities})
+
+
+def calendar(request, month, year): 
+
+    return JsonResponse(get_calendar(month+1, year))
+    

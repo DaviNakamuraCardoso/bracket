@@ -1,0 +1,34 @@
+{% load static %}
+<script src="{% static 'users/scripts/calendar.js' %}"></script>
+<link href="{% static 'users/styles/calendar.css' %}" rel="stylesheet">
+<div id="calendar">
+    <div id="calendar-month">
+        <button id="prev-month">
+            <i class="fas fa-caret-left"></i>
+        </button>
+        <h1 id="month-title">February</h1>
+        <button id="next-month">
+            <i class="fas fa-caret-right"></i>
+        </button>
+    </div>
+    <div id="calendar-year">
+        <button id="prev-year">
+            <i class="fas fa-caret-left"></i>
+        </button>
+        <h1 id="year-title">2021</h1>
+        <button id="next-year">
+            <i class="fas fa-caret-right"></i>
+        </button>
+    </div>
+
+    <table id="month">
+
+    </table>
+</div>
+
+<div class="day-planner">
+    <table id="day">
+
+    </table>
+        
+</div>
