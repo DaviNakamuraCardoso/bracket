@@ -1,7 +1,8 @@
 from django.db import models
 from users.models import User, Day 
 from clinics.models import Clinic
-
+from patients.models import Patient
+from users.data.time import sumtime, delta
 
 # Create your models here.
 
@@ -50,3 +51,43 @@ class Shift(models.Model):
     # Area and clinic 
     areas = models.ManyToManyField(Area, blank=True, related_name='shifts')
     clinic = models.ForeignKey(Clinic, on_delete=models.CASCADE, blank=True, related_name='shifts')
+
+    def get_appointments(self): 
+        
+        if self.break_time is not None and self.break_end is not None: 
+            shifts = (delta(self.start, self.break_time), delta(self.break_end, self.end))
+
+            numbers = (round(shifts[0] / self.duration), round(shifts[1] / self.duration))
+
+            appointments1 = [(sumtime(self.start, self.duration*i), sumtime(self.start, self.duration*(i+1))) for i in range(numbers[0])]
+            appointments2 = [(sumtime(self.break_end, self.duration*i), sumtime(self.break_end, self.duration*(i+1))) for i in range(numbers[1])]
+            appointments = appointments1 + appointments2
+
+        else: 
+            
+            tdelta = delta(self.start, self.end)
+            numbers = round(tdelta / self.duration)
+
+            appointments = [(sumtime(self.start, (self.duration*i)), sumtime(self.start, self.duration*(i+1))) for i in range(numbers)]
+
+        return appointments
+
+
+class Appointment(models.Model): 
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='appointments')
+    to = models.CharField(max_length=64, null=True, blank=True)
+    patient = models.ForeignKey(Patient, on_delete=models.CASCADE, related_name='patient_appointments')
+    shift = models.ForeignKey(Shift, on_delete=models.CASCADE, related_name='shift_appointments')
+    day = models.IntegerField()
+    month = models.IntegerField()
+    year = models.IntegerField()
+    index = models.IntegerField(null=True, blank=True)
+
+
+
+
+
+
+
+
+
