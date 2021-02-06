@@ -1,9 +1,11 @@
 from django.http import HttpResponseRedirect 
 from django.shortcuts import reverse 
+from django.utils.datastructures import MultiValueDictKeyError
 from doctors.models import Doctor, Shift, Area
 from clinics.models import Clinic
 from users.models import Day
 from datetime import timedelta
+
 
 
 def get_doctor(name=None, request=None): 
@@ -46,9 +48,9 @@ def doctor(function):
 
 def make_schedule(request): 
     data = request.POST
-    days = data['days'].split()
+    days = data['days'].split(',')
     for day in days: 
-        for i in data[f"{day}_num"]: 
+        for i in range(1, int(data[f"{day}_num"])+1): 
             shift = Shift.objects.create(
                 doctor=request.user.doctor, 
                 day=Day.objects.get(day=day), 
@@ -60,9 +62,12 @@ def make_schedule(request):
             )
             for j in [area.id for area in request.user.doctor.areas.all()]: 
                 # WAAAAAAAAAAAAAALRUSSSSSS
-                if area_id := data[f"areas_{j}_{day}_{i}"]:
+                try: 
+                    shift.areas.add(Area.objects.get(pk=data[f"areas_{j}_{day}_{i}"]))
+                except MultiValueDictKeyError: 
+                    pass
+
                 
-                    shift.areas.add(Area.objects.get(pk=area_id))
             if data[daystr(day, i, 'break_time')] != '' and data[daystr(day, i, 'break_time')] != '': 
                 shift.break_time = data[daystr(day, i, 'break_time')]
                 shift.break_end = data[daystr(day, i, 'break_end')]

@@ -33,8 +33,10 @@
                 </td>
             </tr>
         {% endfor %}
-
     </table>
+
+    {% include 'users/calendar.html' %}
+
     <a href="{% url 'doctors:schedule' doctor.user.name %}">Schedule</a>
 
 {% endblock %}

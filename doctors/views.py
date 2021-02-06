@@ -1,11 +1,12 @@
 from django.shortcuts import render, reverse 
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-from doctors.models import Doctor 
+from doctors.models import Doctor, Appointment
 from doctors.utils import get_doctor, make_schedule 
 from doctors.forms import ShiftForm 
 from clinics.utils import get_clinic, clinic_required
 from base.models import Notification 
+from users.data.time import get_weekday
 import json 
 # Create your views here.
 
@@ -41,6 +42,33 @@ def schedule_view(request, name):
         'doctor': doctor, 
         'form': form
     })
+
+
+def schedule_days(request, name): 
+    doctor = get_doctor(name)
+    days = set()
+    for shift in doctor.shifts.all(): 
+        days.add(shift.day.day)
+    
+    return JsonResponse({'days': [day for day in days]})
+
+
+def day_planner(request, name, year, month, day): 
+    doctor = get_doctor(name)
+    month += 1
+    weekday = get_weekday(day, month, year)  
+    try: 
+        shifts = doctor.shifts.filter(day__day=weekday)
+    except Shift.DoesNotExist: 
+        return JsonResponse({"message": f"{doctor.__str__()} does not work on {weekday}."})
+
+    day_appointments = []
+    for shift in shifts: 
+        day_appointments += shift.get_appointments()
+
+    appointments = Appointment.objects.filter(day=day, month=month, year=year, shift__doctor=doctor)
+    
+    return JsonResponse({"day": day_appointments, "appointments":[appointment.index for appointment in appointments]})
 
     
 @csrf_exempt 
