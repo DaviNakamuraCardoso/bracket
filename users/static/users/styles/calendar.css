@@ -1,0 +1,58 @@
+th, tr {
+  padding: 10px; }
+
+#calendar {
+  height: 500px;
+  width: 500px; }
+
+.ball {
+  clip-path: circle(15px at center center);
+  text-align: center;
+  padding: 15px;
+  transition: all .3s ease;
+  cursor: pointer; }
+
+.ball:hover {
+  background: #e7e7e7; }
+
+#month {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 1.2rem; }
+
+.day {
+  text-align: center; }
+
+.invalid {
+  cursor: auto;
+  color: gray; }
+
+.active .ball {
+  background: #7356F4;
+  color: #f1f1f1; }
+
+.marked .ball {
+  background: #1e1e1e;
+  color: #f1f1f1; }
+
+#calendar-year, #calendar-month {
+  color: #1e1e1e;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  justify-content: space-evenly;
+  width: 50%;
+  margin: auto;
+  text-align: center; }
+  #calendar-year i, #calendar-month i {
+    font-size: 2rem; }
+
+.day-planner {
+  position: absolute;
+  margin-top: 10vh;
+  right: 100vw;
+  background: #e7e7e7; }
+
+.day-planner.open {
+  right: 0; }
+
+/*# sourceMappingURL=calendar.css.map */

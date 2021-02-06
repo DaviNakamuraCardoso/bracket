@@ -1,0 +1,104 @@
+$black: #1e1e1e; 
+$gray: #e7e7e7;
+$main: #370cf2;
+$weak: #7356F4;
+$strong: #1A0673;
+$available: #00F28A;
+$complementary: #F2D80C;
+
+
+th, tr 
+{
+    padding: 10px; 
+}
+
+
+#calendar 
+{
+    height: 500px; 
+    width: 500px;
+}
+
+
+.ball 
+{
+    clip-path: circle(15px at center center);
+    text-align: center;
+    padding: 15px;
+    transition: all .3s ease;
+    cursor: pointer;
+}
+
+.ball:hover 
+{
+    background: $gray; 
+}
+
+
+#month 
+{
+    border-collapse: collapse;
+    width: 100%;
+    font-size: 1.2rem;
+}
+
+
+.day 
+{
+    text-align: center;
+}   
+
+.invalid 
+{
+    cursor: auto;
+    color: gray;
+}
+
+.active 
+{
+    .ball 
+    {
+        background: $weak; 
+        color: #f1f1f1;
+
+    }
+}
+
+.marked
+{
+    .ball
+    {
+        background: $black;
+        color: #f1f1f1;
+    }
+}
+
+
+#calendar-year, #calendar-month
+{
+    color: $black; 
+    display: grid; 
+    grid-template-columns: repeat(3, 1fr); 
+    justify-content: space-evenly; 
+    width: 50%;
+    margin: auto;
+    text-align: center;
+    i
+    {
+        font-size: 2rem;
+    }
+}
+
+
+.day-planner 
+{
+    position: absolute; 
+    margin-top: 10vh; 
+    right: 100vw; 
+    background: $gray; 
+}
+
+.day-planner.open 
+{
+    right: 0; 
+}
