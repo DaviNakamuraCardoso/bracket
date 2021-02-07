@@ -49,10 +49,43 @@ th, tr {
 .day-planner {
   position: absolute;
   margin-top: 10vh;
+  width: 45vw;
   right: 100vw;
-  background: #e7e7e7; }
+  display: flex;
+  top: 0; }
 
 .day-planner.open {
-  right: 0; }
+  padding: 40px;
+  left: 50vw;
+  height: 70vh;
+  overflow: auto; }
+
+#day {
+  display: flex;
+  justify-content: space-between;
+  height: 100%; }
+
+#hours, #appointments {
+  padding: 0 20px; }
+
+#hours {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center; }
+
+#appointments {
+  position: relative;
+  height: 100%; }
+
+.appointment {
+  position: absolute;
+  background: #7356F4;
+  width: 300px;
+  cursor: pointer; }
+
+.closed {
+  background: #e7e7e7;
+  cursor: auto; }
 
 /*# sourceMappingURL=calendar.css.map */
