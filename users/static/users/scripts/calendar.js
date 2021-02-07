@@ -160,13 +160,13 @@ function loadDay(year, month, day)
     fetch(`/doctors/louis.pasteur/${year}/${month}/${day}`)
     .then(response => response.json())
     .then(result => {
+        clean(dayPlanner); 
         let dayInfo = result.day; 
         const dayPlanner = document.querySelector(".day-planner"); 
         const hours = document.querySelector('#hours'); 
         const appointments = document.querySelector("#appointments"); 
 
-        hours.innerHTML = ''; 
-        appointments.innerHTML = ''; 
+    
 
         dayPlanner.classList.toggle('open', true); 
 
@@ -223,15 +223,14 @@ function loadDay(year, month, day)
 
 function updateAllAppointments()
 {
-    const appointments = document.querySelectorAll('.appointments'); 
+    const appointments = document.querySelectorAll('.appointment'); 
     const schedule = document.querySelector("#schedule"); 
 
     appointments.forEach(appointment => {
         if (!appointment.classList.contains('closed'))
         {
             appointment.onclick = () => {
-                
-                
+                clean(schedule); 
             }
         }
 
@@ -249,4 +248,18 @@ function pad(n, width, z) {
   z = z || '0';
   n = n + '';
   return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
+}
+
+
+function clean(element)
+{
+    const newElement = element.cloneNode(true); 
+    const children = newElement.getElementsByTagName("*"); 
+    for (let i = 0; i < childen.length; i++)
+    {
+        children[i].innerHTML = "";
+    }
+
+    element.parentElement.replaceChild(newElement, element); 
+
 }
