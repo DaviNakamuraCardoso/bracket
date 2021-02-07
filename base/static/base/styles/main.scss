@@ -66,19 +66,19 @@ button
     text-transform: uppercase;
 }
 
-body::-webkit-scrollbar-track 
+*::-webkit-scrollbar-track 
 {
     background: #fff;
 }
 
-body::-webkit-scrollbar-thumb 
+*::-webkit-scrollbar-thumb 
 {
     background: $main;
 }
 
-body::-webkit-scrollbar 
+*::-webkit-scrollbar 
 {
-    width: 0.35rem;
+    width: 0.40rem;
 }
 
 /* Classes */

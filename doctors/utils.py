@@ -7,7 +7,6 @@ from users.models import Day
 from datetime import timedelta
 
 
-
 def get_doctor(name=None, request=None): 
     """Receive a name and returns a doctor object."""
     if request is not None: 
@@ -66,11 +65,13 @@ def make_schedule(request):
                     shift.areas.add(Area.objects.get(pk=data[f"areas_{j}_{day}_{i}"]))
                 except MultiValueDictKeyError: 
                     pass
+                shift.save()
 
                 
-            if data[daystr(day, i, 'break_time')] != '' and data[daystr(day, i, 'break_time')] != '': 
+            if data[daystr(day, i, 'break_time')] != '' and data[daystr(day, i, 'break_end')] != '': 
                 shift.break_time = data[daystr(day, i, 'break_time')]
                 shift.break_end = data[daystr(day, i, 'break_end')]
+                shift.save()
 
 
 def daystr(day, i, string): 

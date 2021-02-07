@@ -31,14 +31,14 @@ button {
   border: none;
   text-transform: uppercase; }
 
-body::-webkit-scrollbar-track {
+*::-webkit-scrollbar-track {
   background: #fff; }
 
-body::-webkit-scrollbar-thumb {
+*::-webkit-scrollbar-thumb {
   background: #370CF2; }
 
-body::-webkit-scrollbar {
-  width: 0.35rem; }
+*::-webkit-scrollbar {
+  width: 0.40rem; }
 
 /* Classes */
 /* _____ Navbar _____ */
