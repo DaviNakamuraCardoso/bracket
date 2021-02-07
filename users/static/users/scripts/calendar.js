@@ -157,14 +157,96 @@ function doctorsLoad()
 
 function loadDay(year, month, day)
 {
-    console.log(year); 
-    console.log(month); 
-    console.log(day); 
     fetch(`/doctors/louis.pasteur/${year}/${month}/${day}`)
     .then(response => response.json())
     .then(result => {
+        let dayInfo = result.day; 
         const dayPlanner = document.querySelector(".day-planner"); 
-        dayPlanner.classList.toggle('open'); 
+        const hours = document.querySelector('#hours'); 
+        const appointments = document.querySelector("#appointments"); 
+
+        hours.innerHTML = ''; 
+        appointments.innerHTML = ''; 
+
+        dayPlanner.classList.toggle('open', true); 
+
+        let start = thisDay(year, month, day, dayInfo[0][0]);
+        let end = thisDay(year, month, day, dayInfo[dayInfo.length-1][1]); 
+
+        let heightCounter = 0; 
+        for (let i = start.getHours(); i <= end.getHours(); i++)
+        {
+            let span = document.createElement('span'); 
+            span.innerHTML = `${pad(i, 2, 0)}:00`; 
+            hours.append(span);
+            heightCounter++; 
+        }
+        hours.style.height = `${heightCounter*90}px`;
+        const absoluteSize = hours.offsetHeight;  
+        appointments.style.height = `${absoluteSize}px`; 
+        for (let i = 0; i < dayInfo.length; i++)
+        {
+            let appointment = dayInfo[i]; 
+            let appointmentDiv = document.createElement('div'); 
+            let appointmentStart = thisDay(year, month, day, appointment[0]);   
+            let appointmentDelta = thisDay(year, month, day, appointment[1]) - appointmentStart; 
+            let dayDelta = end - start; 
+            let position = (appointmentStart - start) / dayDelta; 
+            let size = appointmentDelta / dayDelta; 
+
+            appointmentDiv.className = "appointment"; 
+            appointmentDiv.style.top = `${position*100}%`; 
+
+            appointmentDiv.style.height = `${absoluteSize * size - 2}px`; 
+            
+            appointments.append(appointmentDiv); 
+            for (let j = 0; j < result.appointments.length; j++)
+            {
+                if (i == result.appointments[j])
+                {
+                    appointmentDiv.classList.toggle('closed', true); 
+                }
+            }
+ 
+
+        }
+
+           
 
     }); 
+
+
+
+        
+}
+
+
+function updateAllAppointments()
+{
+    const appointments = document.querySelectorAll('.appointments'); 
+    const schedule = document.querySelector("#schedule"); 
+
+    appointments.forEach(appointment => {
+        if (!appointment.classList.contains('closed'))
+        {
+            appointment.onclick = () => {
+                
+                
+            }
+        }
+
+    }); 
+}
+
+
+function thisDay(year, month, day, hourString)
+{
+    return (new Date(`${year}/${month}/${day} ${hourString}`)); 
+}
+
+
+function pad(n, width, z) {
+  z = z || '0';
+  n = n + '';
+  return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
 }
