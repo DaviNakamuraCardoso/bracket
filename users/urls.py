@@ -11,8 +11,6 @@ urlpatterns = [
     # Register and specifics
     path('register', views.register_view, name='register'), 
 
-    
-
     # Utils
     path('create', views.create_cities, name='create'), 
 #    path('eliminate', views.eliminate), 

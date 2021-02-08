@@ -166,8 +166,6 @@ function loadDay(year, month, day)
         const hours = document.querySelector('#hours'); 
         const appointments = document.querySelector("#appointments"); 
 
-    
-
         dayPlanner.classList.toggle('open', true); 
 
         let start = thisDay(year, month, day, dayInfo[0][0]);
@@ -210,14 +208,7 @@ function loadDay(year, month, day)
  
 
         }
-
-           
-
     }); 
-
-
-
-        
 }
 
 
