@@ -22,6 +22,7 @@ class Doctor(models.Model):
     
     def serialize(self): 
         return {
+            'name': self.__str__(), 
             'number': self.number, 
             'degree': self.degree, 
             'areas': ", ".join([area.area for area in self.areas.all()]), 
@@ -52,6 +53,16 @@ class Shift(models.Model):
     areas = models.ManyToManyField(Area, blank=True, related_name='shifts')
     clinic = models.ForeignKey(Clinic, on_delete=models.CASCADE, blank=True, related_name='shifts')
 
+
+    def serialize(self): 
+        return {
+            'doctor': self.doctor.serialize(), 
+            'clinic': self.clinic.serialize(), 
+            'areas': [area.area for area in self.areas.all()], 
+            'day': self.day.day, 
+            'id': self.id
+        }
+
     def get_appointments(self): 
         
         if self.break_time is not None and self.break_end is not None: 
@@ -76,18 +87,9 @@ class Shift(models.Model):
 class Appointment(models.Model): 
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='appointments')
     to = models.CharField(max_length=64, null=True, blank=True)
-    patient = models.ForeignKey(Patient, on_delete=models.CASCADE, related_name='patient_appointments')
+    patient = models.ForeignKey(Patient, on_delete=models.CASCADE, related_name='patient_appointments', blank=True, null=True)
     shift = models.ForeignKey(Shift, on_delete=models.CASCADE, related_name='shift_appointments')
     day = models.IntegerField()
     month = models.IntegerField()
     year = models.IntegerField()
     index = models.IntegerField(null=True, blank=True)
-
-
-
-
-
-
-
-
-

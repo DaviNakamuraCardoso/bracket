@@ -4,7 +4,6 @@ from users.models import User, City
 
 class Clinic(models.Model): 
     admin = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_clinics', blank=True, null=True)
-
     staff = models.ManyToManyField(User, blank=True, related_name='staff_clinics')
 
 
@@ -20,13 +19,15 @@ class Clinic(models.Model):
     # Useful info 
     email = models.EmailField()
     city = models.ForeignKey(City, on_delete=models.CASCADE, related_name='clinics', blank=True, null=True)
+    address = models.CharField(max_length=256, null=True, blank=True)
 
 
     def serialize(self): 
         return {
             'email': self.email, 
-            'city': self.city, 
-            'doctors': [doctor for doctor in self.doctors.all()]
+            'city': self.city.serialize(), 
+            'doctors': [doctor.serialize() for doctor in self.doctors.all()], 
+            'address': self.address
         }
     
     def __str__(self): 

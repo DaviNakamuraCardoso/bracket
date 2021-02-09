@@ -1,11 +1,3 @@
-document.addEventListener("DOMContentLoaded", () => {
-    const button = document.querySelector("#invite"); 
-
-
-    button.onclick = () => {
-        inviteHandler(button);
-    }
-});
 
 
 function inviteHandler(button)
