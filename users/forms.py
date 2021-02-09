@@ -45,6 +45,7 @@ class ClinicForm(forms.Form):
     clinic_email = forms.EmailField(max_length=64, required=False)
     clinic_name = forms.CharField(max_length=64)
     clinic_city = forms.ChoiceField(widget=forms.Select(attrs={'class': 'city-field'}))
+    clinic_address = forms.CharField(max_length=256, label="Address (Street and Locality)")
     
 
 class LoginForm(forms.Form): 

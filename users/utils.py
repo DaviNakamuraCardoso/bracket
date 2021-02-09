@@ -118,8 +118,8 @@ def new_clinic(request, user):
             clinic_name=get_clinic_name(request)['name'], 
             base_name=get_clinic_name(request)['base'], 
             email=data['clinic_email'], 
-            city=City.objects.get(pk=data['clinic_city'])
+            city=City.objects.get(pk=data['clinic_city']), 
+            address=data['clinic_adress']
         )
         return clinic
     return None
-
