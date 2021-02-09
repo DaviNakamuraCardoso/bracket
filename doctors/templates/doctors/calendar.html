@@ -1,0 +1,6 @@
+{% load static %}
+
+{% include 'users/calendar.html' %}
+<input type="hidden" id="doctor" value="{{ doctor.user.name }}">
+
+<script type="module" src="{% static 'doctors/scripts/calendar.js' %}"></script>     

@@ -26,16 +26,16 @@
         {% for key, value in data.items %}
             <tr>
                 <td>
-                    {{ key.capitalize }}
+                    {{ key }}
                 </td>
                 <td>
-                    {{ value.capitalize }}
+                    {{ value }}
                 </td>
             </tr>
         {% endfor %}
     </table>
 
-    {% include 'users/calendar.html' %}
+    {% include 'doctors/calendar.html' %}
 
     <a href="{% url 'doctors:schedule' doctor.user.name %}">Schedule</a>
 

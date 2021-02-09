@@ -70,6 +70,24 @@ def day_planner(request, name, year, month, day):
     
     return JsonResponse({"day": day_appointments, "appointments":[appointment.index for appointment in appointments]})
 
+
+def appointment_planner(request, name, year, month, day, index):
+    doctor = get_doctor(name)
+    month += 1
+    weekday = get_weekday(day, month, year)
+    shifts = doctor.shifts.filter(day__day=weekday) 
+
+    counter = 0
+    for shift in shifts: 
+        appointments = shift.get_appointments()
+        hour = appointments[index-counter]
+        counter += len(appointments)
+        if index <= counter: 
+
+            return JsonResponse({'shift': shift.serialize(), 'hour': hour})
+    
+    return JsonResponse({"appointment": "Could not find!"})
+
     
 @csrf_exempt 
 @clinic_required  
