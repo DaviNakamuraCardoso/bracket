@@ -5,13 +5,18 @@ $weak: #7356F4;
 $strong: #1A0673;
 $available: #00F28A;
 $complementary: #F2D80C;
+@import url('https://fonts.googleapis.com/css2?family=Hammersmith+One&display=swap');
 
 
-th, tr 
+th, tr
 {
     padding: 10px; 
 }
 
+td 
+{
+    text-align: center;
+}
 
 #calendar 
 {
@@ -46,22 +51,30 @@ th, tr
 .day 
 {
     text-align: center;
+    .ball 
+    {
+        background: $gray; 
+
+    }
 }   
 
 .invalid 
 {
     cursor: auto;
     color: gray;
+    .ball 
+    {
+        background: #fff; 
+    }
 }
 
 .active 
 {
     .ball 
     {
-        background: $weak; 
-        color: #f1f1f1;
-
+        background: #fff; 
     }
+    
 }
 
 .marked
@@ -92,26 +105,35 @@ th, tr
 
 .day-planner 
 {
-    position: absolute; 
+    position: fixed; 
     margin-top: 10vh; 
-    width: 45vw; 
-    right: 100vw; 
+    width: 40vw; 
+    height: 70vh; 
     display: flex; 
     top: 0; 
+    right: -100vw; 
+    transition: all .8s ease; 
 }
 
 .day-planner.open 
 {
     padding: 40px; 
-    left: 50vw; 
-    height: 70vh; 
-    overflow: auto; 
+    right: 0; 
 }
+
+#appointment-table 
+{
+    display: grid; 
+    grid-template-columns: 3fr 1fr; 
+    overflow-y: auto; 
+    overflow-x: hidden; 
+    direction: rtl; 
+}
+
 #day 
 {
-    display: flex; 
-    justify-content: space-between; 
-    height: 100%; 
+    display: grid; 
+    grid-template-columns: repeat(2, 1fr); 
 }
 
 
@@ -132,20 +154,53 @@ th, tr
 #appointments 
 {
     position: relative; 
-    height: 100%; 
 
 }
 .appointment
 {
     position: absolute; 
     background: $weak; 
-    width: 300px; 
+    margin: auto; 
+    width: 90%; 
     cursor: pointer; 
+    color: #fff; 
+    transition: all .1s ease-in; 
+    text-align: center; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    font-size: 2rem;
+    
 }
+
+.appointment:hover 
+{
+    background: $main;
+}
+
 
 .closed 
 {
     background: $gray; 
     cursor: auto; 
+}
+
+.closed:hover 
+{
+    background: $gray;
+}
+
+.second
+{
+    color: #5a5a5a;
+}
+
+#schedule 
+{
+    font-size: 1.2rem; 
+    display: grid; 
+    justify-content: space-between; 
+    max-height: 60vh; 
+    position: relative; 
 }
 
