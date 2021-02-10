@@ -8,7 +8,7 @@ class ShiftForm(forms.ModelForm):
         model = Shift  
         exclude = ['doctor']
         widgets = {
-            'start': forms.TimeInput(attrs={'type': 'time', 'class': 'time'}), 
+            'start': forms.TimeInput(attrs={'type': 'time', 'class': 'time', 'step': "300"}), 
             'end': forms.TimeInput(attrs={'type': 'time', 'class':'time'}), 
             'break_time': forms.TimeInput(attrs={'type': 'time', 'class':'time'}), 
             'break_end': forms.TimeInput(attrs={'type': 'time', 'class':'time'}), 

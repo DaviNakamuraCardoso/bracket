@@ -34,7 +34,7 @@ class Doctor(models.Model):
     
     def str(self): 
         return f"Dr. {self.user.first_name} {self.user.last_name}"
-        
+
 
 class Shift(models.Model):
     
@@ -89,6 +89,7 @@ class Appointment(models.Model):
     to = models.CharField(max_length=64, null=True, blank=True)
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE, related_name='patient_appointments', blank=True, null=True)
     shift = models.ForeignKey(Shift, on_delete=models.CASCADE, related_name='shift_appointments')
+    area = models.ForeignKey(Area, on_delete=models.CASCADE, blank=True, null=True)
     day = models.IntegerField()
     month = models.IntegerField()
     year = models.IntegerField()

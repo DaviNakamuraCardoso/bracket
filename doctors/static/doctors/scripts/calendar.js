@@ -23,7 +23,6 @@ function doctorsLoad()
                     if (index % 7 == DAYS[weekday]) 
                     {
                         day.classList.add('active', true); 
-                    
                     }
                 }); 
             }
@@ -59,10 +58,7 @@ function loadDay(year, month, day)
             hours.append(span);
             heightCounter++; 
         }
-        console.log(heightCounter); 
         end = thisDay(year, month, day, `${heightCounter + start.getHours() -1}:00:00`); 
-
-        console.log(end); 
 
         hours.style.height = `${heightCounter*90}px`;
         const absoluteSize = hours.offsetHeight;  
@@ -85,12 +81,21 @@ function loadDay(year, month, day)
             appointmentDiv.style.height = `${absoluteSize * size - 2}px`; 
             
             appointments.append(appointmentDiv); 
+
+
             for (let j = 0; j < result.appointments.length; j++)
             {
                 if (i == result.appointments[j])
                 {
                     appointmentDiv.classList.toggle('closed', true); 
                 }   
+            }
+            for (let j = 0; j < result.user_appointments.length; j++)
+            {
+                if (i == result.appointments[j])
+                {
+                    appointmentDiv.classList.toggle('chosen', true); 
+                }
             }
         }
         updateAllAppointments(); 
@@ -110,9 +115,9 @@ function updateAllAppointments()
     const doctor = document.querySelector("#doctor").value; 
     
     appointments.forEach(appointment => {
-
+        if (!appointment.classList.contains('closed') && !appointment.classList.contains('chosen'))
+        {
             appointment.onclick = () => {
-                console.log('clicking'); 
                 const index = appointment.id.split('_')[1]; 
                 fetch(`/doctors/${doctor}/${year}/${month}/${day}/${index}`)
                 .then(response => response.json())
@@ -131,23 +136,48 @@ function updateAllAppointments()
 
                     children['areas'].value = shift.areas[0]; 
 
+                    const csrfToken = document.querySelector('input').value; 
+                    const request = new Request(
+                        children['form'].action, 
+                        {headers: {'X-CSRFToken': csrfToken}}
+
+                    );
+
                     children['form'].onsubmit = () => {
 
-                        children['input-shift'].value = shift.id;
-                        children['input-day'].value = day; 
-                        children['input-month'].value = month; 
-                        children['input-year'].value = year; 
-                        children['input-index'].value = index; 
+                        fetch(request, {
+                            method: 'POST',
+                            mode: 'same-origin', 
+                            body: JSON.stringify({
+                                'index': index, 
+                                'day': day, 
+                                'month': month, 
+                                'year': year,
+                                'patient': children['user'].value, 
+                                'area': children['areas'].value, 
+                                'shift': shift.id
+
+                            })
+                        })
+                        .then(response => response.json())
+                        .then(result => {
+                            console.log(result.message); 
+                            appointment.classList.toggle('chosen', true); 
+
+                        }); 
                         return false; 
 
-                    }
-                    
 
+                    }
                 }); 
             }
-
-
-
+        }
+        else if (appointment.classList.contains('chosen'))
+        {
+            appointment.onclick = () => {
+                
+            } 
+        }
     }); 
 }
 
