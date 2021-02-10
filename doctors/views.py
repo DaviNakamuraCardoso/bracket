@@ -1,18 +1,33 @@
 from django.shortcuts import render, reverse 
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-from doctors.models import Doctor, Appointment
+from django.contrib.auth.decorators import login_required
+from doctors.models import Doctor, Appointment, Shift, Area
 from doctors.utils import get_doctor, make_schedule 
 from doctors.forms import ShiftForm 
 from clinics.utils import get_clinic, clinic_required
 from base.models import Notification 
 from users.data.time import get_weekday
+from django.contrib.postgres.search import TrigramSimilarity
 import json 
 # Create your views here.
 
 def index(request): 
+
+    doctors = Doctor.objects.all()
+
+    if search := request.GET.get('search_query'): 
+        doctors = []
+        results = Doctor.objects.annotate(
+            similarity=TrigramSimilarity('areas__area', search)
+        ).all().order_by('-similarity')
+
+        for doctor in results: 
+            if doctor not in doctors: 
+                doctors.append(doctor)
+
     return render(request, 'doctors/index.html', {
-        'doctors': Doctor.objects.all()
+        'doctors': doctors
     })
 
 
@@ -22,7 +37,6 @@ def profile(request, name):
         'doctor': doctor, 
         'data': doctor.serialize()
     })
-
 
 
 def schedule_view(request, name): 
@@ -67,8 +81,9 @@ def day_planner(request, name, year, month, day):
         day_appointments += shift.get_appointments()
 
     appointments = Appointment.objects.filter(day=day, month=month, year=year, shift__doctor=doctor)
+    user_appointments = Appointment.objects.filter(day=day, month=month, year=year, shift__doctor=doctor, user=request.user)
     
-    return JsonResponse({"day": day_appointments, "appointments":[appointment.index for appointment in appointments]})
+    return JsonResponse({"day": day_appointments, "appointments":[appointment.index for appointment in appointments], "user_appointments": [appointment.index for appointment in user_appointments]})
 
 
 def appointment_planner(request, name, year, month, day, index):
@@ -134,3 +149,29 @@ def accept(request, name):
 
     return JsonResponse({"message": "Succesfully refused to accept the user"})
 
+
+@login_required 
+def new_appointment(request, name): 
+    if request.method == "POST": 
+
+        doctor = get_doctor(name)
+        data = json.loads(request.body)
+        patient = None
+        if data['patient'] == request.user.first_name + " " + request.user.last_name: 
+            patient = request.user.patient
+
+        appointment = Appointment.objects.create(
+            user=request.user, 
+            patient=patient, 
+            to=data['patient'], 
+            shift=Shift.objects.get(pk=data['shift']), 
+            day=data['day'], 
+            month=data['month']+1, 
+            year=data['year'], 
+            index=data['index'], 
+            area=Area.objects.get(area=data['area'])
+            
+        )
+        return JsonResponse({"message": f"Appointment scheduled successfully."})
+    
+    return JsonResponse({"message": "Method must be POST."})

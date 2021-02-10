@@ -58,6 +58,9 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+
+CSRF_USE_SESSIONS = True
+
 ROOT_URLCONF = 'bracket.urls'
 
 
