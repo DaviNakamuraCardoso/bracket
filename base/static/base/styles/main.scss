@@ -132,6 +132,18 @@ button
     grid-area: search;
 }
 
+#search-input 
+{
+    border-radius: 30px; 
+    padding: 15px;
+    border: 1px solid black;
+}
+
+#search-input:focus
+{
+    outline: none; 
+}
+
 .double
 {
     grid-area: double;

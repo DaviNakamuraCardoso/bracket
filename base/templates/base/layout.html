@@ -27,7 +27,9 @@
         </ul>
 
         <ul class="navbar-nav" id="search">
-
+            <form>
+                <input type="text" name="search_query" id="search-input">
+            </form>
         </ul>
 
         <ul class="navbar-nav double">
@@ -144,7 +146,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a href="{% url 'base:index' %}">
+                <a href="{% url 'clinics:index' %}">
                     <i class="fas fa-hospital-user"></i>
 
                 </a>
