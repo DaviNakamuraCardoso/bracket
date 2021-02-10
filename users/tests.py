@@ -5,6 +5,7 @@ from .models import *
 from users.data.geolocation import locate
 from users.utils import get_calendar
 
+
 # Create your tests here.
 class TestLocation(SimpleTestCase): 
     """Test the location algorithm, giving the coordinates of a 

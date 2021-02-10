@@ -2,13 +2,19 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required 
 from patients.models import Patient
-
+from django.contrib.postgres.search import TrigramSimilarity
 # Create your views here.
 
 
 def index(request): 
+    patients = Patient.objects.all()[:10]
+    if search := request.GET.get('search_query'): 
+
+        patients = Patient.objects.annotate(similarity=TrigramSimilarity('user__name', search)).all().order_by('-similarity')
+
+
     return render(request, 'patients/index.html', {
-        'patients': Patient.objects.all()
+        'patients': patients 
     })
 @login_required 
 def profile(request, name): 

@@ -37,7 +37,9 @@ td
 .ball:hover 
 {
     background: $gray; 
+
 }
+
 
 
 #month 
@@ -54,7 +56,6 @@ td
     .ball 
     {
         background: $gray; 
-
     }
 }   
 
@@ -204,3 +205,12 @@ td
     position: relative; 
 }
 
+.chosen 
+{
+    background: $strong; 
+
+}
+.chosen:hover 
+{
+    background: $strong; 
+}

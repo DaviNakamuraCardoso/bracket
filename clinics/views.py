@@ -5,12 +5,25 @@ from clinics.models import Clinic
 from base.models import Notification
 from doctors.utils import get_doctor
 from clinics.utils import get_clinic
+from django.contrib.postgres.search import TrigramSimilarity
 import json 
 
 # Create your views here.
 
 def index(request): 
-    return render(request, 'clinics/index.html')
+    clinics = Clinic.objects.all()
+
+    if search := request.GET.get('search_query'): 
+        clinics = []
+        results = Clinic.objects.annotate(similarity=TrigramSimilarity('name', search)).all().order_by('-similarity')
+        for clinic in results: 
+            if clinic not in clinics: 
+                clinics.append(clinic)
+
+
+    return render(request, 'clinics/index.html', {
+        'clinics': clinics
+    })
 
 
 def profile(request, clinic_name): 

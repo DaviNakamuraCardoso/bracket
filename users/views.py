@@ -163,4 +163,4 @@ def location(request, lat, lng):
 def calendar(request, month, year): 
 
     return JsonResponse(get_calendar(month+1, year))
-    
+

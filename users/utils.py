@@ -5,6 +5,7 @@ from patients.models import Patient
 from django.shortcuts import render, reverse 
 from django.http import HttpResponseRedirect
 from users.data import sorted_cities
+import datetime
 
 
 def get_name(first, last): 

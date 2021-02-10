@@ -46,15 +46,16 @@
                 <i class="fas fa-map-marker-alt"></i>
                 <span id="schedule-location-title" class="second"></span>
             </div>
-            <form id="schedule-form">
+            <form id="schedule-form" action="{% url 'doctors:new-appointment' doctor.user.name %}" method="POST">
+                {% csrf_token %}
                 <input  id="schedule-areas" list="schedule-areas-datalist">
                 <datalist id="schedule-areas-datalist"></datalist>
-                <input id="schedule-user" type="text" value="{{ request.user.first_name }} {{ request.user.last_name}}">
-                <input type="hidden" id="schedule-input-day">
-                <input type="hidden" id="schedule-input-month">
-                <input type="hidden" id="schedule-input-year">
-                <input type="hidden" id="schedule-input-index">
-                <input type="hidden" id="schedule-input-shift">
+                <input id="schedule-user" type="text" value="{{ request.user.first_name }} {{ request.user.last_name}}" name="patient">
+                <input type="hidden" id="schedule-input-day" name="day">
+                <input type="hidden" id="schedule-input-month" name="month">
+                <input type="hidden" id="schedule-input-year" name="year">
+                <input type="hidden" id="schedule-input-index" name="index">
+                <input type="hidden" id="schedule-input-shift" name="shift">
                 <input type="submit" value="Schedule">
             </form>
             

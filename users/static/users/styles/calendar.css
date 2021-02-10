@@ -124,4 +124,10 @@ td {
   max-height: 60vh;
   position: relative; }
 
+.chosen {
+  background: #1A0673; }
+
+.chosen:hover {
+  background: #1A0673; }
+
 /*# sourceMappingURL=calendar.css.map */
