@@ -18,22 +18,22 @@
 
     <!-- Navbar -->
     <nav class="navbar" id="menu">
-        <ul class="navbar-nav" id="logo">
-            <li class="nav-item">
-                <a href="{% url 'base:index' %}" class="nav-link">Final Project</a>
+        <div class="navbar-nav" id="logo">
 
-            </li>
+            <a href="{% url 'base:index' %}" class="nav-link">Final Project</a>
+
             
-        </ul>
+        </div>
 
-        <ul class="navbar-nav" id="search">
+        <div class="navbar-nav" id="search">
             <form>
                 <input type="text" name="search_query" id="search-input">
             </form>
-        </ul>
+        </div>
 
-        <ul class="navbar-nav double">
+        <div class="navbar-nav double">
 
+            <ul class="navbar-list">
             {% if not request.user.is_authenticated %}
 
 
@@ -87,7 +87,10 @@
                         
             <li class="drop nav-item">
                 <div class="drop icon">
-                    <i class="drop fas fa-user"></i>
+                    <div class="drop image-cropper">
+
+                        <img src="{{ request.user.picture.url }}" width="50px" height="50px" class="drop drop-pic">
+                    </div>
                 </div>
 
                 <div class="drop dropdown">
@@ -124,37 +127,17 @@
 
             </li>
 
+
+            </ul>
+
+
             {% endif %}
 
-        </ul>
+        </div>
         
     </nav>
     {% if request.user.is_authenticated %}
-
-    <nav class="navbar" id="sidebar">
-
-        <ul class="navbar-nav" id="sidebar-list">
-            <li class="nav-item">
-                <a href="{% url 'patients:index' %}">
-                    <i class="fas fa-notes-medical"></i>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="{% url 'doctors:index' %}">
-                    <i class="fas fa-stethoscope"></i>
-
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="{% url 'clinics:index' %}">
-                    <i class="fas fa-hospital-user"></i>
-
-                </a>
-            </li>
-            
-        </ul>
-
-    </nav>
+        {% include 'base/sidebar.html' %}
     {% endif %}
 
     <!-- Body -->

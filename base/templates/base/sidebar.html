@@ -1,0 +1,22 @@
+{% load static %}
+
+
+<link rel="stylesheet" href="{% static 'base/styles/sidebar.css' %}">
+<nav class="navbar" id="sidebar">
+    <div class="navbar-item">
+        <div class="nav-content">
+            <ul class="nav-list">
+                {% for clinic in request.user.staff_clinics.all %}
+                    <li class="nav-item">
+                        <a href="{% url 'clinics:profile' clinic.clinic_name %}">{{ clinic.name }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+
+        </div>
+         
+    </div>
+    <div class="nav-item">
+
+    </div>
+</nav>
