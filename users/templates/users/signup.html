@@ -3,18 +3,20 @@
 {% load static %}
 
 
-    <script src="{% static 'users/scripts/register.js' %}"></script>
+    <script src="{% static 'users/scripts/register.js' %}" type="module"></script>
+    <script src="{% static 'users/scripts/cropper.js' %}" type="module"></script>
+
     <link rel="stylesheet" href="{% static 'users/styles/forms.css' %}">
     <link rel="stylesheet" href="{% static 'base/styles/checkbox.css' %}">
 
-        <div class="not-logged">
+        <div class="not-logged">    
 
             <div class="form" id="">
                 <h1>Select your account type</h1>
                 <h2>You can choose more than one.</h2>
                 
                                     
-                <form class="register" action="{% url 'users:register' %}" method="POST">
+                <form class="register" action="{% url 'users:register' %}" method="POST" enctype="multipart/form-data">
                 {{ checkbox.types }}
                     <div class="checkbox-container">
                         {% for title, value in checkbox.checkbox.field.choices %}
@@ -42,6 +44,24 @@
                             </div>
 
                         {% endfor %}
+
+                        <!-- A canvas which cropper will draw on -->
+		                <canvas id="testCanvas" width="600" height="600" style="border: 1px solid black;" >Your browser does not support canvas.</canvas>
+                            
+            
+    
+		                <br />
+		                <!-- Below are a series of inputs which allow file selection and interaction with the cropper api -->
+		                <input type="file" id="fileInput" name="picture"/>
+                        <input type="button" id="crop" value="Crop">
+                        <input type="button" id="restore" value="Restore">
+                        <input type="hidden" id="size" name="size">
+                        <input type="hidden" id="picture-x" name="picture-x">
+                        <input type="hidden" id="picture-y" name="picture-y">
+
+
+		
+
 
                         </div>
                         

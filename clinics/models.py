@@ -21,6 +21,9 @@ class Clinic(models.Model):
     city = models.ForeignKey(City, on_delete=models.CASCADE, related_name='clinics', blank=True, null=True)
     address = models.CharField(max_length=256, null=True, blank=True)
 
+    # Image 
+    picture = models.ImageField(null=True, blank=True)
+
 
     def serialize(self): 
         return {
@@ -32,6 +35,9 @@ class Clinic(models.Model):
     
     def __str__(self): 
         return f"{self.name}"
+
+    def identifier(self): 
+        return self.clinic_name
 
     def add_doctor(self, doctor): 
         self.doctors.add(doctor)

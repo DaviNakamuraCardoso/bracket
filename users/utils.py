@@ -2,9 +2,8 @@ from users.models import User, City
 from clinics.models import Clinic
 from doctors.models import Doctor, Area
 from patients.models import Patient
-from django.shortcuts import render, reverse 
-from django.http import HttpResponseRedirect
-from users.data import sorted_cities
+from django.conf import settings
+import os
 import datetime
 
 
@@ -46,9 +45,14 @@ def new_user(request):
         city=City.objects.get(pk=data['city']), 
         first_name=data['first_name'], 
         last_name=data['last_name'], 
-        name=get_name(data['first_name'], data['last_name']), 
+        name=get_name(data['first_name'], data['last_name'])
 
     )
+
+    if picture := request.FILES['picture']: 
+
+        user.picture = handle_uploaded_file(picture, user)
+    
     user.save()
     
     return user 
@@ -89,7 +93,6 @@ def new_patient(request, user):
         
     return None
     
-    return JsonResponse({"message": "Method must be POST."})
 
 
 def new_doctor(request, user): 
@@ -120,7 +123,25 @@ def new_clinic(request, user):
             base_name=get_clinic_name(request)['base'], 
             email=data['clinic_email'], 
             city=City.objects.get(pk=data['clinic_city']), 
-            address=data['clinic_adress']
+            address=data['clinic_address'] 
+            
         )
+        clinic.picture = handle_uploaded_file(request.FILES['clinic_picture'], clinic)
+        clinic.save()
+
         return clinic
     return None
+
+
+def handle_uploaded_file(file, model):
+    extension = file.__str__().split('.')[-1]
+    filename = f"{model.identifier()}_picture.{extension}"
+    
+    
+    with open(os.path.join(settings.MEDIA_ROOT, filename), 'wb+') as destination:
+        for chunk in file.chunks():
+            destination.write(chunk)
+    
+
+
+    return filename 

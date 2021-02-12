@@ -1,9 +1,7 @@
-from django.test import TestCase, Client, SimpleTestCase
+from django.test import SimpleTestCase
 from django.shortcuts import reverse
-import unittest
 from .models import *
 from users.data.geolocation import locate
-from users.utils import get_calendar
 
 
 # Create your tests here.
@@ -81,10 +79,3 @@ class TestLocation(SimpleTestCase):
         cities = locate(-23.19, -45.90)
         sjc = cities[0]['city'] + ', ' + cities[0]['state_id']
         self.assertEqual(sjc, "São José dos Campos, SP")
-    
-
-
-class TestCalendar(SimpleTestCase): 
-    def test_feb_2021(self): 
-        c = get_calendar(month=2, year=2021)
-        self.assertEqual(c, "TEST")

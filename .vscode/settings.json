@@ -1,0 +1,22 @@
+{
+    "remote.extensionKind": {
+
+        "pub.name": [
+            "ui"
+        ]
+    },
+    "editor.codeActionsOnSave": null,
+    "editor.rulers": [
+    
+    ], 
+ 
+    "vim.handleKeys": {
+        "<C-d>": true, 
+        "<C-w>": false, 
+        "<C-k>": false, 
+        "<C-o>": false, 
+        "<C-shift-e>": false
+    }
+
+ 
+}

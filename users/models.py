@@ -1,7 +1,6 @@
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from django.db import models
 from django.utils import timezone
-import csv
 
 
 # Create your models here.
@@ -87,6 +86,9 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     city = models.ForeignKey(City, on_delete=models.CASCADE, related_name='citizens', blank=True, null=True)
 
+    # Picture 
+    picture = models.ImageField(default='default.jpeg')
+
 
     # Date fields 
     last_login = models.DateTimeField(null=True, blank=True)
@@ -97,6 +99,9 @@ class User(AbstractBaseUser, PermissionsMixin):
     REQUIRED_FIELDS = []
 
     objects = UserManager()
+
+    def identifier(self):
+        return self.name
 
     def sorted_notifications(self): 
         return self.notifications.all().order_by('-timestamp')
