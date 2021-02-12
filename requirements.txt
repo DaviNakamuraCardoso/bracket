@@ -1,3 +1,4 @@
 setuptools==45.2.0
 Django==3.1.2
 django-floppyforms==1.9.0
+Pillow==7.0.0

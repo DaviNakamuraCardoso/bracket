@@ -3,7 +3,9 @@ from clinics.models import Clinic
 from doctors.models import Doctor, Area
 from patients.models import Patient
 from django.conf import settings
+from PIL import Image
 import os
+import math
 import datetime
 
 
@@ -51,7 +53,7 @@ def new_user(request):
 
     if picture := request.FILES['picture']: 
 
-        user.picture = handle_uploaded_file(picture, user)
+        user.picture = handle_uploaded_file(request.POST, picture, user)
     
     user.save()
     
@@ -126,22 +128,26 @@ def new_clinic(request, user):
             address=data['clinic_address'] 
             
         )
-        clinic.picture = handle_uploaded_file(request.FILES['clinic_picture'], clinic)
+        clinic.picture = handle_uploaded_file(request.POST, request.FILES['clinic_picture'], clinic)
         clinic.save()
 
         return clinic
     return None
 
 
-def handle_uploaded_file(file, model):
+def handle_uploaded_file(data, file, model):
+    # Get a unique filename based on the model name and the extension
     extension = file.__str__().split('.')[-1]
     filename = f"{model.identifier()}_picture.{extension}"
-    
-    
-    with open(os.path.join(settings.MEDIA_ROOT, filename), 'wb+') as destination:
-        for chunk in file.chunks():
-            destination.write(chunk)
-    
 
+    # Read the file with the image reader and crops it 
+    image_reader = Image.open(file)    
+    size = min(max(16, int(data['size'])), min(image_reader.height, image_reader.width))
+    x = min(max(0, int(data['picture-x'])), image_reader.width-size)
+    y = min(max(0, int(data['picture-y'])), image_reader.height-size)
+
+    
+    cropped = image_reader.crop((x, y, x+size, y+size))
+    cropped.save(os.path.join(settings.MEDIA_ROOT, filename))
 
     return filename 
