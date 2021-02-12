@@ -24,6 +24,7 @@ const MONTHS = [
 ] 
 
 
+// Starts a basic calendar 
 function startCalendar(month, year, fill, dayOnclick)
 {
     const calendar = document.querySelector("#month"); 
@@ -33,7 +34,7 @@ function startCalendar(month, year, fill, dayOnclick)
 
     calendarBody.innerHTML = ''; 
 
-    
+
     monthTitle.innerHTML = MONTHS[month]; 
     yearTitle.innerHTML = year;
 
@@ -117,9 +118,6 @@ function startCalendar(month, year, fill, dayOnclick)
     fill(); 
 
 }
-
-
-
 
 
 function thisDay(year, month, day, hourString)
