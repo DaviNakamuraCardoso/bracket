@@ -22,7 +22,7 @@ class Clinic(models.Model):
     address = models.CharField(max_length=256, null=True, blank=True)
 
     # Image 
-    picture = models.ImageField(null=True, blank=True)
+    picture = models.ImageField(default='clinic-default.png')
 
 
     def serialize(self): 

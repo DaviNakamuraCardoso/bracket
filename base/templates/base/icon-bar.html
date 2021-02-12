@@ -1,0 +1,87 @@
+{% load static %}
+
+
+<link rel="stylesheet" href="{% static 'base/styles/icon-bar.css' %}">
+<script src="{% static 'base/scripts/notifications.js' %}"></script>
+<script src="{% static 'base/scripts/main.js' %}"></script>
+
+            <!-- Notifications -->
+            <li class="drop nav-item">
+                <div class="drop icon">
+                    <i class="drop fas fa-bell" id="bell">
+                        {% if request.user.notifications.all %}
+                            <span class="notifi-number"></span>
+                        {% endif %}
+                    </i>
+
+                    
+                </div>
+                <div class="drop dropdown" id="box">
+                    <h2 class="drop drop-t">Notifications</h2>
+                    {% for notification in request.user.sorted_notifications %}
+                        <div class="drop drop-item">
+
+                            {% if not notification.read %}
+                                <div class="drop circle"></div>
+                            {% endif %}
+                            <div class="drop text">
+
+                                <h4 class="drop drop-title">{{ notification.origin }}</h4>
+                                <p class="drop drop-text">{{ notification.text }}</p>
+                                <p class="drop drop-timestamp">{{ notification.time }}</p>
+                                <div class="drop reply-btn-container">
+                                    <button class="drop accept notifi-reply-btn" data-url="{{ notification.url }}" data-val="accept">Accept</button>
+                                    <button class="drop deny notifi-reply-btn" data-url="{{ notification.url }}" data-val="deny">Deny</button>
+                                </div>
+                            </div>
+                        </div>
+
+                    {% endfor %}
+                </div>
+            </li>
+                        
+            <li class="drop nav-item">
+                <div class="drop icon">
+                    <div class="drop image-cropper">
+
+                        <img src="{{ request.user.picture.url }}" width="50px" height="50px" class="drop drop-pic">
+                    </div>
+                </div>
+
+                <div class="drop dropdown">
+                    <h2 class="drop drop-t">Signed in as <strong>{{ request.user.first_name }} {{ request.user.last_name }}</strong></h2>
+                    
+                    <!-- Medical Info -->
+                    <a class="drop drop-link" href="{% url 'patients:profile' request.user.name %}">
+                    <div class="drop drop-item">
+                        <div class="drop drop-text">
+                                <i class="drop fas fa-clipboard"></i>
+                                <p class="drop drop-text">Medical Info</p>
+
+                            
+                        </div>
+                    </div>
+
+                    </a>
+                    
+
+                    <!-- Logout -->
+                    <div class="drop drop-item">
+                        <div class="drop text">
+                            <a class="drop drop-link" href="{% url 'users:logout' %}">
+                                <i class="drop fas fa-sign-out-alt"></i>
+                                <p class="drop drop-text">Logout</p>
+                            </a>
+                        </div>
+                    </div>
+
+
+
+                    
+                </div>
+
+            </li>
+
+
+
+

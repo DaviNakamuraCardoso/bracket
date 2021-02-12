@@ -1,8 +1,33 @@
 $main: #370CF2;
+$sidebar-width: 10vw; 
+
 
 
 #sidebar 
 {
     position: fixed; 
     flex-direction: column;
+    width: $sidebar-width; 
+
+}
+
+#sidebar-list 
+{
+    display: flex;
+    flex-direction: column;
+    height: 60%;
+    width: 100%;
+}
+
+#main 
+{
+    margin-left: $sidebar-width;
+}
+
+#menu 
+{
+    margin-left: $sidebar-width; 
+    width: 90vw;
+
+
 }

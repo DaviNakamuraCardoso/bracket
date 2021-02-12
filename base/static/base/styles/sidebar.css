@@ -1,5 +1,19 @@
 #sidebar {
   position: fixed;
-  flex-direction: column; }
+  flex-direction: column;
+  width: 10vw; }
+
+#sidebar-list {
+  display: flex;
+  flex-direction: column;
+  height: 60%;
+  width: 100%; }
+
+#main {
+  margin-left: 10vw; }
+
+#menu {
+  margin-left: 10vw;
+  width: 90vw; }
 
 /*# sourceMappingURL=sidebar.css.map */

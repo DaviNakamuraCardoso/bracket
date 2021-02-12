@@ -397,13 +397,13 @@
 			var cropCanvas = cropImage(!cropping); // cropping here controls if we get the entire image or not, desirable if the user is not cropping
 			var url = cropCanvas.toDataURL("png");
 
-			console.log(overlay.x);
-			console.log(overlay.y);
-			console.log(overlay.width);
+			console.log(overlay.width * image.width / canvas.width);
+			console.log(overlay.x * image.width / canvas.width);
+			console.log(overlay.y * image.height / canvas.height);
 
-			document.getElementById("size").value = overlay.width; 
-			document.getElementById("picture-x").value = overlay.x; 
-			document.getElementById("picture-y").value = overlay.y; 
+			document.getElementById("size").value = Math.round(overlay.width * image.width / canvas.width);  
+			document.getElementById("picture-x").value = Math.round(overlay.x * image.width / canvas.width); 
+			document.getElementById("picture-y").value = Math.round(overlay.y * image.height / canvas.height); 
 
 			// show the new image, only bother doing this if it isn't already displayed, ie, we are cropping
 			if(cropping) {
@@ -500,9 +500,6 @@
 		return {x:canvasX, y:canvasY}
 	}
 
-	document.querySelector("form").addEventListener("submit", () => {
-		cropper.CroppedImageSrc(); 
-	})
 
 }(window.cropper = window.cropper || {}));
 
@@ -510,7 +507,9 @@
 
 	
 document.addEventListener('DOMContentLoaded', () => 
+
 {
+	updateCanvas(); 
     let types = ['user']; 
     
     const nextButton = document.querySelector("#next"); 
@@ -534,8 +533,6 @@ document.addEventListener('DOMContentLoaded', () =>
 
         updateChoices(); 
         navigator.geolocation.getCurrentPosition(setPosition);
-        
-        updateCanvas(); 
         
         next(types, 0, nextButton); 
 
@@ -561,7 +558,7 @@ function next(array, index, button)
     }
     else 
     {
-        validate(e.firstElementChild); 
+        validate(e); 
     
         button.onclick = () => 
         {
@@ -569,7 +566,6 @@ function next(array, index, button)
         }
 
     }
-    updateCanvas(); 
 
     
 }
@@ -611,7 +607,7 @@ function validate(element)
     const inputs = element.querySelectorAll('input'); 
 
     button.disabled = true;
-    for (i = 0; i < inputs.length; i++)
+    for (let i = 0; i < inputs.length; i++)
     {
         inputs[i].addEventListener('input', () => {
             let values = [];
