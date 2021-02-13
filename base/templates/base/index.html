@@ -26,4 +26,30 @@
 
     </div>
     
+    <div class="container">
+        {% for area in selected_areas %}
+            <div class="card">
+                <div class="front">
+                    <img src="{{ area.image.url }}" alt="{{ area.area }}">
+                    <h3 class="name">{{ area.area }]</h3>
+                    <div class="stats">
+                        <p class="text">{{ clinic.distance }}</p>
+                        <div class="participants">
+                            {% for doctor in clinic.top_doctors %}
+                                <img src="{{ doctor.user.picture.url }}" alt="">
+                            {% endfor %}
+                        </div>
+                        
+                    </div>
+                </div>
+                <div class="back">
+                    <div class="info">
+
+                    </div>
+
+                </div>
+            </div>
+        {% endfor %}
+
+    </div>
 {% endblock %}

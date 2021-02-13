@@ -1,9 +1,11 @@
 
 
-/* Colors */
-$main: #370CF2;
-$comp: red;
-$gray: #777;
+/* ___ Dust Pallete ___ */
+$main: #4387f5; 
+$black: #424656; 
+$gray: #A7AABD; 
+$complementary: #EC5272;
+
 
 
 /* Font */
@@ -29,6 +31,7 @@ $nav-height: 10vh;
 {
     padding: 0;
     margin: 0;
+    font-family: sans-serif; 
 }
 
 html
@@ -75,6 +78,12 @@ i
     position: relative; 
 }
 
+img 
+{
+    width: 16px; 
+    height: 16px;
+}
+
 *::-webkit-scrollbar-track 
 {
     background: #fff;
@@ -90,6 +99,12 @@ i
     width: 0.40rem;
 }
 
+
+*::selection 
+{
+    background: $complementary; 
+    color: white; 
+}
 /* Classes */
 
 /* _____ Navbar _____ */
@@ -100,7 +115,6 @@ i
     position: fixed;
     font-size: $large;
     background: #fff;
-    color: $main;
     align-items: center;
     justify-content: space-between;
     z-index: 9;

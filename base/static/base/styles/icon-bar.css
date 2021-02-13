@@ -113,16 +113,13 @@
   align-items: center;
   justify-content: center; }
 
-.image-cropper {
-  border: 2px solid #370CF2; }
-
-.drop-pic, .fas {
+.drop-pic, #bell {
   display: inline;
   margin: 0 auto;
   height: 100%;
   width: auto; }
 
-.fas::before {
+#bell::before {
   position: absolute;
   top: 0;
   right: 0;

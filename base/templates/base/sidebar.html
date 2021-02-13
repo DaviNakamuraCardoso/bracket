@@ -1,22 +1,62 @@
 {% load static %}
 
 
+
+
 <link rel="stylesheet" href="{% static 'base/styles/sidebar.css' %}">
+<script src="{% static 'base/scripts/sidebar.js' %}"></script>
 <nav class="navbar" id="sidebar">
-    <div class="navbar-item">
-        <div class="nav-content">
-            <ul class="nav-list">
-                {% for clinic in request.user.staff_clinics.all %}
-                    <li class="nav-item">
-                        <a href="{% url 'clinics:profile' clinic.clinic_name %}">{{ clinic.name }}</a>
+    <ul id="sidebar-list">
+        <li class="navbar-item">
+            <div class="nav-content">
+                <ul class="nav-list">
+                    <li class="nav-li">
+                        <a href="{% url 'base:index' %}">
+                                <i class="fas fa-home"></i>
+                                <p>Home</p>
+                        </a>
                     </li>
-                {% endfor %}
-            </ul>
+                    <li class="nav-li">
+                        <a href="{% url 'doctors:index' %}">
+                            <i class="fas fa-user-md"></i>
+                            <p>Doctors</p>
+                        </a>
+                    </li>
+                    <li class="nav-li">
+                        <a href="{% url 'clinics:index' %}">
+                                <i class="fas fa-hospital"></i>
+                                <p>Clinics</p>
+                        </a>
+                    </li>
 
-        </div>
-         
-    </div>
-    <div class="nav-item">
+                </ul>
+            </div>
+        </li>
+        <li class="accordeon navbar-item">
+            <button class="navbar-button" type="button">Clinics</button>
+            <div class="nav-content">
+                <ul class="nav-list">
+                    {% for clinic in request.user.staff_clinics.all %}
+                        <li class="nav-li">
+                                <a href="{% url 'clinics:profile' clinic.clinic_name %}">
+                                    <div class="nav-image-cropper">
+                                        <img class="nav-image" src="{{ clinic.picture.url }}" alt="{{ clinic.name }} Image">
+                                    
+                                    
+                                    </div>
+                                    <span>{{ clinic.name }}</span>
+                                
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>   
 
-    </div>
+            </div>
+        </li>
+ 
+
+    </ul>
+   
+
+
 </nav>

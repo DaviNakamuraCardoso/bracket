@@ -181,13 +181,9 @@ $nav-height: 10vh;
     justify-content: center;
 }
 
-.image-cropper 
-{
-    border: 2px solid $main; 
-}
 
 
-.drop-pic, .fas 
+.drop-pic, #bell
 {
 
   display: inline;
@@ -197,7 +193,7 @@ $nav-height: 10vh;
 }
 
 
-.fas::before 
+#bell::before 
 {
     position: absolute; 
     top: 0; 

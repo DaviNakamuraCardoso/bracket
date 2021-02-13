@@ -1,22 +1,38 @@
-$main: #370CF2;
-$sidebar-width: 10vw; 
+/* ___ Dust Pallete ___ */
+$main: #4387f5; 
+$black: #0a100d; 
+$white: #e5ece9; 
+$complementary: #EE964B;
+$danger: #D52941;
+$gray: #716969; 
 
 
+
+$sidebar-width: 15vw; 
+
+
+$white_border: 1px solid $white;
 
 #sidebar 
 {
     position: fixed; 
     flex-direction: column;
     width: $sidebar-width; 
+    height: 100vh;
+    display: flex; 
+    overflow: auto; 
+    font-size: 1.5rem;
 
 }
 
+
 #sidebar-list 
 {
-    display: flex;
-    flex-direction: column;
-    height: 60%;
+    display: grid; 
+    grid-template-rows: repeat(2, 1fr);
+    height: 100%;
     width: 100%;
+    justify-content: space-evenly;
 }
 
 #main 
@@ -27,7 +43,169 @@ $sidebar-width: 10vw;
 #menu 
 {
     margin-left: $sidebar-width; 
-    width: 90vw;
+    width: 85vw;
+}
+
+.navbar-item
+{
+    display: flex; 
+    flex-direction: column;
+    border-bottom: $white_border;
+}
+
+.nav-content
+{
+    width: 100%;
+    height: 100%;
+    text-align: justify;
+    display: flex; 
+    flex-direction: column; 
+    justify-content: space-around;
+    color: $gray;
+}
+
+.nav-list 
+{
+    height: 100%;
+    display: flex; 
+    flex-direction: column; 
+    justify-content: space-around;
+}
+
+.nav-li 
+{
+    display: flex; 
+    a 
+    {
+        width: 100%;
+        display: grid; 
+        grid-template-columns: 4fr 5fr;
+        i
+        {
+            text-align: center;
+        }
+        div
+        {
+            margin:auto;
+        }
+    }
+
+}
 
 
+.navbar-icon
+{
+    width: 100%;
+    display: grid; 
+    grid-template-columns: 1fr 3fr;
+    p
+    {
+        text-align: center;
+    }
+}
+
+/* ____ Accordion Menu Items ____ */
+
+
+.navbar-button
+{
+    display: block; 
+    width: 100%; 
+    padding: 15px; 
+    border: none; 
+    outline: none; 
+    cursor: pointer; 
+    text-align: left; 
+    color: $gray;
+    transition: color 0.4s; 
+    text-align: center;
+}
+
+
+.navbar-button::after
+{
+    content: '\25be'; 
+    float: left; 
+    transform: rotate(-90deg) scale(1.5); 
+    transition: all .5s ease;
+    
+}
+
+
+.navbar-button.active {
+    color: $main;
+}
+
+.navbar-button.active::after 
+{
+    transform: scale(1.5);
+
+}
+
+.accordeon
+{
+    .nav-content 
+    {
+        overflow: hidden; 
+        max-height: 0; 
+        transition: max-height .7s; 
+    }
+    .nav-content.open 
+    {
+        max-height: 300px; 
+        transition: max-height 2s; 
+    }
+
+}
+
+.nav-image-cropper
+{
+    width: 20px; 
+    height: 20px; 
+    position: relative;
+    overflow: hidden;
+    border-radius: 50%;
+    display: flex; 
+    align-items: center; 
+    justify-content: center;
+}
+
+
+
+.nav-image
+{
+
+  display: inline;
+  margin: 0 auto;
+  height: 100%;
+  width: auto;
+}
+
+    
+
+
+
+
+
+@keyframes open 
+{
+    from {
+        height: 0; 
+    }
+    to {
+        height: 100%; 
+    }
+
+}
+
+
+@keyframes close 
+{
+    from {
+        height: 100%; 
+        
+    }
+    to {
+        height: 0; 
+    }
 }

@@ -42,6 +42,7 @@ function closeAllDrops(icons)
     });
 }
 
+
 function addIconListeners(icon)
 {
     const box = icon.parentElement.lastElementChild;
@@ -51,4 +52,6 @@ function addIconListeners(icon)
     }
 
 }
+
+
         

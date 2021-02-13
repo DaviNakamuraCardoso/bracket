@@ -1,4 +1,4 @@
-/* Colors */
+/* ___ Dust Pallete ___ */
 /* Font */
 /* Shadow and effects */
 /* Width and Height */
@@ -6,7 +6,8 @@
 /* HTML tags */
 * {
   padding: 0;
-  margin: 0; }
+  margin: 0;
+  font-family: sans-serif; }
 
 html {
   font-size: 62.5%; }
@@ -37,14 +38,22 @@ button {
 i {
   position: relative; }
 
+img {
+  width: 16px;
+  height: 16px; }
+
 *::-webkit-scrollbar-track {
   background: #fff; }
 
 *::-webkit-scrollbar-thumb {
-  background: #370CF2; }
+  background: #4387f5; }
 
 *::-webkit-scrollbar {
   width: 0.40rem; }
+
+*::selection {
+  background: #EC5272;
+  color: white; }
 
 /* Classes */
 /* _____ Navbar _____ */
@@ -53,7 +62,6 @@ i {
   position: fixed;
   font-size: 2rem;
   background: #fff;
-  color: #370CF2;
   align-items: center;
   justify-content: space-between;
   z-index: 9; }
@@ -103,11 +111,11 @@ i {
   width: 7rem; }
 
 #sign-in {
-  border: 1px solid #777;
-  color: #777; }
+  border: 1px solid #A7AABD;
+  color: #A7AABD; }
 
 #sign-up {
-  border: 1px solid #370CF2; }
+  border: 1px solid #4387f5; }
 
 /* Animations */
 @keyframes hide {
