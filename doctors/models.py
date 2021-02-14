@@ -31,6 +31,14 @@ class Doctor(models.Model):
 
     def __str__(self): 
         return f"Dr. {self.user.first_name} {self.user.last_name}"
+
+
+    def image(self): 
+        return self.user.picture.url 
+
+    def info(self): 
+        return self.degree 
+    
     
     def str(self): 
         return f"Dr. {self.user.first_name} {self.user.last_name}"
@@ -94,3 +102,19 @@ class Appointment(models.Model):
     month = models.IntegerField()
     year = models.IntegerField()
     index = models.IntegerField(null=True, blank=True)
+
+
+class Rate(models.Model): 
+    rating = models.FloatField()
+    doctor = models.OneToOneField(Doctor, on_delete=models.CASCADE, null=True, blank=True)
+    clinic = models.OneToOneField(Clinic, on_delete=models.CASCADE, null=True, blank=True)
+    user = models.ManyToManyField(User, blank=True, related_name="ratings")
+
+
+    def add_rating(self, number, user): 
+        self.rating = (self.rating * len(self.users.all()) + number) / len(self.users.all() + 1)
+        self.users.add(user)
+        self.save()
+        return self.rating
+
+
