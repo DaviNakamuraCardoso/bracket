@@ -1,5 +1,6 @@
 from django.db import models
 from users.models import User, City 
+from clinics.data.time import opened
 # Create your models here.
 
 class Clinic(models.Model): 
@@ -36,8 +37,27 @@ class Clinic(models.Model):
     def __str__(self): 
         return f"{self.name}"
 
+    def title(self): 
+        return self.name
+
+    def submodels(self): 
+        return [doctor for doctor in self.doctors.all()][:3]
+        
+    def info(self): 
+        return opened(self) 
+    
+    def info2(self): 
+        return self.rate.rating 
+
+    def image(self): 
+        return self.picture.url 
+
     def identifier(self): 
         return self.clinic_name
 
     def add_doctor(self, doctor): 
         self.doctors.add(doctor)
+
+
+
+
