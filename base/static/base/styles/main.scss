@@ -43,6 +43,7 @@ body
 {
     font-family: sans-serif;
 }
+
 main 
 {
     margin-top: 10vh; 
@@ -73,6 +74,7 @@ button
     border: none;
     text-transform: uppercase;
 }
+
 i
 {
     position: relative; 
@@ -120,6 +122,7 @@ img
     z-index: 9;
 }
 
+
 .navbar-nav 
 {
     width: 100%; 
@@ -140,6 +143,7 @@ img
 
 
 /* _____ Menu _____ */
+
 
 #menu 
 {
@@ -175,7 +179,6 @@ img
 .double
 {
     grid-area: double;
-
 }
 
 #sign-in, #sign-up 
@@ -198,21 +201,4 @@ img
 }
 
 
-
 /* Animations */
-
-@keyframes hide 
-{
-    0%
-    {
-        opacity: 1;
-        left: 0;
-    }
-
-    100% 
-    {
-        opacity: 0;
-        left: 100%;
-    }
-
-}

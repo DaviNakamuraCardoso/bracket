@@ -1,0 +1,238 @@
+$main: #4387f5; 
+$black: #424656; 
+$gray: #A7AABD; 
+$complementary: #EC5272;
+$yellow: #F5BA42; 
+
+
+
+/* Dimensions */
+$br: .5em; 
+
+.container 
+{
+    width: 100%; 
+    display: grid; 
+    position: relative;
+    grid-template-columns: repeat(4, 1fr); 
+
+
+}
+
+
+
+.card 
+{
+    position: relative; 
+    width: 20rem;
+    height: 30rem;
+    margin: 2rem auto;
+}
+
+.btn 
+{
+    cursor: pointer; 
+    border: 1px solid $main; 
+    background: none; 
+    border-radius: 100vw; 
+    color: $main; 
+    padding: 1rem;
+    margin: 0 auto;
+}
+
+.front 
+{
+    transition: 250ms;
+    .main-image 
+    {
+        width: 100%; 
+        height: 100%;
+        border-radius: $br;
+
+    }
+
+
+    .name 
+    {
+        text-align: center; 
+        margin: .75em; 
+
+    }
+    .stats
+    {
+        display: flex; 
+        justify-content: space-between; 
+        align-items: center; 
+
+        flex-direction: row; 
+    }
+    .submodels
+    {
+        img
+        {
+            border: 2px solid white;
+
+            &:nth-of-type(1)
+            {
+                transform: translateX(50%); 
+                z-index: 1; 
+            }
+            &:nth-of-type(2)
+            {
+                transform: translateX(25%); 
+            }
+            
+        }
+        
+
+    }
+    
+    
+}
+
+.back 
+{
+    opacity: 0; 
+    transform: translateY(35%);
+    position: absolute; 
+    top: 40%;
+    left: 0; 
+    right: 0; 
+    height: 15rem;
+    width: 20rem;
+    display: flex; 
+    flex-direction: column; 
+    align-items: center;
+    gap: 1.5em;
+    transition: transform 250ms, opacity 150ms;
+
+    .info
+    {
+        margin: 1em 0; 
+        text-align: center; 
+        .stars 
+        {
+            margin-bottom: .7em;
+        }
+    }
+    .submodel 
+    {
+        color: #666666;
+        display: flex; 
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+
+    }
+    .submodels 
+    {
+        width: 20rem; 
+        display: grid; 
+        grid-template-columns: repeat(3, 1fr); 
+    
+    }
+
+
+}
+
+.submodels 
+{
+    display: flex; 
+    flex-direction: row; 
+    text-align: center; 
+    img 
+    {
+        width: 2em; 
+        height: 2em; 
+        border-radius: 50%;
+
+
+    }
+}
+
+
+
+.background
+{
+    position: absolute; 
+    top: 0; 
+    bottom: 0; 
+    left: 0; 
+    right: 0; 
+    z-index: -1; 
+    transform: scale(.2, .9);
+    opacity: 0; 
+    border-radius: $br;
+    transition: transform 250ms ease-in-out, opacity 100ms linear;
+    bottom: 25px;
+    background: $complementary;
+    backdrop-filter: blur(1.5);
+
+
+}
+
+
+.card:hover
+{
+    .front 
+    {
+        transform: translateY(-30%) scale(.7);
+        .stats 
+        {
+            opacity: 0; 
+        }
+        .name 
+        {
+            animation: name_animation 250ms forwards;
+        }
+
+    }
+    .background 
+    {
+        transform: scale(1.4, 1.2); 
+        opacity: 1;
+
+    }
+
+    .back 
+    {
+        transform: translateY(0);
+        opacity: 1; 
+    }
+}
+
+
+
+@keyframes name_animation
+{
+    0%
+    {
+        font-size: 1rem;
+        opacity: 1; 
+    }
+
+    20%
+    {
+        font-size: 1rem;
+        opacity: 0; 
+    }
+
+    50%
+    {
+        font-size: 2rem;
+        opacity: 0; 
+
+    }
+
+    100%
+    {
+        font-size: 2rem; 
+        opacity: 1; 
+    }
+}
+
+
+.fas.fa-star 
+{
+    color: $yellow;
+}
