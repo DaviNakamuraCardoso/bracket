@@ -24,13 +24,26 @@
                     </li>
                     <li class="nav-li">
                         <a href="{% url 'clinics:index' %}">
-                                <i class="fas fa-hospital"></i>
-                                <p>Clinics</p>
+                            <i class="fas fa-hospital"></i>
+                            <p>Clinics</p>
                         </a>
                     </li>
 
                 </ul>
             </div>
+        </li>
+
+        <li class="navbar-item">
+            <div class="nav-content">
+                <ul class="nav-list">
+                    <li class="nav-li">
+                    </li>
+                    <li class="nav-li"></li>
+                    <li class="nav-li"></li>
+                    <li class="nav-li"></li>
+                </ul>
+            </div>
+
         </li>
         <li class="accordeon navbar-item">
             <button class="navbar-button" type="button">Clinics</button>
@@ -41,18 +54,15 @@
                                 <a href="{% url 'clinics:profile' clinic.clinic_name %}">
                                     <div class="nav-image-cropper">
                                         <img class="nav-image" src="{{ clinic.picture.url }}" alt="{{ clinic.name }} Image">
-                                    
-                                    
                                     </div>
                                     <span>{{ clinic.name }}</span>
-                                
                             </a>
                         </li>
                     {% endfor %}
                 </ul>   
-
             </div>
         </li>
+
  
 
     </ul>

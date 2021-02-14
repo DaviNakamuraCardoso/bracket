@@ -11,45 +11,8 @@
     {% if not request.user.is_authenticated %}
         {% include 'users/signup.html' %}
     {% endif %}
-    <div class="clinic-container">
 
-    {% for clinic in clinics %}
-        <div class="clinic-card">
-            <a href="{% url 'clinics:profile' clinic.clinic_name %}">
-                <h1>{{ clinic.name }}</h1>
-            </a>
-            <h2>{{ clinic.city }}</h2>
-        </div>
-
-    {% endfor %}
-
-
-    </div>
+    {% include 'base/cards.html' with cards=clinics %}
     
-    <div class="container">
-        {% for area in selected_areas %}
-            <div class="card">
-                <div class="front">
-                    <img src="{{ area.image.url }}" alt="{{ area.area }}">
-                    <h3 class="name">{{ area.area }]</h3>
-                    <div class="stats">
-                        <p class="text">{{ clinic.distance }}</p>
-                        <div class="participants">
-                            {% for doctor in clinic.top_doctors %}
-                                <img src="{{ doctor.user.picture.url }}" alt="">
-                            {% endfor %}
-                        </div>
-                        
-                    </div>
-                </div>
-                <div class="back">
-                    <div class="info">
-
-                    </div>
-
-                </div>
-            </div>
-        {% endfor %}
-
-    </div>
-{% endblock %}
+    
+   {% endblock %}
