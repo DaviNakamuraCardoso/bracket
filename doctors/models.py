@@ -1,8 +1,10 @@
 from django.db import models
+from django.shortcuts import reverse
 from users.models import User, Day 
 from clinics.models import Clinic
 from patients.models import Patient
 from users.data.time import sumtime, delta
+
 
 # Create your models here.
 
@@ -38,6 +40,10 @@ class Doctor(models.Model):
 
     def info(self): 
         return self.degree 
+
+
+    def url(self): 
+        return reverse('doctors:profile', args=(self.user.name, ))
     
     
     def str(self): 

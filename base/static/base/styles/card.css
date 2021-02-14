@@ -8,7 +8,7 @@
 .card {
   position: relative;
   width: 20rem;
-  height: 30rem;
+  height: 35rem;
   margin: 2rem auto; }
 
 .btn {
@@ -46,7 +46,7 @@
   opacity: 0;
   transform: translateY(35%);
   position: absolute;
-  top: 40%;
+  top: 45%;
   left: 0;
   right: 0;
   height: 15rem;
@@ -54,23 +54,70 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1.5em;
+  gap: 2.5em;
   transition: transform 250ms, opacity 150ms; }
   .back .info {
     margin: 1em 0;
     text-align: center; }
-    .back .info .stars {
-      margin-bottom: .7em; }
+    .back .info .stat {
+      display: flex;
+      align-items: center;
+      color: #F5BA42;
+      font-size: 1.5rem; }
+    .back .info .stat::before {
+      content: "\f005";
+      display: inline-block;
+      font-family: "Font Awesome 5 Free";
+      font-weight: 900;
+      font-style: normal;
+      font-variant: normal;
+      margin-right: .5em;
+      text-rendering: auto;
+      -webkit-font-smoothing: antialiased; }
   .back .submodel {
     color: #666666;
     display: flex;
-    justify-content: center;
     align-items: center;
     flex-direction: column; }
+    .back .submodel .image-icon::before, .back .submodel .image-icon::after {
+      position: absolute;
+      content: '';
+      height: 100%;
+      width: 100%;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      color: #e9eeff;
+      border-radius: 50%;
+      opacity: 0; }
+    .back .submodel .image-icon::before {
+      content: "\f061";
+      font-family: "Font Awesome 5 Free";
+      font-weight: 900;
+      display: grid;
+      place-items: center;
+      font-size: 1em;
+      z-index: 10;
+      transition: background-color 100ms linear, opacity 200ms linear;
+      background: #4387f5; }
+    .back .submodel .image-icon::after {
+      z-index: 1;
+      animation: pulse 700ms infinite; }
+    .back .submodel .image-icon {
+      display: inline-flex;
+      transition: transform ease-in-out 150ms;
+      width: 3.5rem;
+      height: 3.5rem;
+      position: relative; }
+      .back .submodel .image-icon img {
+        width: 100%;
+        height: 100%; }
   .back .submodels {
     width: 20rem;
     display: grid;
-    grid-template-columns: repeat(3, 1fr); }
+    grid-template-columns: repeat(3, 1fr);
+    place-items: initial; }
 
 .submodels {
   display: flex;
@@ -93,7 +140,7 @@
   border-radius: 0.5em;
   transition: transform 250ms ease-in-out, opacity 100ms linear;
   bottom: 25px;
-  background: #EC5272;
+  background: #e9eeff;
   backdrop-filter: blur(1.5); }
 
 .card:hover .front {
@@ -109,6 +156,21 @@
   transform: translateY(0);
   opacity: 1; }
 
+.submodel:hover .image-icon {
+  transform: translateY(-20%); }
+
+.submodel .image-icon:hover {
+  transform: translateY(-20%) scale(1.3); }
+  .submodel .image-icon:hover::before {
+    background: #4387f5; }
+  .submodel .image-icon:hover::after {
+    background: #4387f5; }
+  .submodel .image-icon:hover::before, .submodel .image-icon:hover::after {
+    opacity: 1; }
+
+.fas.fa-star {
+  color: #F5BA42; }
+
 @keyframes name_animation {
   0% {
     font-size: 1rem;
@@ -122,7 +184,12 @@
   100% {
     font-size: 2rem;
     opacity: 1; } }
-.fas.fa-star {
-  color: #F5BA42; }
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 75%; }
+  100% {
+    transform: scale(1.35);
+    opacity: 0; } }
 
 /*# sourceMappingURL=card.css.map */

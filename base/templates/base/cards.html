@@ -5,6 +5,7 @@
 
  <div class="container">
         {% for card in cards %}
+            
             <div class="card">
                 <div class="front">
                     <img src="{{ card.image }}" alt="{{ card.str }}" class="main-image">
@@ -21,34 +22,36 @@
                 </div>
                 <div class="back">
                     <div class="info">
-                        <div class="stars">
 
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                        </div>
-                        <p class="stat">
+                        <p class="fas fa-start stat">
                             <span>{{ card.info2 }}</span>
                         </p>
 
                     </div>
-                    <button  class="btn">See profile</button>
+                    <a href="{{ card.url }}">
+
+                        <button  class="btn">See profile</button>
+                    </a>
                     <div class="submodels">
                         {% for submodel in card.submodels %}
 
                             <div class="submodel">
+                                <a href="{{ submodel.url }}">
                                 <div class="image-icon">
                                     <img src="{{ submodel.image}}">
                                 </div>
-                                
+ 
+
+                                </a>
+                              
+
+
                                 <p class="name">{{ submodel.str }}</p>
                                 <p class="specification">{{ submodels.info }}</p>
                             </div>
 
                         {% endfor %}
                     </div>
-
                 </div>
                 
                 <div class="background">

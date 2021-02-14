@@ -1,13 +1,17 @@
-$main: #4387f5; 
-$black: #424656; 
-$gray: #A7AABD; 
-$complementary: #EC5272;
 $yellow: #F5BA42; 
+$main: #4387f5; 
+$black: #0a100d; 
+$white: #e9eeff; 
+$danger: #D52941;
+$gray: #716969; 
+
+
 
 
 
 /* Dimensions */
 $br: .5em; 
+
 
 .container 
 {
@@ -15,17 +19,14 @@ $br: .5em;
     display: grid; 
     position: relative;
     grid-template-columns: repeat(4, 1fr); 
-
-
 }
-
 
 
 .card 
 {
     position: relative; 
     width: 20rem;
-    height: 30rem;
+    height: 35rem;
     margin: 2rem auto;
 }
 
@@ -43,6 +44,7 @@ $br: .5em;
 .front 
 {
     transition: 250ms;
+    
     .main-image 
     {
         width: 100%; 
@@ -95,7 +97,7 @@ $br: .5em;
     opacity: 0; 
     transform: translateY(35%);
     position: absolute; 
-    top: 40%;
+    top: 45%;
     left: 0; 
     right: 0; 
     height: 15rem;
@@ -103,25 +105,88 @@ $br: .5em;
     display: flex; 
     flex-direction: column; 
     align-items: center;
-    gap: 1.5em;
+    gap: 2.5em;
     transition: transform 250ms, opacity 150ms;
 
     .info
     {
         margin: 1em 0; 
         text-align: center; 
-        .stars 
+        .stat 
         {
-            margin-bottom: .7em;
+            display: flex; 
+            align-items: center; 
+            color: $yellow;
+            font-size: 1.5rem;
+
+        }
+        .stat::before 
+        {
+            content: "\f005";
+            display: inline-block; 
+            font-family: "Font Awesome 5 Free"; 
+            font-weight: 900; 
+            font-style: normal; 
+            font-variant: normal; 
+            margin-right: .5em;
+            text-rendering: auto; 
+            -webkit-font-smoothing: antialiased; 
         }
     }
     .submodel 
     {
         color: #666666;
         display: flex; 
-        justify-content: center;
         align-items: center;
         flex-direction: column;
+
+
+        .image-icon::before, .image-icon::after
+        {
+            position: absolute;
+            content: ''; 
+            height: 100%; 
+            width: 100%; 
+            top: 0; 
+            bottom: 0; 
+            left: 0; 
+            right: 0; 
+            color: $white;
+            border-radius: 50%; 
+            opacity: 0; 
+
+        }
+        .image-icon::before
+        {
+            content: "\f061"; 
+            font-family: "Font Awesome 5 Free"; 
+            font-weight: 900;
+            display: grid; 
+            place-items: center; 
+            font-size: 1em;
+            z-index: 10; 
+            transition: background-color 100ms linear, opacity 200ms linear;
+            background: $main;
+        }
+        .image-icon::after 
+        {
+            z-index: 1; 
+            animation: pulse 700ms infinite;
+        }
+
+        .image-icon
+        {
+            display: inline-flex;
+            transition: transform ease-in-out 150ms;
+            width: 3.5rem; 
+            height: 3.5rem; 
+            position: relative; 
+            img
+            {
+                width: 100%; 
+                height: 100%; 
+            }
+        }
 
     }
     .submodels 
@@ -129,6 +194,7 @@ $br: .5em;
         width: 20rem; 
         display: grid; 
         grid-template-columns: repeat(3, 1fr); 
+        place-items: initial;
     
     }
 
@@ -165,7 +231,7 @@ $br: .5em;
     border-radius: $br;
     transition: transform 250ms ease-in-out, opacity 100ms linear;
     bottom: 25px;
-    background: $complementary;
+    background: $white;
     backdrop-filter: blur(1.5);
 
 
@@ -200,8 +266,36 @@ $br: .5em;
         opacity: 1; 
     }
 }
+.submodel:hover 
+{
+    .image-icon 
+    {
+        transform: translateY(-20%); 
+    }
+}
+
+.submodel .image-icon:hover 
+{
+    transform: translateY(-20%) scale(1.3); 
+    &::before 
+    {
+        background: $main;
+    }
+    &::after
+    {
+        background: $main;
+    }
+    &::before, &::after 
+    {
+        opacity: 1;
+    }
+}
 
 
+.fas.fa-star 
+{
+    color: $yellow;
+}
 
 @keyframes name_animation
 {
@@ -231,8 +325,16 @@ $br: .5em;
     }
 }
 
-
-.fas.fa-star 
+@keyframes pulse 
 {
-    color: $yellow;
+    0% 
+    {
+        transform: scale(1); 
+        opacity: 75%; 
+    }
+    100%
+    {
+        transform: scale(1.35);
+        opacity: 0; 
+    }
 }

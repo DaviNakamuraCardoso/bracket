@@ -1,6 +1,7 @@
 from django.db import models
 from users.models import User, City 
 from clinics.data.time import opened
+from django.shortcuts import reverse
 # Create your models here.
 
 class Clinic(models.Model): 
@@ -54,6 +55,9 @@ class Clinic(models.Model):
 
     def identifier(self): 
         return self.clinic_name
+
+    def url(self): 
+        return reverse('clinics:profile', args=(self.clinic_name, )) 
 
     def add_doctor(self, doctor): 
         self.doctors.add(doctor)
