@@ -9,13 +9,17 @@ document.addEventListener('DOMContentLoaded', () =>
         const checkBoxes = document.querySelectorAll('.checkbox-input'); 
         checkBoxes.forEach(checkBox => {
 
-            if (checkBox.checked)
+            const value = checkBox.value; 
+            if (checkBox.checked && value != "clinic")
             {
-                const value = checkBox.value; 
                 types.push(value); 
                 const specificForm = document.querySelector(`#${value}-form`); 
                 specificForm.innerHTML; 
                 specificForm.append(copyElement(document.getElementById(value)));  
+            }
+            else if (checkBox.checked && value == "clinic")
+            {
+                types.push(value);
             }
         }); 
         const typesInput = document.querySelector("#id_types"); 
@@ -23,6 +27,7 @@ document.addEventListener('DOMContentLoaded', () =>
 
         updateChoices(); 
         navigator.geolocation.getCurrentPosition(setPosition);
+        
         
         next(types, 0, nextButton); 
 
@@ -32,21 +37,23 @@ document.addEventListener('DOMContentLoaded', () =>
 
 function next(array, index, button)
 {
+    const e = document.querySelector(`#${array[index]}-form`); 
+    console.log(e);
+    
+    console.log(array[index+1]); 
 
     if (index > 0)
     {
         let previous = document.querySelector(`#${array[index-1]}-form`); 
         hide(previous); 
     }
-    const e = document.querySelector(`#${array[index]}-form`); 
-    show(e.firstElementChild); 
-
-    if (index == array.length-1)
+    
+    if (index == array.length-1 || array[index+1] == 'clinic')
     {
         button.type = 'submit'; 
     }
     else 
-    {
+    {   
         validate(e); 
     
         button.onclick = () => 
@@ -55,6 +62,9 @@ function next(array, index, button)
         }
 
     }
+    show(e.firstElementChild); 
+    
+
 }
 
 

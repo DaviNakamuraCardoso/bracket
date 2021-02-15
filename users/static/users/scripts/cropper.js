@@ -38,6 +38,7 @@ document.addEventListener("DOMContentLoaded", () => {
 	var cropping = false;
 
 	var colors = {
+
 		white: "#ffffff",
 		black: "#000000",
 		overlay: "rgba(0, 0, 0, 0.6)"
@@ -393,6 +394,7 @@ document.addEventListener("DOMContentLoaded", () => {
 		cropping = true;
 		draw();
 
+
 		return true;
 	};
 
@@ -410,9 +412,12 @@ document.addEventListener("DOMContentLoaded", () => {
 			console.log(valueX);
 			console.log(valueY);
 
-			document.getElementById("size").value = Math.round(valueSize);  
-			document.getElementById("picture-x").value = Math.round(valueX); 
-			document.getElementById("picture-y").value = Math.round(valueY); 
+			const canvasDiv = canvas.parentElement; 
+
+			canvasDiv.querySelector(".size").value = Math.round(valueSize);  
+			canvasDiv.querySelector(".picture-x").value = Math.round(valueX); 
+			canvasDiv.querySelector(".picture-y").value = Math.round(valueY); 
+			console.log(canvas); 
 
 			// show the new image, only bother doing this if it isn't already displayed, ie, we are cropping
 			if(cropping) {
@@ -515,34 +520,41 @@ document.addEventListener("DOMContentLoaded", () => {
 
 function updateCanvas()
 {
-    const input  = document.querySelector("#fileInput"); 
-	const canvas = document.querySelector('#testCanvas'); 
+	const canvases = document.querySelectorAll('.canvas'); 
 
-	cropper.start(canvas, 1); 
+	canvases.forEach(canvas => {
+		cropper.start(canvas, 1); 
 
-	input.onchange = () => {
-		// this function will be called when the file input below is changed
-		var file = document.getElementById("fileInput").files[0];  // get a reference to the selected file
-				
-		var reader = new FileReader(); // create a file reader
-		// set an onload function to show the image in cropper once it has been loaded
-		reader.onload = function(event) {
-			var data = event.target.result; // the "data url" of the image
-			cropper.showImage(data); // hand this to cropper, it will be displayed
-			cropper.startCropping(); 
-		};
-				
-		reader.readAsDataURL(file); // this loads the file as a data url calling the function above once done
+		let canvasDiv = canvas.parentElement; 
+    	const input  = canvasDiv.querySelector(".fileInput"); 
 
-	}
-	const crop = document.querySelector("#crop"); 
-	const restore = document.querySelector("#restore"); 
+		
+		input.onchange = () => {
+			// this function will be called when the file input below is changed
+			var file = input.files[0];  // get a reference to the selected file
+					
+			var reader = new FileReader(); // create a file reader
+			// set an onload function to show the image in cropper once it has been loaded
+			reader.onload = function(event) {
+				var data = event.target.result; // the "data url" of the image
+				cropper.showImage(data); // hand this to cropper, it will be displayed
+				cropper.startCropping(); 
+			};
+					
+			reader.readAsDataURL(file); // this loads the file as a data url calling the function above once done
+		
+		}
+		const crop = canvasDiv.querySelector(".crop"); 
+		const restore = canvasDiv.querySelector(".restore"); 
+	
+		crop.onclick = () => {
+			cropper.getCroppedImageSrc(); 
+		}
 
-	crop.onclick = () => {
-		cropper.getCroppedImageSrc(); 
-	}
+		restore.onclick = () => {
+			cropper.restore(); 
+		}
 
-	restore.onclick = () => {
-		cropper.restore(); 
-	}
+	}); 
+
 }
