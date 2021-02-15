@@ -10,6 +10,7 @@ urlpatterns = [
 
     # Register and specifics
     path('register', views.register_view, name='register'), 
+    path('clinic', views.register_clinic, name='clinic'), 
 
     # Utils
     path('create', views.create_cities, name='create'), 

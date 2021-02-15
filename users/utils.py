@@ -43,17 +43,16 @@ def new_user(request):
         password=data['password'], 
         email=data['email'], 
         is_doctor='doctor' in types, 
-        is_patient='patient' in types, 
         city=City.objects.get(pk=data['city']), 
         first_name=data['first_name'], 
         last_name=data['last_name'], 
-        name=get_name(data['first_name'], data['last_name'])
+        name=get_name(data['first_name'], data['last_name']), 
 
     )
 
-    if picture := request.FILES['picture']: 
+    if picture := request.FILES['user-picture']: 
 
-        user.picture = handle_uploaded_file(request.POST, picture, user)
+        user.picture = handle_uploaded_file(request.POST, picture, user, 'user')
     
     user.save()
     
@@ -115,27 +114,25 @@ def new_doctor(request, user):
 
 
 def new_clinic(request, user): 
-    if 'clinic' in request.POST['types'].split(','): 
 
-        data = request.POST 
-        clinic = Clinic.objects.create(
-            admin=user, 
-            name=data['clinic_name'], 
-            clinic_name=get_clinic_name(request)['name'], 
-            base_name=get_clinic_name(request)['base'], 
-            email=data['clinic_email'], 
-            city=City.objects.get(pk=data['clinic_city']), 
-            address=data['clinic_address'] 
-            
-        )
-        clinic.picture = handle_uploaded_file(request.POST, request.FILES['clinic_picture'], clinic)
-        clinic.save()
+    data = request.POST 
+    clinic = Clinic.objects.create(
+        admin=user, 
+        name=data['clinic_name'], 
+        clinic_name=get_clinic_name(request)['name'], 
+        base_name=get_clinic_name(request)['base'], 
+        email=data['clinic_email'], 
+        city=City.objects.get(pk=data['clinic_city']), 
+        address=data['clinic_address'] 
+        
+    )
+    clinic.picture = handle_uploaded_file(request.POST, request.FILES['clinic-picture'], clinic, 'clinic')
+    clinic.save()
 
-        return clinic
-    return None
+    return clinic
 
 
-def handle_uploaded_file(data, file, model):
+def handle_uploaded_file(data, file, model, model_type):
     # Get a unique filename based on the model name and the extension
     extension = file.__str__().split('.')[-1]
     filename = f"{model.identifier()}_picture.{extension}"
@@ -143,8 +140,8 @@ def handle_uploaded_file(data, file, model):
     # Read the file with the image reader and crops it 
     image_reader = Image.open(file)    
     size = min(max(16, int(data['size'])), min(image_reader.height, image_reader.width))
-    x = min(max(0, int(data['picture-x'])), image_reader.width-size)
-    y = min(max(0, int(data['picture-y'])), image_reader.height-size)
+    x = min(max(0, int(data[f'{model_type}-picture-x'])), image_reader.width-size)
+    y = min(max(0, int(data[f'{model_type}-picture-y'])), image_reader.height-size)
 
     
     cropped = image_reader.crop((x, y, x+size, y+size))

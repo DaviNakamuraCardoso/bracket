@@ -2,20 +2,11 @@ from django.shortcuts import render, redirect, reverse
 from django.http import HttpResponseRedirect, JsonResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout, login, authenticate
-from .models import User, City
-from doctors.models import Doctor, Area
-from patients.models import Patient, Allergy, Condition, Medication
-from clinics.models import Clinic 
 from users.utils import new_clinic, new_doctor, new_patient, new_user 
-from users.data.cities import cities
-from users.data.sorted_cities import latitude_sorted
 from users.data.geolocation import locate
 from users.data.time import get_calendar
-from patients.data import allergies, drugs, conditions
-from doctors.data import areas 
-import datetime
-import json 
-from users.forms import FORMS_CONTEXT, LoginForm
+from users.models import City 
+from users.forms import FORMS_CONTEXT, LoginForm, ClinicForm
 # Create your views here.
 
 def register_view(request): 
@@ -27,15 +18,32 @@ def register_view(request):
         # Attempt to create all the different types of users
         doctor = new_doctor(request, user)
         patient = new_patient(request, user)
-        clinic = new_clinic(request, user)
 
-        if doctor is not None and clinic is not None: 
-            clinic.doctors.add(doctor)
         
         login(request, user)
+        if 'clinic' in data['types'].split(','):
+            return HttpResponseRedirect(reverse('users:clinic'))
+        
         return HttpResponseRedirect(reverse('base:index'))
+        
+        
     
     return render(request, 'users/register.html', FORMS_CONTEXT)
+
+
+
+def register_clinic(request): 
+    form = ClinicForm()
+    if request.method == "POST": 
+        clinic = new_clinic(request, request.user)
+        if request.user.is_doctor: 
+            clinic.doctors.add(request.user)
+        
+        return HttpResponseRedirect(reverse('base:index'))
+    
+    return render(request, 'users/clinic.html', {'form': form})
+        
+        
 
 
 def login_view(request): 
