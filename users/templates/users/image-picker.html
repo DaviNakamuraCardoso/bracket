@@ -1,0 +1,15 @@
+{% load static %}
+
+<div class="image-picker">
+    <canvas class="canvas" width="600" height="600" style="border: 1px solid black"></canvas>
+
+    <input type="file" class="fileInput" name="{{ type }}-picture"/>
+    <input type="button" class="crop" value="Crop">
+    <input type="button" class="restore" value="Restore">
+    <input type="hidden" class="size" name="size">
+    <input type="hidden" class="picture-x" name="{{ type }}-picture-x">
+    <input type="hidden" class="picture-y" name="{{ type }}-picture-y">
+
+
+
+</div>

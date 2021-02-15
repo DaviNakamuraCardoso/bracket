@@ -4,8 +4,8 @@
 
 
     <script src="{% static 'users/scripts/register.js' %}" type="module"></script>
-    <script src="{% static 'users/scripts/cropper.js' %}" type="module"></script>
 
+    <script src="{% static 'users/scripts/cropper.js' %}"></script>
     <link rel="stylesheet" href="{% static 'users/styles/forms.css' %}">
     <link rel="stylesheet" href="{% static 'base/styles/checkbox.css' %}">
 
@@ -31,7 +31,7 @@
                     </div>
                     {% csrf_token %}
                     <div id="user-form">
-                        <div class='hidden'>
+                        <div class='hidden user-form'>
                         {% for field in user_form %}
                             <div class="form-wrapper">
                                 <div class="field">
@@ -46,18 +46,7 @@
                         {% endfor %}
 
                         <!-- A canvas which cropper will draw on -->
-		                <canvas id="testCanvas" width="600" height="600" style="border: 1px solid black;" >Your browser does not support canvas.</canvas>
-                            
-            
-    
-		                <br />
-		                <!-- Below are a series of inputs which allow file selection and interaction with the cropper api -->
-		                <input type="file" id="fileInput" name="picture"/>
-                        <input type="button" id="crop" value="Crop">
-                        <input type="button" id="restore" value="Restore">
-                        <input type="hidden" id="size" name="size">
-                        <input type="hidden" id="picture-x" name="picture-x">
-                        <input type="hidden" id="picture-y" name="picture-y">
+                        {% include 'users/image-picker.html' with type="user" %}
 
 
 		
@@ -67,7 +56,11 @@
                         
                     
                     </div>
-                    <div id="clinic-form"></div>
+                    <div id="clinic-form"> 
+
+                        <div class="WAT"></div>
+                    </div>
+
                     <div id="doctor-form"></div>
                     <div id="patient-form"></div>
                     <button type="button" id="next">Next</button>
@@ -77,6 +70,9 @@
                     
                     
 
+                    <div id="clinic" class="hidden">
+                        <div class="WAT"></div>
+                    </div>
                     <div id="patient" class="hidden">
 
                         <div class="form-wrapper">
@@ -229,19 +225,6 @@
                         
                     </div>
 
-                    <div id="clinic" class="hidden">
-                        {% for field in clinic_form %}
-                        <div class="form-wrapper">
-                            <div class="field">
-                                {{ field }}
-                                <label for="{{ field.id_for_label }}" class="label-field">
-                                    <span class="content-label">{{ field.label }}</span>
-                                </label>
-                            </div>
-                        </div>
-
-                        {% endfor %}
-                    </div>
             </div>
 
         </div>
