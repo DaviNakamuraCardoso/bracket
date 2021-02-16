@@ -31,6 +31,23 @@ class Doctor(models.Model):
             'email': self.user.email
         }
 
+
+    def format(self): 
+        return {
+            "image": self.user.picture.url, 
+            "title": self.__str__(), 
+            "address": self.user.city.__str__(), 
+            "email": self.user.email, 
+            "info1": f"<div class='fas-icon university'>{self.degree}</div>", 
+            "info2": self.clinics.all(),
+            "info2_icon": 'clinic', 
+            "info3": self.areas.all(), 
+            "info3_icon": 'area', 
+            "rating": self.rate.rating, 
+            "rating_count": len(self.rate.users.all()), 
+            "url": reverse('clinics:profile', args=(self.user.name, ))
+        }
+
     def __str__(self): 
         return f"Dr. {self.user.first_name} {self.user.last_name}"
 
@@ -41,10 +58,8 @@ class Doctor(models.Model):
     def info(self): 
         return self.degree 
 
-
     def url(self): 
         return reverse('doctors:profile', args=(self.user.name, ))
-    
     
     def str(self): 
         return f"Dr. {self.user.first_name} {self.user.last_name}"
@@ -114,7 +129,7 @@ class Rate(models.Model):
     rating = models.FloatField()
     doctor = models.OneToOneField(Doctor, on_delete=models.CASCADE, null=True, blank=True)
     clinic = models.OneToOneField(Clinic, on_delete=models.CASCADE, null=True, blank=True)
-    user = models.ManyToManyField(User, blank=True, related_name="ratings")
+    users = models.ManyToManyField(User, blank=True, related_name="ratings")
 
 
     def add_rating(self, number, user): 

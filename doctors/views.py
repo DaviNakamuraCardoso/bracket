@@ -35,7 +35,8 @@ def profile(request, name):
     doctor = get_doctor(name)
     return render(request, 'doctors/profile.html', {
         'doctor': doctor, 
-        'data': doctor.serialize()
+        'data': doctor.serialize(), 
+        'formatted': doctor.format()
     })
 
 

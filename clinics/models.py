@@ -38,6 +38,11 @@ class Clinic(models.Model):
     def __str__(self): 
         return f"{self.name}"
 
+    def format(self): 
+        return {
+            'title': self.__str__(), 
+            'url': reverse('clinics:profile', args=(self.clinic_name, )) 
+        }
     def title(self): 
         return self.name
 
