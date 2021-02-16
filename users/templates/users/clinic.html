@@ -1,13 +1,22 @@
 {% extends 'base/layout.html' %}
 {% load static %}
-    <script src="{% static 'users/register.js' %}"></script>
 
 {% block head %}
+    <script src="{% static 'users/scripts/clinic.js' %}" type="module"></script>
+    <script src="{% static 'users/scripts/cropper.js' %}"></script>
+    <link href="{% static 'users/styles/forms.css' %}" rel="stylesheet">
+
+
 
 {% endblock %}
 
 
 {% block body %}
+    <form method="POST" enctype="multipart/form-data" class="form">
+        {% csrf_token %}
+        {% include 'users/clinic-form.html' %}
+        <input type="submit">
 
-    {% include 'users/clinic-form.html' %}
+    </form>
+
 {% endblock %}
