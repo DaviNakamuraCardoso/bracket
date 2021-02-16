@@ -1,11 +1,10 @@
 from users.models import User, City
 from clinics.models import Clinic
-from doctors.models import Doctor, Area
+from doctors.models import Doctor, Area, Rate
 from patients.models import Patient
 from django.conf import settings
 from PIL import Image
 import os
-import math
 import datetime
 
 
@@ -109,6 +108,13 @@ def new_doctor(request, user):
             for area in data['areas'].split(','):
                 doctor.areas.add(Area.objects.get(area=area))
             
+        rate = Rate.objects.create(
+            rating=5, 
+            doctor=doctor 
+        )
+        rate.users.add(user)
+        rate.save()
+
         return doctor
     return None
 
@@ -127,6 +133,12 @@ def new_clinic(request, user):
         
     )
     clinic.picture = handle_uploaded_file(request.POST, request.FILES['clinic-picture'], clinic, 'clinic')
+
+    rate = Rate.objects.create(rating=5, clinic=clinic)
+
+    rate.users.add(user)
+
+    rate.save()
     clinic.save()
 
     return clinic

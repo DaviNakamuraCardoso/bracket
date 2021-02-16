@@ -1,0 +1,143 @@
+/* ___ Dust Pallete ___ */
+.profile-header {
+  background: white;
+  width: 80vw;
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  margin: 5vh 1vw;
+  position: relative;
+  box-shadow: 0px 3px 4px rgba(0, 0, 0, 0.2);
+  padding: 1em;
+  gap: 1.5rem; }
+
+.profile-image {
+  width: 30rem;
+  height: 30rem;
+  box-sizing: border-box;
+  min-width: 10rem;
+  display: flex; }
+  .profile-image img {
+    border-radius: 50%;
+    height: auto;
+    width: 100%;
+    border: 4px solid white;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
+    left: 10rem;
+    z-index: 5;
+    background: white; }
+
+.profile-nav-info {
+  padding: 5rem;
+  width: 100%;
+  height: 100%;
+  flex-direction: column;
+  display: flex;
+  align-items: right;
+  justify-content: center; }
+  .profile-nav-info h3 {
+    font-variant: small-caps;
+    font-size: 4rem;
+    font-family: sans-serif;
+    font-weight: bold; }
+  .profile-nav-info .address {
+    display: flex;
+    color: #777;
+    font-size: 1rem; }
+    .profile-nav-info .address p {
+      font-size: 1.4rem; }
+
+.profile-option {
+  width: 3rem;
+  height: 3rem;
+  background: #EC5272;
+  border-radius: 50%;
+  margin-top: 8vh;
+  transform: translateY(40%);
+  position: relative; }
+  .profile-option::before {
+    content: '\f013'; }
+
+.main-body {
+  display: grid;
+  grid-template-columns: 3fr 5fr;
+  padding-right: 15px;
+  position: relative;
+  width: 80vw;
+  margin: 2rem 1vw; }
+
+.left-side {
+  width: 100%;
+  height: 50rem;
+  display: flex;
+  box-shadow: 0px 3px 4px rgba(0, 0, 0, 0.2);
+  justify-content: center; }
+  .left-side .profile-side {
+    width: 80%;
+    height: 100%;
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around; }
+    .left-side .profile-side p {
+      margin-bottom: 2px; }
+    .left-side .profile-side .mail::before {
+      content: '\f0e0'; }
+    .left-side .profile-side .address::before {
+      content: '\f3c5'; }
+    .left-side .profile-side .phone::before {
+      content: '\f095'; }
+    .left-side .profile-side .rating::before {
+      content: '\f005'; }
+    .left-side .profile-side .university::before {
+      content: '\f19c'; }
+    .left-side .profile-side .clinic::before {
+      content: '\f7f2'; }
+    .left-side .profile-side .user-rating {
+      color: #F5BA42; }
+      .left-side .profile-side .user-rating h3 {
+        font-size: 4rem; }
+
+.profile-nav {
+  width: 100%;
+  position: relative; }
+  .profile-nav .profile-dash {
+    display: flex;
+    justify-content: center;
+    height: 5rem;
+    background: white;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3); }
+
+.profile-nav-item {
+  z-index: 10;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+  height: 100%;
+  transition: all .2s ease-in-out; }
+
+.bar {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 33%;
+  height: .5rem;
+  border-radius: 100vw;
+  background: #EC5272;
+  transition: all 1s ease; }
+
+.profile-body {
+  margin: 2rem; }
+
+.fas-icon::before {
+  font-weight: 900;
+  font-family: "Font Awesome 5 Free";
+  font-style: normal;
+  font-variant: normal;
+  text-rendering: auto;
+  text-align: center;
+  margin-right: 0.4em; }
+
+/*# sourceMappingURL=profile.css.map */

@@ -1,0 +1,242 @@
+
+/* ___ Dust Pallete ___ */
+$main: #4387f5; 
+$black: #424656; 
+$gray: #A7AABD; 
+$complementary: #EC5272;
+$yellow: #F5BA42; 
+
+
+.profile-header 
+{
+    background: white; 
+    width: 80vw; 
+    display: grid; 
+    grid-template-columns: 1fr 3fr;
+    margin: 5vh 1vw; 
+    position: relative; 
+    box-shadow: 0px 3px 4px rgba(0, 0,0, .2);
+    padding: 1em;
+    gap: 1.5rem;
+
+}
+
+
+.profile-image
+{
+    
+    
+    width: 30rem; 
+    height: 30rem; 
+    box-sizing: border-box;
+    min-width: 10rem; 
+    display: flex; 
+    
+    img 
+    {
+        border-radius: 50%; 
+        height: auto; 
+        width: 100%; 
+        border: 4px solid white; 
+        box-shadow: 0px 5px 10px rgba(0, 0, 0, .2); 
+        left: 10rem; 
+        z-index: 5; 
+        background: white;
+
+    }
+    
+
+}
+
+
+.profile-nav-info 
+{
+    padding: 5rem;
+    width: 100%; 
+    height: 100%; 
+    flex-direction: column; 
+    display: flex; 
+    align-items: right; 
+    justify-content: center;
+
+    h3 
+    {
+        font-variant: small-caps; 
+        font-size: 4rem; 
+        font-family: sans-serif; 
+        font-weight: bold;
+    }
+    .address
+    {
+        display: flex; 
+        color: #777;
+        font-size: 1rem;
+        p 
+        {
+            font-size: 1.4rem;
+        }
+    }
+
+}
+
+
+.profile-option
+{
+
+    width: 3rem; 
+    height: 3rem;
+    background: $complementary;
+    border-radius: 50%; 
+    margin-top: 8vh;
+    transform: translateY(40%);
+    position: relative; 
+    &::before 
+    {
+        content: '\f013';
+       
+
+
+    }
+
+}
+
+
+
+
+
+
+.main-body
+{
+    display: grid; 
+    grid-template-columns: 3fr 5fr;
+    padding-right: 15px;
+    position: relative;
+    width: 80vw;
+    margin: 2rem 1vw;
+
+}
+
+
+.left-side
+{
+    width: 100%;    
+    height: 50rem;
+    display: flex; 
+    box-shadow: 0px 3px 4px rgba(0, 0, 0, .2); 
+    justify-content: center;
+
+    .profile-side 
+    {
+        width: 80%; 
+        height: 100%;
+        background: #fff;
+        display: flex; 
+        
+        flex-direction: column; 
+        justify-content: space-around; 
+    
+        p 
+        {
+            margin-bottom: 2px; 
+        }
+        .mail::before
+        {
+            content: '\f0e0'; 
+        }
+        .address::before 
+        {
+            content: '\f3c5'; 
+        }
+        .phone::before 
+        {
+            content: '\f095';
+        }
+        .rating::before 
+        {
+            content: '\f005'; 
+        }
+        .university::before 
+        {
+            content: '\f19c'; 
+        }
+        .clinic::before 
+        {
+            content: '\f7f2'; 
+        }
+        
+        .user-rating 
+        {
+            h3 
+            {
+                font-size: 4rem; 
+            }
+            color: $yellow;
+        }
+
+    }
+}
+
+.profile-nav 
+{
+    width: 100%; 
+    position: relative;
+    .profile-dash 
+    {
+        display: flex; 
+        justify-content: center;
+        height: 5rem;
+        background: white; 
+        box-shadow: 0px 2px 5px rgba(0, 0, 0, .3);
+
+
+        
+    }
+
+}
+.profile-nav-item
+{
+    z-index: 10; 
+    cursor: pointer;
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 100%; 
+    height: 100%;
+    transition: all .2s ease-in-out; 
+}
+
+.bar 
+{
+    position: absolute; 
+    left: 0; 
+    bottom: 0; 
+    width: 33%; 
+    height: .5rem;
+    border-radius: 100vw;
+    background: $complementary;
+    transition: all 1s ease;
+}
+
+
+
+
+.profile-body 
+{
+    margin: 2rem;
+}
+
+
+
+
+.fas-icon::before 
+{
+    font-weight: 900; 
+    font-family: "Font Awesome 5 Free"; 
+    font-style: normal; 
+    font-variant: normal;
+    text-rendering: auto; 
+    text-align: center; 
+    margin-right: 0.4em;
+
+}

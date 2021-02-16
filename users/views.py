@@ -19,7 +19,6 @@ def register_view(request):
         doctor = new_doctor(request, user)
         patient = new_patient(request, user)
 
-        
         login(request, user)
         if 'clinic' in data['types'].split(','):
             return HttpResponseRedirect(reverse('users:clinic'))
@@ -37,7 +36,7 @@ def register_clinic(request):
     if request.method == "POST": 
         clinic = new_clinic(request, request.user)
         if request.user.is_doctor: 
-            clinic.doctors.add(request.user)
+            clinic.doctors.add(request.user.doctor)
         
         return HttpResponseRedirect(reverse('base:index'))
     

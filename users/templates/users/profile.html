@@ -1,0 +1,86 @@
+{% load static %}
+
+
+<link href="{% static 'users/styles/profile.css' %}" rel="stylesheet">
+<script src="{% static 'users/scripts/profile.js' %}"></script>
+
+
+<div class="profile-container">
+    <div class="profile-header">
+        <div class="profile-image">
+            <img src="{{ profile.image }}" alt="{{ profile.str }} Picture">
+        </div>
+        <div class="profile-nav-info">
+            <h3 class="user-name">{{ profile.title }}</h3>
+            
+        </div>
+        <!--
+        <div class="profile-option">
+            <div class="settings">
+                
+            </div>
+        </div>
+ 
+
+        -->
+   
+
+    </div>
+    <div class="main-body">
+        <div class="left-side">
+            <div class="profile-side">
+                {% autoescape off %}
+                <div class="info1">
+
+                    {{ profile.info1 }}
+                </div>
+
+                <div class="fas-icon address">
+                    {{ profile.address }}
+                </div>
+
+
+                {% for submodel1 in profile.info2 %}
+                    <a href="{{ submodel1.url }}">
+                        <div class="fas-icon info2 {{ profile.info2_icon }}">
+                                {{ submodel1.title }}
+                        </div>
+                    </a>
+                {% endfor %}
+                {% endautoescape %}
+                
+                <!--
+                <div class="profile-btn">
+                    <button class="chatbtn"></button>
+                    <button class="createbtn">Create</button>
+                </div>
+
+
+                -->
+                <div class="user-rating">
+                    <h3 class="fas-icon rating">{{ profile.rating }}</h3>
+                </div>
+            </div>
+        </div>
+        <div class="right-side">
+            <div class="profile-nav">
+                <div class="profile-dash">
+                    <div class="profile-nav-item" onclick='showTab(0);'>Profile</div>
+                    <div class="profile-nav-item" onclick="showTab(1);">About</div>
+                    <div class="profile-nav-item">Schedule</div>
+                </div>
+                <div class="bar"></div>
+            </div>
+            {% if tabs == "doctors" %}
+                {% include 'doctors/tabs.html' %}
+            {% elif tabs == "clinics" %}
+                {% include 'clinics/tabs.html' %}
+            {% else %}
+                {% include 'patients/tabs.html' %}
+            {% endif %}
+            
+
+            
+        </div>
+    </div>
+</div>
