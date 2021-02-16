@@ -6,33 +6,31 @@ $danger: #D52941;
 $gray: #716969; 
 
 
-
-
-
 /* Dimensions */
 $br: .5em; 
 
 
 .container 
 {
+    margin-top: 20rem;
     width: 100%; 
     display: grid; 
     position: relative;
-    grid-template-columns: repeat(4, 1fr); 
+    grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr)); 
 }
 
 
 .card 
 {
     position: relative; 
-    width: 20rem;
-    height: 35rem;
+    width: 25rem;
+    height: 45rem;
     margin: 2rem auto;
 }
 
 .btn 
 {
-    cursor: pointer; 
+    cursor: pointer;         
     border: 1px solid $main; 
     background: none; 
     border-radius: 100vw; 
@@ -57,8 +55,8 @@ $br: .5em;
     .name 
     {
         text-align: center; 
-        margin: .75em; 
-
+        margin: 0.75rem 0; 
+        height: 3rem;
     }
     .stats
     {
@@ -97,21 +95,20 @@ $br: .5em;
     opacity: 0; 
     transform: translateY(35%);
     position: absolute; 
-    top: 45%;
+    top: 42%;
     left: 0; 
     right: 0; 
-    height: 15rem;
-    width: 20rem;
+    height: 27rem;
     display: flex; 
     flex-direction: column; 
     align-items: center;
-    gap: 2.5em;
+    justify-content: space-around;
     transition: transform 250ms, opacity 150ms;
-
-    .info
+        .info
     {
         margin: 1em 0; 
         text-align: center; 
+        
         .stat 
         {
             display: flex; 
@@ -191,7 +188,7 @@ $br: .5em;
     }
     .submodels 
     {
-        width: 20rem; 
+        width: 15rem; 
         display: grid; 
         grid-template-columns: repeat(3, 1fr); 
         place-items: initial;
@@ -264,7 +261,12 @@ $br: .5em;
     {
         transform: translateY(0);
         opacity: 1; 
+        
     }
+    .submodels 
+        {
+            width: 30rem;
+        }
 }
 .submodel:hover 
 {
@@ -313,14 +315,14 @@ $br: .5em;
 
     50%
     {
-        font-size: 2rem;
+        font-size: 3rem;
         opacity: 0; 
 
     }
 
     100%
     {
-        font-size: 2rem; 
+        font-size: 3rem; 
         opacity: 1; 
     }
 }

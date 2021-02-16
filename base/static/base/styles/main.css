@@ -7,16 +7,19 @@
 * {
   padding: 0;
   margin: 0;
-  font-family: sans-serif; }
+  font-family: sans-serif;
+  font-size: 1.8rem; }
 
 html {
   font-size: 62.5%; }
 
 body {
-  font-family: sans-serif; }
+  font-family: sans-serif;
+  overflow-x: hidden; }
 
 main {
-  margin-top: 10vh; }
+  margin-top: 10vh;
+  overflow-x: hidden; }
 
 a {
   text-decoration: none;
@@ -118,12 +121,5 @@ img {
   border: 1px solid #4387f5; }
 
 /* Animations */
-@keyframes hide {
-  0% {
-    opacity: 1;
-    left: 0; }
-  100% {
-    opacity: 0;
-    left: 100%; } }
 
 /*# sourceMappingURL=main.css.map */
