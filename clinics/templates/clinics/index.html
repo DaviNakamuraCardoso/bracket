@@ -4,10 +4,6 @@
 
 
 {% block body %}
-    <h1>Hello, Clinics!</h1>
-    {% for clinic in clinics %}
-        <h1>{{ clinic.name }}
-        </h1>
-    {% endfor %}
+    {% include 'base/cards.html' with cards=clinics %}
 
 {% endblock %}

@@ -27,46 +27,30 @@ class Clinic(models.Model):
     picture = models.ImageField(default='clinic-default.png')
 
 
-    def serialize(self): 
-        return {
-            'email': self.email, 
-            'city': self.city.serialize(), 
-            'doctors': [doctor.serialize() for doctor in self.doctors.all()], 
-            'address': self.address
-        }
     
     def __str__(self): 
         return f"{self.name}"
 
-    def format(self): 
+    def serialize(self): 
         return {
             'title': self.__str__(), 
-            'url': reverse('clinics:profile', args=(self.clinic_name, )) 
+            'url': reverse('clinics:profile', args=(self.clinic_name, )), 
+            'image': self.picture.url, 
+            'address': self.address, 
+            'status': 'OPEN', 
+            'info':  [self.email], 
+            'info_icon': 'mail', 
+            'info2': ['+1 3233-5555'], 
+            'info2_icon': 'phone', 
+            'rating': self.rate.rating, 
+            'submodels': [doctor.basic_serialize() for doctor in self.doctors.all()]
+
         }
-    def title(self): 
-        return self.name
 
-    def submodels(self): 
-        return [doctor for doctor in self.doctors.all()][:3]
-        
-    def info(self): 
-        return opened(self) 
+    def basic_serialize(self): 
+        return {
+            'title': self.__str__(), 
+            'url': reverse('clinics:profile', args=(self.clinic_name, )), 
+            'image': self.picture.url
+        }
     
-    def info2(self): 
-        return self.rate.rating 
-
-    def image(self): 
-        return self.picture.url 
-
-    def identifier(self): 
-        return self.clinic_name
-
-    def url(self): 
-        return reverse('clinics:profile', args=(self.clinic_name, )) 
-
-    def add_doctor(self, doctor): 
-        self.doctors.add(doctor)
-
-
-
-

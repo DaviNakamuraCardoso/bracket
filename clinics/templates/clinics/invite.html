@@ -1,0 +1,16 @@
+
+
+<script src="{% static 'clinics/scripts/invite.js' %}"></script>
+
+<div class="invite-container">
+    
+    {% if profile == "doctor" %}
+        {% if request.user.user_clinics.all() | length > 0 %}
+            
+        
+            
+            
+        {% endif %}
+    {% endif %}
+    <button id="invite"></button>
+</div>

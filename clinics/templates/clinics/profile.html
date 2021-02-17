@@ -10,25 +10,7 @@
 
 {% block body %}
 
-    {% if request.user.is_doctor %}
+    {% include 'users/profile.html' with profile=clinic.serialize tabs="clinics" %}
 
-        {% if request.user.doctor.str in clinic.user.notification_origins %}
-            <button id="invite" data-url="{% url 'clinics:join' clinic.clinic_name %}" data-val="deny">Cancel Request</button>
-        {% else %}
-            <button id="invite" data-url="{% url 'clinics:join' clinic.clinic_name %}" data-val="accept">Join</button>
-
-        {% endif %}
-
-    {% endif %}
-    <h1>{{ clinic.name }}</h1>
-
-    <table>
-        {% for key, value in data.items %}
-            <tr>
-                <td>{{ key }}</td>
-                <td>{{ value }}</td>
-            </tr>
-        {% endfor %}
-    </table>
 
 {% endblock %}

@@ -22,7 +22,7 @@ def index(request):
 
 
     return render(request, 'clinics/index.html', {
-        'clinics': clinics
+        'clinics': [clinic.serialize() for clinic in clinics] 
     })
 
 
@@ -33,8 +33,8 @@ def profile(request, clinic_name):
         return HttpResponse('Error 404')
     
     return render(request, 'clinics/profile.html', {
-        'clinic': clinic, 
-        'data': clinic.serialize()
+        'clinic': clinic 
+        
     })
 
 
