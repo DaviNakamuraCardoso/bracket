@@ -24,44 +24,29 @@ class Doctor(models.Model):
     
     def serialize(self): 
         return {
-            'name': self.__str__(), 
-            'number': self.number, 
-            'degree': self.degree, 
-            'areas': ", ".join([area.area for area in self.areas.all()]), 
-            'email': self.user.email
-        }
-
-
-    def format(self): 
-        return {
             "image": self.user.picture.url, 
             "title": self.__str__(), 
             "address": self.user.city.__str__(), 
-            "email": self.user.email, 
-            "info1": f"<div class='fas-icon university'>{self.degree}</div>", 
-            "info2": self.clinics.all(),
+            "status": "working", 
+            "info": [self.degree], 
+            "info_icon": 'university', 
+            "info2": [clinic.basic_serialize() for clinic in self.clinics.all()],
             "info2_icon": 'clinic', 
             "info3": self.areas.all(), 
             "info3_icon": 'area', 
             "rating": self.rate.rating, 
-            "rating_count": len(self.rate.users.all()), 
-            "url": reverse('clinics:profile', args=(self.user.name, ))
+            "url": reverse('clinics:profile', args=(self.user.name, )), 
+            "submodels": [clinic.basic_serialize() for clinic in self.clinics.all()]
+        }
+    
+    def basic_serialize(self): 
+        return {
+            'title': self.__str__(), 
+            'image': self.user.picture.url, 
+            'url': reverse('doctors:profile', args=(self.user.name, ))
         }
 
     def __str__(self): 
-        return f"Dr. {self.user.first_name} {self.user.last_name}"
-
-
-    def image(self): 
-        return self.user.picture.url 
-
-    def info(self): 
-        return self.degree 
-
-    def url(self): 
-        return reverse('doctors:profile', args=(self.user.name, ))
-    
-    def str(self): 
         return f"Dr. {self.user.first_name} {self.user.last_name}"
 
 

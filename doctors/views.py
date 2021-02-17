@@ -1,14 +1,14 @@
 from django.shortcuts import render, reverse 
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
+from django.contrib.postgres.search import TrigramSimilarity
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
 from doctors.models import Doctor, Appointment, Shift, Area
 from doctors.utils import get_doctor, make_schedule 
 from doctors.forms import ShiftForm 
-from clinics.utils import get_clinic, clinic_required
+from clinics.models import Clinic
 from base.models import Notification 
 from users.data.time import get_weekday
-from django.contrib.postgres.search import TrigramSimilarity
 import json 
 # Create your views here.
 
@@ -19,7 +19,7 @@ def index(request):
     if search := request.GET.get('search_query'): 
         doctors = []
         results = Doctor.objects.annotate(
-            similarity=TrigramSimilarity('areas__area', search)
+            similarity=TrigramSimilarity('user__name', search)
         ).all().order_by('-similarity')
 
         for doctor in results: 
@@ -27,7 +27,7 @@ def index(request):
                 doctors.append(doctor)
 
     return render(request, 'doctors/index.html', {
-        'doctors': doctors
+        'doctors': [doctor.serialize() for doctor in doctors] 
     })
 
 
@@ -35,8 +35,6 @@ def profile(request, name):
     doctor = get_doctor(name)
     return render(request, 'doctors/profile.html', {
         'doctor': doctor, 
-        'data': doctor.serialize(), 
-        'formatted': doctor.format()
     })
 
 
@@ -106,24 +104,14 @@ def appointment_planner(request, name, year, month, day, index):
 
     
 @csrf_exempt 
-@clinic_required  
-def invite(request, name): 
+def invite(request, name, clinic_id): 
 
     if request.method != "PUT": 
         return JsonResponse({"message": "Method must be PUT"})
     
-    doctor = get_doctor(name=name)
-    clinic = get_clinic(request) 
-    data = json.loads(request.body)
-
-    if not data['invite']: 
-        notification = Notification.objects.get(user__name=name, origin=clinic.name)
-        notification.delete()
-        return JsonResponse({"message": "Your invitation has been removed"})
-
+    doctor = Doctor.objects.get(user__name=name)
+    clinic.doctors.add(doctor)
     
-    invite_text = f"Is inviting you to work in their clinic"
-    Notification.objects.create(user=doctor.user, text=invite_text, origin=clinic.name, url=reverse('clinics:invitation', args=(clinic.clinic_name, )))
 
     return JsonResponse({"message": "Invite sent succesfully."})
 
