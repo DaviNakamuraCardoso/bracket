@@ -11,7 +11,7 @@
             <img src="{{ profile.image }}" alt="{{ profile.str }} Picture">
         </div>
         <div class="profile-nav-info">
-            <h3 class="user-name">{{ profile.title }}</h3>
+            <h3 class="user-name">{{ profile.title | title }}</h3>
             
         </div>
         <!--
@@ -29,25 +29,33 @@
     <div class="main-body">
         <div class="left-side">
             <div class="profile-side">
-                {% autoescape off %}
-                <div class="info1">
-
-                    {{ profile.info1 }}
+                <div class="fas-icon address info">
+                    {{ profile.address | title }}
                 </div>
+                
 
-                <div class="fas-icon address">
-                    {{ profile.address }}
-                </div>
-
-
-                {% for submodel1 in profile.info2 %}
-                    <a href="{{ submodel1.url }}">
-                        <div class="fas-icon info2 {{ profile.info2_icon }}">
-                                {{ submodel1.title }}
-                        </div>
-                    </a>
+                {% for submodel in profile.info %}
+                    <div class="info">
+                        <a href="{{ submodel.url }}">
+                            <div class="fas-icon {{profile.info_icon }}">
+                                {{submodel.title | title}}
+                            </div>
+                        </a>
+                    </div>
                 {% endfor %}
-                {% endautoescape %}
+
+                                
+                {% for submodel1 in profile.info2 %}
+				
+                    <div class="info">
+					
+                        <a href="{{ submodel1.url }}">
+                            <div class="fas-icon {{ profile.info2_icon }}">
+                                    {{ submodel1.title | title }}
+                            </div>
+                        </a>
+                    </div>
+                {% endfor %}
                 
                 <!--
                 <div class="profile-btn">
@@ -57,7 +65,7 @@
 
 
                 -->
-                <div class="user-rating">
+                <div class="user-rating info">
                     <h3 class="fas-icon rating">{{ profile.rating }}</h3>
                 </div>
             </div>
