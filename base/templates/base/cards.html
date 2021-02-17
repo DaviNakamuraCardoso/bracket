@@ -8,10 +8,10 @@
             
             <div class="card">
                 <div class="front">
-                    <img src="{{ card.image }}" alt="{{ card.str }}" class="main-image">
-                    <h3 class="name">{{ card.title }}</h3>
+                    <img src="{{ card.image }}" alt="{{ card.title }}" class="main-image">
+                    <h3 class="name">{{ card.title | title }}</h3>
                     <div class="stats">
-                        <p class="text">{{ card.info }}</p>
+                        <p class="text">{{ card.status }}</p>
                         <div class="submodels">
                             {% for submodel in card.submodels %}
                                 <img src="{{ submodel.image }}" alt="">
@@ -23,8 +23,8 @@
                 <div class="back">
                     <div class="info">
 
-                        <p class="fas fa-start stat">
-                            <span>{{ card.info2 }}</span>
+                        <p class="fas-icon star stat">
+                            <span>{{ card.rating }}</span>
                         </p>
 
                     </div>
@@ -46,7 +46,7 @@
                               
 
 
-                                <p class="name">{{ submodel.str }}</p>
+                                <p class="name">{{ submodel.title | title }}</p>
                                 <p class="specification">{{ submodels.info }}</p>
                             </div>
 

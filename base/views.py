@@ -13,13 +13,12 @@ def index(request):
         vector = SearchVector('name')
         query = SearchQuery(search)
 
-
         clinics = Clinic.objects.annotate(
             rank=SearchRank(vector, query)
         ).order_by('-rank')
 
     
-    local_context = {'user': request.user, 'clinics': clinics}
+    local_context = {'user': request.user, 'clinics': [clinic.serialize() for clinic in clinics]}
     context = {**local_context, **FORMS_CONTEXT}
         
         
