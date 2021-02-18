@@ -1,9 +1,9 @@
 
 
 /* ___ Dust Pallete ___ */
-$main: #4387f5; 
-$black: #424656; 
-$gray: #A7AABD; 
+$main: #4387f5;
+$black: #424656;
+$gray: #A7AABD;
 $complementary: #EC5272;
 
 
@@ -19,11 +19,11 @@ $white_border: 1px solid #eee;
 $shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 
 
-/* Width and Height */ 
+/* Width and Height */
 $small-width: 7rem;
 
 
-/* Global Vars */ 
+/* Global Vars */
 $nav-height: 10vh;
 
 /* HTML tags */
@@ -31,7 +31,7 @@ $nav-height: 10vh;
 {
     padding: 0;
     margin: 0;
-    font-family: sans-serif; 
+    font-family: sans-serif;
     font-size: clamp(1.8rem, 2vw, 2.4rem);
 }
 
@@ -43,24 +43,22 @@ html
 body
 {
     font-family: sans-serif;
-    overflow-x: hidden;
 }
 
-main 
+main
 {
-    margin-top: 10vh; 
-    overflow-x: hidden; 
+    margin-top: 10vh;
 
 }
 
-a 
+a
 {
     text-decoration: none;
     display: inline-block;
     color: inherit;
 }
 
-li 
+li
 {
     list-style: none;
 }
@@ -70,9 +68,9 @@ ul
     list-style-type: none;
 }
 
-button 
+button
 {
-    background: none; 
+    background: none;
     outline: none;
     border: none;
     text-transform: uppercase;
@@ -80,43 +78,43 @@ button
 
 i
 {
-    position: relative; 
+    position: relative;
 }
 
-img 
+img
 {
-    width: 16px; 
+    width: 16px;
     height: 16px;
 }
 
-*::-webkit-scrollbar-track 
+body::-webkit-scrollbar-track
 {
     background: #fff;
 }
 
-*::-webkit-scrollbar-thumb 
+body::-webkit-scrollbar-thumb
 {
     background: $main;
 }
 
-*::-webkit-scrollbar 
+body::-webkit-scrollbar 
 {
     width: 0.40rem;
 }
 
 
-*::selection 
+*::selection
 {
-    background: $complementary; 
-    color: white; 
+    background: $complementary;
+    color: white;
 }
 /* Classes */
 
 /* _____ Navbar _____ */
 
-.navbar 
+.navbar
 {
-    display: flex; 
+    display: flex;
     position: fixed;
     font-size: $large;
     background: #fff;
@@ -126,9 +124,9 @@ img
 }
 
 
-.navbar-nav 
+.navbar-nav
 {
-    width: 100%; 
+    width: 100%;
     display: flex;
     justify-content: space-between;
     text-align: center;
@@ -138,23 +136,23 @@ img
 
 .navbar-list
 {
-    width: 100%; 
-    height: 100%; 
-    display: flex; 
-    justify-content: space-around; 
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: space-around;
 }
 
 
 /* _____ Menu _____ */
 
 
-#menu 
+#menu
 {
     z-index: 10;
-    display: flex; 
-    width: 100vw; 
-    height: 10vh; 
-    top: 0; 
+    display: flex;
+    width: 100vw;
+    height: 10vh;
+    top: 0;
 }
 
 #logo
@@ -162,21 +160,21 @@ img
     grid-area: logo;
 }
 
-#search 
+#search
 {
     grid-area: search;
 }
 
-#search-input 
+#search-input
 {
-    border-radius: 30px; 
+    border-radius: 30px;
     padding: 15px;
     border: 1px solid black;
 }
 
 #search-input:focus
 {
-    outline: none; 
+    outline: none;
 }
 
 .double
@@ -184,7 +182,7 @@ img
     grid-area: double;
 }
 
-#sign-in, #sign-up 
+#sign-in, #sign-up
 {
     font-size: $medium;
     border-radius: $small;
@@ -192,13 +190,13 @@ img
     width: $small-width;
 }
 
-#sign-in 
+#sign-in
 {
     border: 1px solid $gray;
     color: $gray;
 }
 
-#sign-up 
+#sign-up
 {
     border: 1px solid $main;
 }

@@ -14,12 +14,10 @@ html {
   font-size: 62.5%; }
 
 body {
-  font-family: sans-serif;
-  overflow-x: hidden; }
+  font-family: sans-serif; }
 
 main {
-  margin-top: 10vh;
-  overflow-x: hidden; }
+  margin-top: 10vh; }
 
 a {
   text-decoration: none;
@@ -45,13 +43,13 @@ img {
   width: 16px;
   height: 16px; }
 
-*::-webkit-scrollbar-track {
+body::-webkit-scrollbar-track {
   background: #fff; }
 
-*::-webkit-scrollbar-thumb {
+body::-webkit-scrollbar-thumb {
   background: #4387f5; }
 
-*::-webkit-scrollbar {
+body::-webkit-scrollbar {
   width: 0.40rem; }
 
 *::selection {

@@ -14,9 +14,10 @@
                         {% endif %}
                     </i>
 
-                    
+
                 </div>
                 <div class="drop dropdown" id="box">
+                    {% csrf_token %}
                     <h2 class="drop drop-t">Notifications</h2>
                     {% for notification in request.user.sorted_notifications %}
                         <div class="drop drop-item">
@@ -32,14 +33,16 @@
                                 <div class="drop reply-btn-container">
                                     <button class="drop accept notifi-reply-btn" data-url="{{ notification.url }}" data-val="accept">Accept</button>
                                     <button class="drop deny notifi-reply-btn" data-url="{{ notification.url }}" data-val="deny">Deny</button>
+                                    <input type="hidden" id="clinic-id" value="{{notification.clinic.id}}">
                                 </div>
+
                             </div>
                         </div>
 
                     {% endfor %}
                 </div>
             </li>
-                        
+
             <li class="drop nav-item">
                 <div class="drop icon">
                     <div class="drop image-cropper">
@@ -50,7 +53,7 @@
 
                 <div class="drop dropdown">
                     <h2 class="drop drop-t">Signed in as <strong>{{ request.user.first_name }} {{ request.user.last_name }}</strong></h2>
-                    
+
                     <!-- Medical Info -->
                     <a class="drop drop-link" href="{% url 'patients:profile' request.user.name %}">
                     <div class="drop drop-item">
@@ -58,12 +61,12 @@
                                 <i class="drop fas fa-clipboard"></i>
                                 <p class="drop drop-text">Medical Info</p>
 
-                            
+
                         </div>
                     </div>
 
                     </a>
-                    
+
 
                     <!-- Logout -->
                     <div class="drop drop-item">
@@ -77,11 +80,7 @@
 
 
 
-                    
+
                 </div>
 
             </li>
-
-
-
-
