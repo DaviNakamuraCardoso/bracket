@@ -21,7 +21,7 @@
 
 
 document.addEventListener("DOMContentLoaded", () => {
-	updateCanvas(); 
+	updateCanvas();
 });
 
 
@@ -29,22 +29,22 @@ document.addEventListener("DOMContentLoaded", () => {
 	"use strict"; // helps us catch otherwise tricky bugs
 
 	/* DRAWING STUFF */
-	var canvas;
-	var context;
+	let canvas;
+	let context;
 
-	var image;
-	var restoreImage;
-	var currentDimens = {};
-	var cropping = false;
+	let image;
+	let restoreImage;
+	let currentDimens = {};
+	let cropping = false;
 
-	var colors = {
+	let colors = {
 
 		white: "#ffffff",
 		black: "#000000",
 		overlay: "rgba(0, 0, 0, 0.6)"
 	};
 
-	var overlay;
+	let overlay;
 
 	function draw() {
 		// clear the canvas
@@ -56,7 +56,7 @@ document.addEventListener("DOMContentLoaded", () => {
 		}
 
 		// draw the image
-		var dimens = currentDimens;
+		let dimens = currentDimens;
 		context.drawImage(image, 0, 0, dimens.width, dimens.height);
 
 		// draw cropping stuff if we are cropping
@@ -65,7 +65,7 @@ document.addEventListener("DOMContentLoaded", () => {
 			drawOverlay();
 
 			// draw the resizer
-			var x = overlay.x + overlay.width - 5,
+			let x = overlay.x + overlay.width - 5,
 				y = overlay.y + overlay.height - 5,
 				w = overlay.resizerSide,
 				h = overlay.resizerSide;
@@ -118,7 +118,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 	function getScaledImageDimensions(width, height) {
 		// choose the dimension to scale to, depending on which is "more too big"
-		var factor = 1;
+		let factor = 1;
 		if((canvas.width - width) < (canvas.height - height)) {
 			// scale to width
 			factor = canvas.width / width;
@@ -128,7 +128,7 @@ document.addEventListener("DOMContentLoaded", () => {
 		}
 		// important "if,else" not "if,if" otherwise 1:1 images don't scale
 
-		var dimens = {
+		let dimens = {
 			width: Math.floor(width * factor),
 			height: Math.floor(height * factor),
 			factor: factor
@@ -138,7 +138,7 @@ document.addEventListener("DOMContentLoaded", () => {
 	}
 
 	function getTouchPos(touchEvent) {
-		var rect = canvas.getBoundingClientRect();
+		let rect = canvas.getBoundingClientRect();
 
 		return {
 			x: touchEvent.touches[0].clientX - rect.left,
@@ -153,7 +153,7 @@ document.addEventListener("DOMContentLoaded", () => {
 		return {
 			x : x - window.scrollX,
 			y : y - window.scrollY
-		}	
+		}
 	}
 
 	function isInOverlay(x, y) {
@@ -165,7 +165,7 @@ document.addEventListener("DOMContentLoaded", () => {
 	}
 
 	/* EVENT LISTENER STUFF */
-	var drag = {
+	let drag = {
 		type: "", // options: "moveOverlay", "resizeOverlay"
 		inProgress: false,
 		originalOverlayX: 0,
@@ -181,14 +181,14 @@ document.addEventListener("DOMContentLoaded", () => {
 	 * @param {Number} y position mouse / touch client event
 	 */
 	function initialCropOrMoveEvent({x, y}) {
-		// if the mouse clicked in the overlay	
+		// if the mouse clicked in the overlay
 		if(isInOverlay(x, y)) {
 			drag.type = "moveOverlay";
 			drag.inProgress = true;
 			drag.originalOverlayX = x - overlay.x;
 			drag.originalOverlayY = y - overlay.y;
 		}
-		
+
 		if(isInHandle(x, y)) {
 			drag.type = "resizeOverlay";
 			drag.inProgress = true;
@@ -225,8 +225,8 @@ document.addEventListener("DOMContentLoaded", () => {
 			overlay.x = x - drag.originalOverlayX;
 			overlay.y = y - drag.originalOverlayY;
 			// Limit to size of canvas.
-			var xMax = canvas.width - overlay.width;
-			var yMax = canvas.height - overlay.height;
+			let xMax = canvas.width - overlay.width;
+			let yMax = canvas.height - overlay.height;
 
 			if(overlay.x < 0) {
 				overlay.x = 0;
@@ -263,13 +263,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
 			draw();
 		}
-	}	
+	}
 
 	function addEventListeners() {
 		// add mouse listeners to the canvas
 		canvas.onmousedown = function(event) {
 			// depending on where the mouse has clicked, choose which type of event to fire
-			var coords = canvas.getMouseCoords(event);
+			let coords = canvas.getMouseCoords(event);
 			initialCropOrMoveEvent(getClickPos(coords));
 		};
 
@@ -284,7 +284,7 @@ document.addEventListener("DOMContentLoaded", () => {
 		};
 
 		canvas.onmousemove = function(event) {
-			var coords = canvas.getMouseCoords(event);
+			let coords = canvas.getMouseCoords(event);
 
 			startCropOrMoveEvent(getClickPos(coords));
 		};
@@ -316,14 +316,14 @@ document.addEventListener("DOMContentLoaded", () => {
 		}
 
 		// assume we want to crop the entire image, this will be overriden below
-		var x = 0;
-		var y = 0;
-		var width = image.width;
-		var height = image.height;
+		let x = 0;
+		let y = 0;
+		let width = image.width;
+		let height = image.height;
 
 		if(!entire) {
 			// work out the actual dimensions that need cropping
-			var factor = currentDimens.factor;
+			let factor = currentDimens.factor;
 			x = Math.floor(overlay.x / factor);
 			y = Math.floor(overlay.y / factor);
 			width = Math.floor(overlay.width / factor);
@@ -340,11 +340,11 @@ document.addEventListener("DOMContentLoaded", () => {
 		}
 
 		// load the image into the cropping canvas
-		var cropCanvas = document.createElement("canvas");
+		let cropCanvas = document.createElement("canvas");
 		cropCanvas.setAttribute("width", width);
 		cropCanvas.setAttribute("height", height);
 
-		var cropContext = cropCanvas.getContext("2d");
+		let cropContext = cropCanvas.getContext("2d");
 		cropContext.drawImage(image, x, y, width, height, 0, 0, width, height);
 
 		return cropCanvas;
@@ -353,15 +353,15 @@ document.addEventListener("DOMContentLoaded", () => {
 	/* function borrowed from http://stackoverflow.com/a/7261048/425197 */
 	function dataUrlToBlob(dataURI) {
 		// convert base64 to raw binary data held in a string
-		var byteString = atob(dataURI.split(',')[1]);
+		let byteString = atob(dataURI.split(',')[1]);
 
 		// separate out the mime component
-		var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+		let mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
 
 		// write the bytes of the string to an ArrayBuffer
-		var ab = new ArrayBuffer(byteString.length);
-		var ia = new Uint8Array(ab);
-		for (var i = 0; i < byteString.length; i++) {
+		let ab = new ArrayBuffer(byteString.length);
+		let ia = new Uint8Array(ab);
+		for (let i = 0; i < byteString.length; i++) {
 			ia[i] = byteString.charCodeAt(i);
 		}
 
@@ -374,7 +374,7 @@ document.addEventListener("DOMContentLoaded", () => {
 		cropping = false;
 		image = new Image();
 		image.onload = function() {
-			
+
 			currentDimens = getScaledImageDimensions(image.width, image.height) ; // work out the scaling
 			draw();
 		};
@@ -401,23 +401,23 @@ document.addEventListener("DOMContentLoaded", () => {
 	cropper.getCroppedImageSrc = function() {
 		if(image) {
 			// return the cropped image
-			var cropCanvas = cropImage(!cropping); // cropping here controls if we get the entire image or not, desirable if the user is not cropping
-			var url = cropCanvas.toDataURL("png");
+			let cropCanvas = cropImage(!cropping); // cropping here controls if we get the entire image or not, desirable if the user is not cropping
+			let url = cropCanvas.toDataURL("png");
 
-			var valueSize = (overlay.width * image.width / currentDimens.width);
-			var valueX = (overlay.x * image.width / currentDimens.width);
-			var valueY = (overlay.y * image.height / currentDimens.height);
+			let valueSize = (overlay.width * image.width / currentDimens.width);
+			let valueX = (overlay.x * image.width / currentDimens.width);
+			let valueY = (overlay.y * image.height / currentDimens.height);
 
 			console.log(valueSize);
 			console.log(valueX);
 			console.log(valueY);
 
-			const canvasDiv = canvas.parentElement; 
+			const canvasDiv = canvas.parentElement;
 
-			canvasDiv.querySelector(".size").value = Math.round(valueSize);  
-			canvasDiv.querySelector(".picture-x").value = Math.round(valueX); 
-			canvasDiv.querySelector(".picture-y").value = Math.round(valueY); 
-			console.log(canvas); 
+			canvasDiv.querySelector(".size").value = Math.round(valueSize);
+			canvasDiv.querySelector(".picture-x").value = Math.round(valueX);
+			canvasDiv.querySelector(".picture-y").value = Math.round(valueY);
+			console.log(canvas);
 
 			// show the new image, only bother doing this if it isn't already displayed, ie, we are cropping
 			if(cropping) {
@@ -434,8 +434,8 @@ document.addEventListener("DOMContentLoaded", () => {
 	cropper.getCroppedImageBlob = function(type) {
 		if(image) {
 			// return the cropped image
-			var cropCanvas = cropImage(!cropping); // cropping here controls if we get the entire image or not, desirable if the user is not cropping
-			var url = cropCanvas.toDataURL(type || "png");
+			let cropCanvas = cropImage(!cropping); // cropping here controls if we get the entire image or not, desirable if the user is not cropping
+			let url = cropCanvas.toDataURL(type || "png");
 
 			// show the new image, only bother doing this if it isn't already displayed, ie, we are cropping
 			if(cropping) {
@@ -487,7 +487,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 		// show the saved image
 		cropper.showImage(restoreImage.src);
-		cropper.startCropping(); 
+		cropper.startCropping();
 		return true;
 	};
 
@@ -495,11 +495,11 @@ document.addEventListener("DOMContentLoaded", () => {
 	/* modify the canvas prototype to allow us to get x and y mouse coords from it */
 	HTMLCanvasElement.prototype.getMouseCoords = function(event){
 		// loop through this element and all its parents to get the total offset
-		var totalOffsetX = 0;
-		var totalOffsetY = 0;
-		var canvasX = 0;
-		var canvasY = 0;
-		var currentElement = this;
+		let totalOffsetX = 0;
+		let totalOffsetY = 0;
+		let canvasX = 0;
+		let canvasY = 0;
+		let currentElement = this;
 
 		do {
 			totalOffsetX += currentElement.offsetLeft;
@@ -520,41 +520,41 @@ document.addEventListener("DOMContentLoaded", () => {
 
 function updateCanvas()
 {
-	const canvases = document.querySelectorAll('.canvas'); 
+	const canvases = document.querySelectorAll('.canvas');
 
 	canvases.forEach(canvas => {
-		cropper.start(canvas, 1); 
+		cropper.start(canvas, 1);
 
-		let canvasDiv = canvas.parentElement; 
-    	const input  = canvasDiv.querySelector(".fileInput"); 
+		let canvasDiv = canvas.parentElement;
+    	const input  = canvasDiv.querySelector(".fileInput");
 
-		
+
 		input.onchange = () => {
 			// this function will be called when the file input below is changed
-			var file = input.files[0];  // get a reference to the selected file
-					
-			var reader = new FileReader(); // create a file reader
+			let file = input.files[0];  // get a reference to the selected file
+
+			let reader = new FileReader(); // create a file reader
 			// set an onload function to show the image in cropper once it has been loaded
 			reader.onload = function(event) {
-				var data = event.target.result; // the "data url" of the image
+				let data = event.target.result; // the "data url" of the image
 				cropper.showImage(data); // hand this to cropper, it will be displayed
-				cropper.startCropping(); 
+				cropper.startCropping();
 			};
-					
+
 			reader.readAsDataURL(file); // this loads the file as a data url calling the function above once done
-		
+
 		}
-		const crop = canvasDiv.querySelector(".crop"); 
-		const restore = canvasDiv.querySelector(".restore"); 
-	
+		const crop = canvasDiv.querySelector(".crop");
+		const restore = canvasDiv.querySelector(".restore");
+
 		crop.onclick = () => {
-			cropper.getCroppedImageSrc(); 
+			cropper.getCroppedImageSrc();
 		}
 
 		restore.onclick = () => {
-			cropper.restore(); 
+			cropper.restore();
 		}
 
-	}); 
+	});
 
 }

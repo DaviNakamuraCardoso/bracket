@@ -103,24 +103,27 @@ def appointment_planner(request, name, year, month, day, index):
     return JsonResponse({"appointment": "Could not find!"})
 
 
-def add(request, name, clinic_id): 
+def add(request, name):
 
     if request.method != "PUT":
         return JsonResponse({"message": "Method must be PUT"})
 
+    data =  json.loads(request.body)
     doctor = Doctor.objects.get(user__name=name)
+    clinic = Clinic.objects.get(pk=data['clinic_id'])
+
     clinic.doctors.add(doctor)
 
 
-    return JsonResponse({"message": "Invite sent succesfully."})
+    return JsonResponse({"message": f"Succesfully added {doctor.__str__()} to {clinic.__str__()}"})
 
 
-def accept(request, doctor_name):
+def accept(request, name):
     """Accepts a doctor request to join the clinic"""
     # Data
     data = json.loads(request.body)
     clinic = Clinic.objects.get(pk=data['clinic_id'])
-    doctor = Doctor.objects.get(user__name=doctor_name)
+    doctor = Doctor.objects.get(user__name=name)
 
     # If the request was denied, then return a success message
     if not data['accept']:
@@ -129,15 +132,15 @@ def accept(request, doctor_name):
     # Handling the invitation
     try:
         # Get the notification object and deletes it
-        notification = Notification.objects.get(user=clinic.admin)
+        notification = Notification.objects.get(user=clinic.admin, clinic__id=data['clinic_id'], origin=data['origin'])
         notification.delete()
 
         # Add the doctor to the clinic
-        clinic.objects.add(doctor)
+        clinic.doctors.add(doctor)
         clinic.save()
 
     # If the notification object does not exist, it means the doctor cancelled the request
-    except Notification.DoesnotExist:
+    except Notification.DoesNotExist:
 
         # Notifies the user
         return JsonResponse({"message": f"Could not accept {doctor.__str__()}. The doctor probably cancelled the request."})

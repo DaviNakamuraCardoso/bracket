@@ -25,9 +25,9 @@ class UserManager(BaseUserManager):
         return user
 
     def create_user(self, email=None, password=None, **extra_fields):
-        
+
         user = self._create_user(email, password, False, False, **extra_fields)
-        return user 
+        return user
 
     def create_superuser(self, email, password, **extra_fields):
         user = self._create_user(email, password, True, True, **extra_fields)
@@ -35,34 +35,34 @@ class UserManager(BaseUserManager):
         return user
 
 
-class City(models.Model): 
-    # Name and state 
+class City(models.Model):
+    # Name and state
     city = models.CharField(max_length=128)
     state = models.CharField(max_length=64)
     state_id = models.CharField(max_length=2)
 
-    # Location 
+    # Location
     lat = models.FloatField()
     lng = models.FloatField()
 
     # Timezone
     timezone = models.CharField(max_length=32)
-    
 
-    def __str__(self): 
+
+    def __str__(self):
         return f"{self.city}, {self.state_id}"
-    
-    
-    def serialize(self): 
+
+
+    def serialize(self):
         return {
-            'city': self.city, 
-            'id': self.id, 
+            'city': self.city,
+            'id': self.id,
             'state_id': self.state_id
         }
 
 
 class User(AbstractBaseUser, PermissionsMixin):
-    # Name and email  
+    # Name and email
     first_name = models.CharField(max_length=64, null=True, blank=True)
     last_name = models.CharField(max_length=64, null=True, blank=True)
     name = models.CharField(max_length=254, null=True, blank=True)
@@ -75,8 +75,8 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     # User type
     TYPES = [
-        ('Doctor', 'Doctor'), 
-        ('Patient', 'Patient'), 
+        ('Doctor', 'Doctor'),
+        ('Patient', 'Patient'),
         ('Clinic', 'Clinic')
     ]
     user_type = models.CharField(max_length=32, default="Patient", choices=TYPES)
@@ -86,11 +86,11 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     city = models.ForeignKey(City, on_delete=models.CASCADE, related_name='citizens', blank=True, null=True)
 
-    # Picture 
+    # Picture
     picture = models.ImageField(default='default.jpeg')
 
 
-    # Date fields 
+    # Date fields
     last_login = models.DateTimeField(null=True, blank=True)
     date_joined = models.DateTimeField(auto_now_add=True)
 
@@ -100,18 +100,24 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     objects = UserManager()
 
+    def serialize(self):
+        return {
+            "name": self.name,
+            "clinics": [clinic.basic_serialize() for clinic in clinics]
+
+        }
     def identifier(self):
         return self.name
 
-    def sorted_notifications(self): 
+    def sorted_notifications(self):
         return self.notifications.all().order_by('-timestamp')
 
-    def notification_origins(self): 
+    def notification_origins(self):
         return [notification.origin for notification in self.notifications.all()]
-    
 
-class Day(models.Model): 
+
+class Day(models.Model):
     day = models.CharField(max_length=32)
 
-    def __str__(self): 
-        return self.day 
+    def __str__(self):
+        return self.day
