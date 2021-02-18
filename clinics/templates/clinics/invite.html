@@ -1,16 +1,39 @@
 
-
 <script src="{% static 'clinics/scripts/invite.js' %}"></script>
+<link href="{% static 'clinics/styles/invite.css' %}" rel="stylesheet">
 
 <div class="invite-container">
-    
+
     {% if profile == "doctor" %}
-        {% if request.user.user_clinics.all() | length > 0 %}
-            
-        
-            
-            
+        {% if request.user.user_clinics.all | length > 0 %}
+
+            <button type="button" name="button" data-value="add" dataset-type="add">Add to clinic</button>
+            <form class="add-clinics" method="POST">
+                {% csrf_token %}
+                <input list="pop-up" name="clinic" class="hidden">
+                <datalist class="hidden" id="pop-up"></datalist>
+
+            </form>
+
         {% endif %}
+
+    {% elif profile == "clinic" %}
+        {% if request.user.is_doctor %}
+            {% csrf_token %}
+
+            {% if user.title not in senders %}
+
+                <button type="button" name="button" dataset-type="ask" dataset-url="{% url 'clinics:invite' model.clinic_name %}" dataset-url="request">Join</button>
+
+            {% else %}
+
+                <button type="button" name="button" dataset-type="ask" id="invite" dataset-url="{% url 'clinics:invite' model.clinic_name %}" dataset-value="cancel">Cancel request</button>
+
+            {% endif %}
+
+        {% endif %}
+
     {% endif %}
+
     <button id="invite"></button>
 </div>
