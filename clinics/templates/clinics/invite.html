@@ -1,33 +1,38 @@
+{% load static %}
 
 <script src="{% static 'clinics/scripts/invite.js' %}"></script>
 <link href="{% static 'clinics/styles/invite.css' %}" rel="stylesheet">
 
 <div class="invite-container">
 
-    {% if profile == "doctor" %}
-        {% if request.user.user_clinics.all | length > 0 %}
+    {% if profile == "doctors" %}
+        {% if request.user.user_clinics.all|length > 0 %}
 
-            <button type="button" name="button" data-value="add" dataset-type="add">Add to clinic</button>
-            <form class="add-clinics" method="POST">
+            <button id="invite" type="button" name="button" data-value="add" data-type="add" data-url="{% url 'clinics:doctor_in_clinics' model.name %}">Add to clinic</button>
+            <form class="" action="{% url 'doctors:add' model.name %}" id="pop-up">
+
                 {% csrf_token %}
-                <input list="pop-up" name="clinic" class="hidden">
-                <datalist class="hidden" id="pop-up"></datalist>
+                <input list="cities" name="clinic">
+                <datalist class="hidden" id="cities"></datalist>
+                <input type="submit" value="Confirm">
 
             </form>
 
         {% endif %}
 
-    {% elif profile == "clinic" %}
+    {% elif profile == "clinics" %}
         {% if request.user.is_doctor %}
             {% csrf_token %}
+            {% if request.user.doctor in clinic.doctors.all %}
+              <button id="invite" type="button" name="button" data-type="leave" data-url="{% url 'clinics:leave' model.name %}">Leave</button>
 
-            {% if user.title not in senders %}
+            {% elif user.title not in senders %}
 
-                <button type="button" name="button" dataset-type="ask" dataset-url="{% url 'clinics:invite' model.clinic_name %}" dataset-url="request">Join</button>
+                <button id="invite" type="button" name="button" data-type="ask" data-url="{% url 'clinics:join' model.name %}" data-value="request">Join</button>
 
             {% else %}
 
-                <button type="button" name="button" dataset-type="ask" id="invite" dataset-url="{% url 'clinics:invite' model.clinic_name %}" dataset-value="cancel">Cancel request</button>
+                <button id="invite" type="button" name="button" data-type="ask" id="invite" data-url="{% url 'clinics:join' model.name %}" dataset-value="cancel">Cancel request</button>
 
             {% endif %}
 
@@ -35,5 +40,4 @@
 
     {% endif %}
 
-    <button id="invite"></button>
 </div>
