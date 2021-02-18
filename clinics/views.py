@@ -43,7 +43,7 @@ def leave(request, clinic_name):
     doctor = request.user.doctor
 
     clinic.doctors.remove(doctor)
-    return JsonResponse({"message": f"Succesfully left {clinic.name}", "url": reverse('clinics:join', args=clinic.clinic_name)})
+    return JsonResponse({"message": f"Succesfully left {clinic.name}", "url": reverse('clinics:join', args=(clinic.clinic_name, ))})
 
 
 def join_clinic(request, clinic_name):

@@ -26,7 +26,7 @@ class Doctor(models.Model):
         return {
             "image": self.user.picture.url,
             "title": self.__str__(),
-            "name": self.user.name, 
+            "name": self.user.name,
             "address": self.user.city.__str__(),
             "status": "working",
             "info": [self.degree],
@@ -36,7 +36,7 @@ class Doctor(models.Model):
             "info3": self.areas.all(),
             "info3_icon": 'area',
             "rating": self.rate.rating,
-            "url": reverse('clinics:profile', args=(self.user.name, )),
+            "url": reverse('doctors:profile', args=(self.user.name, )),
             "submodels": [clinic.basic_serialize() for clinic in self.clinics.all()]
         }
 

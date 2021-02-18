@@ -110,11 +110,10 @@ def add(request, name):
 
     data =  json.loads(request.body)
     doctor = Doctor.objects.get(user__name=name)
-    clinic = Clinic.objects.get(pk=data['clinic_id'])
-
-    clinic.doctors.add(doctor)
-
-
+    for id in data['ids'].split(','):
+        clinic = Clinic.objects.get(pk=id)
+        clinic.doctors.add(doctor)
+        
     return JsonResponse({"message": f"Succesfully added {doctor.__str__()} to {clinic.__str__()}"})
 
 

@@ -23,6 +23,12 @@ function main()
             handleAsk(button);
         }
     }
+    else if (button.dataset.type === "leave")
+    {
+      button.onclick = () => {
+        handleLeave(button);
+      }
+    }
 }
 
 
@@ -53,10 +59,17 @@ function handleAdd(button)
         // Adds the clinics to the datalist
         for (let i = 0; i < clinics.clinics.length; i++)
         {
-            let option = document.createElement('option');
+            let option = document.createElement('input');
+            let label = document.createElement('label');
+
             option.value = clinics.clinics[i].id;
-            option.label = clinics.clinics[i].name;
+            option.type = 'checkbox';
+            option.id = `clinic-option=${i}`;
+            label.innerHTML = clinics.clinics[i].name;
+            label.htmlFor = option.id;
+
             datalist.append(option);
+            datalist.append(label);
         }
 
         // Show the form
@@ -65,7 +78,14 @@ function handleAdd(button)
         form.onsubmit = () => {
 
           // Get the clinic id
-          const id = document.querySelector('[name=clinic]').value;
+          let ids = [];
+          for (let i = 0; i < datalist.children.length; i++)
+          {
+            if (datalist.children[i].checked)
+            {
+              ids.push(datalist.children[i].value);
+            }
+          }
 
 
           // Prevents from cross script attacks
@@ -80,7 +100,7 @@ function handleAdd(button)
             method: 'PUT',
             mode: 'same-origin',
             body: JSON.stringify({
-              "clinic_id": id
+              "ids": ids.join()
             })
           })
 
@@ -90,6 +110,7 @@ function handleAdd(button)
           // Show the message
           .then(result => {
               console.log(result);
+              datalist.innerHTML = '';
               return false;
           });
           return false;
@@ -109,7 +130,7 @@ function handleAdd(button)
 function handleAsk(button)
 {
     // Prevents double click
-    button.style.pointerEvents = 'none';
+    button.disabled = true;
 
     // CSRF token to prevent Cross-origin attacks
     const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
@@ -138,6 +159,8 @@ function handleAsk(button)
     // Display the message as a notification
     .then(result => {
         console.log(result.message);
+         button.dataset.value = result.value;
+         button.disabled = false;
     });
 
 
@@ -152,6 +175,9 @@ function handleAsk(button)
 */
 function handleLeave(button)
 {
+  button.disabled = true;
+
+  // Prevent from cross-site forgery
   const token = document.querySelector("[name=csrfmiddlewaretoken]").value;
   const request = new Request(
     button.dataset.url,
@@ -165,9 +191,17 @@ function handleLeave(button)
   .then(response => response.json())
   .then(result => {
     console.log(result);
+    // Enables the user to join the clinic again
     button.dataset.type = 'ask';
+    button.dataset.value = 'request';
+    button.innerHTML = 'join';
     button.dataset.url = result.url;
-    button.dataset.value = 'request'; 
+
+    // Activate the button and update its events
+    button.disabled = false;
+    button.onclick = () => {
+      handleAsk(button);
+    }
   })
 
 }

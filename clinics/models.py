@@ -42,6 +42,9 @@ class Clinic(models.Model):
     def __str__(self):
         return f"{self.name}"
 
+    def identifier(self):
+        return self.clinic_name
+
     def serialize(self):
         return {
             'title': self.__str__(),

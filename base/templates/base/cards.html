@@ -5,8 +5,10 @@
 
  <div class="container">
         {% for card in cards %}
-            
+
+
             <div class="card">
+              <div class="hoverTrigger">
                 <div class="front">
                     <img src="{{ card.image }}" alt="{{ card.title }}" class="main-image">
                     <h3 class="name">{{ card.title | title }}</h3>
@@ -17,7 +19,7 @@
                                 <img src="{{ submodel.image }}" alt="">
                             {% endfor %}
                         </div>
-                        
+
                     </div>
                 </div>
                 <div class="back">
@@ -40,10 +42,10 @@
                                 <div class="image-icon">
                                     <img src="{{ submodel.image}}">
                                 </div>
- 
+
 
                                 </a>
-                              
+
 
 
                                 <p class="name">{{ submodel.title | title }}</p>
@@ -53,12 +55,11 @@
                         {% endfor %}
                     </div>
                 </div>
-                
+
                 <div class="background">
                 </div>
+              </div>
             </div>
         {% endfor %}
 
     </div>
-
-

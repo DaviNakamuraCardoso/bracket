@@ -11,8 +11,8 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 from pathlib import Path
-import os 
-import sys 
+import os
+import sys
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -31,18 +31,18 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
-INSTALLED_APPS = [ 
-    'django.contrib.admin', 
+INSTALLED_APPS = [
+    'django.contrib.admin',
     'django.contrib.auth', 'django.contrib.contenttypes',
     'django.contrib.sessions',
-    'django.contrib.sites', 
+    'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'base', 
-    'users', 
-    'patients', 
-    'doctors', 
-    'clinics', 
+    'base',
+    'users',
+    'patients',
+    'doctors',
+    'clinics',
     'floppyforms'
 ]
 
@@ -90,12 +90,12 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'oadbgero',
-        'HOST': 'tuffi.db.elephantsql.com', 
-        'PORT': '5432', 
+        'HOST': 'tuffi.db.elephantsql.com',
+        'PORT': '5432',
         'PASSWORD': 'EiT-6t7EqD7ZjV3MIrUq9p7JGNCCt1tT',
         'USER': 'oadbgero'
     }
-    
+
 }
 
 LOGIN_URL = 'users:login'

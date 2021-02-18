@@ -12,6 +12,13 @@
   height: 45rem;
   margin: 2rem auto; }
 
+.hoverTrigger {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0; }
+
 .btn {
   cursor: pointer;
   border: 1px solid #4387f5;
@@ -22,7 +29,8 @@
   margin: 0 auto; }
 
 .front {
-  transition: 250ms; }
+  transition: 250ms;
+  pointer-events: none; }
   .front .main-image {
     width: 100%;
     height: 100%;
@@ -56,7 +64,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
-  transition: transform 250ms, opacity 150ms; }
+  pointer-events: none; }
   .back .info {
     margin: 1em 0;
     text-align: center; }
@@ -144,22 +152,24 @@
   background: #e9eeff;
   backdrop-filter: blur(1.5); }
 
-.card:hover .front {
+.hoverTrigger:hover .front {
+  pointer-events: auto;
   transform: translateY(-30%) scale(0.7); }
-  .card:hover .front .stats {
+  .hoverTrigger:hover .front .stats {
     opacity: 0; }
-  .card:hover .front .name {
+  .hoverTrigger:hover .front .name {
     animation: name_animation 250ms forwards; }
-.card:hover .background {
+.hoverTrigger:hover .background {
   transform: scale(1.4, 1.2);
   opacity: 1; }
-.card:hover .back {
+.hoverTrigger:hover .back {
+  transition: transform 250ms, opacity 150ms;
   transform: translateY(0);
-  opacity: 1; }
-.card:hover .submodels {
+  opacity: 1;
+  pointer-events: auto; }
+.hoverTrigger:hover .submodels {
   width: 30rem; }
-
-.submodel:hover .image-icon {
+.hoverTrigger:hover .submodel:hover .image-icon {
   transform: translateY(-20%); }
 
 .submodel .image-icon:hover {

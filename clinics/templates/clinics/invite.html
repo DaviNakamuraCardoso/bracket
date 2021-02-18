@@ -12,8 +12,7 @@
             <form class="" action="{% url 'doctors:add' model.name %}" id="pop-up">
 
                 {% csrf_token %}
-                <input list="cities" name="clinic">
-                <datalist class="hidden" id="cities"></datalist>
+                <div class="hello" id="cities"></div>
                 <input type="submit" value="Confirm">
 
             </form>
