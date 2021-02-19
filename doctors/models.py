@@ -22,6 +22,7 @@ class Doctor(models.Model):
     areas = models.ManyToManyField(Area, blank=True, related_name='doctors')
     clinics = models.ManyToManyField(Clinic, blank=True, related_name='doctors')
 
+
     def serialize(self):
         return {
             "image": self.user.picture.url,
@@ -49,6 +50,18 @@ class Doctor(models.Model):
 
     def __str__(self):
         return f"Dr. {self.user.first_name} {self.user.last_name}"
+
+    def get_appointment_hour(self, appointment):
+        shifts = self.shifts.filter(day=appointment.shift.day)
+        hours = []
+        for shift in shifts:
+            hours += shift.get_appointments()
+
+        start = hours[appointment.index][0]
+        end = hours[appointment.index][1]
+
+        return start, end
+
 
 
 class Shift(models.Model):

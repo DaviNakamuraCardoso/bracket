@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'patients',
     'doctors',
     'clinics',
+    'background_task', 
     'floppyforms'
 ]
 

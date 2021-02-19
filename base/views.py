@@ -3,8 +3,11 @@ from django.http import HttpResponseRedirect
 from clinics.models import Clinic
 from django.contrib.postgres.search import SearchVector, SearchQuery, SearchRank
 from users.forms import FORMS_CONTEXT
-# Create your views here.
+from base.models import Notification
+from users.models import User
+from background_task import background
 
+# Create your views here.
 def index(request):
     """Render all the clinics in the same city as the user."""
 
@@ -17,7 +20,7 @@ def index(request):
             rank=SearchRank(vector, query)
         ).order_by('-rank')
 
-    
+
     local_context = {'user': request.user, 'clinics': [clinic.serialize() for clinic in clinics]}
     context = {**local_context, **FORMS_CONTEXT}
 

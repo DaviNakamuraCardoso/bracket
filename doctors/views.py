@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required
 from doctors.models import Doctor, Appointment, Shift, Area
 from doctors.utils import get_doctor, make_schedule
 from doctors.forms import ShiftForm
+from patients.utils import confirm_appointment
 from clinics.models import Clinic
 from base.models import Notification
 from users.data.time import get_weekday
@@ -113,7 +114,7 @@ def add(request, name):
     for id in data['ids'].split(','):
         clinic = Clinic.objects.get(pk=id)
         clinic.doctors.add(doctor)
-        
+
     return JsonResponse({"message": f"Succesfully added {doctor.__str__()} to {clinic.__str__()}"})
 
 
@@ -172,6 +173,7 @@ def new_appointment(request, name):
             area=Area.objects.get(area=data['area'])
 
         )
+
         return JsonResponse({"message": f"Appointment scheduled successfully."})
 
     return JsonResponse({"message": "Method must be POST."})
