@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import login_required
 from doctors.models import Doctor, Appointment, Shift, Area
 from doctors.utils import get_doctor, make_schedule
 from doctors.forms import ShiftForm
-from patients.utils import confirm_appointment
+from patients.utils import confirmation
 from clinics.models import Clinic
 from base.models import Notification
 from users.data.time import get_weekday
@@ -173,6 +173,8 @@ def new_appointment(request, name):
             area=Area.objects.get(area=data['area'])
 
         )
+        appointment.save()
+        confirmation(appointment)
 
         return JsonResponse({"message": f"Appointment scheduled successfully."})
 

@@ -4,12 +4,11 @@
 {% block title %} {{ formatted.title }} {% endblock %}
 
 {% block head %}
-    <script src="{% static 'clinics/scripts/invite.js' %}"></script>
 {% endblock %}
 
 {% block body %}
     {% include 'users/profile.html' with profile=doctor.serialize  tabs="doctors" %}
-	
-    
-    
+
+
+
 {% endblock %}

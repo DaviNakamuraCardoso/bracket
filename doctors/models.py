@@ -57,8 +57,8 @@ class Doctor(models.Model):
         for shift in shifts:
             hours += shift.get_appointments()
 
-        start = hours[appointment.index][0]
-        end = hours[appointment.index][1]
+        start = hours[int(appointment.index)][0]
+        end = hours[int(appointment.index)][1]
 
         return start, end
 
@@ -83,9 +83,12 @@ class Shift(models.Model):
 
 
     def serialize(self):
+        clinic_serialize = {**self.clinic.basic_serialize(), **{'address': f"{self.clinic.address}, {self.clinic.city.city}"}}
+        doctor_serialize = self.doctor.basic_serialize()
+
         return {
-            'doctor': self.doctor.serialize(),
-            'clinic': self.clinic.serialize(),
+            'doctor': doctor_serialize,
+            'clinic': clinic_serialize,
             'areas': [area.area for area in self.areas.all()],
             'day': self.day.day,
             'id': self.id
