@@ -1,0 +1,102 @@
+<div id="patient" class="hidden">
+
+  <div class="form-wrapper">
+    <div class="field">
+      {{ form.day }}
+      <label for="{{ field.id_for_label }}" class="label-field">
+        <span class="content-label">{{ form.day.label }} </span>
+      </label>
+
+    </div>
+    <div class="field">
+      {{ form.month }}
+      <label for="{{ field.id_for_label }}" class="label-field">
+        <span class="content-label">{{ form.month.label }} </span>
+      </label>
+
+    </div>
+    <div class="field">
+      {{ form.year }}
+      <label for="{{ field.id_for_label }}" class="label-field">
+        <span class="content-label">{{ form.year.label }} </span>
+      </label>
+
+    </div>
+
+  </div>
+
+
+  <div class="form-wrapper">
+    <div class="field">
+      {{ form.weight }}
+      <label for="{{ field.id_for_label }}" class="label-field">
+        <span class="content-label">{{ form.weight.label }} </span>
+      </label>
+
+    </div>
+    <div class="field">
+      {{ form.height }}
+      <label for="{{ field.id_for_label }}" class="label-field">
+        <span class="content-label">{{ form.height.label }} </span>
+      </label>
+
+    </div>
+
+
+  </div>
+  <div class="choices">
+    <div class="field">
+      {{ form.choices_conditions }}
+      <label for="{{ field.id_for_label }}" class="label-field">
+        <span class="content-label">{{ form.choices_conditions.label }} </span>
+      </label>
+
+    </div>
+    <div class="form-list">
+      <ul class="form-ul"></ul>
+    </div>
+    {{ form.conditions }}
+
+  </div>
+  <div class="choices">
+    <div class="field">
+      {{ form.choices_medications }}
+      <label for="{{ field.id_for_label }}" class="label-field">
+        <span class="content-label">{{ form.choices_medications.label }} </span>
+      </label>
+
+    </div>
+    <div class="form-list">
+      <ul class="form-ul"></ul>
+    </div>
+    {{ form.medications }}
+
+  </div>
+
+  <div class="choices">
+    <div class="field">
+      {{ form.choices_allergies }}
+      <label for="{{ field.id_for_label }}" class="label-field">
+        <span class="content-label">{{ form.choices_allergies.label }} </span>
+      </label>
+
+    </div>
+    <div class="form-list">
+      <ul class="form-ul"></ul>
+
+
+    </div>
+
+    {{ form.allergies }}
+
+  </div>
+  <div class="form-wrapper">
+    <div class="field">
+      {{ form.city }}
+    </div>
+    <label for="{{ form.city.id_for_label }}" class="label-field">
+      <span class="content-label">{{ form.city.label }}</span>
+
+    </label>
+  </div>
+</div>

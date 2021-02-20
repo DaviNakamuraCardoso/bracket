@@ -1,37 +1,36 @@
-import setPosition from './geolocation.js'; 
+import setPosition from './geolocation.js';
 
-document.addEventListener('DOMContentLoaded', () => 
+document.addEventListener('DOMContentLoaded', () =>
 {
-    let types = ['user']; 
-    
-    const nextButton = document.querySelector("#next"); 
-    
+    let types = ['user'];
+
+    const nextButton = document.querySelector("#next");
+
     nextButton.onclick = () => {
 
-        const checkBoxes = document.querySelectorAll('.checkbox-input'); 
+        const checkBoxes = document.querySelectorAll('.checkbox-input');
         checkBoxes.forEach(checkBox => {
 
-            const value = checkBox.value; 
-            if (checkBox.checked && value != "clinic")
-            {
-                types.push(value); 
-                const specificForm = document.querySelector(`#${value}-form`); 
-                specificForm.innerHTML; 
-                specificForm.append(copyElement(document.getElementById(value)));  
-            }
-            else if (checkBox.checked && value == "clinic")
+            const value = checkBox.value;
+            if (checkBox.checked)
             {
                 types.push(value);
-            }
-        }); 
-        const typesInput = document.querySelector("#id_types"); 
-        typesInput.value = types.join(); 
+                if (value == 'doctor')
+                {
+                    const specificForm = document.querySelector(`#${value}-form`);
+                    specificForm.innerHTML;
+                    specificForm.append(copyElement(document.getElementById(value)));
+                }
 
-        updateChoices(); 
+            }
+        });
+        const typesInput = document.querySelector("#id_types");
+        typesInput.value = types.join();
+
+        updateChoices();
         navigator.geolocation.getCurrentPosition(setPosition);
-        
-        
-        next(types, 0, nextButton); 
+
+        next(types, 0, nextButton);
 
     }
 });
@@ -39,46 +38,56 @@ document.addEventListener('DOMContentLoaded', () =>
 
 function next(array, index, button)
 {
-    const e = document.querySelector(`#${array[index]}-form`); 
-    console.log(e);
-    
-    console.log(array[index+1]); 
-
-    if (index > 0)
+    const type = array[index];
+    if (type == 'doctor' || type == 'user')
     {
-        let previous = document.querySelector(`#${array[index-1]}-form`); 
-        hide(previous); 
-    }
-    
-    if (index == array.length-1 || array[index+1] == 'clinic')
-    {
-        button.type = 'submit'; 
-    }
-    else 
-    {   
-        validate(e); 
-    
-        button.onclick = () => 
+        const e = document.querySelector(`#${array[index]}-form`);
+        show(e.firstElementChild);
+        
+        if (index == array.length-1 || !array.slice(index+1, array.length).includes('doctor'))
         {
-            next(array, index+1, button); 
+            button.type = 'submit';
         }
+        else
+        {
+            validate(e);
 
+            button.onclick = () =>
+            {
+                hide(e);
+                next(array, index+1, button);
+            }
+        }
     }
-    show(e.firstElementChild); 
-    
+    else
+    {
+        if (!array.slice(index, array.length).includes('doctor'))
+        {
+            button.type = 'submit';
+        }
+        else
+        {
+            next(array, index+1, button);
+        }
+    }
+
+
+
+
+
 
 }
 
 
 function show(element)
 {
-    element.classList.toggle('hidden', false); 
+    element.classList.toggle('hidden', false);
 }
 
 
 function hide(element)
 {
-    element.classList.toggle('hidden', true); 
+    element.classList.toggle('hidden', true);
 }
 
 
@@ -101,7 +110,7 @@ function copyElement(element)
 function validate(element)
 {
     const button = document.querySelector("#next");
-    const inputs = element.querySelectorAll('input'); 
+    const inputs = element.querySelectorAll('input');
 
     button.disabled = true;
     for (let i = 0; i < inputs.length; i++)
@@ -116,7 +125,7 @@ function validate(element)
                 }
 
             });
-        
+
             button.disabled = values.includes('');
         });
     }
@@ -131,7 +140,7 @@ function updateChoices()
         const input = divField.firstElementChild;
         const ul = choice.children[1].firstElementChild;
         const hiddenInput = choice.lastElementChild;
-        const form = document.querySelector('form');
+        const form = document.querySelector('#signup');
 
         let array = [];
         input.onchange = () => {
@@ -143,20 +152,20 @@ function updateChoices()
             hiddenInput.value = array.join();
         });
 
-        
+
     });
 }
 
 
 function listChoices(array, field, list)
 {
-     
-    // Adding the field value to the list 
+
+    // Adding the field value to the list
     array.push(field.value);
 
     // Creating an li element to show the allergy
     const li = document.createElement('li');
-    const btn = document.createElement('button');   
+    const btn = document.createElement('button');
     const val = document.createElement('span');
 
     val.innerHTML = field.value;
@@ -164,11 +173,11 @@ function listChoices(array, field, list)
 
     btn.addEventListener('click', () => {
 
-        // Deletes the list element when clicked 
+        // Deletes the list element when clicked
         const element = btn.parentElement;
         const v = element.firstChild;
         const index = array.indexOf(v.innerHTML);
-            
+
         array.splice(index, 1);
         element.remove();
     });
@@ -180,7 +189,5 @@ function listChoices(array, field, list)
 
     // Reset the field value
     field.value = '';
+    console.log(array);
 }
-
-
-

@@ -20,6 +20,6 @@ urlpatterns = [
 
     # APIs
     path('location/<str:lat>/<str:lng>', views.location, name='location'),
-    path('calendar/<int:year>/<int:month>', views.calendar, name='calendar'), 
+    path('calendar/<int:year>/<int:month>', views.calendar, name='calendar'),
     path('<str:name>/', views.user_info, name='user')
 ]

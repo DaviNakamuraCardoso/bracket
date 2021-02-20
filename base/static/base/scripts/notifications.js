@@ -49,3 +49,10 @@ function listenForReply(replyButton)
     });
   }
 }
+
+
+
+function loadNotifications()
+{
+    load
+}

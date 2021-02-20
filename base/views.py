@@ -1,10 +1,10 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from clinics.models import Clinic
-from django.contrib.postgres.search import SearchVector, SearchQuery, SearchRank
+from django.contrib.postgres.search import SearchVector, SearchQuery, SearchRank, TrigramSimilarity
 from users.forms import FORMS_CONTEXT
 from base.models import Notification
-from users.models import User
+from users.models import User, City
 from background_task import background
 
 # Create your views here.
@@ -26,6 +26,24 @@ def index(request):
 
 
     return render(request, 'base/index.html', context=context)
+
+def notifications(request, user_name):
+    user = User.objects.get(name=user_name)
+    notifications = user.notifications.all().order_by('-timestamp')
+    context = {'notifications': [notification.serialize() for notification in notifications]}
+
+    return JsonResponse(context)
+
+
+def city(request):
+    if search := request.GET.get('query'):
+        cities = City.objects.annotate(
+            similarity=TrigramSimilarity('city', search)
+        ).all().order_by('-similarity')[:20]
+        return render(request, 'base/cities.html', {'cities': cities})
+
+    return render(request, 'base/cities.html')
+
 
 
 def error(request):

@@ -1,6 +1,7 @@
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from django.db import models
 from django.utils import timezone
+from users.data.time import tz
 
 
 # Create your models here.
@@ -115,6 +116,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     def notification_origins(self):
         return [notification.origin for notification in self.notifications.all()]
 
+    def timezone_delay(self):
+        return tz(self.city.timezone)
 
 class Day(models.Model):
     day = models.CharField(max_length=32)

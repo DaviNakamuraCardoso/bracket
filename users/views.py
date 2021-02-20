@@ -7,6 +7,7 @@ from users.data.geolocation import locate
 from users.data.time import get_calendar
 from users.models import City
 from users.forms import FORMS_CONTEXT, LoginForm, ClinicForm
+from users.data.sorted_cities import latitude_sorted
 # Create your views here.
 
 def register_view(request):
@@ -82,7 +83,7 @@ def create_cities(request):
     if not request.user.is_superuser:
         return HttpResponseRedirect(reverse('base:error'))
 
-    for city in latitude_sorted[5000:]:
+    for city in latitude_sorted[:6000]:
         try:
             city_obj = City.objects.get(lat=city['lat'], lng=city['lng'])
             city_obj.timezone = city['timezone']

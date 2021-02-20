@@ -1,3 +1,4 @@
+/* ___ Dust Pallete ___ */
 @import url("https://fonts.googleapis.com/css2?family=Hammersmith+One&display=swap");
 th, tr {
   padding: 10px; }
@@ -17,7 +18,7 @@ td {
   cursor: pointer; }
 
 .ball:hover {
-  background: #e7e7e7; }
+  background: #A7AABD; }
 
 #month {
   border-collapse: collapse;
@@ -27,7 +28,7 @@ td {
 .day {
   text-align: center; }
   .day .ball {
-    background: #e7e7e7; }
+    background: #A7AABD; }
 
 .invalid {
   cursor: auto;
@@ -39,11 +40,11 @@ td {
   background: #fff; }
 
 .marked .ball {
-  background: #1e1e1e;
+  background: #424656;
   color: #f1f1f1; }
 
 #calendar-year, #calendar-month {
-  color: #1e1e1e;
+  color: #424656;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   justify-content: space-evenly;
@@ -57,7 +58,7 @@ td {
   position: fixed;
   margin-top: 10vh;
   width: 40vw;
-  height: 70vh;
+  height: 90vh;
   display: flex;
   top: 0;
   right: -100vw;
@@ -65,7 +66,9 @@ td {
 
 .day-planner.open {
   padding: 40px;
-  right: 0; }
+  right: 0;
+  background: white;
+  z-index: 99; }
 
 #appointment-table {
   display: grid;
@@ -79,7 +82,8 @@ td {
   grid-template-columns: repeat(2, 1fr); }
 
 #hours, #appointments {
-  padding: 0 20px; }
+  padding: 0 20px;
+  margin-bottom: 5rem; }
 
 #hours {
   display: flex;
@@ -92,7 +96,7 @@ td {
 
 .appointment {
   position: absolute;
-  background: #7356F4;
+  background: #4387f5;
   margin: auto;
   width: 90%;
   cursor: pointer;
@@ -105,14 +109,14 @@ td {
   font-size: 2rem; }
 
 .appointment:hover {
-  background: #370cf2; }
+  background: #4387f5; }
 
 .closed {
-  background: #e7e7e7;
+  background: #A7AABD;
   cursor: auto; }
 
 .closed:hover {
-  background: #e7e7e7; }
+  background: #A7AABD; }
 
 .second {
   color: #5a5a5a; }
@@ -121,13 +125,12 @@ td {
   font-size: 1.2rem;
   display: grid;
   justify-content: space-between;
-  max-height: 60vh;
   position: relative; }
 
 .chosen {
-  background: #1A0673; }
+  background: black; }
 
 .chosen:hover {
-  background: #1A0673; }
+  background: black; }
 
 /*# sourceMappingURL=calendar.css.map */

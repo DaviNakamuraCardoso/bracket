@@ -1,14 +1,14 @@
 from users.models import User, City
 from clinics.models import Clinic
 from doctors.models import Doctor, Area, Rate
-from patients.models import Patient
+from patients.models import Patient, Allergy, Medication, Condition
 from django.conf import settings
 from PIL import Image
 import os
 import datetime
 
 
-def get_name(first, last): 
+def get_name(first, last):
 
     """Gets first and last name and returns an username."""
     n = len(User.objects.filter(first_name=first, last_name=last))
@@ -27,90 +27,95 @@ def get_clinic_name(request):
     base = sep.join(name).lower()
     l = len(Clinic.objects.filter(base_name=base))
     appendix = f".{l}" if l > 0 else ''
-    
+
 
     return {'base': base, 'name': f"{base}{appendix}"}
 
 
-def new_user(request): 
+def new_user(request):
     """Handles the user register."""
-    data = request.POST 
+    data = request.POST
 
-    # Create the basic user model 
+    # Create the basic user model
     types = data['types'].split(',')
     user = User.objects.create_user(
-        password=data['password'], 
-        email=data['email'], 
-        is_doctor='doctor' in types, 
-        city=City.objects.get(pk=data['city']), 
-        first_name=data['first_name'], 
-        last_name=data['last_name'], 
-        name=get_name(data['first_name'], data['last_name']), 
+        password=data['password'],
+        email=data['email'],
+        is_doctor='doctor' in types,
+        city=City.objects.get(pk=data['city']),
+        first_name=data['first_name'],
+        last_name=data['last_name'],
+        name=get_name(data['first_name'], data['last_name']),
 
     )
 
-    if picture := request.FILES['user-picture']: 
+    if picture := request.FILES['user-picture']:
 
         user.picture = handle_uploaded_file(request.POST, picture, user, 'user')
-    
+
     user.save()
-    
-    return user 
+
+    return user
 
 
-def new_patient(request, user): 
-    if 'patient' in request.POST['types'].split(','): 
-    
+def new_patient(request, user, create=False):
+    if create:
+
         data = request.POST
-        
+
         day, month, year = (data['day'], data['month'], data['year'])
         strbirth = f"{day}/{month}/{year}"
         date = datetime.datetime.strptime(strbirth, "%d/%m/%Y")
 
         patient = Patient.objects.create(
-            user=user, 
-            weight=request.POST['weight'], 
-            height=request.POST['height'], 
+            user=user,
+            weight=request.POST['weight'],
+            height=request.POST['height'],
             birth=date
         )
         allergies = data['allergies'].split(',')
         conditions = data['conditions'].split(',')
         medications = data['medications'].split(',')
 
-        if data['allergies'] != '': 
+        if data['allergies'] != '':
             for allergy in allergies:
                 patient.allergies.add(Allergy.objects.get(allergy=allergy))
-        
-        if data['medications'] != '': 
-            for medication in medications: 
+
+        if data['medications'] != '':
+            for medication in medications:
                 patient.medications.add(Medication.objects.get(medication=medication))
 
-        if data['conditions'] != '': 
-            for condition in conditions: 
+        if data['conditions'] != '':
+            for condition in conditions:
                 patient.conditions.add(Condition.objects.get(condition=condition))
-        
+
         return patient
-        
-    return None
+
     
+    patient = Patient.objects.create(
+        user=user
+    )
+
+    return patient
 
 
-def new_doctor(request, user): 
+
+def new_doctor(request, user):
     if 'doctor' in request.POST['types'].split(','):
-        data = request.POST 
+        data = request.POST
         doctor = Doctor.objects.create(
-            user=user, 
-            number=data['number'], 
+            user=user,
+            number=data['number'],
             degree=data['degree']
         )
         if data['areas'] != '':
 
             for area in data['areas'].split(','):
                 doctor.areas.add(Area.objects.get(area=area))
-            
+
         rate = Rate.objects.create(
-            rating=5, 
-            doctor=doctor 
+            rating=5,
+            doctor=doctor
         )
         rate.users.add(user)
         rate.save()
@@ -119,18 +124,18 @@ def new_doctor(request, user):
     return None
 
 
-def new_clinic(request, user): 
+def new_clinic(request, user):
 
-    data = request.POST 
+    data = request.POST
     clinic = Clinic.objects.create(
-        admin=user, 
-        name=data['clinic_name'], 
-        clinic_name=get_clinic_name(request)['name'], 
-        base_name=get_clinic_name(request)['base'], 
-        email=data['clinic_email'], 
-        city=City.objects.get(pk=data['clinic_city']), 
-        address=data['clinic_address'] 
-        
+        admin=user,
+        name=data['clinic_name'],
+        clinic_name=get_clinic_name(request)['name'],
+        base_name=get_clinic_name(request)['base'],
+        email=data['clinic_email'],
+        city=City.objects.get(pk=data['clinic_city']),
+        address=data['clinic_address']
+
     )
     clinic.picture = handle_uploaded_file(request.POST, request.FILES['clinic-picture'], clinic, 'clinic')
 
@@ -149,14 +154,14 @@ def handle_uploaded_file(data, file, model, model_type):
     extension = file.__str__().split('.')[-1]
     filename = f"{model.identifier()}_picture.{extension}"
 
-    # Read the file with the image reader and crops it 
-    image_reader = Image.open(file)    
+    # Read the file with the image reader and crops it
+    image_reader = Image.open(file)
     size = min(max(16, int(data['size'])), min(image_reader.height, image_reader.width))
     x = min(max(0, int(data[f'{model_type}-picture-x'])), image_reader.width-size)
     y = min(max(0, int(data[f'{model_type}-picture-y'])), image_reader.height-size)
 
-    
+
     cropped = image_reader.crop((x, y, x+size, y+size))
     cropped.save(os.path.join(settings.MEDIA_ROOT, filename))
 
-    return filename 
+    return filename
