@@ -160,6 +160,7 @@ function handleAsk(button)
     .then(result => {
         console.log(result.message);
          button.dataset.value = result.value;
+         button.innerHTML = result.newInner;
          button.disabled = false;
     });
 

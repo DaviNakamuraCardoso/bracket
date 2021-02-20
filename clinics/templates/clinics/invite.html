@@ -1,42 +1,53 @@
 {% load static %}
 
-<script src="{% static 'clinics/scripts/invite.js' %}"></script>
-<link href="{% static 'clinics/styles/invite.css' %}" rel="stylesheet">
+{% if request.user.is_authenticated %}
+    {% if request.user.is_doctor or request.user.user_clinics.all|length > 0 %}
 
-<div class="invite-container">
+        <div class="invite-container">
 
-    {% if profile == "doctors" %}
-        {% if request.user.user_clinics.all|length > 0 %}
+            {% if profile == "doctors" and request.user != doctor.user %}
+                {% if request.user.user_clinics.all|length > 0 %}
 
-            <button id="invite" type="button" name="button" data-value="add" data-type="add" data-url="{% url 'clinics:doctor_in_clinics' model.name %}">Add to clinic</button>
-            <form class="" action="{% url 'doctors:add' model.name %}" id="pop-up">
+                    <script src="{% static 'clinics/scripts/invite.js' %}"></script>
+                    <link href="{% static 'clinics/styles/invite.css' %}" rel="stylesheet">
 
-                {% csrf_token %}
-                <div class="hello" id="cities"></div>
-                <input type="submit" value="Confirm">
+                    <button id="invite" type="button" name="button" data-value="add" data-type="add" data-url="{% url 'clinics:doctor_in_clinics' model.name %}">Add to clinic</button>
+                    <form class="" action="{% url 'doctors:add' model.name %}" id="pop-up">
 
-            </form>
+                        {% csrf_token %}
+                        <div class="hello" id="cities"></div>
+                        <input type="submit" value="Confirm">
 
-        {% endif %}
+                    </form>
 
-    {% elif profile == "clinics" %}
-        {% if request.user.is_doctor %}
-            {% csrf_token %}
-            {% if request.user.doctor in clinic.doctors.all %}
-              <button id="invite" type="button" name="button" data-type="leave" data-url="{% url 'clinics:leave' model.name %}">Leave</button>
+                {% endif %}
 
-            {% elif user.title not in senders %}
+            {% elif profile == "clinics" and request.user != clinic.admin %}
+                {% if request.user.is_doctor %}
 
-                <button id="invite" type="button" name="button" data-type="ask" data-url="{% url 'clinics:join' model.name %}" data-value="request">Join</button>
+                        <script src="{% static 'clinics/scripts/invite.js' %}"></script>
+                        <link href="{% static 'clinics/styles/invite.css' %}" rel="stylesheet">
 
-            {% else %}
+                    {% csrf_token %}
+                    {% with request.user.doctor.serialize as doctor %}
+                        {% if request.user.doctor in clinic.doctors.all %}
+                            <button id="invite" type="button" name="button" data-type="leave" data-url="{% url 'clinics:leave' model.name %}">Leave</button>
 
-                <button id="invite" type="button" name="button" data-type="ask" id="invite" data-url="{% url 'clinics:join' model.name %}" dataset-value="cancel">Cancel request</button>
+                        {% elif doctor.title not in senders %}
+
+                            <button id="invite" type="button" name="button" data-type="ask" data-url="{% url 'clinics:join' model.name %}" data-value="request">Join</button>
+
+                        {% else %}
+
+                            <button id="invite" type="button" name="button" data-type="ask" id="invite" data-url="{% url 'clinics:join' model.name %}" dataset-value="cancel">Cancel request</button>
+
+                        {% endif %}
+
+                    {% endwith %}
+                {% endif %}
 
             {% endif %}
 
-        {% endif %}
-
+        </div>
     {% endif %}
-
-</div>
+{% endif %}

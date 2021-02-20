@@ -33,7 +33,8 @@ def profile(request, clinic_name):
     except Clinic.DoesNotExist:
         return HttpResponse('Error 404')
 
-    context = {'clinic': clinic, 'senders': clinic.admin.notification_origins}
+
+    context = {'clinic': clinic, 'senders': clinic.admin.notification_origins()}
 
     return render(request, 'clinics/profile.html', context)
 
@@ -66,7 +67,7 @@ def join_clinic(request, clinic_name):
         notification.delete()
 
         # Return a success message
-        return JsonResponse({"message": "Join request cancelled succesfully", 'value': 'request'})
+        return JsonResponse({"message": "Join request cancelled succesfully", 'value': 'request', 'newInner': "Join"})
 
     # Generate a Notification for the clinic admin
     invite_text = f"Is asking to join {clinic.name}"
@@ -79,7 +80,7 @@ def join_clinic(request, clinic_name):
         origin=doctor.__str__()
     )
 
-    return JsonResponse({"message": "Request sent succesfully.", 'value': 'cancel'})
+    return JsonResponse({"message": "Request sent succesfully.", 'value': 'cancel', 'newInner': "Cancel Request"})
 
 
 def doctor_in_clinics(request, doctor_name):
