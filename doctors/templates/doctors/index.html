@@ -2,6 +2,11 @@
 
 {% block title %} Doctors {% endblock %}
 
+
+{% block sidebar %}
+    {% include 'base/sidebar.html' %}
+{% endblock %}
+
 {% block body %}
     {% include 'base/cards.html' with cards=doctors %}
 {% endblock %}
