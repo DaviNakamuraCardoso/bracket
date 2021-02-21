@@ -22,7 +22,7 @@
 
             <a href="{% url 'base:index' %}" class="nav-link">Final Project</a>
 
-            
+
         </div>
 
         <div class="navbar-nav" id="search">
@@ -41,7 +41,7 @@
             <li class="nav-item" id="sign-in">
                 <a href="{% url 'users:login' %}" class="nav-link">Log In</a>
             </li>
-        
+
             <!-- Register -->
             <li class="nav-item" id="sign-up">
                 <a href="{% url 'users:register' %}" class="nav-link">Sign Up</a>
@@ -50,23 +50,21 @@
 
             {% else %}
                 {% include 'base/icon-bar.html' %}
-                
+
             {% endif %}
 
             </ul>
         </div>
-        
-    </nav>
-    {% if request.user.is_authenticated %}
-        {% include 'base/sidebar.html' %}
-    {% endif %}
 
+    </nav>
+    {% block sidebar %}
+    {% endblock %}
     <!-- Body -->
     <main id="main">
         {% block body %}
         {% endblock %}
     </main>
 
-    
+
 </body>
 </html>

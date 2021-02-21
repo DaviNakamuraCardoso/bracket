@@ -32,7 +32,6 @@ $nav-height: 10vh;
     padding: 0;
     margin: 0;
     font-family: sans-serif;
-    font-size: clamp(1.8rem, 2vw, 2.4rem);
 }
 
 html
@@ -47,6 +46,7 @@ body
 
 main
 {
+    margin: auto;
     margin-top: 10vh;
 
 }
@@ -97,7 +97,7 @@ body::-webkit-scrollbar-thumb
     background: $main;
 }
 
-body::-webkit-scrollbar 
+body::-webkit-scrollbar
 {
     width: 0.40rem;
 }
