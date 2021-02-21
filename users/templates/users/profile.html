@@ -15,48 +15,55 @@
 
         </div>
         {% include 'clinics/invite.html'  with model=profile profile=tabs %}
-        <!--
-        <div class="profile-option">
-            <div class="settings">
+        <hr>
+        <div class="header-nav">
 
-            </div>
-        </div>
-
-
-        -->
-
-
-    </div>
-    <div class="main-body">
-        <div class="left-side">
-            <div class="profile-side">
-                <div class="fas-icon address info">
-                    {{ profile.address | title }}
+            <div class="profile-nav">
+                <div class="profile-dash">
+                    <div class="profile-nav-item">Profile</div>
+                    <div class="profile-nav-item">About</div>
+                    <div class="profile-nav-item">Schedule</div>
                 </div>
+                <div class="bar"></div>
+            </div>
 
+        </div>
+            </div>
 
-                {% for submodel in profile.info %}
-                    <div class="info">
-                        <a href="{{ submodel.url }}">
-                            <div class="fas-icon {{profile.info_icon }}">
-                                {{submodel.title | title}}
-                            </div>
-                        </a>
+    <div class="main-body">
+
+        <div class="right-side">
+            <div class="tab"></div>
+            <div class="about tab">
+                <div class="profile-side">
+                    <h1>About</h1>
+                    <div class="fas-icon address info">
+                        {{ profile.address }}
                     </div>
-                {% endfor %}
 
 
-                {% for submodel1 in profile.info2 %}
+                    {% for submodel in profile.info %}
+                        <div class="info">
+                            <a href="{{ submodel.url }}">
+                                <div class="fas-icon {{ profile.info_icon }}">
+                                    {{submodel.title}}
+                                </div>
+                            </a>
+                        </div>
+                    {% endfor %}
 
-                    <div class="info">
 
-                        <a href="{{ submodel1.url }}">
-                            <div class="fas-icon {{ profile.info2_icon }}">
-                                    {{ submodel1.title | title }}
-                            </div>
-                        </a>
-                    </div>
-                {% endfor %}
+                    {% for submodel1 in profile.info2 %}
+
+                        <div class="info">
+
+                            <a href="{{ submodel1.url }}">
+                                <div class="fas-icon {{ profile.info2_icon }}">
+                                        {{ submodel1.title }}
+                                </div>
+                            </a>
+                        </div>
+                    {% endfor %}
 
                 <!--
                 <div class="profile-btn">
@@ -70,24 +77,8 @@
                     <h3 class="fas-icon rating">{{ profile.rating }}</h3>
                 </div>
             </div>
+            <div class="tab"></div>
         </div>
-        <div class="right-side">
-            <div class="profile-nav">
-                <div class="profile-dash">
-                    <div class="profile-nav-item" onclick='showTab(0);'>Profile</div>
-                    <div class="profile-nav-item" onclick="showTab(1);">About</div>
-                    <div class="profile-nav-item">Schedule</div>
-                </div>
-                <div class="bar"></div>
-            </div>
-            {% if tabs == "doctors" %}
-                {% include 'doctors/tabs.html' %}
-            {% elif tabs == "clinics" %}
-                {% include 'clinics/tabs.html' %}
-            {% else %}
-                {% include 'patients/tabs.html' %}
-            {% endif %}
-
 
 
         </div>

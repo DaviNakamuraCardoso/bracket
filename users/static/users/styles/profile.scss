@@ -1,78 +1,101 @@
 
 /* ___ Dust Pallete ___ */
-$main: #4387f5; 
-$black: #424656; 
-$gray: #A7AABD; 
-$complementary: #EC5272;
-$yellow: #F5BA42; 
+$main: #4387f5;
+$black: #1e1e1e;
+$gray: #A7AABD;
+$complementary: black;
+$yellow: #F5BA42;
 
 
-.profile-header 
+*
 {
-    background: white; 
-    width: 80vw; 
-    display: grid; 
-    grid-template-columns: 1fr 3fr;
-    margin: 5vh 1vw; 
-    position: relative; 
-    box-shadow: 0px 3px 4px rgba(0, 0,0, .2);
-    padding: 1em;
-    gap: 1.5rem;
+    color: $black;
+}
+main
+{
+    display: flex;
+    align-items: center;
+}
+
+hr
+{
+    width: 70%;
+    margin: auto;
+}
+.profile-container
+{
+    display: flex;
+    width: 100%;
+    margin: auto;
+    flex-direction: column;
+    justify-content: space-between;
+
+}
+
+.profile-header
+{
+    background: white;
+    width: 100%;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    gap: 2em;
+    box-shadow: 0 1px 2px 2px rgba(0, 0, 0, .6);
 
 }
 
 
 .profile-image
 {
-    
-    
-    width: 30rem; 
-    height: 30rem; 
-    box-sizing: border-box;
-    min-width: 10rem; 
-    display: flex; 
-    
-    img 
+
+    margin: auto;
+    width: clamp(15em, 30%, 25em);
+    height: clamp(15em, 30%, 25em);
+    display: flex;
+
+
+    img
     {
-        border-radius: 50%; 
-        height: auto; 
-        width: 100%; 
-        border: 4px solid white; 
-        box-shadow: 0px 5px 10px rgba(0, 0, 0, .2); 
-        left: 10rem; 
-        z-index: 5; 
+        border-radius: 50%;
+        height: auto;
+        width: 100%;
+        border: 4px solid white;
+        box-shadow: 0px 5px 10px rgba(0, 0, 0, .2);
+        z-index: 5;
         background: white;
 
     }
-    
+
 
 }
 
-
-.profile-nav-info 
+.profile-nav-info
 {
-    padding: 5rem;
-    width: 100%; 
-    height: 100%; 
-    flex-direction: column; 
-    display: flex; 
-    align-items: right; 
-    justify-content: center;
 
-    h3 
+    margin: auto;
+    width: 100%;
+    height: 100%;
+    flex-direction: column;
+    display: flex;
+    align-items: right;
+    justify-content: center;
+    text-align: center;
+
+
+    h3
     {
 
-        font-variant: small-caps; 
-        font-family: sans-serif; 
+        font-family: sans-serif;
         font-weight: bold;
-        font-size: clamp(3rem, 5vw, 7rem);
+        font-size: clamp(3rem, 3vw, 6rem);
     }
     .address
     {
-        display: flex; 
+        display: flex;
         color: #777;
         font-size: 1rem;
-        p 
+        p
         {
             font-size: 1.4rem;
         }
@@ -81,21 +104,95 @@ $yellow: #F5BA42;
 }
 
 
+
+.header-nav
+{
+    width: 70%;
+    margin: auto;
+}
+
+.profile-nav
+{
+    width: 60%;
+    position: relative;
+    .profile-dash
+    {
+        display: flex;
+        justify-content: space-around;
+        height: 5rem;
+        background: white;
+
+
+
+    }
+
+}
+.profile-nav-item
+{
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: .7em .2em;
+    text-align: center;
+    position: relative;
+    margin-bottom: 1rem;
+    width: 20%;
+    font-weight: bold;
+    font-size: clamp(1.6rem, 1.1vw, 2rem);
+    align-self: center;
+    border-radius: 100vw;
+    color: #777;
+    transition: all .3s ease-in-out;
+}
+.profile-nav-item:hover
+{
+    background: #f1f1f1;
+}
+
+.profile-nav-item.active
+{
+    color: $complementary;
+}
+.bar
+{
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 33%;
+    height: .5rem;
+    border-radius: 100vw;
+    transition: all 1s ease;
+    &::before
+    {
+        content: '';
+        width: 50%;
+        height: 100%;
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        background: black;
+        overflow: hidden;
+
+    }
+}
+
+
+
 .profile-option
 {
 
-    width: 3rem; 
+    margin:auto;
+    width: 3rem;
     height: 3rem;
     background: $complementary;
-    border-radius: 50%; 
+    border-radius: 50%;
     margin-top: 8vh;
     transform: translateY(40%);
-    position: relative; 
-    &::before 
+    position: relative;
+    &::before
     {
         content: '\f013';
-       
-
 
     }
 
@@ -108,82 +205,85 @@ $yellow: #F5BA42;
 
 .main-body
 {
-    display: grid; 
-    grid-template-columns: 1fr 2fr;
-    padding-right: 15px;
+    display: flex;
+    justify-content: center;
     position: relative;
-    width: 80vw;
-    margin: 2rem 1vw;
-
-
+    width: 100%;
+    margin: 0 auto;
+    padding: 2em 0;
+    background: #f0f0f0;
 }
 
 .right-side
 {
-
-}
-
-.left-side
-{
-    width: 100%;   
-    justify-self: start;
-    align-self: start;
-    display: flex; 
-    box-shadow: 0px 3px 4px rgba(0, 0, 0, .2); 
+    border-radius: 20px;
+    padding: 2em;
+    width: 20%;
+    position: static;
+    background: white;
+    display: flex;
+    box-shadow: 0px 3px 4px rgba(0, 0, 0, .2);
     justify-content: center;
+    font-size: clamp(1.8rem, .7vw, 2rem);
 
-    .profile-side 
+
+    .profile-side
     {
-        width: 80%; 
-        background: #fff;
-        display: flex; 
-        
-        flex-direction: column; 
-        justify-content: space-around; 
-        .info 
+        h1
         {
-            height: 10rem;
-            display: flex; 
-            align-items: center; 
+            font-size: clamp(3rem, 3vw, 3.4rem);
         }
-        p 
+        color: #a0a0a0;
+        width: 90%;
+        background: #fff;
+        display: flex;
+
+        flex-direction: column;
+        justify-content: space-around;
+        .info
         {
-            margin-bottom: 2px; 
+            height: 7rem;
+            display: flex;
+            align-items: center;
+        }
+        p
+        {
+            margin-bottom: 2px;
         }
 		.mail
 		{
-		    word-break: break-all; 
+		    word-break: break-all;
 		}
         .mail::before
         {
-            content: '\f0e0'; 
+            content: '\f0e0';
         }
-        .address::before 
+        .address::before
         {
-            content: '\f3c5'; 
+            content: '\f3c5';
         }
-        .phone::before 
+        .phone::before
         {
             content: '\f095';
         }
-        .rating::before 
+        .rating::before
         {
-            content: '\f005'; 
+            content: '\f005';
         }
-        .university::before 
+        .university::before
         {
-            content: '\f19c'; 
+            content: '\f19c';
         }
-        .clinic::before 
+        .clinic::before
         {
-            content: '\f7f2'; 
+            content: '\f7f2';
         }
-        
-        .user-rating 
+
+        .user-rating
         {
-            h3 
+            h3
             {
-                font-size: 4rem; 
+                font-size: 4rem;
             }
             color: $yellow;
         }
@@ -193,57 +293,8 @@ $yellow: #F5BA42;
 
 
 
-.profile-nav 
-{
-    width: 100%; 
-    position: relative;
-    .profile-dash 
-    {
-        display: flex; 
-        justify-content: center;
-        height: 5rem;
-        background: white; 
-        box-shadow: 0px 2px 5px rgba(0, 0, 0, .3);
 
-
-        
-    }
-
-}
-.profile-nav-item
-{
-    z-index: 10; 
-    cursor: pointer;
-    display: flex; 
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    width: 100%; 
-    font-weight: bold; 
-    color: #777; 
-    transition: all .2s ease-in-out; 
-}
-
-.profile-nav-item.active 
-{
-    color: $complementary; 
-}
-.bar 
-{
-    position: absolute; 
-    left: 0; 
-    bottom: 0; 
-    width: 33%; 
-    height: .5rem;
-    border-radius: 100vw;
-    background: $complementary;
-    transition: all 1s ease;
-}
-
-
-
-
-.profile-body 
+.profile-body
 {
     margin: 2rem;
 }
@@ -251,14 +302,14 @@ $yellow: #F5BA42;
 
 
 
-.fas-icon::before 
+.fas-icon::before
 {
-    font-weight: 900; 
-    font-family: "Font Awesome 5 Free"; 
-    font-style: normal; 
+    font-weight: 900;
+    font-family: "Font Awesome 5 Free";
+    font-style: normal;
     font-variant: normal;
-    text-rendering: auto; 
-    text-align: center; 
+    text-rendering: auto;
+    text-align: center;
     margin-right: 0.4em;
 
 }

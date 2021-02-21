@@ -1,19 +1,16 @@
 /* ___ Dust Pallete ___ */
 @import url("https://fonts.googleapis.com/css2?family=Hammersmith+One&display=swap");
-th, tr {
-  padding: 10px; }
-
 td {
   text-align: center; }
 
 #calendar {
-  height: 500px;
-  width: 500px; }
+  height: 90%;
+  width: 90%;
+  background: white; }
 
 .ball {
   clip-path: circle(15px at center center);
   text-align: center;
-  padding: 15px;
   transition: all .3s ease;
   cursor: pointer; }
 
@@ -23,7 +20,8 @@ td {
 #month {
   border-collapse: collapse;
   width: 100%;
-  font-size: 1.2rem; }
+  font-size: 1.2rem;
+  background: white; }
 
 .day {
   text-align: center; }
