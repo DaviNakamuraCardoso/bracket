@@ -11,8 +11,10 @@
                     <script src="{% static 'clinics/scripts/invite.js' %}"></script>
                     <link href="{% static 'clinics/styles/invite.css' %}" rel="stylesheet">
 
-                    <button id="invite" type="button" name="button" data-value="add" data-type="add" data-url="{% url 'clinics:doctor_in_clinics' model.name %}">Add to clinic</button>
-                    <form class="" action="{% url 'doctors:add' model.name %}" id="pop-up">
+                    <button id="invite" type="button" name="button" data-value="add" data-type="add" data-url="{% url 'clinics:doctor_in_clinics' model.name %}">
+                        <span class="fas-icon plus">Add to clinic</span>
+                    </button>
+                    <form class="hidden" action="{% url 'doctors:add' model.name %}" id="pop-up">
 
                         {% csrf_token %}
                         <div class="hello" id="cities"></div>
@@ -31,11 +33,16 @@
                     {% csrf_token %}
                     {% with request.user.doctor.serialize as doctor %}
                         {% if request.user.doctor in clinic.doctors.all %}
-                            <button id="invite" type="button" name="button" data-type="leave" data-url="{% url 'clinics:leave' model.name %}">Leave</button>
+                            <button id="invite" type="button" name="button" data-type="leave" data-url="{% url 'clinics:leave' model.name %}">
+                                <span>Leave</span>
+                            </button>
 
                         {% elif doctor.title not in senders %}
 
-                            <button id="invite" type="button" name="button" data-type="ask" data-url="{% url 'clinics:join' model.name %}" data-value="request">Join</button>
+                            <button id="invite" type="button" name="button" data-type="ask" data-url="{% url 'clinics:join' model.name %}" data-value="request">
+                                <span>Join</span>
+
+                            </button>
 
                         {% else %}
 

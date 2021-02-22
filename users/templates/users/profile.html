@@ -11,24 +11,42 @@
             <img src="{{ profile.image }}" alt="{{ profile.str }} Picture">
         </div>
         <div class="profile-nav-info">
-            <h3 class="user-name">{{ profile.title | title }}</h3>
+            <div class="user-name fas-icon">
+                <h3>{{ profile.title | title }}</h3>
+            </div>
+
 
         </div>
-        {% include 'clinics/invite.html'  with model=profile profile=tabs %}
         <hr>
         <div class="header-nav">
 
             <div class="profile-nav">
                 <div class="profile-dash">
-                    <div class="profile-nav-item">Profile</div>
-                    <div class="profile-nav-item">About</div>
-                    <div class="profile-nav-item">Schedule</div>
+                    <div class="profile-nav-item" id="profile">
+                        <span class="text">Profile</span>
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="profile-nav-item" id="about">
+                        <span class="text">About</span>
+                        <i class="fas fa-address-card"></i>
+                    </div>
+                    <div class="profile-nav-item" id="ratings">
+                        <span class="text">Rating</span>
+                        <i class="fas fa-star"></i>
+                    </div>
                 </div>
                 <div class="bar"></div>
             </div>
+            <div class="profile-actions">
+                <button type="button" name="button">
+                    <span class="fas-icon plus">New Appointment</span>
+                </button>
 
-        </div>
+                {% include 'clinics/invite.html'  with model=profile profile=tabs %}
             </div>
+        </div>
+
+    </div>
 
     <div class="main-body">
 
@@ -64,22 +82,16 @@
                             </a>
                         </div>
                     {% endfor %}
-
-                <!--
-                <div class="profile-btn">
-                    <button class="chatbtn"></button>
-                    <button class="createbtn">Create</button>
-                </div>
+                    <div class="user-rating info">
+                        <h3 class="fas-icon rating">{{ profile.rating }}</h3>
+                    </div>
 
 
-                -->
-                <div class="user-rating info">
-                    <h3 class="fas-icon rating">{{ profile.rating }}</h3>
-                </div>
+
+
             </div>
             <div class="tab"></div>
         </div>
-
 
         </div>
     </div>

@@ -25,9 +25,9 @@ function main()
     }
     else if (button.dataset.type === "leave")
     {
-      button.onclick = () => {
-        handleLeave(button);
-      }
+        button.onclick = () => {
+            handleLeave(button);
+        }
     }
 }
 
@@ -77,43 +77,43 @@ function handleAdd(button)
         form.className = 'show';
         form.onsubmit = () => {
 
-          // Get the clinic id
-          let ids = [];
-          for (let i = 0; i < datalist.children.length; i++)
-          {
-            if (datalist.children[i].checked)
+            // Get the clinic id
+            let ids = [];
+            for (let i = 0; i < datalist.children.length; i++)
             {
-              ids.push(datalist.children[i].value);
+                if (datalist.children[i].checked)
+                {
+                    ids.push(datalist.children[i].value);
+                }
             }
-          }
 
 
-          // Prevents from cross script attacks
-          const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
-          const request = new Request(
-              form.action,
-              {headers: {"X-CSRFToken": csrftoken}}
-          );
+            // Prevents from cross script attacks
+            const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+            const request = new Request(
+                form.action,
+                {headers: {"X-CSRFToken": csrftoken}}
+            );
 
-          // Asynchronously sends a request to the server with the clinic id
-          fetch(request, {
-            method: 'PUT',
-            mode: 'same-origin',
-            body: JSON.stringify({
-              "ids": ids.join()
+            // Asynchronously sends a request to the server with the clinic id
+            fetch(request, {
+                method: 'PUT',
+                mode: 'same-origin',
+                body: JSON.stringify({
+                    "ids": ids.join()
+                })
             })
-          })
 
-          // Parse to JSON
-          .then(response => response.json())
+            // Parse to JSON
+            .then(response => response.json())
 
-          // Show the message
-          .then(result => {
-              console.log(result);
-              datalist.innerHTML = '';
-              return false;
-          });
-          return false;
+            // Show the message
+            .then(result => {
+                console.log(result);
+                datalist.innerHTML = '';
+                return false;
+            });
+            return false;
         }
     });
 }
@@ -159,9 +159,15 @@ function handleAsk(button)
     // Display the message as a notification
     .then(result => {
         console.log(result.message);
-         button.dataset.value = result.value;
-         button.innerHTML = result.newInner;
-         button.disabled = false;
+
+        const span = document.createElement('span');
+        span.innerHTML = result.newInner;
+
+        button.dataset.value = result.value;
+        button.innerHTML = '';
+        button.append(span);
+        button.disabled = false;
+
     });
 
 
@@ -176,34 +182,38 @@ function handleAsk(button)
 */
 function handleLeave(button)
 {
-  button.disabled = true;
+    button.disabled = true;
 
-  // Prevent from cross-site forgery
-  const token = document.querySelector("[name=csrfmiddlewaretoken]").value;
-  const request = new Request(
-    button.dataset.url,
-    {headers: {'X-CSRFToken': token}}
-  );
+    // Prevent from cross-site forgery
+    const token = document.querySelector("[name=csrfmiddlewaretoken]").value;
+    const request = new Request(
+        button.dataset.url,
+        {headers: {'X-CSRFToken': token}}
+    );
 
-  fetch(request, {
-    method: "DELETE",
-    mode: 'same-origin'
-  })
-  .then(response => response.json())
-  .then(result => {
-    console.log(result);
-    // Enables the user to join the clinic again
-    button.dataset.type = 'ask';
-    button.dataset.value = 'request';
-    button.innerHTML = 'join';
-    button.dataset.url = result.url;
+    fetch(request, {
+        method: "DELETE",
+        mode: 'same-origin'
+    })
+    .then(response => response.json())
+    .then(result => {
+        console.log(result);
+        // Enables the user to join the clinic again
+        const span = document.createElement('span');
+        span.innerHTML = 'Join';
+        button.dataset.type = 'ask';
+        button.dataset.value = 'request';
+        button.innerHTML = '';
+        button.append(span);
 
-    // Activate the button and update its events
-    button.disabled = false;
-    button.onclick = () => {
-      handleAsk(button);
-    }
-  })
+        button.dataset.url = result.url;
+
+        // Activate the button and update its events
+        button.disabled = false;
+        button.onclick = () => {
+            handleAsk(button);
+        }
+    })
 
 }
 
