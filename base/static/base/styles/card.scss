@@ -12,7 +12,7 @@ $br: .5em;
 
 .container
 {
-    margin-top: 20rem;
+    padding-top: 10rem;
     width: 100%;
     display: grid;
     position: relative;
@@ -26,9 +26,18 @@ $br: .5em;
     width: 25rem;
     height: 45rem;
     margin: 2rem auto;
+    padding: 2rem;
 }
 
-.hoverTrigger {position: absolute; width: 100%; height: 100%; top: 0; left: 0; }
+.hoverTrigger
+{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    border: 1px solid rgba(200, 200, 200, .7);
+}
 
 .btn
 {
@@ -39,17 +48,25 @@ $br: .5em;
     color: $main;
     padding: 1rem;
     margin: 0 auto;
+    &:hover
+    {
+        background: rgba(200, 200, 255, .3);
+    }
 }
 
 .front
 {
     transition: 250ms;
     pointer-events: none;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
 
     .main-image
     {
         width: 100%;
-        height: 100%;
+        height: 50%;
         border-radius: $br;
 
     }
@@ -57,32 +74,53 @@ $br: .5em;
 
     .name
     {
+        color: #1e1e1e;
         text-align: center;
-        margin: 0.75rem 0;
-        height: 3rem;
+        margin: 0.75rem auto;
+        height: 100%;
+        width: 80%;
+        justify-content: center;
+        align-items: center;
+        font-size: clamp(1.6rem, 2vw, 1.8rem);
+        display: flex;
+        flex-direction: column;
+
+
+
     }
     .stats
     {
         display: flex;
         justify-content: space-between;
         align-items: center;
-
         flex-direction: row;
+        height: 100%;
+        width: 90%;
+        margin: auto;
     }
     .submodels
     {
+
         img
         {
+            width: clamp(2rem, 8vw, 3.5rem);
+            height: auto;
             border: 2px solid white;
 
             &:nth-of-type(1)
             {
-                transform: translateX(50%);
-                z-index: 1;
+                z-index: 2;
             }
+
             &:nth-of-type(2)
             {
-                transform: translateX(25%);
+                transform: translateX(-25%);
+                z-index: 1;
+
+            }
+            &:nth-of-type(3)
+            {
+                transform: translateX(-50%);
             }
 
         }
@@ -231,7 +269,6 @@ $br: .5em;
     border-radius: $br;
     transition: transform 250ms ease-in-out, opacity 100ms linear;
     bottom: 25px;
-    background: $white;
     backdrop-filter: blur(1.5);
 
 
@@ -266,6 +303,11 @@ $br: .5em;
         transform: translateY(0);
         opacity: 1;
         pointer-events: auto;
+        .stat
+        {
+            font-size: 3rem;
+            font-weight: bolder;
+        }
 
     }
     .submodels
@@ -304,31 +346,36 @@ $br: .5em;
 {
     color: $yellow;
 }
+.star
+{
+    font-size: 3rem;
+}
 
 @keyframes name_animation
 {
     0%
     {
-        font-size: 1rem;
+
+        width: 70%;
         opacity: 1;
     }
 
     20%
     {
-        font-size: 1rem;
+        width: 70%;
         opacity: 0;
     }
 
     50%
     {
-        font-size: 3rem;
+        width: 100%;
         opacity: 0;
 
     }
 
     100%
     {
-        font-size: 3rem;
+        width: 100%;
         opacity: 1;
     }
 }
