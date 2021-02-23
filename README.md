@@ -1,12 +1,12 @@
 # CS50 Web Programming Final Project: Bracket 
 
-### Introduction 
+### Introduction
 
 [toc]
 
 ### Features
 
-- [x] Three different types of accounts: 
+- [x] Three different types of accounts:
   - [x] Patients
   - [x] Doctors
   - [x] Clinics
@@ -18,11 +18,11 @@
 - [ ] Browse for services based on the user location
   - [x] Interactive User Interface to select the location
   - [x] Get the user location automatically (after ask for permission)
-  - [ ] Show services ordered by distance to the user 
-  
-- [ ] Users should be able to make appointments 
-  - [ ] Clinics and doctors should see all the appointments 
-  - [ ] Users should be remembered of their appointments one day before it 
+  - [ ] Show services ordered by distance to the user
+
+- [x] Users should be able to make appointments
+  - [ ] Clinics and doctors should see all the appointments
+  - [x] Users should be remembered of their appointments one day before it
   - [ ] Users should be able to confirm the appointments
 
 
@@ -30,6 +30,6 @@
 
 - [12/2/2020] Initial setup
 - [12/3/2020] GitHub Actions setup, PostgreSQL database setup
-- [12/04/2020] Authentication process 
+- [12/04/2020] Authentication process
 - [12/05/2020] Bug fixes in the authentication
-- [12/06/2020] 
+- [12/06/2020]

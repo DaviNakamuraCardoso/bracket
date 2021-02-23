@@ -63,7 +63,6 @@ class Doctor(models.Model):
         return start, end
 
 
-
 class Shift(models.Model):
 
     # Doctor and Day

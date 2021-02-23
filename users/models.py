@@ -102,9 +102,16 @@ class User(AbstractBaseUser, PermissionsMixin):
     objects = UserManager()
 
     def serialize(self):
+        clinics = set()
+        for clinic in self.user_clinics.all():
+            clinics.add(clinic)
+        for clinic in self.doctor.clinics.all():
+            clinics.add(clinic)
+
         return {
             "name": self.name,
-            "clinics": [clinic.basic_serialize() for clinic in clinics]
+            "clinics": [clinic.basic_serialize() for clinic in clinics],
+            
 
         }
     def identifier(self):
