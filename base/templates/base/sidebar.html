@@ -6,14 +6,14 @@
 <link rel="stylesheet" href="{% static 'base/styles/sidebar.css' %}">
 <script src="{% static 'base/scripts/sidebar.js' %}"></script>
 <nav class="navbar" id="sidebar">
-    <ul id="sidebar-list">
-        <li class="navbar-item">
+    <div id="sidebar-list">
+        <div class="navbar-item">
             <div class="nav-content">
                 <ul class="nav-list">
                     <li class="nav-li">
                         <a href="{% url 'base:index' %}">
-                                <i class="fas fa-home"></i>
-                                <p>Home</p>
+                            <i class="fas fa-home"></i>
+                            <p>Home</p>
                         </a>
                     </li>
                     <li class="nav-li">
@@ -31,9 +31,31 @@
 
                 </ul>
             </div>
-        </li>
+        </div>
 
-        <li class="navbar-item">
+
+        <div class="accordeon navbar-item">
+            <button class="navbar-button active" type="button">Clinics</button>
+            <div class="nav-content open">
+                <ul class="nav-list">
+                    {% with request.user.serialize as model %}
+
+                        {% for clinic in model.clinics %}
+                            <li class="nav-li">
+                                    <a href="{{ clinic.url }}">
+                                        <div class="nav-image-cropper">
+                                            <img class="nav-image" src="{{ clinic.image }}" alt="{{ clinic.title }} Image">
+                                        </div>
+                                        <span>{{ clinic.title|truncatechars:10 }}</span>
+                                    </a>
+                            </li>
+                        {% endfor %}
+                    {% endwith %}
+                </ul>
+            </div>
+
+        </div>
+        <div class="navbar-item">
             <div class="nav-content">
                 <ul class="nav-list">
                     <li class="nav-li">
@@ -44,29 +66,11 @@
                 </ul>
             </div>
 
-        </li>
-        <li class="accordeon navbar-item">
-            <button class="navbar-button" type="button">Clinics</button>
-            <div class="nav-content">
-                <ul class="nav-list">
-                    {% for clinic in request.user.staff_clinics.all %}
-                        <li class="nav-li">
-                                <a href="{% url 'clinics:profile' clinic.clinic_name %}">
-                                    <div class="nav-image-cropper">
-                                        <img class="nav-image" src="{{ clinic.picture.url }}" alt="{{ clinic.name }} Image">
-                                    </div>
-                                    <span>{{ clinic.name }}</span>
-                            </a>
-                        </li>
-                    {% endfor %}
-                </ul>   
-            </div>
-        </li>
+        </div>
 
- 
 
-    </ul>
-   
+    </div>
+
 
 
 </nav>
