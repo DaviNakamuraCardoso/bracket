@@ -4,6 +4,7 @@
 <link href="{% static 'base/styles/card.css' %}" rel="stylesheet">
 
  <div class="container">
+
         {% for card in cards %}
 
 
@@ -11,7 +12,11 @@
               <div class="hoverTrigger">
                 <div class="front">
                     <img src="{{ card.image }}" alt="{{ card.title }}" class="main-image">
-                    <h3 class="name">{{ card.title | title }}</h3>
+                    <div class="name">
+                        <h3>
+                            {{ card.title | title }}
+                        </h3>
+                    </div>
                     <div class="stats">
                         <p class="text">{{ card.status }}</p>
                         <div class="submodels">
