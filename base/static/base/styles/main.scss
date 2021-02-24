@@ -137,7 +137,7 @@ body::-webkit-scrollbar
 
 .navbar-list
 {
-    width: 100%;
+    width: 90%;
     height: 100%;
     display: flex;
     justify-content: space-around;
@@ -169,8 +169,9 @@ body::-webkit-scrollbar
 #search-input
 {
     border-radius: 30px;
-    padding: 15px;
+    padding: clamp(5px, 2vw, 20px);
     border: 1px solid black;
+    width: 80%;
 }
 
 #search-input:focus
@@ -204,3 +205,12 @@ body::-webkit-scrollbar
 
 
 /* Animations */
+
+
+@media (max-width: 599px)
+{
+    #logo
+    {
+        display: none;
+    }
+}

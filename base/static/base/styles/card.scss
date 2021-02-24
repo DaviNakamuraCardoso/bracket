@@ -23,8 +23,8 @@ $br: .5em;
 .card
 {
     position: relative;
-    width: 25rem;
-    height: 45rem;
+    width: 20rem;
+    height: 35rem;
     margin: 2rem auto;
     padding: 2rem;
 }
@@ -139,7 +139,8 @@ $br: .5em;
     top: 42%;
     left: 0;
     right: 0;
-    height: 27rem;
+    height: 20rem;
+
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -229,7 +230,7 @@ $br: .5em;
     }
     .submodels
     {
-        width: 15rem;
+        width: 10rem;
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         place-items: initial;
@@ -312,7 +313,7 @@ $br: .5em;
     }
     .submodels
         {
-            width: 30rem;
+            width: 20rem;
         }
         .submodel:hover
 {
@@ -391,5 +392,14 @@ $br: .5em;
     {
         transform: scale(1.35);
         opacity: 0;
+    }
+}
+
+
+@media (max-width: 599px)
+{
+    .card
+    {
+        transform: scale(0.7);
     }
 }

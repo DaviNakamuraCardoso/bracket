@@ -3,10 +3,64 @@
   position: fixed;
   top: 10vh;
   flex-direction: column;
-  width: 15vw;
-  display: flex;
+  width: clamp(10rem, 10vw, 20rem);
+  display: inline-table;
   font-size: 1.5rem;
-  height: 90vh; }
+  height: 90vh;
+  transition: all .3s ease; }
+
+#sidebar__button {
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center; }
+
+#sidebar__button-content {
+  width: 25px;
+  height: 3px;
+  background: #a1a1a1;
+  border-radius: 100vw;
+  position: relative;
+  transition: all .7s ease; }
+  #sidebar__button-content::before, #sidebar__button-content::after {
+    content: '';
+    width: 100%;
+    height: 100%;
+    background: #a1a1a1;
+    position: absolute;
+    left: 0;
+    border-radius: 100vw;
+    transition: all .7s ease; }
+  #sidebar__button-content::before {
+    top: -6px; }
+  #sidebar__button-content::after {
+    height: 90%;
+    bottom: -6px; }
+
+#sidebar__button-content.open {
+  background: transparent; }
+#sidebar__button-content.open::before {
+  opacity: 1;
+  transform: rotate(-45deg);
+  top: 0; }
+#sidebar__button-content.open::after {
+  opacity: 1;
+  transform: rotate(45deg);
+  bottom: 0; }
+
+#sidebar__menu {
+  background: #fff;
+  position: fixed;
+  z-index: 2;
+  top: 0;
+  left: 0;
+  width: clamp(10rem, 10vw, 20rem);
+  height: 10vh;
+  display: flex;
+  align-items: center;
+  justify-content: center; }
 
 #sidebar-list {
   display: grid;
@@ -23,10 +77,11 @@
     width: .8rem; }
 
 #main {
-  margin-left: 15vw; }
+  margin-left: clamp(10rem, 10vw, 20rem);
+  transition: all .7s ease; }
 
 #menu {
-  margin-left: 15vw;
+  margin-left: clamp(10rem, 10vw, 20rem);
   width: 85vw; }
 
 .navbar-item {
@@ -141,5 +196,40 @@
     height: 100%; }
   to {
     height: 0; } }
+@media (max-width: 599px) {
+  #sidebar {
+    left: -100vw;
+    width: 100vw;
+    height: 100vh;
+    flex-direction: row;
+    overflow: hidden;
+    font-size: 2.4rem; }
+    #sidebar .navbar-button {
+      display: none; }
+
+  #sidebar__button.open {
+    z-index: 3; }
+
+  #sidebar.open {
+    left: 0; }
+
+  #main {
+    margin-left: 0; } }
+@media (min-width: 600px) {
+  #sidebar.open, #sidebar:hover {
+    width: 20vw; }
+    #sidebar.open p, #sidebar:hover p {
+      display: flex; }
+    #sidebar.open a, #sidebar:hover a {
+      display: grid; }
+
+  #sidebar p {
+    display: none; }
+  #sidebar a {
+    display: flex;
+    justify-content: center; }
+
+  #main.open {
+    margin-left: 20vw; } }
 
 /*# sourceMappingURL=sidebar.css.map */

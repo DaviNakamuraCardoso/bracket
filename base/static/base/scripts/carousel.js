@@ -1,7 +1,6 @@
 document.addEventListener("DOMContentLoaded", main);
 
 
-
 function main()
 {
     build();
@@ -15,6 +14,7 @@ function build()
     const cards = pack.querySelectorAll('.card');
     const ul = document.querySelector(".carousel__track");
     const nav = document.querySelector(".carousel__nav");
+    const carousel = document.querySelector(".carousel");
 
     pack.style.display = 'none';
 
@@ -35,10 +35,12 @@ function build()
 function resizeCards(pack, cards, ul, nav)
 {
 
+    let width = document.querySelector(".carousel").offsetWidth;
     ul.innerHTML = '';
     nav.innerHTML = '';
-    let width = window.innerWidth;
-    let numberOfCards = Math.floor(width / 400);
+
+    // Prevent floating points or zero divisions
+    let numberOfCards = Math.max(1, Math.floor(width / 320));
 
 
     for (let i = 0; i < cards.length / numberOfCards; i++)
@@ -109,7 +111,7 @@ function loadCurrentSlide(n)
     for (let i = 0; i < dots.length; i++)
     {
         dots[i].onclick = () => {
-            loadCurrentSlide(i); 
+            loadCurrentSlide(i);
         }
 
     }

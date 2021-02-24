@@ -8,7 +8,8 @@ $gray: #716969;
 
 
 
-$sidebar-width: 15vw;
+$sidebar-width: clamp(10rem, 10vw, 20rem);
+$sidebar-open: 20vw;
 
 
 $white_border: 1px solid $white;
@@ -19,10 +20,94 @@ $white_border: 1px solid $white;
     top: 10vh;
     flex-direction: column;
     width: $sidebar-width;
-    display: flex;
+    display: inline-table;
     font-size: 1.5rem;
     height: 90vh;
+    transition: all .3s ease;
 
+}
+
+
+
+#sidebar__button
+{
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#sidebar__button-content
+{
+    width: 25px;
+    height: 3px;
+    background: #a1a1a1;
+    border-radius: 100vw;
+    position: relative;
+    &::before, &::after
+    {
+        content: '';
+        width: 100%;
+        height: 100%;
+        background: #a1a1a1;
+        position: absolute;
+        left: 0;
+        border-radius: 100vw;
+        transition: all .7s ease;
+
+
+
+    }
+    &::before
+    {
+        top: -6px;
+    }
+    &::after
+    {
+        height: 90%;
+        bottom: -6px;
+    }
+    transition: all .7s ease;
+
+
+
+}
+
+#sidebar__button-content.open
+{
+    &
+    {
+        background: transparent;
+    }
+    &::before
+    {
+        opacity: 1;
+        transform: rotate(-45deg);
+        top: 0;
+    }
+    &::after
+    {
+        opacity: 1;
+        transform: rotate(45deg);
+        bottom: 0;
+    }
+}
+
+
+#sidebar__menu
+{
+    background: #fff;
+    position: fixed;
+    z-index: 2;
+    top: 0;
+    left: 0;
+    width: $sidebar-width;
+    height: 10vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 
@@ -53,6 +138,7 @@ $white_border: 1px solid $white;
 #main
 {
     margin-left: $sidebar-width;
+    transition: all .7s ease;
 }
 
 #menu
@@ -243,5 +329,85 @@ $white_border: 1px solid $white;
     }
     to {
         height: 0;
+    }
+}
+
+
+@media (max-width: 599px)
+{
+    #sidebar
+    {
+        left: -100vw;
+        width: 100vw;
+        height: 100vh;
+        flex-direction: row;
+        overflow: hidden;
+        font-size: 2.4rem;
+
+        .navbar-button
+        {
+            display: none;
+        }
+    }
+    #sidebar__button.open
+    {
+        z-index: 3;
+    }
+    #sidebar.open
+    {
+        left: 0;
+
+
+    }
+    #main
+    {
+        margin-left: 0;
+
+    }
+
+    #sidebar:hover
+    {
+
+    }
+
+}
+
+
+@media (min-width: 600px)
+{
+    #sidebar.open, #sidebar:hover
+    {
+        width: $sidebar-open;
+        p
+        {
+            display: flex;
+
+        }
+        a
+        {
+            display: grid;
+        }
+
+
+
+    }
+    #sidebar
+    {
+
+        p
+        {
+            display: none;
+        }
+        a
+        {
+            display: flex;
+            justify-content: center;
+
+        }
+    }
+
+    #main.open
+    {
+        margin-left: $sidebar-open;
     }
 }

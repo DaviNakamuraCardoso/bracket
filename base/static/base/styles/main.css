@@ -76,7 +76,7 @@ body::-webkit-scrollbar {
   align-items: center; }
 
 .navbar-list {
-  width: 100%;
+  width: 90%;
   height: 100%;
   display: flex;
   justify-content: space-around; }
@@ -97,8 +97,9 @@ body::-webkit-scrollbar {
 
 #search-input {
   border-radius: 30px;
-  padding: 15px;
-  border: 1px solid black; }
+  padding: clamp(5px, 2vw, 20px);
+  border: 1px solid black;
+  width: 80%; }
 
 #search-input:focus {
   outline: none; }
@@ -120,5 +121,8 @@ body::-webkit-scrollbar {
   border: 1px solid #4387f5; }
 
 /* Animations */
+@media (max-width: 599px) {
+  #logo {
+    display: none; } }
 
 /*# sourceMappingURL=main.css.map */
