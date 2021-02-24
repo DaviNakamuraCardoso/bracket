@@ -131,7 +131,7 @@ hr
 .profile-actions
 {
     display: flex;
-    width: 60%; 
+    width: 60%;
     flex-direction: row;
     transform: translateY(-5%);
     justify-content: space-evenly;
@@ -318,61 +318,7 @@ hr
 
 
 
-.fas-icon
-{
-    &::before
-    {
-        font-weight: 900;
-        font-family: "Font Awesome 5 Free";
-        font-style: normal;
-        font-variant: normal;
-        text-rendering: auto;
-        text-align: center;
-        margin-right: 0.4em;
 
-    }
-
-
-
-}
-
-.mail::before
-        {
-            content: '\f0e0';
-        }
-        .address::before
-        {
-            content: '\f3c5';
-        }
-        .phone::before
-        {
-            content: '\f095';
-        }
-        .rating::before
-        {
-            content: '\f005';
-        }
-        .university::before
-        {
-            content: '\f19c';
-        }
-        .clinic::before
-        {
-            content: '\f7f2';
-        }
-
-        .plus::before
-        {
-            content: '\f067';
-        }
-        .user-rating
-        {
-            h3
-            {
-                font-size: 3rem;
-                color: $yellow;
-            }
-        }
 .hidden
 {
     display: none;

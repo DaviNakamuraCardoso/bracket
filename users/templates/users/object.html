@@ -1,0 +1,22 @@
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'users/styles/object.css' %}">
+
+<div class="object__container">
+
+    <div class="object__header">
+        <div class="object__title">
+
+
+            <h1>{{ object.title }}</h1>
+            <div class="icon__content fas-icon" data-before='{{object.image}}'>
+            </div>
+        </div>
+
+
+    </div>
+    <div class="object__body">
+        {% include 'base/carousel.html' with cards=object.submodels %}
+    </div>
+
+</div>
