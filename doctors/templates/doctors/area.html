@@ -1,0 +1,12 @@
+{% extends 'base/layout.html' %}
+
+{% block sidebar %}
+    {% include 'base/sidebar.html' %}
+
+{% endblock %}
+
+{% block body %}
+    {% include 'users/object.html' with object=area.serialize %}
+
+
+{% endblock %}
