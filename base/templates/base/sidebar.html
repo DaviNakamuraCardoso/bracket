@@ -5,6 +5,12 @@
 
 <link rel="stylesheet" href="{% static 'base/styles/sidebar.css' %}">
 <script src="{% static 'base/scripts/sidebar.js' %}"></script>
+<nav id="sidebar__menu">
+
+    <button type="button" name="button" id="sidebar__button">
+        <span id="sidebar__button-content" class="sidebar__btn"></span>
+    </button>
+</nav>
 <nav class="navbar" id="sidebar">
     <div id="sidebar-list">
         <div class="navbar-item">
@@ -57,12 +63,15 @@
         </div>
         <div class="navbar-item">
             <div class="nav-content">
+                <h1>Services</h1>
                 <ul class="nav-list">
                     <li class="nav-li">
+                        <a href="{% url 'base:area' 'neurosurgery' %}">
+                            <i class="fas fa-"></i>
+                        </a>
                     </li>
-                    <li class="nav-li"></li>
-                    <li class="nav-li"></li>
-                    <li class="nav-li"></li>
+
+
                 </ul>
             </div>
 

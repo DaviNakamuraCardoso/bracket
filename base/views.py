@@ -1,7 +1,8 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
-from clinics.models import Clinic
 from django.contrib.postgres.search import SearchVector, SearchQuery, SearchRank, TrigramSimilarity
+from clinics.models import Clinic
+from doctors.models import Area
 from users.forms import FORMS_CONTEXT
 from base.models import Notification
 from users.models import User, City
@@ -44,6 +45,20 @@ def city(request):
 
     return render(request, 'base/cities.html')
 
+
+def areas(request):
+
+    return render(request, )
+
+
+def area(request, area):
+    area = Area.objects.annotate(
+        similarity=TrigramSimilarity('area', area)
+    ).order_by('-similarity')[0]
+
+    context = {'area': area}
+
+    return render(request, 'doctors/area.html', context)
 
 
 def error(request):
