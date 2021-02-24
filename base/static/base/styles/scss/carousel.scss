@@ -1,0 +1,143 @@
+@use 'abstract/colors';
+
+.carousel
+{
+    position: relative;
+    margin: 1em auto;
+    height:  55rem;
+    overflow: hidden;
+    margin-bottom: 20rem;
+}
+
+.carousel__track-container
+{
+    height: 100%;
+    position: relative;
+}
+
+.carousel__track
+{
+
+}
+
+.carousel__slide
+{
+    position: absolute;
+    padding-left: 10%;
+    top: 10%;
+    height: 100%;
+    width: 80%;
+    display: flex;
+    .card
+    {
+        background: white;
+    }
+    transition: left 1s ease;
+
+
+
+
+}
+
+.carousel__side
+{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 5%;
+    z-index: 1;
+
+}
+
+.carousel__side--right
+{
+    right: 5%;
+}
+
+.carousel__side--left
+{
+    left: 5%;
+}
+
+
+.carousel__button
+{
+    transform: translateY(-50%);
+    z-index: 1;
+    cursor: pointer;
+    i::before
+    {
+        font-size: 3rem;
+        text-align: center;
+        width: 100%;
+        margin: auto;
+    }
+}
+
+
+.carousel__nav
+{
+    display: flex;
+    justify-content: center;
+    gap: 1em;
+    position: absolute;
+    bottom: 0;
+    margin: auto;
+    left: 50%;
+    transform: translate(-50%, -100%);
+}
+
+
+.carousel__indicator
+{
+    border: 0;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    background: rgba(0, 0, 0, .3);
+    cursor: pointer;
+}
+
+
+.current-slide
+{
+    background: black;
+}
+
+
+@keyframes stop
+{
+    0%
+    {
+        pointer-events: none;
+    }
+    100%
+    {
+        pointer-events: auto;
+    }
+}
+
+
+@media (max-width: 599px)
+{
+    .carousel__button
+    {
+        width: 50px;
+        height: 50px;
+        background: #1e1e1e;
+        color: white;
+        padding: 1.2em;
+        border-radius: 50%;
+
+    }
+    .carousel__indicator
+    {
+        width: 40px;
+        height: 40px;
+        transform: translateY(50%);
+
+    }
+}

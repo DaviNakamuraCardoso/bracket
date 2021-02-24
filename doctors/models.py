@@ -10,7 +10,7 @@ from users.data.time import sumtime, delta
 
 class Area(models.Model):
     area = models.CharField(max_length=128)
-    symbol = models.CharField(max_length=64, blank=True, null=True)
+    picture = models.ImageField(blank=True, null=True)
 
     def __str__(self):
         return self.area
@@ -18,7 +18,6 @@ class Area(models.Model):
     def serialize(self):
         return {
             "title": self.__str__(),
-            "image": self.symbol,
             "submodels": [doctor.serialize() for doctor in self.doctors.all()]
         }
 

@@ -1,0 +1,78 @@
+/* ___ Form ___ */
+select {
+  text-transform: capitalize;
+}
+
+.form {
+  flex-direction: column;
+  display: flex;
+  margin: auto;
+}
+
+.field {
+  width: 100%;
+  height: 50px;
+  position: relative;
+  font-size: 1.4rem;
+  margin: 2rem auto;
+  color: #595f6e;
+  padding: 0 10px;
+}
+
+.field input {
+  width: 100%;
+  height: 100%;
+  padding: 0px 0px 0px 10px;
+  color: #595f6e;
+  border: 1px solid black;
+  outline: none;
+}
+
+.field label {
+  position: absolute;
+  bottom: 0px;
+  left: 10px;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.content-label {
+  position: absolute;
+  bottom: 15px;
+  left: 10px;
+  transition: all 0.5s ease;
+}
+
+.register input:focus + .label-field .content-label, .form input:valid + .label-field .content-label {
+  transform: translateY(-270%);
+  font-size: 1rem;
+  color: black;
+  z-index: 2;
+  background: white;
+  padding: 0 5px;
+}
+
+.form-wrapper, .choices {
+  display: flex;
+  width: 50%;
+  margin: auto;
+}
+
+.hidden {
+  display: none;
+  opacity: 0;
+}
+
+.choices {
+  flex-direction: column;
+}
+.choices .form-list {
+  margin: auto;
+}
+
+.hidden {
+  display: none;
+}
+
+/*# sourceMappingURL=forms.css.map */

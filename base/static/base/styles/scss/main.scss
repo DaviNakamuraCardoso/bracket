@@ -1,0 +1,189 @@
+@use 'abstract/colors';
+
+*
+{
+    padding: 0;
+    margin: 0;
+    font-family: sans-serif;
+}
+
+html
+{
+    font-size: 62.5%;
+}
+
+body
+{
+    font-family: sans-serif;
+    background: #fdfdfd;
+}
+
+main
+{
+    margin: auto;
+    margin-top: 10vh;
+
+}
+
+a
+{
+    text-decoration: none;
+    display: inline-block;
+    color: inherit;
+}
+
+li
+{
+    list-style: none;
+}
+
+ul
+{
+    list-style-type: none;
+}
+
+button
+{
+    background: none;
+    outline: none;
+    border: none;
+    text-transform: uppercase;
+}
+
+i
+{
+    position: relative;
+}
+
+img
+{
+    width: 16px;
+    height: 16px;
+}
+
+body::-webkit-scrollbar-track
+{
+    background: #fff;
+}
+
+body::-webkit-scrollbar-thumb
+{
+    background: colors.$main;
+}
+
+body::-webkit-scrollbar
+{
+    width: 0.40rem;
+}
+
+
+*::selection
+{
+    background: colors.$complementary;
+    color: white;
+}
+/* Classes */
+
+/* _____ Navbar _____ */
+
+.navbar
+{
+    display: flex;
+    position: fixed;
+    // font-size: $large;
+    background: #fff;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 9;
+}
+
+
+.navbar-nav
+{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    text-align: center;
+    align-items: center;
+}
+
+
+.navbar-list
+{
+    width: 90%;
+    height: 100%;
+    display: flex;
+    justify-content: space-around;
+}
+
+
+/* _____ Menu _____ */
+
+
+#menu
+{
+    z-index: 10;
+    display: flex;
+    width: 100vw;
+    height: 10vh;
+    top: 0;
+}
+
+#logo
+{
+    grid-area: logo;
+}
+
+#search
+{
+    grid-area: search;
+}
+
+#search-input
+{
+    border-radius: 30px;
+    padding: clamp(5px, 2vw, 20px);
+    border: 1px solid black;
+    width: 80%;
+}
+
+#search-input:focus
+{
+    outline: none;
+}
+
+.double
+{
+    grid-area: double;
+}
+
+#sign-in, #sign-up
+{
+    // font-size: $medium;
+    // border-radius: $small;
+    // padding: $smallest;
+    // width: $small-width;
+}
+
+#sign-in
+{
+    border: 1px solid colors.$gray;
+    color: colors.$gray;
+}
+
+#sign-up
+{
+    border: 1px solid $main;
+}
+
+
+/* Animations */
+
+
+@media (max-width: 599px)
+{
+    #logo
+    {
+        display: none;
+    }
+}

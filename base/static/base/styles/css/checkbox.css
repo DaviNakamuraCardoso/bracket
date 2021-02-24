@@ -1,0 +1,37 @@
+.checkbox-container {
+  display: flex;
+  margin: auto;
+  max-width: 1200px;
+  flex-wrap: wrap;
+  width: 80vw;
+}
+
+.checkbox-div {
+  margin: 10px;
+}
+
+.checkbox-label {
+  cursor: pointer;
+}
+
+.checkbox-span {
+  position: relative;
+  display: inherit-block;
+  background: #e1e1e1;
+  padding: 10px 30px;
+  color: #a1a1a1;
+  border-radius: 30px;
+  transition: 0.5s;
+  -webkit-user-select: none;
+}
+
+.checkbox-input {
+  display: none;
+}
+
+.checkbox-input:checked ~ span {
+  background: #4387f5;
+  color: white;
+}
+
+/*# sourceMappingURL=checkbox.css.map */

@@ -9,7 +9,7 @@
                 {% if request.user.user_clinics.all|length > 0 %}
 
                     <script src="{% static 'clinics/scripts/invite.js' %}"></script>
-                    <link href="{% static 'clinics/styles/invite.css' %}" rel="stylesheet">
+                    <link href="{% static 'clinics/styles/css/invite.css' %}" rel="stylesheet">
 
                     <button id="invite" type="button" name="button" data-value="add" data-type="add" data-url="{% url 'clinics:doctor_in_clinics' model.name %}">
                         <span class="fas-icon plus">Add to clinic</span>
