@@ -29,9 +29,11 @@ def confirm_appointment(appointment_id):
 
     Notification.objects.create(
         user=user,
-        clinic=clinic,
+        object_id=appointment.id,
         text=message,
-        origin=clinic.__str__()
+        origin=clinic.__str__(),
+        url=reverse('doctors:confirm', args=(doctor.user.name, appointment.year, appointment.month, appointment.day, appointment.index, ))
+
 
     )
 
