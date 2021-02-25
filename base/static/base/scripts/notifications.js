@@ -20,7 +20,7 @@ function listenForReply(replyButton)
 
   // The answer is true if the value is equal to 'accept', else false
   const answer = ((value == 'accept') ? true : false);
-  const clinic_id = document.querySelector("#clinic-id").value;
+  const object_id = document.querySelector('#object-id').value;
   const origin = dropItem.querySelector(".drop-title").innerHTML;
 
   // Prevent Cross-site forgery
@@ -38,7 +38,7 @@ function listenForReply(replyButton)
       body: JSON.stringify({
         origin: origin,
         accept: answer,
-        clinic_id: clinic_id
+        object_id: object_id
       })
     })
     .then(response => response.json())
@@ -49,9 +49,6 @@ function listenForReply(replyButton)
     });
   }
 }
-
-
-
 
 
 function loadNotifications()

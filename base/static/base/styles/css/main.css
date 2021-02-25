@@ -1,17 +1,142 @@
-/* Error: Undefined variable.
- *     ,
- * 176 |     border: 1px solid $main;
- *     |                       ^^^^^
- *     '
- *   scss/main.scss 176:23  root stylesheet */
-
-body::before {
-  font-family: "Source Code Pro", "SF Mono", Monaco, Inconsolata, "Fira Mono",
-      "Droid Sans Mono", monospace, monospace;
-  white-space: pre;
-  display: block;
-  padding: 1em;
-  margin-bottom: 1em;
-  border-bottom: 2px solid black;
-  content: "Error: Undefined variable.\a     \2577 \a 176 \2502      border: 1px solid $main;\a     \2502                        ^^^^^\a     \2575 \a   scss/main.scss 176:23  root stylesheet";
+* {
+  padding: 0;
+  margin: 0;
+  font-family: sans-serif;
 }
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-family: sans-serif;
+  background: #fdfdfd;
+}
+
+main {
+  margin: auto;
+  margin-top: 10vh;
+}
+
+a {
+  text-decoration: none;
+  display: inline-block;
+  color: inherit;
+}
+
+li {
+  list-style: none;
+}
+
+ul {
+  list-style-type: none;
+}
+
+button {
+  background: none;
+  outline: none;
+  border: none;
+  text-transform: uppercase;
+}
+
+i {
+  position: relative;
+}
+
+img {
+  width: 16px;
+  height: 16px;
+}
+
+body::-webkit-scrollbar-track {
+  background: #fff;
+}
+
+body::-webkit-scrollbar-thumb {
+  background: #4387f5;
+}
+
+body::-webkit-scrollbar {
+  width: 0.4rem;
+}
+
+*::selection {
+  background: #EE964B;
+  color: white;
+}
+
+/* Classes */
+/* _____ Navbar _____ */
+.navbar {
+  display: flex;
+  position: fixed;
+  background: #fff;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 9;
+}
+
+.navbar-nav {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
+  align-items: center;
+}
+
+.navbar-list {
+  width: 90%;
+  height: 100%;
+  display: flex;
+  justify-content: space-around;
+}
+
+/* _____ Menu _____ */
+#menu {
+  z-index: 10;
+  display: flex;
+  width: 100vw;
+  height: 10vh;
+  top: 0;
+}
+
+#logo {
+  grid-area: logo;
+}
+
+#search {
+  grid-area: search;
+}
+
+#search-input {
+  border-radius: 30px;
+  padding: clamp(5px, 2vw, 20px);
+  border: 1px solid black;
+  width: 80%;
+}
+
+#search-input:focus {
+  outline: none;
+}
+
+.double {
+  grid-area: double;
+}
+
+#sign-in {
+  border: 1px solid #716969;
+  color: #716969;
+}
+
+#sign-up {
+  border: 1px solid #4387f5;
+}
+
+/* Animations */
+@media (max-width: 599px) {
+  #logo {
+    display: none;
+  }
+}
+
+/*# sourceMappingURL=main.css.map */
