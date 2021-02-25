@@ -73,7 +73,7 @@ def join_clinic(request, clinic_name):
     invite_text = f"Is asking to join {clinic.name}"
     invite_url = reverse('doctors:accept', args=(doctor.user.name, ))
     Notification.objects.create(
-        clinic=clinic,
+        object_id=clinic.id,
         user=clinic.admin,
         text=invite_text,
         url=invite_url,

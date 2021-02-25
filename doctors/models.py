@@ -126,6 +126,7 @@ class Appointment(models.Model):
     to = models.CharField(max_length=64, null=True, blank=True)
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE, related_name='patient_appointments', blank=True, null=True)
     shift = models.ForeignKey(Shift, on_delete=models.CASCADE, related_name='shift_appointments')
+    confirmed = models.BooleanField(default=False)
     area = models.ForeignKey(Area, on_delete=models.CASCADE, blank=True, null=True)
     day = models.IntegerField()
     month = models.IntegerField()
@@ -138,6 +139,7 @@ class Rate(models.Model):
     doctor = models.OneToOneField(Doctor, on_delete=models.CASCADE, null=True, blank=True)
     clinic = models.OneToOneField(Clinic, on_delete=models.CASCADE, null=True, blank=True)
     users = models.ManyToManyField(User, blank=True, related_name="ratings")
+
 
 
     def add_rating(self, number, user):

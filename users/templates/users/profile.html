@@ -51,7 +51,11 @@
     <div class="main-body">
 
         <div class="right-side">
-            <div class="tab"></div>
+            <div class="tab">
+                {% if tabs == "doctors" %}
+                    {% include 'doctors/calendar.html' %}
+                {% endif %}
+            </div>
             <div class="about tab">
                 <div class="profile-side">
                     <h1>About</h1>

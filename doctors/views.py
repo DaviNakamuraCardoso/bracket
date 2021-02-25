@@ -122,7 +122,7 @@ def accept(request, name):
     """Accepts a doctor request to join the clinic"""
     # Data
     data = json.loads(request.body)
-    clinic = Clinic.objects.get(pk=data['clinic_id'])
+    clinic = Clinic.objects.get(pk=data['object_id'])
     doctor = Doctor.objects.get(user__name=name)
 
     # If the request was denied, then return a success message
@@ -132,7 +132,7 @@ def accept(request, name):
     # Handling the invitation
     try:
         # Get the notification object and deletes it
-        notification = Notification.objects.get(user=clinic.admin, clinic__id=data['clinic_id'], origin=data['origin'])
+        notification = Notification.objects.get(user=clinic.admin, clinic__id=data['object_id'], origin=data['origin'])
         notification.delete()
 
         # Add the doctor to the clinic
@@ -179,3 +179,22 @@ def new_appointment(request, name):
         return JsonResponse({"message": f"Appointment scheduled successfully."})
 
     return JsonResponse({"message": "Method must be POST."})
+
+
+def confirm(request, name, year, month, day, index):
+    if request.method != 'PUT':
+        return JsonResponse({"message": "Method must be PUT."})
+
+    data = json.loads(request.body)
+
+    appointment = Appointment.objects.get(pk=int(data['object_id']))
+
+    # If the user cancel the appointment, it is again free to be taken by another person
+    if not data['accept']:
+        appointment.delete()
+        return JsonResponse({"message": "Appointment cancelled successfully"})
+
+    # Checking for confirmation
+    appointment.confirmed = True
+    appointment.save()
+    return JsonResponse({"message": "Appointment confirmed successfully"})

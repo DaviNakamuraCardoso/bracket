@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     'patients',
     'doctors',
     'clinics',
-    'background_task', 
+    'background_task',
     'floppyforms'
 ]
 
@@ -151,3 +151,6 @@ STATICFILES_DIRS = [
 ]
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'base/static/images')
+
+
+MAX_ATTEMPTS = 5

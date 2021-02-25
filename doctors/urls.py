@@ -17,5 +17,7 @@ urlpatterns = [
 
     path("<str:name>/<int:year>/<int:month>/<int:day>", views.day_planner, name="day-planner"),
     path("<str:name>/<int:year>/<int:month>/<int:day>/<int:index>", views.appointment_planner, name="appointment-planner"),
+    path("<str:name>/<int:year>/<int:month>/<int:day>/<int:index>/confirm", views.confirm, name="confirm")
+
 
 ]
