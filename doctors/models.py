@@ -18,6 +18,8 @@ class Area(models.Model):
     def serialize(self):
         return {
             "title": self.__str__(),
+            "image": self.picture.url,
+            "url": reverse('base:area', args=(self.__str__(), )),
             "submodels": [doctor.serialize() for doctor in self.doctors.all()]
         }
 

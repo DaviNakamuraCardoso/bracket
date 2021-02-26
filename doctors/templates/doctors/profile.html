@@ -3,12 +3,9 @@
 
 {% block title %} {{ formatted.title }} {% endblock %}
 
-{% block head %}
-{% endblock %}
+{% block head %} {% endblock %}
 
 {% block body %}
     {% include 'users/profile.html' with profile=doctor.serialize  tabs="doctors" %}
-
-
 
 {% endblock %}
