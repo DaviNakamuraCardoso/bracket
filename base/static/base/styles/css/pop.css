@@ -1,0 +1,66 @@
+.pops {
+  display: flex;
+  justify-content: space-evenly;
+  width: 100%;
+  height: 100%;
+}
+
+.pop__container {
+  height: 110px;
+  width: 110px;
+  min-width: 100px;
+  display: flex;
+  transition: transform 0.7s ease;
+}
+.pop__container a {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+.pop__container:hover {
+  transform: scale(1.1);
+}
+
+.pop__image-wrapper {
+  width: 90%;
+  height: 100%;
+  border-radius: 2em;
+  position: relative;
+}
+.pop__image-wrapper::before {
+  content: "";
+  width: 100%;
+  height: 60%;
+  position: absolute;
+  bottom: 0;
+  background: #EC5272;
+  border-radius: 2em;
+}
+
+.pop__image-clip {
+  overflow: hidden;
+  position: absolute;
+  bottom: 0;
+  height: 100%;
+  width: 100%;
+}
+
+.pop__image {
+  position: absolute;
+  bottom: -10%;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  width: auto;
+  height: 90%;
+}
+
+.pop__title {
+  color: #777;
+  font-size: 2rem;
+  text-align: center;
+}
+
+/*# sourceMappingURL=pop.css.map */

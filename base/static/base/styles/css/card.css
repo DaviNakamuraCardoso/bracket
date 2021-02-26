@@ -1,14 +1,13 @@
 @charset "UTF-8";
 /* Dimensions */
 .container {
-  padding-top: 10rem;
   width: 100%;
   display: grid;
   position: relative;
   grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
 }
 
-.card {
+.card__full {
   position: relative;
   width: 20em;
   min-width: 200px;

@@ -66,14 +66,16 @@ img
     width: 0.7rem;
 
 }
+
 *::-webkit-scrollbar-track
 {
     background: colors.$light-gray;
 
 }
+
 *::-webkit-scrollbar-thumb
 {
-    background: colors.$gray; 
+    background: colors.$gray;
 }
 
 body::-webkit-scrollbar-track
@@ -191,9 +193,7 @@ body::-webkit-scrollbar
     border: 1px solid colors.$main;
 }
 
-
 /* Animations */
-
 
 @media (max-width: 599px)
 {

@@ -5,14 +5,12 @@ $white: #e9eeff;
 $danger: #D52941;
 $gray: #716969;
 
-
 /* Dimensions */
 $br: .5em;
 
 
 .container
 {
-    padding-top: 10rem;
     width: 100%;
     display: grid;
     position: relative;
@@ -20,7 +18,7 @@ $br: .5em;
 }
 
 
-.card
+.card__full
 {
     position: relative;
     width: 20em;

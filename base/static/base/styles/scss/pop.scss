@@ -1,0 +1,83 @@
+@use 'abstract/colors';
+
+.pops
+{
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+    height: 100%;
+
+
+}
+
+
+.pop__container
+{
+
+    height: 110px;
+    width: 110px;
+    min-width: 100px;
+    display: flex;
+    transition: transform .7s ease;
+    a
+    {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+    }
+    &:hover
+    {
+        transform: scale(1.1);
+    }
+
+}
+
+.pop__image-wrapper
+{
+    width: 90%;
+    height: 100%;
+    border-radius: 2em;
+    position: relative;
+    &::before
+    {
+        content: '';
+        width: 100%;
+        height: 60%;
+        position: absolute;
+        bottom: 0;
+        background: colors.$complementary;
+        border-radius: 2em;
+
+    }
+
+}
+.pop__image-clip
+{
+    overflow: hidden;
+    position: absolute;
+    bottom: 0;
+    height: 100%;
+    width: 100%;
+
+}
+
+.pop__image
+{
+    position: absolute;
+    bottom: -10%;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    width: auto;
+    height: 90%;
+}
+
+
+.pop__title
+{
+    color: colors.$gray;
+    font-size: 2rem;
+    text-align: center;
+}
