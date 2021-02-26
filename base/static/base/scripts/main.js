@@ -1,10 +1,12 @@
-document.addEventListener("DOMContentLoaded", () => 
+document.addEventListener("DOMContentLoaded", () =>
 {
     const icons = document.querySelectorAll(".icon");
+    const drops = document.querySelectorAll(".dropdown");
+    drops.forEach(drop => addDropListener(drop));
     icons.forEach(icon => addIconListeners(icon));
-    
+
     document.addEventListener('click', () => {
-      
+
         const e = window.event;
         const x = e.clientX;
         const y = e.clientY;
@@ -15,17 +17,27 @@ document.addEventListener("DOMContentLoaded", () =>
         {
             closeAllDrops(icons);
         }
-        
+
     });
 
-    
+
 
 });
 
 
-function toggleClass(box) 
+function toggleClass(box)
 {
     box.classList.toggle('open');
+}
+
+function addDropListener(drop)
+{
+    const children = drop.getElementsByTagName("*");
+    for (let i = 0; i < children.length; i++)
+    {
+        children[i].classList.add('drop');
+    }
+    drop.classList.add('drop');
 }
 
 
@@ -52,6 +64,3 @@ function addIconListeners(icon)
     }
 
 }
-
-
-        

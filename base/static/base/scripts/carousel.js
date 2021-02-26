@@ -19,12 +19,12 @@ function build()
     pack.style.display = 'none';
 
 
-    loadCurrentSlide(0);
     resizeCards(pack, cards, ul, nav);
+    loadCurrentSlide(0);
 
     window.onresize = () => {
         resizeCards(pack, cards, ul, nav);
-        loadCurrentSlide(0);
+        loadCurrentSlide(0); 
 
     };
 
@@ -36,11 +36,13 @@ function resizeCards(pack, cards, ul, nav)
 {
 
     let width = document.querySelector(".carousel").offsetWidth;
+    let cardWidth = 1.7 * parseInt(window.getComputedStyle(cards[0]).width, 10);
+
     ul.innerHTML = '';
     nav.innerHTML = '';
 
     // Prevent floating points or zero divisions
-    let numberOfCards = Math.max(1, Math.floor(width / 320));
+    let numberOfCards = Math.max(1, Math.floor(width / cardWidth));
 
 
     for (let i = 0; i < cards.length / numberOfCards; i++)
