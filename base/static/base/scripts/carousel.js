@@ -3,30 +3,35 @@ document.addEventListener("DOMContentLoaded", main);
 
 function main()
 {
-    build();
-    loadCurrentSlide(0);
+    const carousels = document.querySelectorAll('.carousel');
+    for (let i = 0; i < carousels.length; i++)
+    {
+        build(i);
+        loadCurrentSlide(0, carousels[i]);
+    }
 
 }
 
-function build()
+function build(n)
 {
-    const pack = document.querySelector("#package");
+    const pack = document.querySelectorAll(".package")[n];
     const cards = pack.querySelectorAll('.card');
-    const ul = document.querySelector(".carousel__track");
-    const nav = document.querySelector(".carousel__nav");
-    const carousel = document.querySelector(".carousel");
+    const ul = document.querySelectorAll(".carousel__track")[n];
+    const nav = document.querySelectorAll(".carousel__nav")[n];
+    const carousel = document.querySelectorAll(".carousel")[n];
 
     pack.style.display = 'none';
+    carousel.style.height = `${1.8 * parseInt(window.getComputedStyle(cards[0]).height, 10)}px`;
 
 
     resizeCards(pack, cards, ul, nav);
-    loadCurrentSlide(0);
+    loadCurrentSlide(0, carousel);
 
-    window.onresize = () => {
+    window.addEventListener('resize', () => {
         resizeCards(pack, cards, ul, nav);
-        loadCurrentSlide(0); 
+        loadCurrentSlide(0, carousel);
 
-    };
+    });
 
 
 }
@@ -35,8 +40,8 @@ function build()
 function resizeCards(pack, cards, ul, nav)
 {
 
-    let width = document.querySelector(".carousel").offsetWidth;
-    let cardWidth = 1.7 * parseInt(window.getComputedStyle(cards[0]).width, 10);
+    let width = document.querySelector(".carousel__track").offsetWidth;
+    let cardWidth = 1.2 * parseInt(window.getComputedStyle(cards[0]).width, 10);
 
     ul.innerHTML = '';
     nav.innerHTML = '';
@@ -76,12 +81,12 @@ function resizeCards(pack, cards, ul, nav)
 }
 
 
-function loadCurrentSlide(n)
+function loadCurrentSlide(n, carousel)
 {
-    const prevButton = document.querySelector(".carousel__button--left");
-    const nextButton = document.querySelector(".carousel__button--right");
-    const slides = document.querySelectorAll(".carousel__slide");
-    const dots = document.querySelectorAll(".carousel__indicator");
+    const prevButton = carousel.querySelector(".carousel__button--left");
+    const nextButton = carousel.querySelector(".carousel__button--right");
+    const slides = carousel.querySelectorAll(".carousel__slide");
+    const dots = carousel.querySelectorAll(".carousel__indicator");
 
     for (let i = 0; i < slides.length; i++)
     {
@@ -105,15 +110,15 @@ function loadCurrentSlide(n)
     }
 
     nextButton.onclick = () => {
-        loadCurrentSlide(n+1);
+        loadCurrentSlide(n+1, carousel);
     }
     prevButton.onclick = () => {
-        loadCurrentSlide(n-1);
+        loadCurrentSlide(n-1, carousel);
     }
     for (let i = 0; i < dots.length; i++)
     {
         dots[i].onclick = () => {
-            loadCurrentSlide(i);
+            loadCurrentSlide(i, carousel);
         }
 
     }
