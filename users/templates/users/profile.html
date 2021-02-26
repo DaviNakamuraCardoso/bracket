@@ -11,7 +11,7 @@
             <img src="{{ profile.image }}" alt="{{ profile.str }} Picture">
         </div>
         <div class="profile-nav-info">
-            <div class="user-name fas-icon">
+            <div class="user-name fas-text">
                 <h3>{{ profile.title | title }}</h3>
             </div>
 
@@ -39,7 +39,7 @@
             </div>
             <div class="profile-actions">
                 <button type="button" name="button">
-                    <span class="fas-icon plus">New Appointment</span>
+                    <span class="fas-text plus">New Appointment</span>
                 </button>
 
                 {% include 'clinics/invite.html'  with model=profile profile=tabs %}
@@ -59,7 +59,7 @@
             <div class="about tab">
                 <div class="profile-side">
                     <h1>About</h1>
-                    <div class="fas-icon address info">
+                    <div class="fas-text address info">
                         {{ profile.address }}
                     </div>
 
@@ -67,7 +67,7 @@
                     {% for submodel in profile.info %}
                         <div class="info">
                             <a href="{{ submodel.url }}">
-                                <div class="fas-icon {{ profile.info_icon }}">
+                                <div class="fas-text {{ profile.info_icon }}">
                                     {{submodel.title}}
                                 </div>
                             </a>
@@ -80,14 +80,14 @@
                         <div class="info">
 
                             <a href="{{ submodel1.url }}">
-                                <div class="fas-icon {{ profile.info2_icon }}">
+                                <div class="fas-text {{ profile.info2_icon }}">
                                         {{ submodel1.title }}
                                 </div>
                             </a>
                         </div>
                     {% endfor %}
                     <div class="user-rating info">
-                        <h3 class="fas-icon rating">{{ profile.rating }}</h3>
+                        <h3 class="fas-text rating">{{ profile.rating }}</h3>
                     </div>
 
 

@@ -13,22 +13,37 @@ $complementary: #EC5272;
 td
 {
     text-align: center;
+    padding: 0;
+    border-spacing: 0;
+    width: 40px;
+    height: 40px;
+
 }
 
 #calendar
 {
-    height: 90%;
-    width: 90%;
+    height: clamp(20em, 40vw, 40em);
+    width: clamp(20em, 40vw, 40em) ;
+
     background: white;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
 }
 
 
 .ball
 {
-    clip-path: circle(15px at center center);
+    clip-path: circle(20px at center);
     text-align: center;
     transition: all .3s ease;
     cursor: pointer;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .ball:hover
@@ -41,15 +56,23 @@ td
 #month
 {
     border-collapse: collapse;
-    width: 100%;
-    font-size: 1.2rem;
+    border-spacing: 0;
+    width: 80%;
+    height: 80%;
+    margin: auto;
+    font-size: clamp(1.8rem, 3vw, 2.4rem);
     background: white;
+}
+#month-title, #year-title
+{
+    font-size: clamp(1.8rem, 2vw, 2.1rem);
 }
 
 
 .day
 {
     text-align: center;
+    padding: 0;
     .ball
     {
         background: $gray;
@@ -213,4 +236,21 @@ td
 {
     background: black;
 
+}
+
+@media (max-width: 599px)
+{
+    #calendar
+    {
+        width: 93vw;
+        height: 93vw;
+    }
+    #month
+    {
+        width: 100%;
+    }
+    #calendar-month, #calendar-year 
+    {
+        width: 100%;
+    }
 }

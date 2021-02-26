@@ -58,6 +58,8 @@ def login_view(request):
             user = authenticate(request, username=username, password=password)
             if user is not None:
                 login(request, user)
+                if next := request.GET.get('next'):
+                    return HttpResponseRedirect(next)
                 return redirect('base:index')
             else:
                 return render(request, 'users/login.html', {
@@ -171,8 +173,3 @@ def location(request, lat, lng):
 def calendar(request, month, year):
 
     return JsonResponse(get_calendar(month+1, year))
-
-
-def user_info(request, name):
-    user = User.objects.get(name=name)
-    return JsonResponse({"user": user.serialize()})

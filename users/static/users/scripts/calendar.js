@@ -109,6 +109,8 @@ function startCalendar(month, year, fill)
     nextYear.onclick = () => {
         startCalendar(month, year+1, fill);
     }
+
+
     fill();
 
 }

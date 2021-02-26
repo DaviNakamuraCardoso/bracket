@@ -191,8 +191,8 @@ hr {
 
 .right-side {
   border-radius: 20px;
+  height: 100%;
   padding: 2em;
-  width: 20%;
   position: static;
   background: white;
   display: flex;
@@ -232,6 +232,10 @@ hr {
 }
 
 @media (min-width: 700px) {
+  .right-side {
+    width: 40%;
+  }
+
   .profile-nav-item i {
     display: none;
   }
@@ -246,6 +250,10 @@ hr {
   }
   .profile-nav-item .text {
     display: none;
+  }
+
+  .right-side {
+    width: 80%;
   }
 }
 
