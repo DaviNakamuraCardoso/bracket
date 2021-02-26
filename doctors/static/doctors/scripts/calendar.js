@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const d = new Date();
 
     startCalendar(d.getMonth(), d.getFullYear(), doctorsLoad);
+    doctorsLoad();
 });
 
 
@@ -49,6 +50,15 @@ function loadDay(element)
     fetch(`/doctors/${doctor}/${year}/${month}/${day}`)
     .then(response => response.json())
     .then(result => {
+
+        if (result.message == "Not authorized.")
+        {
+            const paths = window.location.href.split('/');
+            console.log(paths);
+            const next = window.location.href.split('/').slice(3, paths.length).join('/');
+            console.log(next);
+            window.location.replace(`${result.url}/?next=/${next}`);
+        }
 
         let dayInfo = result.day;
         const dayPlanner = document.querySelector(".day-planner");

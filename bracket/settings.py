@@ -100,6 +100,7 @@ DATABASES = {
 }
 
 LOGIN_URL = 'users:login'
+LOGIN_REDIRECT_URL =  'base:index'
 
 
 # Password validation

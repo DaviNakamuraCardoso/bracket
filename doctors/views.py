@@ -10,6 +10,7 @@ from patients.utils import confirmation
 from clinics.models import Clinic
 from base.models import Notification
 from users.data.time import get_weekday
+from users.decorators import ajax_login_required
 import json
 # Create your views here.
 
@@ -67,7 +68,9 @@ def schedule_days(request, name):
     return JsonResponse({'days': [day for day in days]})
 
 
+@ajax_login_required
 def day_planner(request, name, year, month, day):
+
     doctor = get_doctor(name)
     month += 1
     weekday = get_weekday(day, month, year)
@@ -188,6 +191,8 @@ def confirm(request, name, year, month, day, index):
     data = json.loads(request.body)
 
     appointment = Appointment.objects.get(pk=int(data['object_id']))
+    notification = Notification.objects.get(object_id=data['object_id'])
+    notification.delete()
 
     # If the user cancel the appointment, it is again free to be taken by another person
     if not data['accept']:
