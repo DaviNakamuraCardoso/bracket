@@ -22,6 +22,7 @@ main
 {
     margin: auto;
     margin-top: 10vh;
+    background: colors.$light-gray;
 
 }
 
@@ -59,6 +60,20 @@ img
 {
     width: 16px;
     height: 16px;
+}
+*::-webkit-scrollbar
+{
+    width: 0.7rem;
+
+}
+*::-webkit-scrollbar-track
+{
+    background: colors.$light-gray;
+
+}
+*::-webkit-scrollbar-thumb
+{
+    background: colors.$gray; 
 }
 
 body::-webkit-scrollbar-track

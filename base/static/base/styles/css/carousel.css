@@ -48,8 +48,8 @@
   z-index: 1;
   cursor: pointer;
 }
-.carousel__button i::before {
-  font-size: 3rem;
+.carousel__button::before {
+  font-size: clamp(2.4rem, 3vw, 4rem);
   text-align: center;
   width: 100%;
   margin: auto;

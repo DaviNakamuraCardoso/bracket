@@ -16,30 +16,50 @@
 
 
                 </div>
-                <div class="drop dropdown" id="box">
+                <div class="dropdown" id="box">
                     {% csrf_token %}
-                    <h2 class="drop drop-t">Notifications</h2>
-                    {% for notification in request.user.sorted_notifications %}
-                        <div class="drop drop-item">
+                    <div class="drop__first">
+                        <h2 class="drop drop-t">Notifications</h2>
+                        {% for notification in request.user.sorted_notifications %}
+                            <div class="drop drop-item drop__notification">
 
-                            {% if not notification.read %}
-                                <div class="drop circle"></div>
-                            {% endif %}
-                            <div class="drop text">
+                                {% if not notification.read %}
+                                    <div class="drop__circle"></div>
+                                {% endif %}
+                                <div class="drop drop__front">
+                                    <div class="drop__text">
 
-                                <h4 class="drop drop-title">{{ notification.origin }}</h4>
-                                <p class="drop drop-text">{{ notification.text }}</p>
-                                <p class="drop drop-timestamp">{{ notification.time }}</p>
-                                <div class="drop reply-btn-container">
-                                    <button class="drop accept notifi-reply-btn" data-url="{{ notification.url }}" data-val="accept">Accept</button>
-                                    <button class="drop deny notifi-reply-btn" data-url="{{ notification.url }}" data-val="deny">Deny</button>
-                                    <input type="hidden" id="object-id" value="{{notification.object_id}}">
+                                        <h4 class="drop drop-title">{{ notification.origin|truncatechars:15 }}</h4>
+                                        <p class="drop drop-timestamp">{{ notification.time }}</p>
+
+                                    </div>
+
                                 </div>
+                                <div class="drop__arrow fas-icon right"></div>
 
                             </div>
-                        </div>
 
                     {% endfor %}
+
+                    </div>
+                    <div class="drop__second">
+                        <button type="button" name="button" class="drop__return fas-icon left"></button>
+                        {% for notification in request.user.sorted_notifications %}
+
+                            <div class="drop__back">
+
+                                    <h1 class="drop__title">{{ notification.origin }}</h1>
+                                    <p class="drop__text">{{ notification.text }}</p>
+                                    <div class="drop__buttons">
+                                        <button class="drop__button drop__button--accept" data-url="{{ notification.url }}" data-val="accept">Accept</button>
+                                        <button class="drop__button drop__button--deny" data-url="{{ notification.url }}" data-val="deny">Deny</button>
+                                        <input type="hidden" id="object-id" value="{{notification.object_id}}">
+                                    </div>
+
+                            </div>
+                        {% endfor %}
+                    </div>
+
                 </div>
             </li>
 

@@ -1,15 +1,29 @@
-.fas-icon
+.fas-icon::before, .fas-text::before
 {
-    &::before
-    {
-        font-weight: 900;
-        font-family: "Font Awesome 5 Free";
-        font-style: normal;
-        font-variant: normal;
-        text-rendering: auto;
-        text-align: center;
-    }
+    font-weight: 900;
+    font-family: "Font Awesome 5 Free";
+    font-style: normal;
+    font-variant: normal;
+    text-rendering: auto;
+    text-align: center;
 }
+
+.fas-icon::before
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.fas-text::before
+{
+    margin-right: .4em;
+}
+
+
+
 
 .mail::before
 {
@@ -57,5 +71,5 @@
 
 .icon__content::before
 {
-    content: attr(data-before); 
+    content: attr(data-before);
 }
