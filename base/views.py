@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.contrib.postgres.search import SearchVector, SearchQuery, SearchRank, TrigramSimilarity
 from clinics.models import Clinic
-from doctors.models import Area
+from doctors.models import Area, Doctor
 from users.forms import FORMS_CONTEXT
 from base.models import Notification
 from users.models import User, City
@@ -13,6 +13,11 @@ def index(request):
     """Render all the clinics in the same city as the user."""
 
     clinics = Clinic.objects.all()
+    doctors = Doctor.objects.all()
+    areas = []
+    for area in Area.objects.all():
+        if area.picture:
+            areas.append(area)
     if search := request.GET.get('query'):
         vector = SearchVector('name')
         query = SearchQuery(search)
@@ -22,7 +27,9 @@ def index(request):
         ).order_by('-rank')
 
 
-    local_context = {'user': request.user, 'clinics': [clinic.serialize() for clinic in clinics]}
+
+    local_context = {'user': request.user, 'clinics': [clinic.serialize() for clinic in clinics],
+    'doctors': [doctor.serialize() for doctor in doctors], 'areas': [area.serialize() for area in areas]}
     context = {**local_context, **FORMS_CONTEXT}
 
 
