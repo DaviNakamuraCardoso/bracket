@@ -1,11 +1,18 @@
 @use 'abstract/colors';
 
+.package
+{
+    display: none;
+}
+
+
 .carousel
 {
     position: relative;
     margin: 1em auto;
     overflow: hidden;
 }
+
 
 .carousel__track-container
 {
@@ -23,6 +30,7 @@
     margin: auto;
 }
 
+
 .carousel__slide
 {
     position: absolute;
@@ -34,10 +42,8 @@
     justify-content: space-evenly;
     transition: left 1s ease;
 
-
-
-
 }
+
 
 .carousel__side
 {
@@ -49,7 +55,6 @@
     justify-content: center;
     width: 5%;
     z-index: 1;
-
 }
 
 .carousel__side--right

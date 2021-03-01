@@ -6,10 +6,6 @@
 
 {% endblock %}
 
-{% block sidebar %}
-    {% include 'base/sidebar.html' %}
-{% endblock %}
-
 {% block body %}
     {% include 'base/carousel.html' with card_template="base/pop.html" cards=areas %}
     {% if not request.user.is_authenticated %}

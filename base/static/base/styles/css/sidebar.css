@@ -3,13 +3,13 @@
   position: fixed;
   top: 10vh;
   flex-direction: column;
-  width: clamp(100px, 5vw, 260px);
+  width: 0;
   display: inline-table;
   font-size: 1.5rem;
   height: 90vh;
   display: flex;
   transition: all 0.3s ease;
-  font-size: clamp(1.8rem, 2vw, 2.4rem);
+  font-size: clamp(1.4rem, 2vw, 2.1rem);
 }
 
 #sidebar__button {
@@ -32,7 +32,7 @@
 #sidebar__button-content::before, #sidebar__button-content::after {
   content: "";
   width: 100%;
-  height: 100%;
+  height: 3px;
   background: #a1a1a1;
   position: absolute;
   left: 0;
@@ -43,7 +43,6 @@
   top: -6px;
 }
 #sidebar__button-content::after {
-  height: 90%;
   bottom: -6px;
 }
 
@@ -67,7 +66,7 @@
   z-index: 2;
   top: 0;
   left: 0;
-  width: clamp(100px, 5vw, 260px);
+  width: 5vw;
   height: 10vh;
   display: flex;
   align-items: center;
@@ -96,12 +95,12 @@
 }
 
 #main {
-  margin-left: clamp(100px, 5vw, 260px);
+  margin-left: 0;
   transition: all 0.7s ease;
 }
 
 #menu {
-  margin-left: clamp(100px, 5vw, 260px);
+  margin-left: 5vw;
   width: 85vw;
 }
 
@@ -271,19 +270,19 @@
   }
 }
 @media (min-width: 600px) {
-  #sidebar.open, #sidebar:hover {
+  #sidebar.open {
     max-width: 15vw;
     width: 15vw;
   }
-  #sidebar.open p, #sidebar:hover p {
+  #sidebar.open p {
     display: flex;
   }
-  #sidebar.open a, #sidebar:hover a {
+  #sidebar.open a {
     display: grid;
   }
 
   #sidebar {
-    max-width: clamp(100px, 5vw, 260px);
+    max-width: 0;
   }
   #sidebar p {
     display: none;
@@ -291,10 +290,6 @@
   #sidebar a {
     display: flex;
     justify-content: center;
-  }
-
-  #main.open {
-    margin-left: 15vw;
   }
 }
 

@@ -5,13 +5,23 @@
 <div class="object__container">
 
     <div class="object__header">
-        <div class="object__title">
-            <h1>{{ object.title }}</h1>
+        <div class="object__header-content">
+
+            <div class="object__image">
+                <div class="object__image-cropper">
+                    <img src="{{ object.image}}" alt="{{object.title}}">
+                </div>
+
             </div>
+            <div class="object__title">
+
+                <h1>{{ object.title }}</h1>
+
+            </div>
+
         </div>
-
-
     </div>
+
     <div class="object__body">
         {% include 'base/carousel.html' with card_template="base/cards.html" cards=object.submodels %}
     </div>

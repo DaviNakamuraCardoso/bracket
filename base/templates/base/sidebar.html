@@ -37,7 +37,10 @@
         </div>
 
 
-        <div class="accordeon navbar-item">
+        {% if request.user.is_authenticated %}
+        {% if request.user.doctor.clinics.all|length > 0 or request.user.user_clinics.all|length > 0 %}
+
+        <div class="navbar-item">
             <button class="navbar-button active" type="button">Clinics</button>
             <div class="nav-content open">
                 <ul class="nav-list">
@@ -58,6 +61,8 @@
             </div>
 
         </div>
+        {% endif %}
+        {% endif %}
         <div class="navbar-item">
             <div class="nav-content">
                 <ul class="nav-list">

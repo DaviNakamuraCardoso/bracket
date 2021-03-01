@@ -7,23 +7,25 @@
 <div class="package">
     {% include card_template with cards=cards %}
 </div>
-<div class="carousel">
-    <div class="carousel__side carousel__side--left">
-        <button type="button" name="button" class="carousel__button carousel__button--left left fas-icon"> </button>
+{% if cards|length > 0 %}
+    <div class="carousel">
+        <div class="carousel__side carousel__side--left">
+            <button type="button" name="button" class="carousel__button carousel__button--left left fas-icon"> </button>
+
+        </div>
+
+        <div class="carousel__track-container">
+            <ul class="carousel__track">
+
+            </ul>
+
+        </div>
+        <div class="carousel__side carousel__side--right">
+            <button type="button" name="button" class="carousel__button carousel__button--right right fas-icon"> </button>
+
+        </div>
+
+        <div class="carousel__nav"> </div>
 
     </div>
-
-    <div class="carousel__track-container">
-        <ul class="carousel__track">
-
-        </ul>
-
-    </div>
-    <div class="carousel__side carousel__side--right">
-        <button type="button" name="button" class="carousel__button carousel__button--right right fas-icon"> </button>
-
-    </div>
-
-    <div class="carousel__nav"> </div>
-
-</div>
+{% endif %}

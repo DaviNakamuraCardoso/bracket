@@ -9,7 +9,6 @@ function main()
         build(i);
         loadCurrentSlide(0, carousels[i]);
     }
-
 }
 
 function build(n)
@@ -24,16 +23,19 @@ function build(n)
     carousel.style.height = `${1.8 * parseInt(window.getComputedStyle(cards[0]).height, 10)}px`;
 
 
-    resizeCards(pack, cards, ul, nav);
-    loadCurrentSlide(0, carousel);
-
-    window.addEventListener('resize', () => {
+    if (cards.length > 0)
+    {
         resizeCards(pack, cards, ul, nav);
         loadCurrentSlide(0, carousel);
+    }
 
+    window.addEventListener('resize', () => {
+        if (cards.length > 0)
+        {
+            resizeCards(pack, cards, ul, nav);
+            loadCurrentSlide(0, carousel);
+        }
     });
-
-
 }
 
 
