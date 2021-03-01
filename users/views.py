@@ -166,10 +166,8 @@ def location(request, lat, lng):
     for city_name in city_names:
         cities.append(City.objects.get(lat=city_name['lat'], lng=city_name['lng']).serialize())
 
-
     return JsonResponse({"cities":cities})
 
 
 def calendar(request, month, year):
-
     return JsonResponse(get_calendar(month+1, year))

@@ -23,16 +23,19 @@
     box-shadow: 0px 3px 4px rgba(0, 0, 0, .3);
     border-radius: 30px;
     max-height: 0px;
+    min-height: 0px;
     overflow: hidden;
     overflow-y: auto;
-    transition: max-height .7s ease;
+
     background: white;
     z-index: 10;
 }
 
+
 .dropdown.open
 {
     max-height: 600px;
+    min-height: 400px;
 }
 
 

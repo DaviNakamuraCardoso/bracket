@@ -1,4 +1,3 @@
-@charset "UTF-8";
 #sidebar {
   position: fixed;
   top: 10vh;
@@ -162,54 +161,6 @@
 }
 
 /* ____ Accordion Menu Items ____ */
-.navbar-button {
-  display: block;
-  justify-content: center;
-  width: 100%;
-  height: 100%;
-  padding: 10px;
-  border: none;
-  outline: none;
-  cursor: pointer;
-  text-align: left;
-  color: #777;
-  transition: color 0.4s;
-  text-align: center;
-  position: absolute;
-  top: 0;
-}
-
-.navbar-button::after {
-  content: "▾";
-  float: left;
-  transform: rotate(-90deg) scale(1.5);
-  transition: all 0.5s ease;
-}
-
-.navbar-button.active {
-  color: #4387f5;
-}
-
-.navbar-button.active::after {
-  transform: scale(1.5);
-}
-
-.accordeon {
-  position: relative;
-}
-.accordeon .nav-content {
-  overflow: hidden;
-  height: auto;
-  max-height: 0;
-  transition: max-height 0.7s;
-  position: absolute;
-  top: 50px;
-}
-.accordeon .nav-content.open {
-  max-height: 100%;
-  transition: max-height 2s;
-}
-
 .nav-image-cropper {
   width: 20px;
   height: 20px;
@@ -252,9 +203,6 @@
     flex-direction: row;
     overflow: hidden;
     font-size: 2.4rem;
-  }
-  #sidebar .navbar-button {
-    display: none;
   }
 
   #sidebar__button.open {

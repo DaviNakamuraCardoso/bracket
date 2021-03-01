@@ -214,68 +214,6 @@ $sidebar-open: 15vw;
 
 /* ____ Accordion Menu Items ____ */
 
-
-.navbar-button
-{
-    display: block;
-    justify-content: center;
-    width: 100%;
-    height: 100%;
-    padding: 10px;
-    border: none;
-    outline: none;
-    cursor: pointer;
-    text-align: left;
-    color: colors.$gray;
-    transition: color 0.4s;
-    text-align: center;
-    position: absolute;
-    top: 0;
-}
-
-
-.navbar-button::after
-{
-    content: '\25be';
-    float: left;
-    transform: rotate(-90deg) scale(1.5);
-    transition: all .5s ease;
-
-}
-
-
-.navbar-button.active {
-    color: colors.$main;
-
-}
-
-.navbar-button.active::after
-{
-    transform: scale(1.5);
-
-}
-
-.accordeon
-{
-    position: relative;
-    .nav-content
-    {
-        overflow: hidden;
-        height: auto;
-        max-height: 0;
-        transition: max-height .7s;
-        position: absolute;
-        top: 50px;
-
-    }
-    .nav-content.open
-    {
-        max-height: 100%;
-        transition: max-height 2s;
-    }
-
-}
-
 .nav-image-cropper
 {
     width: 20px;
@@ -340,10 +278,6 @@ $sidebar-open: 15vw;
         overflow: hidden;
         font-size: 2.4rem;
 
-        .navbar-button
-        {
-            display: none;
-        }
     }
     #sidebar__button.open
     {

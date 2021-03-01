@@ -15,13 +15,19 @@ td
     text-align: center;
     padding: 0;
     border-spacing: 0;
+}
 
+
+.calendar__wrapper
+{
+    width: 100%;
+    height: 100%;
 }
 
 .calendar
 {
-    height: clamp(20em, 40vw, 40em);
-    width: clamp(20em, 40vw, 40em) ;
+    height: 100%;
+    width: 100% ;
 
     background: white;
     margin: auto;
@@ -48,7 +54,6 @@ td
 {
     background: $gray;
 }
-
 
 
 .month
@@ -140,11 +145,11 @@ td
     right: 0;
     background: white;
     z-index: 99;
-.day
-{
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-}
+    .day
+    {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+    }
 
 }
 
@@ -238,15 +243,6 @@ td
 
 @media (max-width: 599px)
 {
-    .calendar
-    {
-        width: 93vw;
-        height: 93vw;
-    }
-    .month
-    {
-        width: 100%;
-    }
     .calendar-month, .calendar-year
     {
         width: 100%;

@@ -49,12 +49,10 @@ function startCalendar(template, month, year, fill)
             const row = document.createElement('tr');
             for (let j = 0; j < 7; j++)
             {
-
-
                 const day = document.createElement('td');
                 const div = document.createElement('div');
-
                 let dayNum = result.calendar[index];
+
                 div.innerHTML = dayNum;
                 div.className = "ball";
                 day.className = "day";
@@ -68,13 +66,13 @@ function startCalendar(template, month, year, fill)
                     day.classList.add('invalid');
                 }
                 index++;
-
-
             }
             calendarBody.append(row);
-
         }
+        fill(template);
     });
+
+    // Event Listeners for when the user clicks in the month buttons
     const previousMonth = template.querySelector(".prev-month");
     const nextMonth = template.querySelector(".next-month");
     previousMonth.onclick = () => {
@@ -86,8 +84,8 @@ function startCalendar(template, month, year, fill)
         {
             startCalendar(template, 11, year-1, fill);
         }
-
     }
+
     nextMonth.onclick = () => {
         if (month < 11)
         {
@@ -99,6 +97,7 @@ function startCalendar(template, month, year, fill)
         }
     }
 
+    // Event listeners for when the user clicks in the year buttons
     const previousYear = template.querySelector(".prev-year");
     const nextYear = template.querySelector(".next-year");
 
@@ -109,10 +108,6 @@ function startCalendar(template, month, year, fill)
     nextYear.onclick = () => {
         startCalendar(template, month, year+1, fill);
     }
-
-
-    fill(template);
-
 }
 
 
@@ -127,7 +122,6 @@ function pad(n, width, z) {
   n = n + '';
   return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
 }
-
 
 
 export default startCalendar

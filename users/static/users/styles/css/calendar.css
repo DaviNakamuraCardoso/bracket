@@ -6,9 +6,14 @@ td {
   border-spacing: 0;
 }
 
+.calendar__wrapper {
+  width: 100%;
+  height: 100%;
+}
+
 .calendar {
-  height: clamp(20em, 40vw, 40em);
-  width: clamp(20em, 40vw, 40em);
+  height: 100%;
+  width: 100%;
   background: white;
   margin: auto;
   display: flex;
@@ -178,15 +183,6 @@ td {
 }
 
 @media (max-width: 599px) {
-  .calendar {
-    width: 93vw;
-    height: 93vw;
-  }
-
-  .month {
-    width: 100%;
-  }
-
   .calendar-month, .calendar-year {
     width: 100%;
   }
