@@ -59,10 +59,19 @@ def schedule_view(request, name):
     })
 
 
-def schedule_days(request, name):
+def schedule_days(request, name, clinic, area):
+
     doctor = get_doctor(name)
+
+    shifts = doctor.shifts.all()
+    if clinic != '*' and area != '*':
+        shifts = doctor.shifts.filter(clinic__id=int(clinic))
+        area = Area.objects.get(pk=int(area))
+        shifts = [shift for shift in shifts if area in shift.areas.all()]
+
+
     days = set()
-    for shift in doctor.shifts.all():
+    for shift in shifts:
         days.add(shift.day.day)
 
     return JsonResponse({'days': [day for day in days]})

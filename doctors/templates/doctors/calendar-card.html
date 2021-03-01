@@ -1,4 +1,29 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'doctors/styles/css/calendar-card.css' %}">
 
 
+<div class="cc__container">
+    <div class="cc__head">
+        {% with doctor.serialize as model %}
 
-{% include 'doctors/calendar.html' with doctor=doctor %}
+            <div class="cc__image">
+                <a href="{{ model.url }}">
+                    <img src="{{model.image}}" alt="">
+                </a>
+
+            </div>
+            <div class="cc__title">
+                <h2>{{model.title|title}}</h2>
+
+            </div>
+
+        {% endwith %}
+
+    </div>
+    <div class="cc__body">
+
+        {% include 'doctors/calendar.html' with doctor=doctor %}
+    </div>
+
+
+</div>

@@ -10,7 +10,7 @@ urlpatterns = [
     path("<str:name>/add", views.add, name="add"),
     path("<str:name>/accept", views.accept, name="accept"),
     path("<str:name>/schedule", views.schedule_view, name="schedule"),
-    path("<str:name>/days", views.schedule_days, name="days"),
+    path("<str:name>/days/<str:clinic>/<str:area>", views.schedule_days, name="days"),
     path("<str:name>/appointment", views.new_appointment, name="new-appointment"),
 
 

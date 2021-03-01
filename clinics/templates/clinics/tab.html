@@ -1,13 +1,18 @@
+{% load static %}
 
 {% include 'base/pop.html' with cards=clinic.areas local=True %}
 
+<link rel="stylesheet" href="{% static 'clinics/styles/css/tab.css' %}">
 {% for area, doctors in clinic.doctors_by_area.items %}
-    <div class="" id="{{area}}">
+    <div class="area__container" id="{{area}}">
         <div class="area__title">
             <h1>{{area}}</h1>
+        </div>
+        <div class="area__body">
             {% for doctor in doctors %}
                 {% include 'doctors/calendar-card.html' with doctor=doctor %}
             {% endfor %}
+
         </div>
     </div>
 {% endfor %}

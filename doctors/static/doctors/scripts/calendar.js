@@ -8,7 +8,6 @@ document.addEventListener('DOMContentLoaded', () => {
     for (let i = 0; i < templates.length; i++)
     {
         startCalendar(templates[i], d.getMonth(), d.getFullYear(), doctorsLoad);
-        doctorsLoad(templates[i]);
 
     }
 });
@@ -17,7 +16,11 @@ document.addEventListener('DOMContentLoaded', () => {
 function doctorsLoad(template)
 {
     const doctor = template.querySelector(".doctor").value;
-    fetch(`/doctors/${doctor}/days`)
+    const clinic = template.querySelector(".clinic").value || '*';
+    const area = template.querySelector(".area").value || '*';
+    console.log(clinic);
+    console.log(area);
+    fetch(`/doctors/${doctor}/days/${clinic}/${area}`)
     .then(response => response.json())
     .then(result => {
         const days = template.querySelectorAll('.day');
@@ -36,10 +39,7 @@ function doctorsLoad(template)
                           day.classList.toggle('selected', true);
                           loadDay(template, day);
                         }
-
-
                     }
-
                 });
             }
         });
@@ -63,7 +63,7 @@ function loadDay(template, element)
             console.log(paths);
             const next = window.location.href.split('/').slice(3, paths.length).join('/');
             console.log(next);
-            window.location.replace(`${result.url}/?next=/${next}`);
+            window.location.replace(`${result.url}?next=/${next}`);
         }
 
         let dayInfo = result.day;

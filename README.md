@@ -13,12 +13,12 @@
   Creating, for each one, a model, register system and profile
 
   - [x] Clinics should be able to invite and accept doctors
-  - [ ] The services offered by that doctor should be added to the clinic services
+  - [x] The services offered by that doctor should be added to the clinic services
 
 - [ ] Browse for services based on the user location
   - [x] Interactive User Interface to select the location
   - [x] Get the user location automatically (after ask for permission)
-  - [ ] Show services open now
+  - [ ] Show clinics open now
 
 - [x] Users should be able to make appointments
   - [ ] Clinics and doctors should see all the appointments

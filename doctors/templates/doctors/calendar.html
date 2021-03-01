@@ -4,5 +4,7 @@
 <div class="calendar__wrapper">
     {% include 'users/calendar.html' with doctor=doctor %}
     <input type="hidden" class="doctor" value="{{ doctor.user.name }}">
-    <script type="module" src="{% static 'doctors/scripts/calendar.js' %}"></script>
+    <input type="hidden" class="clinic" value="{{ clinic.id }}">
+    <input type="hidden" class="area" value="{{ area.id }}">
+    <script type="module" src="{% static 'doctors/scripts/calendar.js' %}" defer></script>
 </div>
