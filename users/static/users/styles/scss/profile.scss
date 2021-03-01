@@ -1,3 +1,4 @@
+@use 'abstract/colors';
 
 /* ___ Dust Pallete ___ */
 $main: #4387f5;
@@ -35,6 +36,7 @@ hr
     margin: auto;
     flex-direction: column;
     justify-content: space-between;
+    background: white;
 }
 
 
@@ -213,7 +215,7 @@ hr
     transition: all 1s ease;
     &::before
     {
-        background: $main;
+        background: colors.$main;
         content: '';
         width: 50%;
         height: 100%;
@@ -259,52 +261,23 @@ hr
     width: 100%;
     margin: 0 auto;
     padding: 2em 0;
-    background: #f0f0f0;
 }
 
 .right-side
 {
-    border-radius: 20px;
     height: 100%;
-    padding: 2em;
     position: static;
     background: white;
     display: flex;
-    box-shadow: 0px 3px 4px rgba(0, 0, 0, .2);
     justify-content: center;
     font-size: clamp(1.8rem, .7vw, 2rem);
-
-
-    .profile-side
+    .tab
     {
-        h1
-        {
-            font-size: clamp(3rem, 3vw, 3.4rem);
-        }
-        color: #a0a0a0;
-        width: 90%;
-        background: #fff;
-        display: flex;
-
-        flex-direction: column;
-        justify-content: space-around;
-        .info
-        {
-            height: 7rem;
-            display: flex;
-            align-items: center;
-        }
-        p
-        {
-            margin-bottom: 2px;
-        }
-		.mail
-		{
-		    word-break: break-all;
-		}
-
-
+        width: 100%;
     }
+
+
+
 }
 
 
@@ -328,7 +301,7 @@ hr
 {
     .right-side
     {
-        width: 40%; 
+        width: 80%;
     }
 
     .profile-nav-item

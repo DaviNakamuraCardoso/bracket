@@ -14,10 +14,7 @@ def index(request):
 
     clinics = Clinic.objects.all()
     doctors = Doctor.objects.all()
-    areas = []
-    for area in Area.objects.all():
-        if area.picture:
-            areas.append(area)
+    areas = Area.objects.all()
     if search := request.GET.get('query'):
         vector = SearchVector('name')
         query = SearchQuery(search)
@@ -27,9 +24,8 @@ def index(request):
         ).order_by('-rank')
 
 
-
-    local_context = {'user': request.user, 'clinics': [clinic.serialize() for clinic in clinics],
-    'doctors': [doctor.serialize() for doctor in doctors], 'areas': [area.serialize() for area in areas]}
+    local_context = {'user': request.user, 'clinics': clinics,
+    'doctors': doctors, 'areas': areas}
     context = {**local_context, **FORMS_CONTEXT}
 
 

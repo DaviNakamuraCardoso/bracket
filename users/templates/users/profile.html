@@ -52,9 +52,9 @@
 
         <div class="right-side">
             <div class="tab">
-                {% if tabs == "doctors" %}
-                    {% include 'doctors/calendar.html' %}
-                {% endif %}
+                {% with tabs|add:"/tab.html" as tab_template %}
+                    {% include tab_template %}
+                {% endwith %}
             </div>
             <div class="about tab">
                 <div class="profile-side">

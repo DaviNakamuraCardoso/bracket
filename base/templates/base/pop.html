@@ -5,9 +5,10 @@
 
 <div class="pops">
     {% for pop in cards %}
+        {% with pop.serialize as pop %}
 
         <div class="card pop__container">
-                <a href="{{ pop.url }}">
+                <a href="{% if not local %}{{ pop.url }}{% else %}#{{pop.title}}{% endif %}">
                 <div class="pop__image-wrapper">
                     <div class="pop__image-clip">
                         <img src="{{ pop.image }}" alt="{{ pop.title }}" class="pop__image">
@@ -17,13 +18,14 @@
                 </div>
                 <div class="pop__title">
                     <h6>{{ pop.title|truncatechars:12}}</h6>
-   
+
                 </div>
 
 
             </a>
         </div>
 
+        {% endwith %}
 
     {% endfor %}
 

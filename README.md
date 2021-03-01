@@ -1,4 +1,4 @@
-# CS50 Web Programming Final Project: Bracket 
+# CS50 Web Programming Final Project: Bracket
 
 ### Introduction
 
@@ -18,12 +18,12 @@
 - [ ] Browse for services based on the user location
   - [x] Interactive User Interface to select the location
   - [x] Get the user location automatically (after ask for permission)
-  - [ ] Show services ordered by distance to the user
+  - [ ] Show services open now
 
 - [x] Users should be able to make appointments
   - [ ] Clinics and doctors should see all the appointments
   - [x] Users should be remembered of their appointments one day before it
-  - [ ] Users should be able to confirm the appointments
+  - [x] Users should be able to confirm appointments
 
 
 ### History

@@ -69,3 +69,24 @@ class Clinic(models.Model):
             'url': reverse('clinics:profile', args=(self.clinic_name, )),
             'image': self.picture.url
         }
+
+    def areas(self):
+        areas = []
+        for shift in self.shifts.all():
+            for area in shift.areas.all():
+                if area not in areas:
+                    areas.append(area)
+
+
+        return areas
+
+    def doctors_by_area(self):
+        areas = {}
+        for area in self.areas():
+            areas[area] = []
+            for doctor in self.doctors.all():
+                for shift in doctor.shifts.all():
+                    if shift.clinic == self and area in shift.areas.all():
+                        areas[area].append(doctor)
+                        break
+        return areas

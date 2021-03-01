@@ -21,6 +21,7 @@ hr {
   margin: auto;
   flex-direction: column;
   justify-content: space-between;
+  background: white;
 }
 
 .profile-header {
@@ -186,41 +187,18 @@ hr {
   width: 100%;
   margin: 0 auto;
   padding: 2em 0;
-  background: #f0f0f0;
 }
 
 .right-side {
-  border-radius: 20px;
   height: 100%;
-  padding: 2em;
   position: static;
   background: white;
   display: flex;
-  box-shadow: 0px 3px 4px rgba(0, 0, 0, 0.2);
   justify-content: center;
   font-size: clamp(1.8rem, .7vw, 2rem);
 }
-.right-side .profile-side {
-  color: #a0a0a0;
-  width: 90%;
-  background: #fff;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-}
-.right-side .profile-side h1 {
-  font-size: clamp(3rem, 3vw, 3.4rem);
-}
-.right-side .profile-side .info {
-  height: 7rem;
-  display: flex;
-  align-items: center;
-}
-.right-side .profile-side p {
-  margin-bottom: 2px;
-}
-.right-side .profile-side .mail {
-  word-break: break-all;
+.right-side .tab {
+  width: 100%;
 }
 
 .profile-body {
@@ -233,7 +211,7 @@ hr {
 
 @media (min-width: 700px) {
   .right-side {
-    width: 40%;
+    width: 80%;
   }
 
   .profile-nav-item i {

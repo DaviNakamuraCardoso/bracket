@@ -1,0 +1,13 @@
+
+{% include 'base/pop.html' with cards=clinic.areas local=True %}
+
+{% for area, doctors in clinic.doctors_by_area.items %}
+    <div class="" id="{{area}}">
+        <div class="area__title">
+            <h1>{{area}}</h1>
+            {% for doctor in doctors %}
+                
+            {% endfor %}
+        </div>
+    </div>
+{% endfor %}
