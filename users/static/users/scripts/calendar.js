@@ -25,12 +25,12 @@ const MONTHS = [
 
 
 // Starts a basic calendar
-function startCalendar(month, year, fill)
+function startCalendar(template, month, year, fill)
 {
-    const calendar = document.querySelector("#month");
-    const monthTitle = document.querySelector("#month-title");
-    const yearTitle = document.querySelector("#year-title");
-    const calendarBody = calendar.querySelector('tbody');
+    const calendar = template.querySelector(".month");
+    const monthTitle = template.querySelector(".month-title");
+    const yearTitle = template.querySelector(".year-title");
+    const calendarBody = template.querySelector('tbody');
 
     calendarBody.innerHTML = '';
 
@@ -75,43 +75,43 @@ function startCalendar(month, year, fill)
 
         }
     });
-    const previousMonth = document.querySelector("#prev-month");
-    const nextMonth = document.querySelector("#next-month");
+    const previousMonth = template.querySelector(".prev-month");
+    const nextMonth = template.querySelector(".next-month");
     previousMonth.onclick = () => {
         if (month > 0)
         {
-            startCalendar(month-1, year, fill);
+            startCalendar(template, month-1, year, fill);
         }
         else
         {
-            startCalendar(11, year-1, fill);
+            startCalendar(template, 11, year-1, fill);
         }
 
     }
     nextMonth.onclick = () => {
         if (month < 11)
         {
-            startCalendar(month+1, year, fill);
+            startCalendar(template, month+1, year, fill);
         }
         else
         {
-            startCalendar(0, year+1, fill);
+            startCalendar(template, 0, year+1, fill);
         }
     }
 
-    const previousYear = document.querySelector("#prev-year");
-    const nextYear = document.querySelector("#next-year");
+    const previousYear = template.querySelector(".prev-year");
+    const nextYear = template.querySelector(".next-year");
 
     previousYear.onclick = () => {
-        startCalendar(month, year-1, fill);
+        startCalendar(template, month, year-1, fill);
     }
 
     nextYear.onclick = () => {
-        startCalendar(month, year+1, fill);
+        startCalendar(template, month, year+1, fill);
     }
 
 
-    fill();
+    fill(template);
 
 }
 

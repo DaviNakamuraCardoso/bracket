@@ -15,12 +15,10 @@ td
     text-align: center;
     padding: 0;
     border-spacing: 0;
-    width: 40px;
-    height: 40px;
 
 }
 
-#calendar
+.calendar
 {
     height: clamp(20em, 40vw, 40em);
     width: clamp(20em, 40vw, 40em) ;
@@ -53,7 +51,7 @@ td
 
 
 
-#month
+.month
 {
     border-collapse: collapse;
     border-spacing: 0;
@@ -63,7 +61,7 @@ td
     font-size: clamp(1.8rem, 3vw, 2.4rem);
     background: white;
 }
-#month-title, #year-title
+.month-title, .year-title
 {
     font-size: clamp(1.8rem, 2vw, 2.1rem);
 }
@@ -108,7 +106,7 @@ td
 }
 
 
-#calendar-year, #calendar-month
+.calendar-year, .calendar-month
 {
     color: $black;
     display: grid;
@@ -142,9 +140,15 @@ td
     right: 0;
     background: white;
     z-index: 99;
+.day
+{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
 }
 
-#appointment-table
+}
+
+.appointment-table
 {
     display: grid;
     grid-template-columns: 3fr 1fr;
@@ -153,20 +157,14 @@ td
     direction: rtl;
 }
 
-#day
-{
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-}
 
-
-#hours, #appointments
+.hours, .appointments
 {
     padding: 0 20px;
     margin-bottom: 5rem;
 }
 
-#hours
+.hours
 {
     display: flex;
     flex-direction: column;
@@ -175,7 +173,7 @@ td
 }
 
 
-#appointments
+.appointments
 {
     position: relative;
 
@@ -219,7 +217,7 @@ td
     color: #5a5a5a;
 }
 
-#schedule
+.schedule
 {
     font-size: 1.2rem;
     display: grid;
@@ -240,16 +238,16 @@ td
 
 @media (max-width: 599px)
 {
-    #calendar
+    .calendar
     {
         width: 93vw;
         height: 93vw;
     }
-    #month
+    .month
     {
         width: 100%;
     }
-    #calendar-month, #calendar-year 
+    .calendar-month, .calendar-year
     {
         width: 100%;
     }

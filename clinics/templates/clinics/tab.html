@@ -6,7 +6,7 @@
         <div class="area__title">
             <h1>{{area}}</h1>
             {% for doctor in doctors %}
-                
+                {% include 'doctors/calendar-card.html' with doctor=doctor %}
             {% endfor %}
         </div>
     </div>

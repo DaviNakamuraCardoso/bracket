@@ -2,27 +2,27 @@
 <script src="{% static 'users/scripts/calendar.js' %}" type="module"></script>
 <link href="{% static 'users/styles/css/calendar.css' %}" rel="stylesheet">
 <link href="{% static 'users/styles/css/forms.css' %}" rel="stylesheet">
-<div id="calendar">
-    <div id="calendar-month">
-        <button id="prev-month">
+<div class="calendar">
+    <div class="calendar-month">
+        <button class="prev-month">
             <i class="fas fa-caret-left"></i>
         </button>
-        <h1 id="month-title"></h1>
-        <button id="next-month">
+        <h1 class="month-title"></h1>
+        <button class="next-month">
             <i class="fas fa-caret-right"></i>
         </button>
     </div>
-    <div id="calendar-year">
-        <button id="prev-year">
+    <div class="calendar-year">
+        <button class="prev-year">
             <i class="fas fa-caret-left"></i>
         </button>
-        <h1 id="year-title"></h1>
-        <button id="next-year">
+        <h1 class="year-title"></h1>
+        <button class="next-year">
             <i class="fas fa-caret-right"></i>
         </button>
     </div>
 
-    <table id="month">
+    <table class="month">
         <thead>
             <tr>
                 <td>S</td>
@@ -36,37 +36,36 @@
         </thead>
         <tbody></tbody>
     </table>
-</div>
+    <div class="day-planner">
+        <div class="day">
+            <div class="schedule">
+                <h1 class="schedule-title"></h1>
+                <div class="schedule-location">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span class="schedule-location-title" class="second"></span>
+                </div>
+                <form class="schedule-form" action="{% url 'doctors:new-appointment' doctor.user.name %}" method="POST">
+                    {% csrf_token %}
+                    <input  class="schedule-areas" list="schedule-areas-datalist">
+                    <datalist class="schedule-areas-datalist"></datalist>
+                    <input class="schedule-user" type="text" value="{{ request.user.first_name }} {{ request.user.last_name}}" name="patient">
+                    <input type="hidden" class="schedule-input-day" name="day">
+                    <input type="hidden" class="schedule-input-month" name="month">
+                    <input type="hidden" class="schedule-input-year" name="year">
+                    <input type="hidden" class="schedule-input-index" name="index">
+                    <input type="hidden" class="schedule-input-shift" name="shift">
+                    <input type="submit" value="Schedule">
+                </form>
 
-<div class="day-planner">
-    <div id="day">
-        <div id="schedule">
-            <h1 id="schedule-title"></h1>
-            <div id="schedule-location">
-                <i class="fas fa-map-marker-alt"></i>
-                <span id="schedule-location-title" class="second"></span>
+
             </div>
-            <form id="schedule-form" action="{% url 'doctors:new-appointment' doctor.user.name %}" method="POST">
-                {% csrf_token %}
-                <input  id="schedule-areas" list="schedule-areas-datalist">
-                <datalist id="schedule-areas-datalist"></datalist>
-                <input id="schedule-user" type="text" value="{{ request.user.first_name }} {{ request.user.last_name}}" name="patient">
-                <input type="hidden" id="schedule-input-day" name="day">
-                <input type="hidden" id="schedule-input-month" name="month">
-                <input type="hidden" id="schedule-input-year" name="year">
-                <input type="hidden" id="schedule-input-index" name="index">
-                <input type="hidden" id="schedule-input-shift" name="shift">
-                <input type="submit" value="Schedule">
-            </form>
+            <div class="appointment-table">
+                <div class="appointments"></div>
+                <div class="hours"></div>
 
-
-        </div>
-        <div id="appointment-table">
-            <div id="appointments"></div>
-            <div id="hours"></div>
+            </div>
 
         </div>
 
     </div>
-
 </div>

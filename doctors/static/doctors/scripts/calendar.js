@@ -3,18 +3,24 @@ import startCalendar, {DAYS, MONTHS, thisDay, pad} from '../../users/scripts/cal
 document.addEventListener('DOMContentLoaded', () => {
     const d = new Date();
 
-    startCalendar(d.getMonth(), d.getFullYear(), doctorsLoad);
-    doctorsLoad();
+    const templates = document.querySelectorAll('.calendar__wrapper');
+    console.log(templates);
+    for (let i = 0; i < templates.length; i++)
+    {
+        startCalendar(templates[i], d.getMonth(), d.getFullYear(), doctorsLoad);
+        doctorsLoad(templates[i]);
+
+    }
 });
 
 
-function doctorsLoad()
+function doctorsLoad(template)
 {
-    const doctor = document.querySelector("#doctor").value;
+    const doctor = template.querySelector(".doctor").value;
     fetch(`/doctors/${doctor}/days`)
     .then(response => response.json())
     .then(result => {
-        const days = document.querySelectorAll('.day');
+        const days = template.querySelectorAll('.day');
         days.forEach(day => {
             let index = parseInt(day.id);
 
@@ -26,9 +32,9 @@ function doctorsLoad()
                         day.classList.add('active', true);
 
                         day.onclick = () => {
-                          document.querySelectorAll(".selected").forEach(selected => selected.classList.toggle('selected', false));
+                          template.querySelectorAll(".selected").forEach(selected => selected.classList.toggle('selected', false));
                           day.classList.toggle('selected', true);
-                          loadDay(day);
+                          loadDay(template, day);
                         }
 
 
@@ -41,12 +47,12 @@ function doctorsLoad()
 }
 
 
-function loadDay(element)
+function loadDay(template, element)
 {
     const day = element.querySelector('.ball').innerHTML;
-    const month = MONTHS.indexOf(document.querySelector("#month-title").innerHTML);
-    const year = document.querySelector("#year-title").innerHTML;
-    const doctor = document.querySelector("#doctor").value;
+    const month = MONTHS.indexOf(document.querySelector(".month-title").innerHTML);
+    const year = template.querySelector(".year-title").innerHTML;
+    const doctor = template.querySelector(".doctor").value;
     fetch(`/doctors/${doctor}/${year}/${month}/${day}`)
     .then(response => response.json())
     .then(result => {
@@ -61,9 +67,9 @@ function loadDay(element)
         }
 
         let dayInfo = result.day;
-        const dayPlanner = document.querySelector(".day-planner");
-        const hours = document.querySelector('#hours');
-        const appointments = document.querySelector("#appointments");
+        const dayPlanner = template.querySelector(".day-planner");
+        const hours = template.querySelector('.hours');
+        const appointments = template.querySelector(".appointments");
         hours.innerHTML = '';
         appointments.innerHTML = '';
 
@@ -80,6 +86,7 @@ function loadDay(element)
             hours.append(span);
             heightCounter++;
         }
+
         end = thisDay(year, month, day, `${heightCounter + start.getHours() -1}:00:00`);
 
         hours.style.height = `${heightCounter*200}px`;
@@ -120,21 +127,21 @@ function loadDay(element)
                 }
             }
         }
-        updateAllAppointments();
+        updateAllAppointments(template);
     });
 }
 
 
-function updateAllAppointments()
+function updateAllAppointments(template)
 {
-    const appointments = document.querySelectorAll('.appointment');
-    const schedule = document.querySelector("#schedule");
+    const appointments = template.querySelectorAll('.appointment');
+    const schedule = template.querySelector(".schedule");
     const children = serializeNode(schedule);
 
     const day = document.querySelector(".selected").querySelector('.ball').innerHTML;
-    const month = MONTHS.indexOf(document.querySelector("#month-title").innerHTML);
-    const year = document.querySelector("#year-title").innerHTML;
-    const doctor = document.querySelector("#doctor").value;
+    const month = MONTHS.indexOf(template.querySelector(".month-title").innerHTML);
+    const year = template.querySelector(".year-title").innerHTML;
+    const doctor = template.querySelector(".doctor").value;
 
     appointments.forEach(appointment => {
         if (!appointment.classList.contains('closed') && !appointment.classList.contains('chosen'))
@@ -159,7 +166,7 @@ function updateAllAppointments()
 
                     children['areas'].value = shift.areas[0];
 
-                    const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+                    const csrfToken = template.querySelector('[name=csrfmiddlewaretoken]').value;
                     const request = new Request(
                         children['form'].action,
                         {headers: {'X-CSRFToken': csrfToken}}
@@ -212,7 +219,7 @@ function serializeNode(node)
     let table = {};
     for (let i = 0; i < children.length; i++)
     {
-        table[children[i].id.replace(`${node.id}-`, '')] = children[i];
+        table[children[i].className.replace(`${node.className}-`, '')] = children[i];
 
     }
 

@@ -135,7 +135,7 @@ def accept(request, name):
     # Handling the invitation
     try:
         # Get the notification object and deletes it
-        notification = Notification.objects.get(user=clinic.admin, clinic__id=data['object_id'], origin=data['origin'])
+        notification = Notification.objects.get(user=clinic.admin, object_id=data['object_id'], origin=data['origin'])
         notification.delete()
 
         # Add the doctor to the clinic
