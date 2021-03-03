@@ -1,0 +1,63 @@
+@use 'abstract/colors';
+
+
+.rate__container
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+
+.star__container
+{
+    position: relative;
+    display: flex;
+    flex-direction: row-reverse;
+
+}
+
+
+.star__input
+{
+    display: none;
+}
+
+
+.star__label
+{
+    display: block;
+    cursor: pointer;
+    width: 50px;
+    background: #ccc;
+    &::after,
+    &::before
+    {
+        content: '\f005';
+        font-family: "Font Awesome 5 Free";
+        position: relative;
+        display: block;
+        font-size: 50px;
+        font-weight: 900;
+        color: #101010;
+
+    }
+    &::after
+    {
+        color: colors.$main;
+        top: 0;
+        position: absolute;
+        opacity: 0;
+    }
+
+}
+
+.star__label:hover::after,
+.star__label:hover ~ .star__label::after
+{
+    opacity: .7;
+}
+.star__input:checked ~ .star__label::after
+{
+    opacity: 1;
+}

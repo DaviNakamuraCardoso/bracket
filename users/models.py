@@ -111,9 +111,8 @@ class User(AbstractBaseUser, PermissionsMixin):
         return {
             "name": self.name,
             "clinics": [clinic.basic_serialize() for clinic in clinics],
-            
-
         }
+
     def identifier(self):
         return self.name
 

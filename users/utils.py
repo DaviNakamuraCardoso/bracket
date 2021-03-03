@@ -1,6 +1,6 @@
 from users.models import User, City
 from clinics.models import Clinic
-from doctors.models import Doctor, Area, Rate
+from doctors.models import Doctor, Area 
 from patients.models import Patient, Allergy, Medication, Condition
 from django.conf import settings
 from PIL import Image
@@ -91,7 +91,7 @@ def new_patient(request, user, create=False):
 
         return patient
 
-    
+
     patient = Patient.objects.create(
         user=user
     )

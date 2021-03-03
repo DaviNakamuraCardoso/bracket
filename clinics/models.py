@@ -57,7 +57,7 @@ class Clinic(models.Model):
             'info_icon': 'mail',
             'info2': ['+1 3233-5555'],
             'info2_icon': 'phone',
-            'rating': self.rate.rating,
+            'rating': 5.0,
             'submodels':
                 [doctor.basic_serialize() for doctor in self.doctors.all()]
 

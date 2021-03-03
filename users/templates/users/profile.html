@@ -4,6 +4,7 @@
 <link href="{% static 'users/styles/css/profile.css' %}" rel="stylesheet">
 <script src="{% static 'users/scripts/profile.js' %}"></script>
 
+{% with object.serialize as profile %}
 
 <div class="profile-container">
     <div class="profile-header">
@@ -68,7 +69,7 @@
                         <div class="info">
                             <a href="{{ submodel.url }}">
                                 <div class="fas-text {{ profile.info_icon }}">
-                                    {{submodel.title}}
+                                    {{ submodel.title }}
                                 </div>
                             </a>
                         </div>
@@ -90,13 +91,15 @@
                         <h3 class="fas-text rating">{{ profile.rating }}</h3>
                     </div>
 
-
-
-
             </div>
-            <div class="tab"></div>
+
         </div>
+        <div class="tab">
+                {% include 'users/rate.html' with object=object %}
+            </div>
 
         </div>
     </div>
 </div>
+
+{% endwith %}
