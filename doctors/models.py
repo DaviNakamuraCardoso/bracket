@@ -6,8 +6,6 @@ from patients.models import Patient
 from users.data.time import sumtime, delta
 
 
-# Create your models here.
-
 class Area(models.Model):
     area = models.CharField(max_length=128)
     picture = models.ImageField(blank=True, null=True)
@@ -45,7 +43,7 @@ class Doctor(models.Model):
             "info2_icon": 'clinic',
             "info3": self.areas.all(),
             "info3_icon": 'area',
-            "rating": self.rate.rating,
+            "rating": 5.0,
             "url": reverse('doctors:profile', args=(self.user.name, )),
             "submodels": [clinic.basic_serialize() for clinic in self.clinics.all()]
         }
@@ -129,23 +127,9 @@ class Appointment(models.Model):
     patient = models.ForeignKey(Patient, on_delete=models.CASCADE, related_name='patient_appointments', blank=True, null=True)
     shift = models.ForeignKey(Shift, on_delete=models.CASCADE, related_name='shift_appointments')
     confirmed = models.BooleanField(default=False)
+    checked = models.BooleanField(default=False)
     area = models.ForeignKey(Area, on_delete=models.CASCADE, blank=True, null=True)
     day = models.IntegerField()
     month = models.IntegerField()
     year = models.IntegerField()
     index = models.IntegerField(null=True, blank=True)
-
-
-class Rate(models.Model):
-    rating = models.FloatField()
-    doctor = models.OneToOneField(Doctor, on_delete=models.CASCADE, null=True, blank=True)
-    clinic = models.OneToOneField(Clinic, on_delete=models.CASCADE, null=True, blank=True)
-    users = models.ManyToManyField(User, blank=True, related_name="ratings")
-
-
-
-    def add_rating(self, number, user):
-        self.rating = (self.rating * len(self.users.all()) + number) / len(self.users.all() + 1)
-        self.users.add(user)
-        self.save()
-        return self.rating

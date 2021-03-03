@@ -6,6 +6,6 @@
 {% block head %} {% endblock %}
 
 {% block body %}
-    {% include 'users/profile.html' with profile=doctor.serialize  tabs="doctors" %}
+    {% include 'users/profile.html' with object=doctor  tabs="doctors" %}
 
 {% endblock %}

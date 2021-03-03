@@ -212,3 +212,24 @@ def confirm(request, name, year, month, day, index):
     appointment.confirmed = True
     appointment.save()
     return JsonResponse({"message": "Appointment confirmed successfully"})
+
+
+@ajax_login_required
+def check(request, appointment_id):
+    if request.method != "PUT":
+        return JsonResponse({"message": "Method must be PUT"})
+
+    data = json.loads(request.body)
+
+    appointment = Appointment.objects.get(pk=data['id'])
+
+    if request.user.id != appointment.shift.doctor.id:
+        return JsonResponse({"message": "Not allowed."})
+
+    Notification.objects.create(
+        user=appointment.user,
+        origin="",
+        object_id=appointment.id,
+        text=f"Rate your appointment with {appointment.shift.doctor.__str__()}",
+        url=reverse('patients:rate_redirect')
+    )
