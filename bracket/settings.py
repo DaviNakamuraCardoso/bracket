@@ -44,10 +44,68 @@ INSTALLED_APPS = [
     'doctors',
     'clinics',
     'background_task',
-    'floppyforms'
+    'floppyforms',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+
+    # Oauth 2 Providers
+    'allauth.socialaccount.providers.google',
+    'allauth.socialaccount.providers.facebook',
+    'allauth.socialaccount.providers.github', 
 ]
 
-SITE_ID = 1
+SITE_ID = 2
+
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        # For each OAuth based provider, either add a ``SocialApp``
+        # (``socialaccount`` app) containing the required client
+        # credentials, or list them here:
+        'SCOPE': [
+            'profile',
+            'email'
+        ],
+        'AUTH_PARAMS': {
+            'access_type': 'online',
+        },
+        'APP': {
+            'client_id': '767216325727-18tfa0af5oagbgqi6uloi3ukil6e60g4.apps.googleusercontent.com',
+            'secret': 'h8mtwrKvj0mMZbkqXL5PWe8l',
+            'key': 'AIzaSyB2EjRXonTltky7o7sj-DtWt1uiANrV2fY'
+        }
+    },
+     'facebook': {
+        'METHOD': 'oauth2',
+        'SDK_URL': '//connect.facebook.net/{locale}/sdk.js',
+        'SCOPE': ['email', 'public_profile'],
+        'AUTH_PARAMS': {'auth_type': 'reauthenticate'},
+        'INIT_PARAMS': {'cookie': True},
+        'FIELDS': [
+            'id',
+            'first_name',
+            'last_name',
+            'middle_name',
+            'name',
+            'name_format',
+            'picture',
+            'short_name'
+        ],
+        'EXCHANGE_TOKEN': True,
+        'LOCALE_FUNC': 'path.to.callable',
+        'VERIFIED_EMAIL': False,
+        'VERSION': 'v7.0',
+    },
+    'github': {
+        'SCOPE': [
+            'user',
+            'repo',
+            'read:org',
+        ],
+    }
+}
+
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -155,3 +213,12 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'base/static/images')
 
 
 MAX_ATTEMPTS = 5
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend'
+]
+ACCOUNT_USER_MODEL_USERNAME_FIELD = None
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
