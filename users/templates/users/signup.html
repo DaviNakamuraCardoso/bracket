@@ -1,20 +1,11 @@
 
+{% load socialaccount %}
 
 {% load static %}
 
-
-    <script src="{% static 'users/scripts/register.js' %}" type="module"></script>
-
-    <script src="{% static 'users/scripts/cropper.js' %}"></script>
-    <link rel="stylesheet" href="{% static 'users/styles/css/forms.css' %}">
-    <link rel="stylesheet" href="{% static 'base/styles/css/checkbox.css' %}">
-
-        <div class="not-logged">
-            <div class="form" id="">
-                <h1>Select your account type</h1>
-                <h2>You can choose more than one.</h2>
-
-
+<a href="{% provider_login_url "facebook" method="oauth2" %}">Facebrooklyn Officiall</a>
+    <a href="{% provider_login_url 'google' %}">GUGOU</a>
+        <a href="{% provider_login_url 'github' %}">GitHub</a>
                 <form class="register" action="{% url 'users:register' %}" method="POST" enctype="multipart/form-data" id="signup">
                 {{ checkbox.types }}
                     <div class="checkbox-container">

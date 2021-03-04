@@ -82,8 +82,6 @@ class User(AbstractBaseUser, PermissionsMixin):
     ]
     user_type = models.CharField(max_length=32, default="Patient", choices=TYPES)
     is_doctor = models.BooleanField(default=False)
-    is_patient = models.BooleanField(default=False)
-    is_clinic = models.BooleanField(default=False)
 
     city = models.ForeignKey(City, on_delete=models.CASCADE, related_name='citizens', blank=True, null=True)
 
@@ -101,6 +99,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     objects = UserManager()
 
+
     def serialize(self):
         clinics = set()
         for clinic in self.user_clinics.all():
@@ -115,6 +114,18 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def identifier(self):
         return self.name
+
+    def get_image(self):
+
+        try:
+
+            image = self.socialaccount_set.all()[0].get_avatar_url()
+
+        except IndexError:
+            image = self.picture.url
+
+
+        return image 
 
     def sorted_notifications(self):
         return self.notifications.all().order_by('-timestamp')
