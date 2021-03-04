@@ -52,7 +52,7 @@ INSTALLED_APPS = [
     # Oauth 2 Providers
     'allauth.socialaccount.providers.google',
     'allauth.socialaccount.providers.facebook',
-    'allauth.socialaccount.providers.github', 
+    'allauth.socialaccount.providers.github',
 ]
 
 SITE_ID = 2
@@ -212,13 +212,25 @@ STATICFILES_DIRS = [
 MEDIA_ROOT = os.path.join(BASE_DIR, 'base/static/images')
 
 
+# Settings for Django Backgrounds
 MAX_ATTEMPTS = 5
 
+
+
+# Settings for Django Allauth
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
     'allauth.account.auth_backends.AuthenticationBackend'
 ]
+
+# Changing the default identifier to email instead of username
 ACCOUNT_USER_MODEL_USERNAME_FIELD = None
+
 ACCOUNT_USERNAME_REQUIRED = False
+
 ACCOUNT_EMAIL_REQUIRED = True
+
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
+
+# Change the default redirect url
+ACCOUNT_SIGNUP_REDIRECT_URL = 'users:register'

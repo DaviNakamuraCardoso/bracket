@@ -13,6 +13,7 @@ from users.data.sorted_cities import latitude_sorted
 def register_view(request):
     if request.method == "POST":
         data = request.POST
+
         # Create the user object
         user = new_user(request)
 
@@ -26,24 +27,7 @@ def register_view(request):
 
         return HttpResponseRedirect(reverse('base:index'))
 
-
-
     return render(request, 'users/register.html', FORMS_CONTEXT)
-
-
-
-def register_clinic(request):
-    form = ClinicForm()
-    if request.method == "POST":
-        clinic = new_clinic(request, request.user)
-        if request.user.is_doctor:
-            clinic.doctors.add(request.user.doctor)
-
-        return HttpResponseRedirect(reverse('base:index'))
-
-    return render(request, 'users/clinic.html', {'form': form})
-
-
 
 
 def login_view(request):
