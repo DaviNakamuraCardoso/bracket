@@ -1,193 +1,131 @@
-import setPosition from './geolocation.js';
+import positions from './geolocation.js';
+import choices from './choices.js';
+import updateCanvas from './cropper.js';
 
-document.addEventListener('DOMContentLoaded', () =>
+let TYPES = [];
+
+/**
+* @name main
+* @function
+* @global
+* @return {void}
+*/
+function main()
 {
-    let types = ['user'];
+    // Get the form container and its buttons
+    const container = document.querySelector("#main__div");
+    const buttons = container.querySelectorAll('button');
 
-    const nextButton = document.querySelector("#next");
+    for (let i = 0; i < buttons.length; i++)
+    {
+        buttons[i].onclick = () =>
+        {
+            update(i, container.querySelector('form'));
+        }
+    }
 
-    nextButton.onclick = () => {
+}
 
-        const checkBoxes = document.querySelectorAll('.checkbox-input');
-        checkBoxes.forEach(checkBox => {
 
-            const value = checkBox.value;
-            if (checkBox.checked)
-            {
-                types.push(value);
-                if (value == 'doctor')
-                {
-                    const specificForm = document.querySelector(`#${value}-form`);
-                    specificForm.innerHTML;
-                    specificForm.append(copyElement(document.getElementById(value)));
-                }
+/**
+* @name update
+* @function
+* @global
+* @return {void}
+*/
+function update(value, container)
+{
+    // Get all the templates
+    const user = element("user");
+    const doctor = element("doctor");
+    const clinic = element("clinic");
 
-            }
-        });
-        const typesInput = document.querySelector("#id_types");
-        typesInput.value = types.join();
+    // By default, all the users should see the user form
+    container.append(user);
 
-        updateChoices();
-        navigator.geolocation.getCurrentPosition(setPosition);
+    switch(value)
+    {
 
-        next(types, 0, nextButton);
+        // Only doctor
+        case 1:
+            container.append(doctor);
+            TYPES.push('doctor');
+            break;
+        // Only clinic
+        case 2:
+            container.append(clinic);
+            TYPES.push('clinic');
+            break;
+        // Both doctor and clinic
+        case 3:
+            container.append(doctor);
+            container.append(clinic);
+            TYPES.push('clinic');
+            TYPES.push('doctor');
+            break;
 
     }
-});
+
+    // Update the choice fields and location
+    choices(container);
+    navigator.geolocation.getCurrentPosition(positions);
+    updateCanvas();
+
+    load(0);
+
+}
 
 
-function next(array, index, button)
+function load(n)
 {
-    const type = array[index];
-    if (type == 'doctor' || type == 'user')
+    const forms = document.querySelectorAll('.form__container');
+    for (let i = 0; i < forms.length; i++)
     {
-        const e = document.querySelector(`#${array[index]}-form`);
-        show(e.firstElementChild);
-        
-        if (index == array.length-1 || !array.slice(index+1, array.length).includes('doctor'))
-        {
-            button.type = 'submit';
-        }
-        else
-        {
-            validate(e);
+        forms[i].style.left = `${(n-1) * 100}%`;
+    }
 
-            button.onclick = () =>
-            {
-                hide(e);
-                next(array, index+1, button);
-            }
+    const current = forms[n];
+    const next = current.querySelector(".button__next");
+
+    if (n < forms.length - 1)
+    {
+        next.onclick = () =>
+        {
+            load(n+1);
         }
     }
     else
     {
-        if (!array.slice(index, array.length).includes('doctor'))
-        {
-            button.type = 'submit';
-        }
-        else
-        {
-            next(array, index+1, button);
-        }
-    }
+        // Create an input with all the selected types
+        const input = document.createElement('input');
+        input.name = 'types';
+        input.value = TYPES.join();
 
-
-
-
-
-
-}
-
-
-function show(element)
-{
-    element.classList.toggle('hidden', false);
-}
-
-
-function hide(element)
-{
-    element.classList.toggle('hidden', true);
-}
-
-
-function copyElement(element)
-{
-    const newElement = element.cloneNode(true);
-    const descendents = newElement.getElementsByTagName("*");
-    for (var i = 0; i < descendents.length; i++)
-    {
-        var e = descendents[i];
-        if (e.id != '')
-        {
-            e.id = `${e.id}_copy`;
-        }
-    }
-    return (newElement);
-}
-
-
-function validate(element)
-{
-    const button = document.querySelector("#next");
-    const inputs = element.querySelectorAll('input');
-
-    button.disabled = true;
-    for (let i = 0; i < inputs.length; i++)
-    {
-        inputs[i].addEventListener('input', () => {
-            let values = [];
-            inputs.forEach(input => {
-                if (input.required)
-                {
-                    values.push(input.value)
-
-                }
-
-            });
-
-            button.disabled = values.includes('');
-        });
+        // Convert the next button into a submit button
+        next.type = 'submit';
     }
 }
 
 
-function updateChoices()
+/**
+* @name element
+* @function
+* @global
+* @param {string} id
+* @return {void}
+*/
+function element(id)
 {
-    const choices = document.querySelectorAll('.choices');
-    choices.forEach(choice => {
-        const divField = choice.firstElementChild;
-        const input = divField.firstElementChild;
-        const ul = choice.children[1].firstElementChild;
-        const hiddenInput = choice.lastElementChild;
-        const form = document.querySelector('#signup');
 
-        let array = [];
-        input.onchange = () => {
+    // Get the template
+    const template = document.querySelector(`#${id}__form`);
 
-            listChoices(array, input, ul);
-        }
-
-        form.addEventListener('submit', () => {
-            hiddenInput.value = array.join();
-        });
-
-
-    });
+    // Return a new node
+    return (template.content.cloneNode(true));
 }
 
 
-function listChoices(array, field, list)
-{
 
-    // Adding the field value to the list
-    array.push(field.value);
 
-    // Creating an li element to show the allergy
-    const li = document.createElement('li');
-    const btn = document.createElement('button');
-    const val = document.createElement('span');
-
-    val.innerHTML = field.value;
-    btn.innerHTML = 'x';
-
-    btn.addEventListener('click', () => {
-
-        // Deletes the list element when clicked
-        const element = btn.parentElement;
-        const v = element.firstChild;
-        const index = array.indexOf(v.innerHTML);
-
-        array.splice(index, 1);
-        element.remove();
-    });
-
-    // Adding the allergy to the list
-    li.append(val);
-    li.append(btn);
-    list.append(li);
-
-    // Reset the field value
-    field.value = '';
-    console.log(array);
-}
+// Call the main function
+main();

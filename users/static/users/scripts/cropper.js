@@ -19,12 +19,6 @@
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
-document.addEventListener("DOMContentLoaded", () => {
-	updateCanvas();
-});
-
-
 (function(cropper, undefined) {
 	"use strict"; // helps us catch otherwise tricky bugs
 
@@ -518,9 +512,10 @@ document.addEventListener("DOMContentLoaded", () => {
 }(window.cropper = window.cropper || {}));
 
 
-function updateCanvas()
+export default function updateCanvas()
 {
 	const canvases = document.querySelectorAll('.canvas');
+	console.log(canvases);
 
 	canvases.forEach(canvas => {
 		cropper.start(canvas, 1);

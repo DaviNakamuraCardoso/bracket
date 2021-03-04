@@ -1,11 +1,11 @@
 /**
-* @name setPosition
+* @name locations
 * @function
 * @global
 * @param {Object} position - Object containing the info about the user location
 * @return {void} - Selects the city input datalist and fills with the results
 */
-export default function setPosition(position)
+export default function locations(position)
 {
     // Get both coordinates we need
     let lat = position.coords.latitude;
@@ -23,7 +23,6 @@ export default function setPosition(position)
         const cities = result.cities;
 
         // Get the form and the select fields
-        const form = document.querySelector("form");
         const selects = document.querySelectorAll(".city-field");
 
         // For each input field adds all the cities
@@ -38,7 +37,7 @@ export default function setPosition(position)
                 option.value = city['id'];
 
                 // Adding the element to the select field
-                select.add(option);
+                select.append(option);
 
             });
 
