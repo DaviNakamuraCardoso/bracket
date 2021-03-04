@@ -1,22 +1,22 @@
-{% extends 'base/layout.html' %}
-{% load static %}
-
-{% block head %}
-    <script src="{% static 'users/scripts/clinic.js' %}" type="module"></script>
-    <script src="{% static 'users/scripts/cropper.js' %}"></script>
-    <link href="{% static 'users/styles/css/forms.css' %}" rel="stylesheet">
 
 
+<div class="form__container">
+    <div class="form__form">
 
-{% endblock %}
+        {% for field in form %}
+            <div class="form-wrapper">
+                <div class="field register">
+                    {{ field }}
+                    <label for="{{ field.id_for_label }}" class="label-field">
+                        <span class="content-label">{{ field.label }}</span>
+                    </label>
+                </div>
+            </div>
 
+        {% endfor %}
 
-{% block body %}
-    <form method="POST" enctype="multipart/form-data" class="form">
-        {% csrf_token %}
-        {% include 'users/clinic-form.html' %}
-        <input type="submit">
+        {% include 'users/image-picker.html' with type="clinic" %}
+        <button type="button" name="button" class="button__next">Next</button>
 
-    </form>
-
-{% endblock %}
+    </div>
+</div>

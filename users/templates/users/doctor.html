@@ -1,0 +1,49 @@
+<div class="form__container">
+    <div class="form__form">
+        <div class="form-wrapper">
+            <div class="field">
+                {{ doctor_form.degree }}
+                <label for="{{ doctor_form.degree.id_for_label }}" class="label-field">
+                    <span class="content-label">{{ doctor_form.degree.label }}</span>
+                </label>
+
+            </div>
+
+
+        </div>
+        <div class="form-wrapper">
+            <div class="field">
+                {{ doctor_form.number }}
+                <label for="{{ doctor_form.number.id_for_label }}" class="label-field">
+                    <span class="content-label">{{ doctor_form.number.label }}</span>
+                </label>
+
+            </div>
+
+
+        </div>
+        <div class="choices">
+            <div class="field">
+                {{ doctor_form.choices_areas }}
+                <label for="{{ doctor_form.city.id_for_label }}" class="label-field">
+                    <span class="content-label">{{ doctor_form.choices_areas.label }}</span>
+                </label>
+
+            </div>
+            <div class="form-list">
+                <ul class="form-ul"></ul>
+            </div>
+            {{ doctor_form.areas }}
+
+
+        </div>
+        <div class="form-wrapper">
+            {{ doctor_form.city }}
+            <label for="{{ doctor_form.city.id_for_label }}" class="label-field">
+                <span class="content-label">{{ doctor_form.city.label }}</span>
+            </label>
+        </div>
+    <button type="button" name="button" class="button__next">Next</button>
+    </div>
+
+</div>
