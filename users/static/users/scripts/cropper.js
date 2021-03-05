@@ -18,40 +18,75 @@
 * You should have received a copy of the GNU General Public License
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+const COLORS = {
+	white: "#ffffff",
+	black: "#000000",
+	overlay: "rgba(0, 0, 0, 0.6)"
+};
 
-(function(cropper, undefined) {
-	"use strict"; // helps us catch otherwise tricky bugs
+class Canvas
+{
+	constructor(element)
+	{
+		this.element = element;
+		this.image;
+		this.restoreImage;
+		this.cropping = false;
+		this.context = this.element.getContext("2d");
+		this.currentDimens = {};
+		this.overlay =
+		{
+			x: 50,
+			y: 50,
+			width: 400,
+			height: 400,
+			resizerSide: 10,
+			ratioXY: 1
+		};
+		this.drag = {
+			type: "", // options: "moveOverlay", "resizeOverlay"
+			inProgress: false,
+			originalOverlayX: 0,
+			originalOverlayY: 0,
+			originalX: 0,
+			originalY: 0,
+			originalOverlayWidth: 0,
+			originalOverlayHeight: 0
+		};
 
-	/* DRAWING STUFF */
-	let canvas;
-	let context;
-
-	let image;
-	let restoreImage;
-	let currentDimens = {};
-	let cropping = false;
-
-	let colors = {
-
-		white: "#ffffff",
-		black: "#000000",
-		overlay: "rgba(0, 0, 0, 0.6)"
 	};
 
-	let overlay;
+	start()
+	{
+		// only continue if an image is loaded
+		if(this.image === undefined) {
+			return false;
+		}
 
-	function draw() {
+		// save the current state
+		this.restoreImage = new Image();
+		this.restoreImage.src = this.image.src;
+
+		cropping = true;
+		this.draw();
+
+
+		return true;
+	};
+
+	draw()
+	{
 		// clear the canvas
-		context.clearRect(0, 0, canvas.width, canvas.height);
+		this.context.clearRect(0, 0, canvas.width, canvas.height);
 
 		// if we don't have an image file, abort the draw at this point
-		if(image === undefined) {
+		if(this.image === undefined) {
 			return;
 		}
 
 		// draw the image
-		let dimens = currentDimens;
-		context.drawImage(image, 0, 0, dimens.width, dimens.height);
+		let dimens = this.currentDimens;
+		this.context.drawImage(image, 0, 0, dimens.width, dimens.height);
 
 		// draw cropping stuff if we are cropping
 		if(cropping) {
@@ -60,65 +95,59 @@
 
 			// draw the resizer
 			let x = overlay.x + overlay.width - 5,
-				y = overlay.y + overlay.height - 5,
-				w = overlay.resizerSide,
-				h = overlay.resizerSide;
+			y = overlay.y + overlay.height - 5,
+			w = overlay.resizerSide,
+			h = overlay.resizerSide;
 
 			context.save();
-			context.fillStyle = colors.black;
-			context.strokeStyle = colors.white;
+			context.fillStyle = COLORS.black;
+			context.strokeStyle = COLORS.white;
 			context.fillRect(x, y, w, h);
 			context.strokeRect(x, y, w, h);
 			context.restore();
 		}
 	}
 
-	function drawOverlay() {
+	drawOverlay() {
 		// draw the overlay using a path made of 4 trapeziums (ahem)
-		context.save();
+		this.context.save();
 
-		context.fillStyle = colors.overlay;
-		context.beginPath();
+		this.context.fillStyle = COLORS.overlay;
+		this.context.beginPath();
+		this.context.moveTo(0, 0);
+		this.context.lineTo(overlay.x, overlay.y);
+		this.context.lineTo(overlay.x + overlay.width, overlay.y);
+		this.context.lineTo(canvas.width, 0);
+		this.context.moveTo(canvas.width, 0);
+		this.context.lineTo(overlay.x + overlay.width, overlay.y);
+		this.context.lineTo(overlay.x + overlay.width, overlay.y + overlay.height);
+		this.context.lineTo(canvas.width, canvas.height);
+		this.context.moveTo(canvas.width, canvas.height);
+		this.context.lineTo(overlay.x + overlay.width, overlay.y + overlay.height);
+		this.context.lineTo(overlay.x, overlay.y + overlay.height);
+		this.context.lineTo(0, canvas.height);
+		this.context.moveTo(0, canvas.height);
+		this.context.lineTo(overlay.x, overlay.y + overlay.height);
+		this.context.lineTo(overlay.x, overlay.y);
+		this.context.lineTo(0, 0);
 
-		context.moveTo(0, 0);
-		context.lineTo(overlay.x, overlay.y);
-		context.lineTo(overlay.x + overlay.width, overlay.y);
-		context.lineTo(canvas.width, 0);
-
-		context.moveTo(canvas.width, 0);
-		context.lineTo(overlay.x + overlay.width, overlay.y);
-		context.lineTo(overlay.x + overlay.width, overlay.y + overlay.height);
-		context.lineTo(canvas.width, canvas.height);
-
-		context.moveTo(canvas.width, canvas.height);
-		context.lineTo(overlay.x + overlay.width, overlay.y + overlay.height);
-		context.lineTo(overlay.x, overlay.y + overlay.height);
-		context.lineTo(0, canvas.height);
-
-		context.moveTo(0, canvas.height);
-		context.lineTo(overlay.x, overlay.y + overlay.height);
-		context.lineTo(overlay.x, overlay.y);
-		context.lineTo(0, 0);
-
-		context.fill();
-
-		context.restore();
+		this.context.fill();
+		this.context.restore();
 	}
 
-	function setRatio(ratio) {
-		overlay.ratioXY = ratio;
-		overlay.height = Math.floor(overlay.width * ratio);
+	setRatio(ratio) {
+		this.overlay.ratioXY = ratio;
+		this.overlay.height = Math.floor(this.overlay.width * ratio);
 	}
-
-	function getScaledImageDimensions(width, height) {
+	getScaledImageDimensions(width, height) {
 		// choose the dimension to scale to, depending on which is "more too big"
 		let factor = 1;
-		if((canvas.width - width) < (canvas.height - height)) {
+		if((this.element.width - width) < (this.element.height - height)) {
 			// scale to width
-			factor = canvas.width / width;
+			factor = this.element.width / width;
 		} else {
 			// scale to height
-			factor = canvas.height / height;
+			factor = this.element.height / height;
 		}
 		// important "if,else" not "if,if" otherwise 1:1 images don't scale
 
@@ -130,9 +159,8 @@
 
 		return dimens;
 	}
-
-	function getTouchPos(touchEvent) {
-		let rect = canvas.getBoundingClientRect();
+	getTouchPos(touchEvent) {
+		let rect = this.element.getBoundingClientRect();
 
 		return {
 			x: touchEvent.touches[0].clientX - rect.left,
@@ -140,40 +168,44 @@
 		};
 	}
 	/**
-	 * @param {Number} x position mouse / touch client event
-	 * @param {Number} y position mouse / touch client event
-	 */
-	function getClickPos({x, y}) {
+	* @param {Number} x position mouse / touch client event
+	* @param {Number} y position mouse / touch client event
+	*/
+	getClickPos({x, y}) {
 		return {
 			x : x - window.scrollX,
 			y : y - window.scrollY
 		}
 	}
-
-	function isInOverlay(x, y) {
-		return x > overlay.x && x < (overlay.x + overlay.width) && y > overlay.y && y < (overlay.y + overlay.height);
+	isInOverlay(x, y) {
+		return x > this.overlay.x && x < (this.overlay.x + this.overlay.width) && y > this.overlay.y && y < (this.overlay.y + this.overlay.height);
 	}
 
-	function isInHandle(x, y) {
-		return x > (overlay.x + overlay.width - overlay.resizerSide) && x < (overlay.x + overlay.width + overlay.resizerSide) && y > (overlay.y + overlay.height - overlay.resizerSide) && y < (overlay.y + overlay.height + overlay.resizerSide);
+	isInHandle(x, y) {
+		return x > (this.overlay.x + this.overlay.width - this.overlay.resizerSide) && x < (this.overlay.x + this.overlay.width + this.overlay.resizerSide) && y > (this.overlay.y + this.overlay.height - this.overlay.resizerSide) && y < (this.overlay.y + this.overlay.height + this.overlay.resizerSide);
 	}
+
+}
+
+function start(canvas) {
+	"use strict"; // helps us catch otherwise tricky bugs
+
+
+
+
+
+
+
+
+
 
 	/* EVENT LISTENER STUFF */
-	let drag = {
-		type: "", // options: "moveOverlay", "resizeOverlay"
-		inProgress: false,
-		originalOverlayX: 0,
-		originalOverlayY: 0,
-		originalX: 0,
-		originalY: 0,
-		originalOverlayWidth: 0,
-		originalOverlayHeight: 0
-	};
+
 
 	/**
-	 * @param {Number} x position mouse / touch client event
-	 * @param {Number} y position mouse / touch client event
-	 */
+	* @param {Number} x position mouse / touch client event
+	* @param {Number} y position mouse / touch client event
+	*/
 	function initialCropOrMoveEvent({x, y}) {
 		// if the mouse clicked in the overlay
 		if(isInOverlay(x, y)) {
@@ -194,10 +226,10 @@
 	}
 
 	/**
-	 * @param {Number} x horizontal position mouse or touch event
-	 * @param {Number} y vertical position mour or touch event
-	 * @description this function will be crop image inside canvas
-	 */
+	* @param {Number} x horizontal position mouse or touch event
+	* @param {Number} y vertical position mour or touch event
+	* @description this function will be crop image inside canvas
+	*/
 	function startCropOrMoveEvent({x, y}) {
 
 		// Set current cursor as appropriate
@@ -375,22 +407,7 @@
 		image.src = src;
 	};
 
-	cropper.startCropping = function() {
-		// only continue if an image is loaded
-		if(image === undefined) {
-			return false;
-		}
 
-		// save the current state
-		restoreImage = new Image();
-		restoreImage.src = image.src;
-
-		cropping = true;
-		draw();
-
-
-		return true;
-	};
 
 	cropper.getCroppedImageSrc = function() {
 		if(image) {
@@ -411,7 +428,6 @@
 			canvasDiv.querySelector(".size").value = Math.round(valueSize);
 			canvasDiv.querySelector(".picture-x").value = Math.round(valueX);
 			canvasDiv.querySelector(".picture-y").value = Math.round(valueY);
-			console.log(canvas);
 
 			// show the new image, only bother doing this if it isn't already displayed, ie, we are cropping
 			if(cropping) {
@@ -454,15 +470,7 @@
 		context = canvas.getContext("2d");
 
 		// Set default overlay position
-		overlay = {
-			x: 50,
-			y: 50,
-			width: 400,
-			height: 400,
-			resizerSide: 10,
-			ratioXY: 1
-		}
-
+		overlay =
 		// set up the overlay ratio
 		if(ratio) {
 			setRatio(ratio);
@@ -515,7 +523,6 @@
 export default function updateCanvas()
 {
 	const canvases = document.querySelectorAll('.canvas');
-	console.log(canvases);
 
 	canvases.forEach(canvas => {
 		cropper.start(canvas, 1);
