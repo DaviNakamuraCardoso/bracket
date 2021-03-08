@@ -111,12 +111,6 @@ def new_doctor(request, user):
             for area in data['areas'].split(','):
                 doctor.areas.add(Area.objects.get(area=area))
 
-        rate = Rate.objects.create(
-            rating=5,
-            doctor=doctor
-        )
-        rate.users.add(user)
-        rate.save()
 
         return doctor
     return None
@@ -125,6 +119,9 @@ def new_doctor(request, user):
 def new_clinic(request, user):
 
     data = request.POST
+
+    if not 'clinic' in data['types'].split(','):
+        return None
     clinic = Clinic.objects.create(
         admin=user,
         name=data['clinic_name'],
@@ -135,13 +132,12 @@ def new_clinic(request, user):
         address=data['clinic_address']
 
     )
-    clinic.picture = handle_uploaded_file(request.POST, request.FILES['clinic-picture'], clinic, 'clinic-picture')
+    if picture := request.FILES['clinic-picture']:
 
-    rate = Rate.objects.create(rating=5, clinic=clinic)
+        clinic.picture = handle_uploaded_file(request.POST, picture, clinic, 'clinic-picture')
 
-    rate.users.add(user)
 
-    rate.save()
+
     clinic.save()
 
     return clinic

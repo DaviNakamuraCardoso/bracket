@@ -5,6 +5,8 @@
 
 {% block head %}
     <link rel="stylesheet" href="{% static 'users/styles/css/forms.css' %}">
+    <link rel="stylesheet" href="{% static 'users/styles/css/register.css' %}">
+    <link rel="stylesheet" href="{% static 'users/styles/css/cropper.css' %}">
     <script type="module" src="{% static 'users/scripts/register.js' %}" defer></script>
 {% endblock %}
 
@@ -35,7 +37,7 @@
     </template>
 
     <template id="clinic__form">
-        {% include 'users/clinic.html' %}
+        {% include 'users/clinic.html' with form=clinic_form%}
     </template>
 
 

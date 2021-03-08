@@ -1,10 +1,6 @@
 <div class="form__container">
     <div class="form__form">
-        {% if user.image is None %}
-            {% include 'users/image-picker.html' %}
-        {% endif %}
-        <input list="data" name="" value="">
-        <datalist class="city-field"></datalist>
+        <select class="city-field" id="data"></select>
         <button type="button" name="button" class="button__next">Next</button>
     </div>
 </div>

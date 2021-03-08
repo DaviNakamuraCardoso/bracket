@@ -23,17 +23,17 @@ def signup_view(request):
 def register_view(request):
     if request.method == "POST":
         data = request.POST
+        user = request.user
 
-        # Create the user object
-        user = new_user(request)
 
         # Attempt to create all the different types of users
         doctor = new_doctor(request, user)
         patient = new_patient(request, user)
+        clinic = new_clinic(request, user)
 
-        login(request, user)
-        if 'clinic' in data['types'].split(','):
-            return HttpResponseRedirect(reverse('users:clinic'))
+        if doctor is not None and clinic is not None:
+            clinic.doctors.add(doctor)
+
 
         return HttpResponseRedirect(reverse('base:index'))
 

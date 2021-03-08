@@ -1,6 +1,6 @@
 import positions from './geolocation.js';
 import choices from './choices.js';
-import updateCanvas from './cropper.js';
+import cropexp from './cropper.js';
 
 let TYPES = [];
 
@@ -69,7 +69,7 @@ function update(value, container)
     // Update the choice fields and location
     choices(container);
     navigator.geolocation.getCurrentPosition(positions);
-    updateCanvas();
+    cropexp(); 
 
     load(0);
 
@@ -81,7 +81,7 @@ function load(n)
     const forms = document.querySelectorAll('.form__container');
     for (let i = 0; i < forms.length; i++)
     {
-        forms[i].style.left = `${(n-1) * 100}%`;
+        forms[i].style.left = `${(n-i) * 100}%`;
     }
 
     const current = forms[n];
@@ -98,8 +98,10 @@ function load(n)
     {
         // Create an input with all the selected types
         const input = document.createElement('input');
+
         input.name = 'types';
         input.value = TYPES.join();
+        current.append(input);
 
         // Convert the next button into a submit button
         next.type = 'submit';

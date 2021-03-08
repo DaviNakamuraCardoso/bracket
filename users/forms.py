@@ -62,5 +62,6 @@ FORMS_CONTEXT = {
     'form': PatientForm(),
     'user_form': UserForm(),
     'doctor_form': DoctorForm(),
+    'clinic_form': ClinicForm(),
     'checkbox': CheckBox()
 }

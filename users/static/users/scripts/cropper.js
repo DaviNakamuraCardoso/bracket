@@ -729,4 +729,9 @@ function main()
 	}
 }
 
-main();
+document.addEventListener("DOMContentLoaded", main);
+
+export default function cropexp()
+{
+	main();
+}
