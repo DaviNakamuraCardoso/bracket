@@ -8,7 +8,17 @@ from users.data.time import get_calendar
 from users.models import City
 from users.forms import FORMS_CONTEXT, LoginForm, ClinicForm
 from users.data.sorted_cities import latitude_sorted
+from django.conf import settings
 # Create your views here.
+
+def signup_view(request):
+    if request.method == 'POST':
+        user = new_user(request)
+
+        login(request=request, user=user, backend=settings.AUTHENTICATION_BACKENDS[0])
+        return HttpResponseRedirect(reverse('users:register'))
+
+    return render(request, 'users/signup.html', FORMS_CONTEXT)
 
 def register_view(request):
     if request.method == "POST":

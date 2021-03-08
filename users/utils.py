@@ -1,6 +1,6 @@
 from users.models import User, City
 from clinics.models import Clinic
-from doctors.models import Doctor, Area 
+from doctors.models import Doctor, Area
 from patients.models import Patient, Allergy, Medication, Condition
 from django.conf import settings
 from PIL import Image
@@ -37,11 +37,9 @@ def new_user(request):
     data = request.POST
 
     # Create the basic user model
-    types = data['types'].split(',')
     user = User.objects.create_user(
         password=data['password'],
         email=data['email'],
-        is_doctor='doctor' in types,
         city=City.objects.get(pk=data['city']),
         first_name=data['first_name'],
         last_name=data['last_name'],
@@ -51,7 +49,7 @@ def new_user(request):
 
     if picture := request.FILES['user-picture']:
 
-        user.picture = handle_uploaded_file(request.POST, picture, user, 'user')
+        user.picture = handle_uploaded_file(request.POST, picture, user, 'user-picture')
 
     user.save()
 
@@ -137,7 +135,7 @@ def new_clinic(request, user):
         address=data['clinic_address']
 
     )
-    clinic.picture = handle_uploaded_file(request.POST, request.FILES['clinic-picture'], clinic, 'clinic')
+    clinic.picture = handle_uploaded_file(request.POST, request.FILES['clinic-picture'], clinic, 'clinic-picture')
 
     rate = Rate.objects.create(rating=5, clinic=clinic)
 
@@ -149,19 +147,21 @@ def new_clinic(request, user):
     return clinic
 
 
-def handle_uploaded_file(data, file, model, model_type):
+def handle_uploaded_file(data, file, model, name):
     # Get a unique filename based on the model name and the extension
     extension = file.__str__().split('.')[-1]
     filename = f"{model.identifier()}_picture.{extension}"
 
     # Read the file with the image reader and crops it
     image_reader = Image.open(file)
-    size = min(max(16, int(data['size'])), min(image_reader.height, image_reader.width))
-    x = min(max(0, int(data[f'{model_type}-picture-x'])), image_reader.width-size)
-    y = min(max(0, int(data[f'{model_type}-picture-y'])), image_reader.height-size)
+    width = min(max(16, int(data[f'{name}-width'])), image_reader.width)
+    height = min(max(16, int(data[f'{name}-height'])), image_reader.height)
+    x = min(max(0, int(data[f'{name}-picture-x'])), image_reader.width-width)
+    y = min(max(0, int(data[f'{name}-picture-y'])), image_reader.height-height)
 
 
-    cropped = image_reader.crop((x, y, x+size, y+size))
+    cropped = image_reader.crop((x, y, x+width, y+height))
+
     cropped.save(os.path.join(settings.MEDIA_ROOT, filename))
 
     return filename

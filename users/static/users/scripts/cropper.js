@@ -18,6 +18,7 @@
 * You should have received a copy of the GNU General Public License
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 const COLORS = {
 	white: "#ffffff",
 	black: "#000000",
@@ -48,7 +49,7 @@ HTMLCanvasElement.prototype.getMouseCoords = function(event){
 
 class Canvas
 {
-	constructor(element)
+	constructor({element, ratioX, ratioY})
 	{
 		this.element = element;
 		this.image = undefined;
@@ -56,14 +57,21 @@ class Canvas
 		this.cropping = false;
 		this.context = this.element.getContext("2d");
 		this.currentDimens = {};
+		this.valueX = 0;
+		this.valueY = 0;
+		this.valueWidth = 0;
+		this.valueHeight = 0;
+		this.ratioX = ratioX || 1;
+		this.ratioY = ratioY || 1;
+
 		this.overlay =
 		{
 			x: 50,
 			y: 50,
-			width: 400,
-			height: 400,
+			width: this.element.width * 0.6,
+			height: this.element.height * 0.6,
 			resizerSide: 10,
-			ratioXY: 1
+			ratioXY: this.ratioY / this.ratioX
 		};
 
 		this.drag = {
@@ -76,6 +84,7 @@ class Canvas
 			originalOverlayWidth: 0,
 			originalOverlayHeight: 0
 		};
+		this.start(this.ratioY / this.ratioX);
 
 	};
 
@@ -104,16 +113,6 @@ class Canvas
 		}
 
 		this.context = this.element.getContext("2d");
-		
-		// Set default overlay position
-		this.overlay = {
-			x: 50,
-			y: 50,
-			width: 400,
-			height: 400,
-			resizerSide: 10,
-			ratioXY: 1
-		}
 
 		// set up the overlay ratio
 		if(this.ratio) {
@@ -447,19 +446,18 @@ class Canvas
 			let cropCanvas = this.cropImage(!this.cropping); // cropping here controls if we get the entire image or not, desirable if the user is not cropping
 			let url = cropCanvas.toDataURL("png");
 
-			let valueSize = (this.overlay.width * this.image.width / this.currentDimens.width);
-			let valueX = (this.overlay.x * this.image.width / this.currentDimens.width);
-			let valueY = (this.overlay.y * this.image.height / this.currentDimens.height);
+			this.valueWidth = (this.overlay.width * this.image.width / this.currentDimens.width);
+			this.valueHeight = (this.overlay.height * this.image.height / this.currentDimens.height);
+		 	this.valueX = (this.overlay.x * this.image.width / this.currentDimens.width);
+			this.valueY = (this.overlay.y * this.image.height / this.currentDimens.height);
 
-			console.log(valueSize);
-			console.log(valueX);
-			console.log(valueY);
+
 
 			const canvasDiv = this.element.parentElement;
 
-			canvasDiv.querySelector(".size").value = Math.round(valueSize);
-			canvasDiv.querySelector(".picture-x").value = Math.round(valueX);
-			canvasDiv.querySelector(".picture-y").value = Math.round(valueY);
+			// canvasDiv.querySelector(".size").value = Math.round(valueSize);
+			// canvasDiv.querySelector(".picture-x").value = Math.round(valueX);
+			// canvasDiv.querySelector(".picture-y").value = Math.round(valueY);
 
 			// show the new image, only bother doing this if it isn't already displayed, ie, we are cropping
 			if(this.cropping) {
@@ -509,28 +507,169 @@ class Canvas
 		this.startCropping();
 		return true;
 	};
-
-
-
-
 }
 
 
-export default function updateCanvas()
+function main()
 {
-	const canvases = document.querySelectorAll('.canvas');
+	const croppers = document.querySelectorAll('._cropper');
 
-	for (let i = 0; i < canvases.length; i++)
+
+	for (let i = 0; i < croppers.length; i++)
 	{
-		const canvas = new Canvas(canvases[i]);
+		// Create the canvas element
+		const dimensions = window.getComputedStyle(croppers[i]);
+		const cropperHeight = (parseInt(dimensions.height) == 0) ? 600 : 0.7 * parseInt(dimensions.height);
+		const cropperWidth = (parseInt(dimensions.width) == 0) ? 600 : 0.7 * parseInt(dimensions.width);
 
-		canvas.start(1);
+		// Get the cropper dimension
+		const dimension = Math.max(100, Math.min(cropperHeight, cropperWidth));
+		const canvasElement = document.createElement('canvas');
 
-		let canvasDiv = canvas.element.parentElement;
-    	const input  = canvasDiv.querySelector(".fileInput");
+		// Ratio X and Y, if any
+		const ratioX = croppers[i].dataset.ratiox || 1;
+		const ratioY = croppers[i].dataset.ratioy || 1;
+
+		// Setting the canvas to fit the ratio
+		canvasElement.width = dimension * Math.min(1, ratioX / ratioY);
+		canvasElement.height = dimension * Math.min(1, ratioY / ratioX);
+
+		// Base class and hidden
+		canvasElement.className = '_canvas';
+
+		const buttonContainer = document.createElement('div');
+		const htmlDoc = document.querySelector('html');
 
 
+		// Create the crop button
+		const crop = document.createElement('button');
+		const cropSpan = document.createElement('span');
+		const cropContent = document.createElement('span');
+
+		// Restore button
+		const restore = document.createElement('button');
+		const restoreSpan = document.createElement('span');
+		const restoreContent = document.createElement('span');
+
+		// Image input
+		const input = document.createElement('input');
+		const label = document.createElement('label');
+		const labelContent = document.createElement('span');
+		const labelSpan = document.createElement('span');
+
+		// Image properties for the server
+		const x = document.createElement('input');
+		const y = document.createElement('input');
+		const width = document.createElement('input');
+		const height = document.createElement('input');
+
+		// Set all input types to hidden
+		x.type = 'hidden';
+		y.type = 'hidden';
+		width.type = 'hidden';
+		height.type = 'hidden';
+
+
+		// Save button
+		const save = document.createElement('button');
+
+
+		// Edit button
+		const edit = document.createElement('button');
+		const editSpan = document.createElement('span');
+		const editContent = document.createElement('span');
+
+
+		// Div to wrap the content
+		const content = document.createElement('div');
+
+		// Input name
+		input.name = croppers[i].dataset.name || `croppedImage${i}`;
+		input.id = input.name;
+
+		x.name = `${input.name}-picture-x`;
+		y.name = `${input.name}-picture-y`;
+		width.name = `${input.name}-width`;
+		height.name = `${input.name}-height`;
+
+		// Adding types
+		crop.type = 'button';
+		restore.type = 'button';
+		edit.type = 'button';
+		save.type = 'button';
+		input.type = 'file';
+		label.htmlFor = input.id;
+
+
+		// class names
+		content.className = 'cropper__content';
+
+		cropSpan.className = 'material-icons';
+		restoreSpan.className = 'material-icons';
+		labelSpan.className = 'material-icons';
+		editSpan.className = 'material-icons';
+
+		save.className = 'cropper__button';
+		restore.className = 'cropper__button';
+		crop.className = 'cropper__button';
+
+		edit.className = 'cropper__button--edit';
+
+
+		// Inner HTML
+		cropContent.innerHTML = 'Crop';
+		cropSpan.innerHTML = 'crop';
+
+
+		restoreContent.innerHTML = 'Restore';
+		restoreSpan.innerHTML = 'restore';
+
+		labelContent.innerHTML = 'Upload Image';
+		labelSpan.innerHTML = 'file_upload';
+
+		editContent.innerHTML = 'Edit';
+		editSpan.innerHTML = 'edit';
+
+
+		save.innerHTML = 'Save';
+
+		// Appending
+		label.append(labelSpan);
+		label.append(labelContent);
+
+		crop.append(cropSpan);
+		crop.append(cropContent);
+
+		restore.append(restoreSpan);
+		restore.append(restoreContent);
+
+		edit.append(editSpan);
+		edit.append(editContent);
+
+		buttonContainer.append(input);
+		buttonContainer.append(label);
+		buttonContainer.append(crop);
+		buttonContainer.append(restore);
+		buttonContainer.append(edit);
+		buttonContainer.append(x);
+		buttonContainer.append(y);
+		buttonContainer.append(width);
+		buttonContainer.append(height);
+
+		// Appending all the elements to the main div
+		content.append(canvasElement);
+		content.append(buttonContainer);
+		content.append(save);
+
+
+		croppers[i].append(content);
+
+
+		const canvas = new Canvas({element: canvasElement, ratioX: ratioX, ratioY:ratioY});
+
+		// Input event Listeners
 		input.onchange = () => {
+
 			// this function will be called when the file input below is changed
 			let file = input.files[0];  // get a reference to the selected file
 
@@ -545,17 +684,49 @@ export default function updateCanvas()
 			reader.readAsDataURL(file); // this loads the file as a data url calling the function above once done
 
 		}
-		const crop = canvasDiv.querySelector(".crop");
-		const restore = canvasDiv.querySelector(".restore");
+
+		label.onclick = () => {
+			canvasElement.style.display = 'block';
+			croppers[i].classList.toggle('show__canvas', true);
+			croppers[i].classList.toggle('show__image', false);
+			htmlDoc.classList.toggle('no_scroll', true);
+			canvas.restore();
+		}
 
 		crop.onclick = () => {
 			canvas.getCroppedImageSrc();
+			croppers[i].classList.toggle('show__canvas', true);
+			x.value = canvas.valueX;
+			y.value = canvas.valueY;
+			width.value = canvas.valueWidth;
+			height.value = canvas.valueHeight;
 		}
 
 		restore.onclick = () => {
 			canvas.restore();
+			croppers[i].classList.toggle('show__canvas', true);
 		}
 
-	}
+		save.onclick = () => {
+			canvas.getCroppedImageSrc();
+			croppers[i].classList.toggle('show__canvas', false);
+			croppers[i].classList.toggle('show__image', true);
+			htmlDoc.classList.toggle('no_scroll', false);
+			x.value = parseInt(canvas.valueX);
+			y.value = parseInt(canvas.valueY);
+			width.value = parseInt(canvas.valueWidth);
+			height.value = parseInt(canvas.valueHeight);
 
+		}
+
+		edit.onclick = () => {
+			croppers[i].classList.toggle('show__canvas', true);
+			croppers[i].classList.toggle('show__image', false);
+			htmlDoc.classList.toggle('no_scroll', true);
+
+			canvas.restore();
+		}
+	}
 }
+
+main();

@@ -1,48 +1,54 @@
+{% extends 'base/layout.html' %}
+
 {% load socialaccount %}
 {% load static %}
 
-<div class="signup__container">
 
-    <link rel="stylesheet" href="{% static 'users/styles/css/forms.css' %}">
-    <link rel="stylesheet" href="{% static 'base/styles/css/checkbox.css' %}">
-    <script type="module" src="{% static 'users/scripts/register.js' %}"></script>
+{% block head %}
+    <script type="module" src="{% static 'users/scripts/signup.js' %}" defer></script>
+    <script type="module" src="{% static 'users/scripts/cropper.js' %}" defer></script>
+    <link rel="stylesheet" href="{% static 'users/styles/css/cropper.css' %}">
 
-    <a href="{% provider_login_url "facebook" method="oauth2" %}">Facebrooklyn Officiall</a>
-    <a href="{% provider_login_url 'google' %}">GUGOU</a>
-    <a href="{% provider_login_url 'github' %}">GitHub</a>
+{% endblock %}
 
-    <form class="register" action="{% url 'users:register' %}" method="POST" enctype="multipart/form-data" id="signup">
-        {{ checkbox.types }}
-        <div class="checkbox-container">
-            {% for title, value in checkbox.checkbox.field.choices %}
-            <div class="checkbox-div">
-                <label class="checkbox-label">
-                    <input type="checkbox" value="{{ value }}" class="checkbox-input" id="checkbox_{{ value }}">
-                    <span class="checkbox-span">{{ title }}</span>
-                </label>
-            </div>
-            {% endfor %}
+{% block title %}
+    Signup
+{% endblock %}
 
-        </div>
-        {% csrf_token %}
-        <div id="user-form">
-            <div class='hidden user-form'>
-                {% for field in user_form %}
-                <div class="form-wrapper">
-                    <div class="field">
-                        {{ field }}
-                        <label for="{{ field.id_for_label }}" class="label-field">
-                            <span class="content-label">{{ field.label }}</span>
-                        </label>
+{% block body %}
+
+    <div class="signup__container">
+
+        <link rel="stylesheet" href="{% static 'users/styles/css/forms.css' %}">
+
+        <a href="{% provider_login_url "facebook" method="oauth2" %}">Facebrooklyn Officiall</a>
+        <a href="{% provider_login_url 'google' %}">GUGOU</a>
+        <a href="{% provider_login_url 'github' %}">GitHub</a>
+
+        <h3>OR</h3>
+
+        <button type="button" name="button">Login here</button>
+
+        <form class="register" action="{% url 'users:signup' %}" method="POST" enctype="multipart/form-data" id="signup">
+            {% csrf_token %}
+            <div id="user-form">
+                    {% for field in user_form %}
+                    <div class="form-wrapper">
+                        <div class="field">
+                            {{ field }}
+                            <label for="{{ field.id_for_label }}" class="label-field">
+                                <span class="content-label">{{ field.label }}</span>
+                            </label>
+                        </div>
+
                     </div>
 
-                </div>
+                    {% endfor %}
+                    <div class="_cropper" data-name='user-picture'></div>
 
-                {% endfor %}
-
-                {% include 'users/image-picker.html' with type="user" %}
 
             </div>
-        </div>
-    </form>
-</div>
+            <input type="submit" name="" value="Join">
+        </form>
+    </div>
+{% endblock %}
