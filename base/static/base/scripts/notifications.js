@@ -1,4 +1,5 @@
 import dropNode from './main.js';
+import ping from './message.js';
 
 let LAST = 0;
 
@@ -37,9 +38,12 @@ function update()
     const replyButtons = document.querySelectorAll('.drop__button');
 
     // For all of them, listen for replies
-    replyButtons.forEach(replyButton => {
-        listenForReply(replyButton);
-    });
+    for (let j = 0; j < replyButtons.length; j++)
+    {
+        listenForReply(replyButtons[j], Math.floor(j / 2));
+
+    }
+
     const id = (notifications.length > 0) ? notifications[0].id.split("__")[1] : 0;
 
     return (id);
@@ -47,10 +51,10 @@ function update()
 }
 
 
-function listenForReply(replyButton)
+function listenForReply(replyButton, index)
 {
     // Notification container
-    const dropItem = replyButton.parentElement.parentElement.parentElement;
+    const dropItem = document.querySelectorAll('.drop__back')[index];
 
     // Value can be 'accept' or 'deny'
     const value = replyButton.dataset.val;
@@ -80,7 +84,10 @@ function listenForReply(replyButton)
         })
         .then(response => response.json())
         .then(result => {
-            console.log(result.message);
+            ping(result.message);
+            toggleNotification(index, false);
+            let dropFront = document.querySelectorAll('.drop__notification')[index];
+            dropFront.remove();
             dropItem.remove();
 
         });
@@ -92,7 +99,6 @@ function loadNotifications(url)
 {
     const api = `${url}/${parseInt(LAST)}`;
 
-    console.log(api);
     fetch(api)
     .then(response => response.json())
     .then(result => {
@@ -118,10 +124,9 @@ function loadNotifications(url)
         for (let i = 0; i < notifications.length; i++)
         {
             let element = fill(templateFront, templateBack, notifications[i]);
-            console.log(element.back);
-            console.log(element.front)
             dropNode(element.back);
             dropNode(element.front);
+
             frontContainer.prepend(element.front);
             backContainer.prepend(element.back);
         }
@@ -142,6 +147,9 @@ function fill(template1, template2, notification)
     const f = serialize(front.children[0]);
     const b = serialize(back.children[0]);
 
+    console.log(f);
+    console.log(b);
+
 
     // Front
     f['title'].innerHTML =  notification.origin;
@@ -153,8 +161,8 @@ function fill(template1, template2, notification)
     b['text'].innerHTML = notification.text;
 
     // Back buttons
-    b['button--deny'].dataset.url = notification.url;
-    b['button--accept'].dataset.url = notification.url;
+    b['button--deny drop'].dataset.url = notification.url;
+    b['button--accept drop'].dataset.url = notification.url;
     b['input'].value = notification.object_id;
 
     return {

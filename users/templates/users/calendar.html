@@ -43,15 +43,31 @@
 
         <div class="day">
             <div class="schedule">
-                <h1 class="schedule-title"></h1>
-                <div class="schedule-location">
-                    <i class="fas fa-map-marker-alt"></i>
-                    <span class="schedule-location-title" class="second"></span>
+                <div class="schedule-title">
+                    <h1 class="schedule-hour"></h1>
+                    <h3 class="schedule-day"></h3>
+
+
+                </div>
+                <div class="schedule-info">
+                    <div class="schedule-header">
+                        <img src="" alt="" class="schedule-clinic_image">
+                        <h2 class="schedule-clinic"></h2>
+
+                    </div>
+
+                    <span class="schedule-location-title fas-text address"></span>
+                </div>
+                <div class="schedule-info">
+                    <div class="schedule-header">
+                        <img src="" alt="" class="schedule-doctor_image">
+                        <h2 class="schedule-doctor"></h2>
+                    </div>
+
                 </div>
                 <form class="schedule-form" action="{% url 'doctors:new-appointment' doctor.user.name %}" method="POST">
                     {% csrf_token %}
-                    <input  class="schedule-areas" list="schedule-areas-datalist">
-                    <datalist class="schedule-areas-datalist"></datalist>
+                    <select  class="schedule-areas"></select>
                     <input class="schedule-user" type="text" value="{{ request.user.first_name }} {{ request.user.last_name}}" name="patient">
                     <input type="hidden" class="schedule-input-day" name="day">
                     <input type="hidden" class="schedule-input-month" name="month">

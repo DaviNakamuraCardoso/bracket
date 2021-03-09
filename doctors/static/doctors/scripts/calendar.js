@@ -1,4 +1,5 @@
-import startCalendar, {DAYS, MONTHS, thisDay, pad} from '../../users/scripts/calendar.js'
+import startCalendar, {DAYS, MONTHS, thisDay, pad} from '../../users/scripts/calendar.js';
+import ping from '../../base/scripts/message.js';
 
 document.addEventListener('DOMContentLoaded', () => {
     const d = new Date();
@@ -18,8 +19,8 @@ function doctorsLoad(template)
     const doctor = template.querySelector(".doctor").value;
     const clinic = template.querySelector(".clinic").value || '*';
     const area = template.querySelector(".area").value || '*';
-    console.log(clinic);
-    console.log(area);
+
+
     fetch(`/doctors/${doctor}/days/${clinic}/${area}`)
     .then(response => response.json())
     .then(result => {
@@ -53,6 +54,8 @@ function loadDay(template, element)
     const month = MONTHS.indexOf(document.querySelector(".month-title").innerHTML);
     const year = template.querySelector(".year-title").innerHTML;
     const doctor = template.querySelector(".doctor").value;
+
+    const button = document.querySelector(".button__close");
     fetch(`/doctors/${doctor}/${year}/${month}/${day}`)
     .then(response => response.json())
     .then(result => {
@@ -60,9 +63,7 @@ function loadDay(template, element)
         if (result.message == "Not authorized.")
         {
             const paths = window.location.href.split('/');
-            console.log(paths);
             const next = window.location.href.split('/').slice(3, paths.length).join('/');
-            console.log(next);
             window.location.replace(`${result.url}?next=/${next}`);
         }
 
@@ -70,11 +71,19 @@ function loadDay(template, element)
         const dayPlanner = template.querySelector(".day-planner");
         const hours = template.querySelector('.hours');
         const appointments = template.querySelector(".appointments");
+        const schedule = document.querySelector(".schedule");
         hours.innerHTML = '';
         appointments.innerHTML = '';
 
         dayPlanner.classList.toggle('open', true);
+        schedule.classList.toggle('visible', false);
 
+
+
+        button.onclick = () => {
+            dayPlanner.classList.toggle('open', false);
+            schedule.classList.toggle('visible', false);
+        }
         let start = thisDay(year, month, day, dayInfo[0][0]);
         let end = thisDay(year, month, day, dayInfo[dayInfo.length-1][1]);
 
@@ -127,8 +136,11 @@ function loadDay(template, element)
                 }
             }
         }
+
         updateAllAppointments(template);
+
     });
+
 }
 
 
@@ -136,7 +148,7 @@ function updateAllAppointments(template)
 {
     const appointments = template.querySelectorAll('.appointment');
     const schedule = template.querySelector(".schedule");
-    const children = serializeNode(schedule);
+    const children = serializeNode(schedule, 'schedule');
 
     const day = document.querySelector(".selected").querySelector('.ball').innerHTML;
     const month = MONTHS.indexOf(template.querySelector(".month-title").innerHTML);
@@ -147,6 +159,11 @@ function updateAllAppointments(template)
         if (!appointment.classList.contains('closed') && !appointment.classList.contains('chosen'))
         {
             appointment.onclick = () => {
+
+
+                appointments.forEach(appointment => appointment.classList.toggle('chosen__appointment', false));
+                appointment.classList.toggle('chosen__appointment', true);
+
                 const index = appointment.id.split('_')[1];
                 fetch(`/doctors/${doctor}/${year}/${month}/${day}/${index}`)
                 .then(response => response.json())
@@ -154,14 +171,23 @@ function updateAllAppointments(template)
 
                     const shift = result.shift;
                     const clinic = shift.clinic;
-                    children['title'].innerHTML = `${stripSeconds(result.hour[0])}-${stripSeconds(result.hour[1])}`;
-                    children['location-title'].innerHTML = clinic.address;
-                    children['areas-datalist'].innerHTML = '';
+
+                    children['hour'].innerHTML = `${stripSeconds(result.hour[0])}-${stripSeconds(result.hour[1])}`;
+                    children['day'].innerHTML = `${shift.day}, ${day}/${month}/${year}`;
+
+                    children['clinic'].innerHTML = clinic.title;
+                    children['clinic_image'].src = clinic.image;
+                    children['location-title fas-text address'].innerHTML = clinic.address;
+                    children['areas'].innerHTML = '';
+
+                    children['doctor'].innerHTML = shift.doctor.title;
+                    children['doctor_image'].src = shift.doctor.image;
 
                     shift.areas.forEach(area => {
                         let option = document.createElement('option');
                         option.value = area;
-                        children['areas-datalist'].append(option);
+                        option.innerHTML = area;
+                        children['areas'].append(option);
                     });
 
                     children['areas'].value = shift.areas[0];
@@ -191,14 +217,16 @@ function updateAllAppointments(template)
                         })
                         .then(response => response.json())
                         .then(result => {
-                            console.log(result.message);
+                            ping(result.message); 
                             appointment.classList.toggle('chosen', true);
+
 
                         });
                         return false;
 
 
                     }
+                    schedule.classList.toggle('visible', true);
                 });
             }
         }
@@ -212,14 +240,14 @@ function updateAllAppointments(template)
 }
 
 
-function serializeNode(node)
+function serializeNode(node, name)
 {
 
     const children = node.getElementsByTagName("*");
     let table = {};
     for (let i = 0; i < children.length; i++)
     {
-        table[children[i].className.replace(`${node.className}-`, '')] = children[i];
+        table[children[i].className.replace(`${name}-`, '')] = children[i];
 
     }
 

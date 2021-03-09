@@ -62,8 +62,8 @@
                                 <h1 class="drop__title">{{ notification.origin }}</h1>
                                 <p class="drop__text">{{ notification.text }}</p>
                                 <div class="drop__buttons">
-                                    <button class="drop__button--accept" data-url="{{ notification.url }}" data-val="accept">Accept</button>
-                                    <button class="drop__button--deny" data-url="{{ notification.url }}" data-val="deny">Deny</button>
+                                    <button class="drop__button--accept drop__button" data-url="{{ notification.url }}" data-val="accept">Accept</button>
+                                    <button class="drop__button--deny drop__button" data-url="{{ notification.url }}" data-val="deny">Deny</button>
                                     <input type="hidden" id="object-id" value="{{notification.object_id}}">
                                 </div>
 
@@ -75,8 +75,8 @@
                                     <h1 class="drop__title"></h1>
                                     <p class="drop__text"></p>
                                     <div class="drop__buttons">
-                                        <button class="drop__button--accept" data-url="" data-val="accept">Accept</button>
-                                        <button class="drop__button--deny" data-url="" data-val="deny">Deny</button>
+                                        <button class="drop__button--accept drop__button" data-url="" data-val="accept">Accept</button>
+                                        <button class="drop__button--deny drop__button" data-url="" data-val="deny">Deny</button>
                                         <input type="hidden" id="object-id" value="" class="drop__input">
                                     </div>
                             </div>

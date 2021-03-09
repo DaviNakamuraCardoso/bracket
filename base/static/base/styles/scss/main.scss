@@ -11,6 +11,7 @@ html
 {
     font-size: 62.5%;
     scroll-behavior: smooth;
+    min-height: 100vh;
 
 }
 
@@ -195,6 +196,24 @@ body::-webkit-scrollbar
     border: 1px solid colors.$main;
 }
 
+
+.ping
+{
+    bottom: -10%;
+    left: 5%;
+    animation: ping 5s forwards;
+    animation-play-state: running;
+    padding: 2rem;
+    background: colors.$black;
+    border-radius: .7rem;
+    color: white;
+    font-weight: 400;
+    font-size: 1.8rem;
+    width: 30rem;
+
+    position: fixed;
+}
+
 /* Animations */
 
 @media (max-width: 599px)
@@ -202,5 +221,29 @@ body::-webkit-scrollbar
     #logo
     {
         display: none;
+    }
+}
+
+
+
+@keyframes ping
+{
+    0%
+    {
+        bottom: -10%;
+    }
+    10%
+    {
+        bottom: 5%;
+    }
+
+    90%
+    {
+        bottom: 5%;
+    }
+
+    100%
+    {
+        bottom: -10%;
     }
 }

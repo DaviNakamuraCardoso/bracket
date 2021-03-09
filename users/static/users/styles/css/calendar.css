@@ -98,6 +98,7 @@ td {
   top: 0;
   right: -100vw;
   transition: all 0.8s ease;
+  border: 2px solid #f0f0f0;
 }
 
 .day-planner.open {
@@ -109,9 +110,11 @@ td {
 .day-planner.open .day {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
+  padding-bottom: 10rem;
 }
 
 .button__close {
+  transform: translate(-50%, -50%);
   position: absolute;
   padding: 2rem;
   border-radius: 50%;
@@ -187,6 +190,63 @@ td {
   display: grid;
   justify-content: space-between;
   position: relative;
+  padding: 10rem 0;
+  text-align: left;
+}
+.schedule .schedule-info, .schedule .schedule-form, .schedule .schedule-title {
+  opacity: 0;
+}
+
+.schedule.visible .schedule-info, .schedule.visible .schedule-form, .schedule.visible .schedule-title {
+  opacity: 1;
+}
+
+.schedule-title {
+  font-size: 2.2rem;
+}
+
+.schedule-day {
+  color: #777;
+}
+
+.schedule-hour {
+  font-weight: bolder;
+}
+
+.schedule-header {
+  display: flex;
+  justify-content: space-evenly;
+  align-content: center;
+  align-items: center;
+  gap: 1em;
+}
+.schedule-header img {
+  width: 5rem;
+  height: 5rem;
+  border-radius: 50%;
+}
+
+.schedule-info {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
+.schedule-location-title {
+  color: #777;
+  text-decoration-style: dashed;
+  font-size: 1.6rem;
+  font-style: italic;
+}
+.schedule-location-title i::before {
+  color: #777;
+}
+
+.chosen__appointment {
+  background: blue;
+}
+.chosen__appointment:hover {
+  background: blue;
 }
 
 .chosen {
