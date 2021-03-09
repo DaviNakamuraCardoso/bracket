@@ -74,7 +74,7 @@
     }
 }
 
-.drop-item
+.drop__notification
 {
     // border-bottom: $white_border;
     padding: 15px 5px;
@@ -100,7 +100,7 @@
 
 }
 
-.drop-item.open
+.drop__notification.open
 {
     transition: all 1s ease;
     position: absolute;
@@ -195,7 +195,7 @@
     justify-content: space-evenly;
 }
 
-.drop__button
+.drop__button--accept, .drop__button--deny
 {
     width: 100%;
     height: 30%;
@@ -220,13 +220,13 @@
     }
 }
 
-.drop-title
+.drop__title
 {
     // color: $gray;
     // font-size: $medium;
 }
 
-.drop-timestamp
+.drop__timestamp
 {
     color: colors.$gray;
     // font-size: $small;

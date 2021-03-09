@@ -1,12 +1,34 @@
+import dropNode from './main.js';
+
+let LAST = 0;
+
+
 document.addEventListener("DOMContentLoaded", () => {
+    LAST = update();
+    console.log(LAST);
+
+    const url = document.querySelector("#notification__url").value;
+
+    setInterval(() => {
+        loadNotifications(url);
+    }, 5000);
+
+
+});
+
+
+function update()
+{
     // Getting all the notification items
     const notifications = document.querySelectorAll('.drop__notification');
+
+
     for (let i = 0; i < notifications.length; i++)
     {
         notifications[i].onclick = () => {
             toggleNotification(i, true);
             document.querySelector(".drop__return").onclick = () => {
-                toggleNotification(i, false); 
+                toggleNotification(i, false);
             }
         }
     }
@@ -14,11 +36,15 @@ document.addEventListener("DOMContentLoaded", () => {
     // Get the reply buttons
     const replyButtons = document.querySelectorAll('.drop__button');
 
-    // For all of them,
+    // For all of them, listen for replies
     replyButtons.forEach(replyButton => {
         listenForReply(replyButton);
     });
-});
+    const id = (notifications.length > 0) ? notifications[0].id.split("__")[1] : 0;
+
+    return (id);
+
+}
 
 
 function listenForReply(replyButton)
@@ -57,15 +83,111 @@ function listenForReply(replyButton)
             console.log(result.message);
             dropItem.remove();
 
-
         });
     }
 }
 
 
-function loadNotifications()
+function loadNotifications(url)
 {
-    const url = document.querySelector()
+    const api = `${url}/${parseInt(LAST)}`;
+
+    console.log(api);
+    fetch(api)
+    .then(response => response.json())
+    .then(result => {
+        if (result.message == "All notifications up to date.")
+        {
+            return;
+        }
+
+        // Containers for front and back
+        const frontContainer = document.querySelector(".drop__first");
+        const backContainer = document.querySelector('.drop__second');
+
+        // Templates
+        const templateFront = document.querySelector("#notification__front");
+        const templateBack = document.querySelector("#notification__back");
+
+        // Add drop for both templates, to allow clicking
+
+
+
+        const notifications = result.notifications;
+
+        for (let i = 0; i < notifications.length; i++)
+        {
+            let element = fill(templateFront, templateBack, notifications[i]);
+            console.log(element.back);
+            console.log(element.front)
+            dropNode(element.back);
+            dropNode(element.front);
+            frontContainer.prepend(element.front);
+            backContainer.prepend(element.back);
+        }
+        LAST = update();
+    });
+
+}
+
+
+function fill(template1, template2, notification)
+{
+    // New elements for front and back
+    const front = template1.content.cloneNode(true);
+    const back = template2.content.cloneNode(true);
+
+
+    // Serialize
+    const f = serialize(front.children[0]);
+    const b = serialize(back.children[0]);
+
+
+    // Front
+    f['title'].innerHTML =  notification.origin;
+    f['timestamp'].innerHTML = notification.time;
+    f['notification'].id = `notification__${notification.id}`;
+
+    // Back text
+    b['title'].innerHTML = notification.origin;
+    b['text'].innerHTML = notification.text;
+
+    // Back buttons
+    b['button--deny'].dataset.url = notification.url;
+    b['button--accept'].dataset.url = notification.url;
+    b['input'].value = notification.object_id;
+
+    return {
+        front: front.children[0],
+        back: back.children[0]
+    }
+
+}
+
+
+/**
+@name serialize
+@function
+@global
+@param {Element} node - DOM Element
+@returns {Object} containing all the node elements in a Object hashed by className
+*/
+function serialize(node)
+{
+    const children = node.getElementsByTagName("*");
+    let serialized = {}
+    for (let i = 0; i < children.length; i++)
+    {
+        let name = children[i].className.split('__')[1]
+        serialized[name] = children[i];
+    }
+
+    let name = node.className.split('__')[1];
+    serialized[name] = node;
+
+
+    return (serialized);
+
 }
 
 

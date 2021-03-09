@@ -1,3 +1,4 @@
+
 document.addEventListener("DOMContentLoaded", () =>
 {
     const icons = document.querySelectorAll(".icon");
@@ -38,6 +39,11 @@ function addDropListener(drop)
         children[i].classList.add('drop');
     }
     drop.classList.add('drop');
+}
+
+export default function dropNode(drop)
+{
+    addDropListener(drop);
 }
 
 

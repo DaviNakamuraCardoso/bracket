@@ -1,8 +1,6 @@
 {% load static %}
 
 <link rel="stylesheet" href="{% static 'base/styles/css/icon-bar.css' %}">
-<script src="{% static 'base/scripts/notifications.js' %}"></script>
-<script src="{% static 'base/scripts/main.js' %}"></script>
 
             <!-- Notifications -->
             <li class="drop nav-item">
@@ -12,15 +10,14 @@
                             <span class="notifi-number"></span>
                         {% endif %}
                     </i>
-
-
                 </div>
                 <div class="dropdown" id="box">
                     {% csrf_token %}
+                    <input type="hidden" id="notification__url" value="{% url 'base:notifications' request.user.name %}">
+                    <h2 class="drop drop-t">Notifications</h2>
                     <div class="drop__first">
-                        <h2 class="drop drop-t">Notifications</h2>
                         {% for notification in request.user.sorted_notifications %}
-                            <div class="drop drop-item drop__notification">
+                            <div class="drop drop__notification" id="notification__{{notification.id}}">
 
                                 {% if not notification.read %}
                                     <div class="drop__circle"></div>
@@ -28,8 +25,8 @@
                                 <div class="drop drop__front">
                                     <div class="drop__text">
 
-                                        <h4 class="drop drop-title">{{ notification.origin|truncatechars:15 }}</h4>
-                                        <p class="drop drop-timestamp">{{ notification.time }}</p>
+                                        <h4 class="drop drop__title">{{ notification.origin|truncatechars:15 }}</h4>
+                                        <p class="drop drop__timestamp">{{ notification.time }}</p>
 
                                     </div>
 
@@ -39,26 +36,52 @@
                             </div>
 
                     {% endfor %}
+                    <template id="notification__front">
+                        <div class="drop__notification">
 
+                            <div class="drop__circle"></div>
+                            <div class="drop__front">
+                                <div class="drop__text">
+
+                                    <h4 class="drop__title"></h4>
+                                    <p class="drop__timestamp"></p>
+
+                                </div>
+                            </div>
+                            <div class="drop__arrow fas-icon right"></div>
+                        </div>
+                    </template>
                     </div>
+
                     <div class="drop__second">
                         <button type="button" name="button" class="drop__return fas-icon left"></button>
                         {% for notification in request.user.sorted_notifications %}
 
                             <div class="drop__back">
 
-                                    <h1 class="drop__title">{{ notification.origin }}</h1>
-                                    <p class="drop__text">{{ notification.text }}</p>
-                                    <div class="drop__buttons">
-                                        <button class="drop__button drop__button--accept" data-url="{{ notification.url }}" data-val="accept">Accept</button>
-                                        <button class="drop__button drop__button--deny" data-url="{{ notification.url }}" data-val="deny">Deny</button>
-                                        <input type="hidden" id="object-id" value="{{notification.object_id}}">
-                                    </div>
+                                <h1 class="drop__title">{{ notification.origin }}</h1>
+                                <p class="drop__text">{{ notification.text }}</p>
+                                <div class="drop__buttons">
+                                    <button class="drop__button--accept" data-url="{{ notification.url }}" data-val="accept">Accept</button>
+                                    <button class="drop__button--deny" data-url="{{ notification.url }}" data-val="deny">Deny</button>
+                                    <input type="hidden" id="object-id" value="{{notification.object_id}}">
+                                </div>
 
                             </div>
                         {% endfor %}
-                    </div>
+                        <template id="notification__back">
+                            <div class="drop__back">
 
+                                    <h1 class="drop__title"></h1>
+                                    <p class="drop__text"></p>
+                                    <div class="drop__buttons">
+                                        <button class="drop__button--accept" data-url="" data-val="accept">Accept</button>
+                                        <button class="drop__button--deny" data-url="" data-val="deny">Deny</button>
+                                        <input type="hidden" id="object-id" value="" class="drop__input">
+                                    </div>
+                            </div>
+                        </template>
+                    </div>
                 </div>
             </li>
 
@@ -75,15 +98,12 @@
 
                     <!-- Medical Info -->
                     <a class="drop drop-link" href="{% url 'patients:profile' request.user.name %}">
-                    <div class="drop drop-item">
-                        <div class="drop drop-text">
-                                <i class="drop fas fa-clipboard"></i>
-                                <p class="drop drop-text">Medical Info</p>
-
-
+                        <div class="drop drop-item">
+                            <div class="drop drop-text">
+                                    <i class="drop fas fa-clipboard"></i>
+                                    <p class="drop drop-text">Medical Info</p>
+                            </div>
                         </div>
-                    </div>
-
                     </a>
 
 
@@ -96,10 +116,5 @@
                             </a>
                         </div>
                     </div>
-
-
-
-
                 </div>
-
             </li>

@@ -15,6 +15,15 @@ class Notification(models.Model):
     url = models.URLField(max_length=64, blank=True, null=True)
 
 
+    def serialize(self):
+        return {
+            'text': self.text,
+            'url': self.url,
+            'origin': self.origin,
+            'time': self.time(),
+            'object_id': self.object_id,
+            'id': self.id
+        }
     def __str__(self):
         return f"{self.user.name}: {self.text} on {self.timestamp}"
 
