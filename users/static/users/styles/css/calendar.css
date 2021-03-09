@@ -111,6 +111,21 @@ td {
   grid-template-columns: repeat(2, 1fr);
 }
 
+.button__close {
+  position: absolute;
+  padding: 2rem;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 10;
+}
+.button__close i::before {
+  font-size: 2.6rem;
+}
+
+.button__close:hover {
+  background: #f0f0f0;
+}
+
 .appointment-table {
   display: grid;
   grid-template-columns: 3fr 1fr;

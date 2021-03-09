@@ -1,3 +1,4 @@
+@use 'abstract/_colors';
 
 /* ___ Dust Pallete ___ */
 $main: #4387f5;
@@ -66,6 +67,8 @@ td
     font-size: clamp(1.8rem, 3vw, 2.4rem);
     background: white;
 }
+
+
 .month-title, .year-title
 {
     font-size: clamp(1.8rem, 2vw, 2.1rem);
@@ -151,6 +154,25 @@ td
         grid-template-columns: repeat(2, 1fr);
     }
 
+}
+
+
+.button__close
+{
+    position: absolute;
+    padding: 2rem;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 10;
+    i::before
+    {
+        font-size: 2.6rem;
+    }
+}
+
+.button__close:hover
+{
+    background: colors.$hover-gray;
 }
 
 .appointment-table
