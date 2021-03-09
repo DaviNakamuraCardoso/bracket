@@ -199,8 +199,17 @@ def confirm(request, name, year, month, day, index):
 
     data = json.loads(request.body)
 
-    appointment = Appointment.objects.get(pk=int(data['object_id']))
-    notification = Notification.objects.get(object_id=data['object_id'])
+    try:
+        appointment = Appointment.objects.get(pk=int(data['object_id']))
+    except Appointment.DoesNotExist:
+        return JsonResponse({"message": "Sorry, could not find appointment matching query. This appointment was cancelled."})
+
+
+    try:
+        notification = Notification.objects.get(object_id=data['object_id'])
+    except Notification.DoesNotExist:
+        return JsonResponse({"message": "Sorry, could not find notification matching query."})
+
     notification.delete()
 
     # If the user cancel the appointment, it is again free to be taken by another person

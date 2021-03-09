@@ -6,7 +6,6 @@ let LAST = 0;
 
 document.addEventListener("DOMContentLoaded", () => {
     LAST = update();
-    console.log(LAST);
 
     const url = document.querySelector("#notification__url").value;
 
@@ -147,8 +146,6 @@ function fill(template1, template2, notification)
     const f = serialize(front.children[0]);
     const b = serialize(back.children[0]);
 
-    console.log(f);
-    console.log(b);
 
 
     // Front

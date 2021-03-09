@@ -5,7 +5,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const d = new Date();
 
     const templates = document.querySelectorAll('.calendar__wrapper');
-    console.log(templates);
     for (let i = 0; i < templates.length; i++)
     {
         startCalendar(templates[i], d.getMonth(), d.getFullYear(), doctorsLoad);
@@ -51,11 +50,11 @@ function doctorsLoad(template)
 function loadDay(template, element)
 {
     const day = element.querySelector('.ball').innerHTML;
-    const month = MONTHS.indexOf(document.querySelector(".month-title").innerHTML);
+    const month = MONTHS.indexOf(template.querySelector(".month-title").innerHTML);
     const year = template.querySelector(".year-title").innerHTML;
     const doctor = template.querySelector(".doctor").value;
 
-    const button = document.querySelector(".button__close");
+    const button = template.querySelector(".button__close");
     fetch(`/doctors/${doctor}/${year}/${month}/${day}`)
     .then(response => response.json())
     .then(result => {
@@ -71,7 +70,7 @@ function loadDay(template, element)
         const dayPlanner = template.querySelector(".day-planner");
         const hours = template.querySelector('.hours');
         const appointments = template.querySelector(".appointments");
-        const schedule = document.querySelector(".schedule");
+        const schedule = template.querySelector(".schedule");
         hours.innerHTML = '';
         appointments.innerHTML = '';
 
@@ -150,7 +149,7 @@ function updateAllAppointments(template)
     const schedule = template.querySelector(".schedule");
     const children = serializeNode(schedule, 'schedule');
 
-    const day = document.querySelector(".selected").querySelector('.ball').innerHTML;
+    const day = template.querySelector(".selected").querySelector('.ball').innerHTML;
     const month = MONTHS.indexOf(template.querySelector(".month-title").innerHTML);
     const year = template.querySelector(".year-title").innerHTML;
     const doctor = template.querySelector(".doctor").value;
@@ -217,7 +216,7 @@ function updateAllAppointments(template)
                         })
                         .then(response => response.json())
                         .then(result => {
-                            ping(result.message); 
+                            ping(result.message);
                             appointment.classList.toggle('chosen', true);
 
 
