@@ -36,12 +36,28 @@ function main()
 function update(value, container)
 {
     // Get all the templates
-    const user = element("user");
+    let user = element("user");
     const doctor = element("doctor");
     const clinic = element("clinic");
 
-    // By default, all the users should see the user form
-    container.append(user);
+
+    // If the user has already provided all the necessary info, skip
+    const size = user.children.length;
+
+    if (size == 1)
+    {
+        // If it is a regular user, redirect to the index page
+        if (value == 0)
+        {
+            location.replace('/');
+        }
+
+    }
+    // If we don't have the user address or picture, add the container
+    else
+    {
+        container.append(user);
+    }
 
     switch(value)
     {
@@ -63,13 +79,12 @@ function update(value, container)
             TYPES.push('clinic');
             TYPES.push('doctor');
             break;
-
     }
 
     // Update the choice fields and location
     choices(container);
     navigator.geolocation.getCurrentPosition(positions);
-    cropexp(); 
+    cropexp();
 
     load(0);
 
@@ -100,6 +115,7 @@ function load(n)
         const input = document.createElement('input');
 
         input.name = 'types';
+        input.type = 'hidden';
         input.value = TYPES.join();
         current.append(input);
 
@@ -113,8 +129,8 @@ function load(n)
 * @name element
 * @function
 * @global
-* @param {string} id
-* @return {void}
+* @param {String} id
+* @return {Void}
 */
 function element(id)
 {

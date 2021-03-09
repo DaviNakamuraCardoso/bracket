@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, reverse
 from django.http import HttpResponseRedirect, JsonResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout, login, authenticate
-from users.utils import new_clinic, new_doctor, new_patient, new_user
+from users.utils import new_clinic, new_doctor, new_patient, new_user, get_name
 from users.data.geolocation import locate
 from users.data.time import get_calendar
 from users.models import City
@@ -21,10 +21,17 @@ def signup_view(request):
     return render(request, 'users/signup.html', FORMS_CONTEXT)
 
 def register_view(request):
+    user = request.user
+    if user.name is None:
+        user.name = get_name(user.first_name, user.last_name)
+        user.save()
+
     if request.method == "POST":
         data = request.POST
-        user = request.user
 
+        if user.city is None:
+            user.city = City.objects.get(pk=data['city'])
+            user.save()
 
         # Attempt to create all the different types of users
         doctor = new_doctor(request, user)

@@ -1,6 +1,11 @@
+
+{% if request.user.city is None %}
 <div class="form__container">
+
     <div class="form__form">
         <select class="city-field" id="data"></select>
-        <button type="button" name="button" class="button__next">Next</button>
     </div>
 </div>
+
+{% endif %}
+<button type="button" name="button" class="button__next">Next</button>

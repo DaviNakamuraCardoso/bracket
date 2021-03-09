@@ -25,7 +25,9 @@ const COLORS = {
 	overlay: "rgba(0, 0, 0, 0.6)"
 };
 
-HTMLCanvasElement.prototype.getMouseCoords = function(event){
+function updateCanvasOffset()
+{
+	HTMLCanvasElement.prototype.getMouseCoords = function(event){
 	// loop through this element and all its parents to get the total offset
 	let totalOffsetX = 0;
 	let totalOffsetY = 0;
@@ -40,10 +42,11 @@ HTMLCanvasElement.prototype.getMouseCoords = function(event){
 	while(currentElement = currentElement.offsetParent)
 
 	canvasX = event.pageX - totalOffsetX;
-	canvasY = event.pageY - totalOffsetY + window.scrollY;
+	canvasY = event.pageY - totalOffsetY;
 
 
 	return {x:canvasX, y:canvasY}
+}
 }
 
 
@@ -51,6 +54,7 @@ class Canvas
 {
 	constructor({element, ratioX, ratioY})
 	{
+		updateCanvasOffset();
 		this.element = element;
 		this.image = undefined;
 		this.restoreImage = undefined;
@@ -149,8 +153,8 @@ class Canvas
 			this.drawOverlay();
 
 			// draw the resizer
-			let x = this.overlay.x + this.overlay.width - 5,
-			y = this.overlay.y + this.overlay.height - 5,
+			let x = this.overlay.x + this.overlay.width,
+			y = this.overlay.y + this.overlay.height,
 			w = this.overlay.resizerSide,
 			h = this.overlay.resizerSide;
 
@@ -165,6 +169,8 @@ class Canvas
 
 	drawOverlay() {
 		// draw the overlay using a path made of 4 trapeziums (ahem)
+		updateCanvasOffset();
+
 		this.context.save();
 
 		this.context.fillStyle = COLORS.overlay;
@@ -197,6 +203,8 @@ class Canvas
 
 	getScaledImageDimensions(width, height) {
 		// choose the dimension to scale to, depending on which is "more too big"
+
+		updateCanvasOffset();
 		let factor = 1;
 		if((this.element.width - width) < (this.element.height - height)) {
 			// scale to width
@@ -452,13 +460,6 @@ class Canvas
 			this.valueY = (this.overlay.y * this.image.height / this.currentDimens.height);
 
 
-
-			const canvasDiv = this.element.parentElement;
-
-			// canvasDiv.querySelector(".size").value = Math.round(valueSize);
-			// canvasDiv.querySelector(".picture-x").value = Math.round(valueX);
-			// canvasDiv.querySelector(".picture-y").value = Math.round(valueY);
-
 			// show the new image, only bother doing this if it isn't already displayed, ie, we are cropping
 			if(this.cropping) {
 				this.showImage(url);
@@ -679,6 +680,7 @@ function main()
 				let data = event.target.result; // the "data url" of the image
 				canvas.showImage(data); // hand this to cropper, it will be displayed
 				canvas.startCropping();
+				console.log(canvas);
 			};
 
 			reader.readAsDataURL(file); // this loads the file as a data url calling the function above once done
