@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     setInterval(() => {
         loadNotifications(url);
-    }, 5000);
+    }, 10000);
 
 
 });

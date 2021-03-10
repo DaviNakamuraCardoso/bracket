@@ -14,7 +14,6 @@ class Notification(models.Model):
     read = models.BooleanField(default=False)
     url = models.URLField(max_length=64, blank=True, null=True)
 
-
     def serialize(self):
         return {
             'text': self.text,
@@ -29,6 +28,7 @@ class Notification(models.Model):
 
     def time(self):
         return strfdelta(timestamp=self.timestamp)
+
 
 class Rate(models.Model):
     clinic = models.ForeignKey(Clinic, on_delete=models.CASCADE, related_name="ratings", blank=True, null=True)
