@@ -109,9 +109,17 @@ def appointment_planner(request, name, year, month, day, index):
         appointments = shift.get_appointments()
         hour = appointments[index-counter]
         counter += len(appointments)
+
         if index <= counter:
 
-            return JsonResponse({'shift': shift.serialize(), 'hour': hour})
+            try:
+                appointment = Appointment.objects.get(index=index, shift=shift, day=day, month=month, year=year)
+                r = {'area': appointment.area.area, 'user': appointment.to}
+            except Appointment.DoesNotExist:
+                r = {'area': "", 'user': ""}
+
+
+            return JsonResponse({'shift': shift.serialize(), 'hour': hour, 'appointment': r})
 
     return JsonResponse({"appointment": "Could not find!"})
 
@@ -170,14 +178,21 @@ def new_appointment(request, name):
         doctor = get_doctor(name)
         data = json.loads(request.body)
         patient = None
+        shift = Shift.objects.get(pk=data['shift'])
+        if data['remove']:
+            appointment = Appointment.objects.get(day=data['day'], month=data['month']+1, year=data['year'], index=data['index'], shift=shift)
+            appointment.delete()
+            return JsonResponse({"message": "Appointment cancelled successfully"})
+
         if data['patient'] == request.user.first_name + " " + request.user.last_name:
             patient = request.user.patient
+
 
         appointment = Appointment.objects.create(
             user=request.user,
             patient=patient,
             to=data['patient'],
-            shift=Shift.objects.get(pk=data['shift']),
+            shift=shift,
             day=data['day'],
             month=data['month']+1,
             year=data['year'],
@@ -205,11 +220,7 @@ def confirm(request, name, year, month, day, index):
         return JsonResponse({"message": "Sorry, could not find appointment matching query. This appointment was cancelled."})
 
 
-    try:
-        notification = Notification.objects.get(object_id=data['object_id'])
-    except Notification.DoesNotExist:
-        return JsonResponse({"message": "Sorry, could not find notification matching query."})
-
+    notification = Notification.objects.get(object_id=int(data['object_id']))
     notification.delete()
 
     # If the user cancel the appointment, it is again free to be taken by another person

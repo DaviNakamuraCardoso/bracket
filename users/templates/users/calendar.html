@@ -1,7 +1,9 @@
 {% load static %}
 <script src="{% static 'users/scripts/calendar.js' %}" type="module"></script>
+<script src="{% static 'users/scripts/forms.js' %}" type="module"></script>
 <link href="{% static 'users/styles/css/calendar.css' %}" rel="stylesheet">
 <link href="{% static 'users/styles/css/forms.css' %}" rel="stylesheet">
+
 <div class="calendar">
     <div class="calendar-month">
         <button class="prev-month">
@@ -44,7 +46,7 @@
         <div class="day">
             <div class="schedule">
                 <div class="schedule-title">
-                    <h1 class="schedule-hour"></h1>
+                    <h2 class="schedule-hour"></h2>
                     <h3 class="schedule-day"></h3>
 
 
@@ -55,8 +57,8 @@
                         <h2 class="schedule-clinic"></h2>
 
                     </div>
-
                     <span class="schedule-location-title fas-text address"></span>
+
                 </div>
                 <div class="schedule-info">
                     <div class="schedule-header">
@@ -67,15 +69,40 @@
                 </div>
                 <form class="schedule-form" action="{% url 'doctors:new-appointment' doctor.user.name %}" method="POST">
                     {% csrf_token %}
-                    <select  class="schedule-areas"></select>
-                    <input class="schedule-user" type="text" value="{{ request.user.first_name }} {{ request.user.last_name}}" name="patient">
-                    <input type="hidden" class="schedule-input-day" name="day">
-                    <input type="hidden" class="schedule-input-month" name="month">
-                    <input type="hidden" class="schedule-input-year" name="year">
-                    <input type="hidden" class="schedule-input-index" name="index">
-                    <input type="hidden" class="schedule-input-shift" name="shift">
-                    <input type="submit" value="Schedule">
+                    <div class="form-wrapper">
+                        <div class="select-field">
+                            <select class="schedule-areas" id="select_field"></select>
+                            <label for="" class="label-field">
+                                <span class="content-label">Area</span>
+                            </label>
+
+                        </div>
+
+                    </div>
+                    <div class="form-wrapper">
+                        <div class="field register">
+                            <input class="schedule-user" type="text" id="patient" value="{{ request.user.first_name }} {{ request.user.last_name}}" name="patient" maxlength="128" required="required">
+                            <label for="patient" class="label-field">
+                                <span class="content-label">Patient Name</span>
+                            </label>
+                        </div>
+
+                    </div>
+                    <input type="submit" class="schedule-submit" value="Schedule">
                 </form>
+                <div class="schedule-form-info">
+                    <div class="p-wrapper">
+                        <p class="first-child">Area: </p>
+                        <p class="schedule-area-info"></p>
+                    </div>
+                    <div class="p-wrapper">
+                        <p class="first-child">Patient: </p>
+                        <p class="schedule-user-info"></p>
+
+                    </div>
+                    <button type="button" name="button" class="schedule-cancel">Cancel</button>
+
+                </div>
 
 
             </div>

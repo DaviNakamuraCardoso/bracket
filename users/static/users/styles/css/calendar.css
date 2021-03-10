@@ -102,7 +102,6 @@ td {
 }
 
 .day-planner.open {
-  padding: 40px;
   right: 0;
   background: white;
   z-index: 99;
@@ -110,11 +109,10 @@ td {
 .day-planner.open .day {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  padding-bottom: 10rem;
+  padding-bottom: 5rem;
 }
 
 .button__close {
-  transform: translate(-50%, -50%);
   position: absolute;
   padding: 2rem;
   border-radius: 50%;
@@ -190,14 +188,14 @@ td {
   display: grid;
   justify-content: space-between;
   position: relative;
-  padding: 10rem 0;
+  padding: 10rem 3rem 3rem 3rem;
   text-align: left;
 }
-.schedule .schedule-info, .schedule .schedule-form, .schedule .schedule-title {
+.schedule .schedule-info, .schedule .schedule-form, .schedule .schedule-title, .schedule .schedule-form-info {
   opacity: 0;
 }
 
-.schedule.visible .schedule-info, .schedule.visible .schedule-form, .schedule.visible .schedule-title {
+.schedule.visible .schedule-info, .schedule.visible .schedule-form, .schedule.visible .schedule-title, .schedule.visible .schedule-form-info {
   opacity: 1;
 }
 
@@ -229,6 +227,7 @@ td {
 .schedule-info {
   display: flex;
   flex-direction: column;
+  justify-content: center;
   gap: 1em;
 }
 
@@ -242,6 +241,46 @@ td {
   color: #777;
 }
 
+.p-wrapper {
+  display: flex;
+  width: 80%;
+  font-size: 2rem;
+  gap: 0.7rem;
+}
+
+.scheduled {
+  padding: 2rem;
+  border-radius: 0.3rem;
+  border: 1px solid #14cd14;
+  color: #14cd14;
+  font-weight: 600;
+  font-size: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+}
+
+.first-child {
+  font-weight: bolder;
+}
+
+.schedule-user-info, .schedule-area-info {
+  font-style: italic;
+}
+
+.schedule-cancel {
+  padding: 2rem;
+  font-size: 2rem;
+  border-radius: 0.7rem;
+  color: red;
+  border: 1px solid red;
+  cursor: pointer;
+}
+.schedule-cancel:hover {
+  background: rgba(255, 200, 200, 0.3);
+}
+
 .chosen__appointment {
   background: blue;
 }
@@ -250,11 +289,18 @@ td {
 }
 
 .chosen {
-  background: black;
+  background: #14cd14;
+  pointer-events: all;
+  cursor: pointer;
 }
 
 .chosen:hover {
-  background: black;
+  background: rgba(20, 200, 20, 0.8);
+}
+
+.schedule-form-info {
+  flex-direction: column;
+  justify-content: space-around;
 }
 
 @media (max-width: 599px) {

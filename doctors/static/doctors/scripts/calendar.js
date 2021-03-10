@@ -132,6 +132,7 @@ function loadDay(template, element)
                 if (i == result.user_appointments[k])
                 {
                     appointmentDiv.classList.toggle('chosen', true);
+                    appointmentDiv.classList.toggle('closed', false);
                 }
             }
         }
@@ -155,7 +156,7 @@ function updateAllAppointments(template)
     const doctor = template.querySelector(".doctor").value;
 
     appointments.forEach(appointment => {
-        if (!appointment.classList.contains('closed') && !appointment.classList.contains('chosen'))
+        if (!appointment.classList.contains('closed'))
         {
             appointment.onclick = () => {
 
@@ -167,6 +168,10 @@ function updateAllAppointments(template)
                 fetch(`/doctors/${doctor}/${year}/${month}/${day}/${index}`)
                 .then(response => response.json())
                 .then(result => {
+
+
+                    console.log(result);
+
 
                     const shift = result.shift;
                     const clinic = shift.clinic;
@@ -191,6 +196,25 @@ function updateAllAppointments(template)
 
                     children['areas'].value = shift.areas[0];
 
+                    children['area-info'].innerHTML = result.appointment.area;
+                    children['user-info'].innerHTML = result.appointment.user;
+
+                    let remove;
+
+                    if (appointment.classList.contains('chosen'))
+                    {
+                        children['form'].style.display = 'none';
+                        children['form-info'].style.display = 'flex';
+                        remove = true;
+
+                    }
+                    else
+                    {
+                        children['form'].style.display = 'flex';
+                        children['form-info'].style.display = 'none';
+                        remove = false;
+                    }
+
                     const csrfToken = template.querySelector('[name=csrfmiddlewaretoken]').value;
                     const request = new Request(
                         children['form'].action,
@@ -198,8 +222,11 @@ function updateAllAppointments(template)
 
                     );
 
-                    children['form'].onsubmit = () => {
+                    function fetchSchedule() {
 
+                        children['submit'].disabled = true;
+                        children['cancel'].disabled = true;
+                        
                         fetch(request, {
                             method: 'POST',
                             mode: 'same-origin',
@@ -210,22 +237,48 @@ function updateAllAppointments(template)
                                 'year': year,
                                 'patient': children['user'].value,
                                 'area': children['areas'].value,
-                                'shift': shift.id
+                                'shift': shift.id,
+                                'remove': remove
 
                             })
                         })
                         .then(response => response.json())
                         .then(result => {
                             ping(result.message);
-                            appointment.classList.toggle('chosen', true);
 
+                            if (!remove)
+                            {
+
+
+                                children['area-info'].innerHTML = children['areas'].value;
+                                children['user-info'].innerHTML = children['user'].value;
+
+
+                                children['form'].style.display = 'none';
+                                children['form-info'].style.display = 'flex';
+                            }
+                            else
+                            {
+                                children['form'].style.display = 'flex';
+                                children['form-info'].style.display = 'none';
+
+                            }
+                            appointment.classList.toggle('chosen', !remove);
+                            remove = !remove;
+
+                            children['submit'].disabled = false;
+                            children['cancel'].disabled = false;
 
                         });
                         return false;
 
 
                     }
+                    children['form'].onsubmit = fetchSchedule;
+                    children['cancel'].onclick = fetchSchedule;
+
                     schedule.classList.toggle('visible', true);
+
                 });
             }
         }

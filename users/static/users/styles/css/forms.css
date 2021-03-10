@@ -1,6 +1,58 @@
 /* ___ Form ___ */
 select {
   text-transform: capitalize;
+  font-size: 2rem;
+  padding: 1rem 2rem;
+  width: 123%;
+  height: 120%;
+  position: relative;
+  cursor: pointer;
+}
+
+.select-field {
+  position: relative;
+}
+
+select + .label-field .content-label {
+  position: absolute;
+  bottom: 100%;
+  left: 5%;
+  background: white;
+  padding: 0 0.5rem;
+  pointer-events: none;
+}
+
+select + .label-field {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  font-size: 1.6rem;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  gap: 1rem;
+}
+form input[type=submit i] {
+  background: none;
+  outline: none;
+  border: 1px solid #4387f5;
+  color: #4387f5;
+  font-size: 2rem;
+  font-style: small-caps;
+  padding: 1rem;
+  border-radius: 100vw;
+  cursor: pointer;
+}
+form input[type=submit i]:hover {
+  background: rgba(200, 200, 255, 0.3);
 }
 
 .form {
@@ -13,25 +65,25 @@ select {
   width: 100%;
   height: 50px;
   position: relative;
-  font-size: 1.4rem;
-  margin: 2rem auto;
+  font-size: 2rem;
+  margin: 0 auto;
   color: #595f6e;
-  padding: 0 10px;
 }
 
 .field input {
   width: 100%;
   height: 100%;
-  padding: 0px 0px 0px 10px;
+  padding: 1rem 2rem;
   color: #595f6e;
   border: 1px solid black;
   outline: none;
+  font-size: 2rem;
 }
 
 .field label {
   position: absolute;
-  bottom: 0px;
-  left: 10px;
+  top: 1rem;
+  left: 0;
   width: 100%;
   height: 100%;
   pointer-events: none;
@@ -39,24 +91,38 @@ select {
 
 .content-label {
   position: absolute;
-  bottom: 15px;
-  left: 10px;
+  bottom: 50%;
+  left: 10%;
+  transform: translateY(50%);
   transition: all 0.5s ease;
 }
 
-.register input:focus + .label-field .content-label, .form input:valid + .label-field .content-label {
-  transform: translateY(-270%);
-  font-size: 1rem;
+.field input:focus + .label-field .content-label {
+  bottom: 100%;
+  left: 5%;
+  font-size: 1.6rem;
   color: black;
   z-index: 2;
   background: white;
   padding: 0 5px;
+  transform: translateY(-0.25rem);
+}
+
+.valid__input .label-field .content-label {
+  left: 5%;
+  bottom: 100%;
+  font-size: 1.6rem;
+  color: black;
+  z-index: 2;
+  background: white;
+  padding: 0 5px;
+  transform: translateY(-0.3rem);
 }
 
 .form-wrapper, .choices {
   display: flex;
-  width: 50%;
-  margin: auto;
+  width: 80%;
+  margin: 0;
 }
 
 .hidden {

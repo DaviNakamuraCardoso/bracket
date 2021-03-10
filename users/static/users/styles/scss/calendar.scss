@@ -5,6 +5,7 @@ $main: #4387f5;
 $black: #424656;
 $gray: #A7AABD;
 $complementary: #EC5272;
+$green: rgb(20, 205, 20);
 
 
 @import url('https://fonts.googleapis.com/css2?family=Hammersmith+One&display=swap');
@@ -145,7 +146,6 @@ td
 
 .day-planner.open
 {
-    padding: 40px;
     right: 0;
     background: white;
     z-index: 99;
@@ -153,7 +153,7 @@ td
     {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
-        padding-bottom: 10rem;
+        padding-bottom: 5rem;
     }
 
 }
@@ -161,7 +161,6 @@ td
 
 .button__close
 {
-    transform: translate(-50%, -50%);
     position: absolute;
     padding: 2rem;
     border-radius: 50%;
@@ -253,9 +252,9 @@ td
     display: grid;
     justify-content: space-between;
     position: relative;
-    padding: 10rem 0;
+    padding: 10rem 3rem 3rem 3rem;
     text-align: left;
-    .schedule-info, .schedule-form, .schedule-title
+    .schedule-info, .schedule-form, .schedule-title, .schedule-form-info
     {
         opacity: 0;
 
@@ -265,7 +264,7 @@ td
 
 .schedule.visible
 {
-    .schedule-info, .schedule-form, .schedule-title
+    .schedule-info, .schedule-form, .schedule-title, .schedule-form-info
     {
         opacity: 1;
     }
@@ -303,6 +302,7 @@ td
 {
     display: flex;
     flex-direction: column;
+    justify-content: center;
     gap: 1em;
 }
 
@@ -318,6 +318,56 @@ td
     }
 }
 
+
+.p-wrapper
+{
+    display:  flex;
+    width: 80%;
+    font-size: 2rem;
+    gap: .7rem;
+
+}
+
+.scheduled
+{
+    padding: 2rem;
+    border-radius: .3rem;
+    border: 1px solid $green;
+    color: $green;
+    font-weight: 600;
+    font-size: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+}
+
+.first-child
+{
+    font-weight: bolder;
+}
+
+
+.schedule-user-info, .schedule-area-info
+{
+    font-style: italic;
+}
+
+.schedule-cancel
+{
+    padding: 2rem;
+    font-size: 2rem;
+    border-radius: .7rem;
+    color: red;
+    border: 1px solid red;
+    cursor: pointer;
+    &:hover
+    {
+        background: rgba(255, 200, 200, .3);
+    }
+}
+
+
 .chosen__appointment
 {
     background: blue;
@@ -328,12 +378,22 @@ td
 }
 .chosen
 {
-    background: black;
+    background: $green;
+    pointer-events: all;
+    cursor: pointer;
 
 }
 .chosen:hover
 {
-    background: black;
+    background: rgba(20, 200, 20, .8);
+
+
+}
+
+.schedule-form-info
+{
+    flex-direction: column;
+    justify-content: space-around;
 
 }
 
