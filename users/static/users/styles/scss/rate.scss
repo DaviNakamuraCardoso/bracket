@@ -5,7 +5,30 @@
 {
     display: flex;
     flex-direction: column;
+    justify-content: flex-start;
+    width: 70%;
+    min-height: 60rem;
+    margin: auto;
+}
+
+
+.rate__form
+{
+    gap: 1rem;
+    display: flex;
+    flex-direction: column;
+    min-height: 40rem;
     justify-content: space-around;
+    textarea
+    {
+        padding: 2rem;
+    }
+    input[type="submit"]
+    {
+        width: 20rem;
+        align-self: right;
+    }
+
 }
 
 
@@ -14,6 +37,8 @@
     position: relative;
     display: flex;
     flex-direction: row-reverse;
+    gap: 1rem;
+    margin: 0 auto;
 
 }
 
@@ -27,9 +52,9 @@
 .star__label
 {
     display: block;
+
     cursor: pointer;
     width: 50px;
-    background: #ccc;
     &::after,
     &::before
     {
@@ -44,10 +69,14 @@
     }
     &::after
     {
-        color: colors.$main;
+        color: colors.$yellow;
         top: 0;
         position: absolute;
         opacity: 0;
+    }
+    &::before
+    {
+        color: colors.$gray;
     }
 }
 

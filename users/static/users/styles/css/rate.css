@@ -2,13 +2,33 @@
 .rate__container {
   display: flex;
   flex-direction: column;
+  justify-content: flex-start;
+  width: 70%;
+  min-height: 60rem;
+  margin: auto;
+}
+
+.rate__form {
+  gap: 1rem;
+  display: flex;
+  flex-direction: column;
+  min-height: 40rem;
   justify-content: space-around;
+}
+.rate__form textarea {
+  padding: 2rem;
+}
+.rate__form input[type=submit] {
+  width: 20rem;
+  align-self: right;
 }
 
 .star__container {
   position: relative;
   display: flex;
   flex-direction: row-reverse;
+  gap: 1rem;
+  margin: 0 auto;
 }
 
 .star__input {
@@ -19,7 +39,6 @@
   display: block;
   cursor: pointer;
   width: 50px;
-  background: #ccc;
 }
 .star__label::after, .star__label::before {
   content: "";
@@ -31,10 +50,13 @@
   color: #101010;
 }
 .star__label::after {
-  color: #4387f5;
+  color: #F5BA42;
   top: 0;
   position: absolute;
   opacity: 0;
+}
+.star__label::before {
+  color: #777;
 }
 
 .star__label:hover::after,

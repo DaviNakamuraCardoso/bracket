@@ -92,12 +92,12 @@ form
 }
 
 
-.field input
+.field input, .field textarea
 {
     width: 100%;
     height: 100%;
     padding: 1rem 2rem;
-    color: $gray;
+    color: colors.$black;
     border: 1px solid black;
     outline: none;
     font-size: 2rem;
@@ -120,16 +120,17 @@ form
 {
     position: absolute;
     bottom: 50%;
-    left: 10%;
+    left: 2rem;
     transform: translateY(50%);
     transition: all 0.5s ease;
+    color: colors.$gray;
 }
 
 
-.field input:focus + .label-field .content-label
+.field input:focus + .label-field .content-label, .field textarea:focus + .label-field .content-label
 {
     bottom: 100%;
-    left: 5%;
+    left: 1.2rem;
     font-size: 1.6rem;
     color: black;
     z-index: 2;
@@ -145,7 +146,7 @@ form
         .content-label
         {
 
-            left: 5%;
+            left: 1.2rem;
             bottom: 100%;
             font-size: 1.6rem;
             color: black;

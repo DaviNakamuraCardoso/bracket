@@ -1,9 +1,5 @@
 @charset "UTF-8";
 /* ___ Dust Pallete ___ */
-* {
-  color: #1e1e1e;
-}
-
 main {
   display: flex;
   align-items: center;

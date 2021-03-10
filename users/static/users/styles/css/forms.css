@@ -70,11 +70,11 @@ form input[type=submit i]:hover {
   color: #595f6e;
 }
 
-.field input {
+.field input, .field textarea {
   width: 100%;
   height: 100%;
   padding: 1rem 2rem;
-  color: #595f6e;
+  color: #0a100d;
   border: 1px solid black;
   outline: none;
   font-size: 2rem;
@@ -92,14 +92,15 @@ form input[type=submit i]:hover {
 .content-label {
   position: absolute;
   bottom: 50%;
-  left: 10%;
+  left: 2rem;
   transform: translateY(50%);
   transition: all 0.5s ease;
+  color: #777;
 }
 
-.field input:focus + .label-field .content-label {
+.field input:focus + .label-field .content-label, .field textarea:focus + .label-field .content-label {
   bottom: 100%;
-  left: 5%;
+  left: 1.2rem;
   font-size: 1.6rem;
   color: black;
   z-index: 2;
@@ -109,7 +110,7 @@ form input[type=submit i]:hover {
 }
 
 .valid__input .label-field .content-label {
-  left: 5%;
+  left: 1.2rem;
   bottom: 100%;
   font-size: 1.6rem;
   color: black;
