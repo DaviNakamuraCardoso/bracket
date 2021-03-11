@@ -5,14 +5,12 @@
 
 
 <div class="rate__container">
-    {% csrf_token %}
     {% for appointment in request.user.appointments.all %}
         {% if object == appointment.shift.clinic or object == appointment.shift.doctor %}
 
                 <form class="rate__form" action="{% url 'patients:rate' appointment.id %}" method="post">
                     {% csrf_token %}
                     <input type="hidden" value="{{ object.id }}" class="rate__doctor">
-                    <input type="text" class="rate__title">
                     <div class="star__container">
                         <input type="checkbox" id="star1" class="star__input">
                         <label for="star1" class="star__label"></label>
@@ -25,6 +23,21 @@
                         <input type="checkbox" id="star5" class="star__input">
                         <label for="star5" class="star__label"></label>
                     </div>
+                    <div class="field">
+                        <input type="text" name="rate__title" class="rate__title" id="rate__title">
+                        <label for="rate__title" class="label-field">
+                            <span class="content-label">Comment Title</span>
+
+                        </label>
+
+                    </div>
+                    <div class="field">
+                        <textarea type="text" name="rate__body" class="rate__body" id="rate__body" placeholder="Comment here..."></textarea>
+
+
+                    </div>
+                    <input type="submit" name="" value="Post">
+
                 </form>
 
             {% endif %}

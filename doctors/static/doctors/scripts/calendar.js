@@ -226,7 +226,7 @@ function updateAllAppointments(template)
 
                         children['submit'].disabled = true;
                         children['cancel'].disabled = true;
-                        
+
                         fetch(request, {
                             method: 'POST',
                             mode: 'same-origin',
@@ -249,11 +249,6 @@ function updateAllAppointments(template)
                             if (!remove)
                             {
 
-
-                                children['area-info'].innerHTML = children['areas'].value;
-                                children['user-info'].innerHTML = children['user'].value;
-
-
                                 children['form'].style.display = 'none';
                                 children['form-info'].style.display = 'flex';
                             }
@@ -261,8 +256,8 @@ function updateAllAppointments(template)
                             {
                                 children['form'].style.display = 'flex';
                                 children['form-info'].style.display = 'none';
-
                             }
+
                             appointment.classList.toggle('chosen', !remove);
                             remove = !remove;
 

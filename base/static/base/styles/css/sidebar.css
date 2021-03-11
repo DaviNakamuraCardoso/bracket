@@ -1,6 +1,7 @@
 #sidebar {
   position: fixed;
   top: 10vh;
+  background: #fafafa;
   flex-direction: column;
   width: 0;
   display: inline-table;
@@ -9,6 +10,7 @@
   display: flex;
   transition: all 0.3s ease;
   font-size: clamp(1.4rem, 2vw, 2.1rem);
+  border-right: 2px solid #f0f0f0;
 }
 
 #sidebar__button {
@@ -100,7 +102,7 @@
 
 #menu {
   margin-left: 5vw;
-  width: 85vw;
+  width: 95vw;
 }
 
 .navbar-item {

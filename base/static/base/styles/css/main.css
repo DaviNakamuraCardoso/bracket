@@ -110,9 +110,12 @@ body::-webkit-scrollbar {
 #menu {
   z-index: 10;
   display: flex;
+  justify-content: space-around;
   width: 100vw;
   height: 10vh;
   top: 0;
+  background: #fafafa;
+  border-bottom: 2px solid #f0f0f0;
 }
 
 #logo {
@@ -123,15 +126,63 @@ body::-webkit-scrollbar {
   grid-area: search;
 }
 
+#navbar__search {
+  position: relative;
+}
+
 #search-input {
-  border-radius: 30px;
-  padding: clamp(5px, 2vw, 20px);
-  border: 1px solid black;
-  width: 80%;
+  border-radius: 100vw;
+  border: 1px solid #777;
+  padding: 1rem 4rem;
+  position: relative;
+  width: 100%;
+  transition: all 0.2s linear;
 }
 
 #search-input:focus {
   outline: none;
+  border: 1px solid #4387f5;
+  margin-left: 0;
+  padding: 1rem;
+  width: 150%;
+}
+
+#search-input:focus + #search__label #search__content::before {
+  opacity: 0;
+  transform: translateX(-30%);
+  transition: opacity 0.3s linear, transform 0.5s linear;
+}
+
+#search__label {
+  position: absolute;
+  pointer-events: none;
+  top: 0;
+  left: 1rem;
+  width: 100%;
+  height: 100%;
+  transition: all 0.5s linear;
+}
+#search__label #search__content {
+  left: 0;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+}
+
+#search__content::before {
+  display: flex;
+  align-items: center;
+  align-content: center;
+  align-self: center;
+  font-size: 1.6rem;
+  height: 100%;
+  color: #777;
+}
+
+#search__icon {
+  position: absolute;
+  top: 50%;
+  left: 0;
 }
 
 .double {

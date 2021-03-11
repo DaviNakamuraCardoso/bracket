@@ -73,3 +73,10 @@
 {
     content: attr(data-before);
 }
+
+
+.search::before
+{
+    z-index: 9; 
+    content: '\f002';
+}

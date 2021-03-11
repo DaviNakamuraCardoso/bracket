@@ -27,8 +27,13 @@
         </div>
 
         <div class="navbar-nav" id="search">
-            <form>
-                <input type="text" name="search_query" id="search-input">
+            <form id="navbar__search">
+                <input type="text" name="search_query" id="search-input" class="fas-text search" placeholder="Search for areas, clinics and doctors">
+                <label for="search-input" id="search__label">
+                    <span id="search__content" class="fas-text search">
+                    </span>
+                </label>
+
             </form>
         </div>
 
@@ -58,7 +63,7 @@
         </div>
 
     </nav>
-    {# {% include 'base/sidebar.html' %} #}
+    {% include 'base/sidebar.html' %}
     <!-- Body -->
     <main id="main">
         {% block body %}

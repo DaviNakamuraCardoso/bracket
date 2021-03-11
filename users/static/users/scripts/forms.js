@@ -3,14 +3,12 @@ function main()
     const fields = document.querySelectorAll(".field");
     for (let i = 0; i < fields.length; i++)
     {
-        let input = fields[i].querySelector('input');
+        let input = fields[i].querySelector('input') || fields[i].querySelector('textarea');
+        console.log(input);
         validate(input);
         input.onkeyup = () => {
             validate(input);
         };
-        input.onfocus = () => {
-            fields[i].classList.toggle('valid__input', true);
-        }
     }
 
 }

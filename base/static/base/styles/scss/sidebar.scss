@@ -8,6 +8,7 @@ $sidebar-open: 15vw;
 {
     position: fixed;
     top: 10vh;
+    background: colors.$white;
     flex-direction: column;
     width: $sidebar-width;
     display: inline-table;
@@ -16,6 +17,7 @@ $sidebar-open: 15vw;
     display: flex;
     transition: all .3s ease;
     font-size: clamp(1.4rem, 2vw, 2.1rem);
+    border-right: 2px solid colors.$hover-gray;
 
 }
 
@@ -138,7 +140,7 @@ $sidebar-open: 15vw;
 #menu
 {
     margin-left: 5vw;
-    width: 85vw;
+    width: 95vw;
 }
 
 .navbar-item
