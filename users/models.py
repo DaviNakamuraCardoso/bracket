@@ -125,7 +125,7 @@ class User(AbstractBaseUser, PermissionsMixin):
             image = self.picture.url
 
 
-        return image 
+        return image
 
     def sorted_notifications(self):
         return self.notifications.all().order_by('-timestamp')
@@ -135,6 +135,13 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def timezone_delay(self):
         return tz(self.city.timezone)
+
+    def basic_serialize(self):
+        return {
+            'image': self.get_image(),
+            'title': f"{self.first_name} {self.last_name}",
+            'url': self.name
+        }
 
 class Day(models.Model):
     day = models.CharField(max_length=32)

@@ -7,10 +7,16 @@
 <div class="rate__container">
     {% for appointment in request.user.appointments.all %}
         {% if object == appointment.shift.clinic or object == appointment.shift.doctor %}
+            {% if appointment.checked %}
 
                 <form class="rate__form" action="{% url 'patients:rate' appointment.id %}" method="post">
                     {% csrf_token %}
-                    <input type="hidden" value="{{ object.id }}" class="rate__doctor">
+                    {% if tabs == "doctors" %}
+                        {{True|json_script:"rate__type"}}
+                    {% else %}
+                        {{False|json_script:"rate__type"}}
+                    {% endif %}
+
                     <div class="star__container">
                         <input type="checkbox" id="star1" class="star__input">
                         <label for="star1" class="star__label"></label>
@@ -23,14 +29,7 @@
                         <input type="checkbox" id="star5" class="star__input">
                         <label for="star5" class="star__label"></label>
                     </div>
-                    <div class="field">
-                        <input type="text" name="rate__title" class="rate__title" id="rate__title">
-                        <label for="rate__title" class="label-field">
-                            <span class="content-label">Comment Title</span>
 
-                        </label>
-
-                    </div>
                     <div class="field">
                         <textarea type="text" name="rate__body" class="rate__body" id="rate__body" placeholder="Comment here..."></textarea>
 
@@ -39,8 +38,36 @@
                     <input type="submit" name="" value="Post">
 
                 </form>
+                {% endif %}
 
             {% endif %}
     {% endfor %}
+            <template id="comment">
+                <div class="comment__post">
+
+                    <div class="comment__header">
+
+                        <div class="comment__image">
+
+                            <img src="" alt="" class="comment__picture">
+
+                        </div>
+                        <div class="comment__title">
+                            <h3 class="comment__user"></h3>
+                            <div class="comment__info">
+
+                                <div class="comment__stars"></div>
+                                <div class="comment__time"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="comment__body">
+                        <p class="comment__comment"></p>
+                    </div>
+                </div>
+
+            </template>
+            <div class="comments" data-url="{% url 'doctors:rates' doctor.user.name %}"></div>
 
 </div>

@@ -2,6 +2,8 @@ from django.shortcuts import render
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib.postgres.search import TrigramSimilarity
+from base.models import Rate
+from doctors.models import Appointment
 from patients.models import Patient
 from users.decorators import ajax_login_required
 import json
@@ -33,28 +35,31 @@ def profile(request, name):
 
 @ajax_login_required
 def rate(request, appointment_id):
-    if request.method != "PUT":
+    if request.method != "POST":
         return JsonResponse({"message": "Method must be PUT."})
 
     data = json.loads(request.body)
 
     try:
-        appointment = Appointment.objects.get(pk=data['appointment_id'])
+        appointment = Appointment.objects.get(pk=appointment_id)
     except Appointment.DoesNotExist:
         return JsonResponse({"message": "You can only rate doctors after having an appointment with them."})
 
     if not appointment.checked:
-        return JsonResponse({"message": "You can only rate appointments after it was checked by the doctor them."})
+        return JsonResponse({"message": "You can only rate appointments after it was checked by the doctor."})
 
-    Rate.objects.create(
+    rate = Rate.objects.create(
         user=request.user,
-        clinic=Clinic.objects.get(pk=data['id']) if not data['is_doctor'] else None,
-        doctor=Doctor.objects.get(pk=data['id']) if data['is_doctor'] else None,
-        comment=data['comment'],
-        rating=data['rate']
+        clinic=appointment.shift.clinic,
+        doctor=appointment.shift.doctor,
+        comment=data['body'],
+        is_doctor_rating=data['is_doctor'],
+        rate=data['rate']
     )
 
-    return JsonResponse({"message": "Rating successfully sent"})
+    appointment.delete()
+
+    return JsonResponse({"message": "Rating successfully sent", "rate": rate.serialize()})
 
 
 @ajax_login_required

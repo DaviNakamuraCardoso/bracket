@@ -253,3 +253,22 @@ def check(request, appointment_id):
         text=f"Rate your appointment with {appointment.shift.doctor.__str__()}",
         url=reverse('patients:rate_redirect')
     )
+
+
+
+def all_rates(request, name):
+    return HttpResponseRedirect(reverse('base:index'))
+
+    
+def rates(request, name, page):
+    doctor = Doctor.objects.get(user__name=name)
+
+    # Number of rates returned per request
+    r = 5
+
+    s, e = (r*page, r*(page+1))
+
+    rates = doctor.ratings.all().order_by('-timestamp')[s:e]
+    context = {"rates": [rate.serialize() for rate in rates]}
+
+    return JsonResponse(context)
