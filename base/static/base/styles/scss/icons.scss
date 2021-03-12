@@ -77,6 +77,10 @@
 
 .search::before
 {
-    z-index: 9; 
+    z-index: 9;
     content: '\f002';
+}
+.star::before
+{
+    content: '\f005';
 }

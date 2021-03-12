@@ -65,4 +65,8 @@
   content: "";
 }
 
+.star::before {
+  content: "";
+}
+
 /*# sourceMappingURL=icons.css.map */

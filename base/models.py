@@ -37,6 +37,8 @@ class Rate(models.Model):
 
     rate = models.FloatField()
     is_doctor_rating = models.BooleanField(default=False)
+
+    title = models.CharField(max_length=64, blank=True, null=True)
     comment = models.CharField(max_length=280)
     timestamp = models.DateTimeField(auto_now_add=True)
 
@@ -45,3 +47,13 @@ class Rate(models.Model):
 
     def time(self):
         return strfdelta(timestamp=self.timestamp)
+
+    def serialize(self):
+        return {
+            'user': self.user.basic_serialize(),
+            'doctor': self.doctor.basic_serialize(),
+            'rate': self.rate,
+            'title': self.title,
+            'comment': self.comment,
+            'time': self.time()
+        }

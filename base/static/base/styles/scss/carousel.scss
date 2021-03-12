@@ -75,12 +75,19 @@
     transform: translateY(-50%);
     z-index: 1;
     cursor: pointer;
+    width: clamp(50px, 5vw, 100px);
+    height: clamp(50px, 5vw, 100px); 
+    border-radius: 50%;
     &::before
     {
         font-size: clamp(2.4rem, 3vw, 4rem);
         text-align: center;
         width: 100%;
         margin: auto;
+    }
+    &:hover
+    {
+        background: colors.$hover-gray;
     }
 }
 
