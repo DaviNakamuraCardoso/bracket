@@ -4,7 +4,6 @@ function main()
     for (let i = 0; i < fields.length; i++)
     {
         let input = fields[i].querySelector('input') || fields[i].querySelector('textarea');
-        console.log(input);
         validate(input);
         input.onkeyup = () => {
             validate(input);
