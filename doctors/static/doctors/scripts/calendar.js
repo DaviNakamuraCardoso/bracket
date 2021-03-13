@@ -251,6 +251,9 @@ function updateAllAppointments(template)
 
                                 children['form'].style.display = 'none';
                                 children['form-info'].style.display = 'flex';
+
+                                children['area-info'].innerHTML = children['areas'].value;
+                                children['user-info'].innerHTML = children['user'].value; 
                             }
                             else
                             {

@@ -104,6 +104,9 @@ def sumtime(time_obj, tdelta):
 
     return final.strftime(fmt)
 
+def format(a_string):
+    fmt = "%H:%M:%S"
+    return (datetime.strptime(a_string, fmt) - datetime(1900, 1, 1))
 
 def get_weekday(day, month, year):
 

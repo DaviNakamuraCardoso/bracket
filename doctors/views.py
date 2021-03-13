@@ -9,7 +9,7 @@ from doctors.forms import ShiftForm
 from patients.utils import confirmation
 from clinics.models import Clinic
 from base.models import Notification
-from users.data.time import get_weekday
+from users.data.time import get_weekday, format
 from users.decorators import ajax_login_required
 from datetime import datetime, timedelta
 import json
@@ -116,6 +116,7 @@ def day_planner(request, name, year, month, day):
     for shift in shifts:
         day_appointments += shift.get_appointments()
 
+    day_appointments.sort(key=lambda value:format(value[0]).total_seconds())
     appointments = Appointment.objects.filter(day=day, month=month, year=year, shift__doctor=doctor)
     user_appointments = Appointment.objects.filter(day=day, month=month, year=year, shift__doctor=doctor, user=request.user)
 
@@ -127,14 +128,17 @@ def appointment_planner(request, name, year, month, day, index):
     month += 1
     weekday = get_weekday(day, month, year)
     shifts = doctor.shifts.filter(day__day=weekday)
+    shifts = sorted(shifts, key=lambda value:value.start.hour)
 
     counter = 0
+    appointments = []
     for shift in shifts:
-        appointments = shift.get_appointments()
-        hour = appointments[index-counter]
-        counter += len(appointments)
 
-        if index <= counter:
+        app = shift.get_appointments()
+        appointments += app
+        counter += len(app)
+        if index < counter:
+            hour = appointments[index]
 
             try:
                 appointment = Appointment.objects.get(index=index, shift=shift, day=day, month=month, year=year)

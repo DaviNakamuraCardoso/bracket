@@ -2,31 +2,31 @@ from datetime import datetime, timezone
 from math import floor
 
 
-def intftimedelta(timedelta=None, timestamp=None): 
+def intftimedelta(timedelta=None, timestamp=None):
     """
-        Gets a timedelta or a timestamp and returns a dictionary with 
+        Gets a timedelta or a timestamp and returns a dictionary with
         the number of seconds, minutes, hours, days, months and years.
     """
 
-    if timestamp is not None: 
-        delta = datetime.now(timezone.utc) - timestamp 
+    if timestamp is not None:
+        delta = datetime.now(timezone.utc) - timestamp
 
-    else: 
-        delta = timedelta 
-    
+    else:
+        delta = timedelta
+
     # Total years (float)
     years = delta.days / 365.25
 
     # From the float part of the years, get the months
-    months = (years - floor(years)) * 365.25 / 30.4375 
+    months = (years - floor(years)) * 365.25 / 30.4375
 
-    # ... months , get the weeks 
+    # ... months , get the weeks
     weeks = (months - floor(months)) * 30.4375 / 7
 
     # ... weeks , get the days
-    days = (weeks - floor(weeks)) * 7 
+    days = (weeks - floor(weeks)) * 7
 
-    #  days, get the hours 
+    #  days, get the hours
     hours = (delta.seconds - (floor(days) * 24 * 60 * 60)) / 3600
 
     # ... hours, get the minutes
@@ -36,9 +36,9 @@ def intftimedelta(timedelta=None, timestamp=None):
     seconds = (minutes - floor(minutes)) * 60
 
 
-    # Rounded numbers 
-    y = floor(years)  
-    m = floor(months)   
+    # Rounded numbers
+    y = floor(years)
+    m = floor(months)
     w = round(weeks)
     d = round(days)
     h = round(hours)
@@ -47,12 +47,12 @@ def intftimedelta(timedelta=None, timestamp=None):
 
 
     return {
-        'seconds': s, 
-        'minutes': minu, 
-        'hours': h, 
-        'days': d,   
-        'weeks': w, 
-        'months': m, 
+        'seconds': s,
+        'minutes': minu,
+        'hours': h,
+        'days': d,
+        'weeks': w,
+        'months': m,
         'years': y
     }
 
@@ -60,38 +60,39 @@ def intftimedelta(timedelta=None, timestamp=None):
 def strfdelta(timedelta=None, timestamp=None):
     """Gets a timestamp and returns a proper string."""
 
-    if timestamp is not None: 
-        delta = datetime.now(timezone.utc) - timestamp 
-    else: 
-        delta = timedelta 
+    if timestamp is not None:
+        delta = datetime.now(timezone.utc) - timestamp
+    else:
+        delta = timedelta
 
     # Setting the values for months, days, hours, minutes and seconds
     time = [
-        ['seconds', 60], 
-        ['minutes', 60], 
-        ['hours', 24], 
+        ['seconds', 60],
+        ['minutes', 60],
+        ['hours', 24],
         ['days', 7],
-        ['weeks', 30.4375 / 7], 
+        ['weeks', 30.4375 / 7],
         ['months', 12]
 
     ]
 
     ago = 1
-    for order in time: 
+    for order in time:
         ago *= order[1]
 
-        if  (delta.days * 3600 * 24 ) + delta.seconds < ago: 
+        if  (delta.days * 3600 * 24 ) + delta.seconds < ago:
             number = max(1, intftimedelta(delta)[order[0]])
             word = order[0] if number > 1 else order[0].rstrip('s')
 
             return f"{number} {word} ago"
 
     number = intftimedelta(delta)['years']
-    word = 'years' if number > 1 else 'year' 
+    word = 'years' if number > 1 else 'year'
     return f"{number} {word} ago"
 
-        
-def strfage(d, m, y): 
+
+
+def strfage(d, m, y):
     """
         Gets the exact number of days, months and years and
         returns a string with patient's age.
@@ -109,7 +110,6 @@ def strfage(d, m, y):
     # If all the strings are empty, the patient was born today
     if fy == fm == fd == "":
         return "Born today."
-    
+
     # Returns the right string for days, months and years
     return f"{fy} {fm} {fd}"
- 

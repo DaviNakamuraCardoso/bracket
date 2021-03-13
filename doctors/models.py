@@ -3,7 +3,10 @@ from django.shortcuts import reverse
 from users.models import User, Day
 from clinics.models import Clinic
 from patients.models import Patient
-from users.data.time import sumtime, delta
+from users.data.time import sumtime, delta, format
+from base.time import intftimedelta
+from datetime import datetime, timedelta, date, time
+
 
 
 class Area(models.Model):
@@ -65,6 +68,7 @@ class Doctor(models.Model):
         for shift in shifts:
             hours += shift.get_appointments()
 
+        hours.sort(key=lambda value:format(value[0]).total_seconds())
         start = hours[int(appointment.index)][0]
         end = hours[int(appointment.index)][1]
 
@@ -150,7 +154,20 @@ class Appointment(models.Model):
         if self.confirmed:
             return "confirmed"
 
-        if self.cancelled: 
+        if self.cancelled:
             return "cancelled"
 
         return "not confirmed"
+
+    def get_delay(self):
+        n = datetime.now()
+        now = n - datetime(year=n.year, month=n.month, day=n.day, hour=self.user.timezone_delay())
+        s, e = self.shift.doctor.get_appointment_hour(self)
+        e = format(e)
+
+
+        if (now-e).total_seconds() < 0:
+            return "00:00"
+
+        r = intftimedelta(timedelta=(now-e))
+        return f"{'{:02}'.format(r['hours'])}:{'{:02}'.format(r['minutes'])}"
