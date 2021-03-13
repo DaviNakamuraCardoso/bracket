@@ -39,6 +39,9 @@ class Clinic(models.Model):
     # Image
     picture = models.ImageField(default='clinic-default.png')
 
+    # Users allowed to rate
+    allowed_raters = models.ManyToManyField(User, blank=True, related_name="clinic_rates")
+
     def __str__(self):
         return f"{self.name}"
 

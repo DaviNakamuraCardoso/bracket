@@ -8,7 +8,7 @@
 
 {% block body %}
 
-    {% include 'users/profile.html' with profile=clinic.serialize tabs="clinics" %}
+    {% include 'users/profile.html' with profile=clinic.serialize object=clinic tabs="clinics" %}
 
 
 {% endblock %}

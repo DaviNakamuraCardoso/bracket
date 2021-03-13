@@ -1,0 +1,10 @@
+{% extends "base/layout.html" %}
+
+{% block title %}
+    {{clinic}}'s Dashboard
+{% endblock %}
+
+
+{% block body %}
+    {% include 'users/dashboard.html' with type="clinic" appointments=appointments %}
+{% endblock %}

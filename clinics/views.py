@@ -1,10 +1,12 @@
 from django.shortcuts import render, reverse
 from django.http import JsonResponse, HttpResponse
+from django.contrib.postgres.search import TrigramSimilarity
 from clinics.models import Clinic
 from base.models import Notification
 from doctors.utils import get_doctor
-from doctors.models import Doctor
-from django.contrib.postgres.search import TrigramSimilarity
+from doctors.models import Doctor, Appointment
+from users.data.time import get_weekday
+from datetime import datetime, timedelta
 import json
 
 
@@ -81,6 +83,31 @@ def join_clinic(request, clinic_name):
     )
 
     return JsonResponse({"message": "Request sent succesfully.", 'value': 'cancel', 'newInner': "Cancel Request"})
+
+def dashboard(request, clinic_name):
+    clinic = Clinic.objects.get(clinic_name=clinic_name)
+
+    if request.user.is_authenticated:
+        time = datetime.now() - timedelta(hours=request.user.timezone_delay())
+    else:
+        time = datetime.now()
+
+    shifts = clinic.shifts.filter(day__day=get_weekday(time.day, time.month, time.year))
+    appointments = []
+
+    for shift in shifts:
+        appointments += Appointment.objects.filter(shift=shift)
+
+    appointments.sort(key=lambda model:model.index)
+
+    not_checked = [appointment for appointment in appointments if not appointment.checked]
+    checked = [appointment for appointment in appointments if appointment.checked]
+    confirmed = [appointment for appointment in appointments if appointment.confirmed]
+    cancelled = [appointment for appointment in appointments if appointment.cancelled]
+
+    context = {'clinic': clinic, 'appointments': appointments, 'checked': checked, 'confirmed': confirmed, 'cancelled': cancelled, 'not_checked': not_checked}
+
+    return render(request, 'clinics/dashboard.html', context)
 
 
 def doctor_in_clinics(request, doctor_name):
