@@ -1,5 +1,5 @@
-from django.shortcuts import render
-from django.http import JsonResponse
+from django.shortcuts import render, reverse
+from django.http import JsonResponse, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.postgres.search import TrigramSimilarity
 from base.models import Rate
@@ -74,7 +74,7 @@ def rate_redirect(request, object):
     model = appointment.shift.doctor if object == "doctors" else appointment.shift.clinic
 
     if data['accept']:
-        return HttpResponseRedirect(reverse(f'{object}:ratings', args=(model.identifier())))
+        return HttpResponseRedirect(reverse(f'{object}:ratings', args=(model.identifier(), )))
 
     return JsonResponse({"message": f"You can rate {model.__str__()} in its profile page."})
 

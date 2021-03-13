@@ -270,14 +270,29 @@ def check(request, appointment_id):
 
     data = json.loads(request.body)
 
-    appointment = Appointment.objects.get(pk=data['id'])
+    appointment = Appointment.objects.get(pk=appointment_id)
+
 
     if request.user != appointment.shift.doctor.user:
         return JsonResponse({"message": "Not allowed."})
 
-
     clinic = appointment.shift.clinic
     doctor = appointment.shift.doctor
+
+    if not data['check']:
+        appointment.cancelled = True
+        appointment.save()
+
+        Notification.objects.create(
+            user=appointment.user,
+            origin=appointment.shift.clinic.__str__(),
+            text=f""
+        )
+        return JsonResponse({"message": "Succesfully cancelled the appoinmtent"})
+
+    appointment.checked = True
+
+    appointment.save()
 
     if not appointment.user in clinic.allowed_raters.all():
         clinic.allowed_raters.add(appointment.user)
@@ -302,3 +317,5 @@ def check(request, appointment_id):
         url=reverse('patients:rate_redirect', args=("clinics", ))
 
     )
+
+    return JsonResponse({"message":  "Appointment checked successfully."})
