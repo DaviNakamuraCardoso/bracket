@@ -7,15 +7,11 @@
 <div class="rate__container">
     {% for appointment in request.user.appointments.all %}
         {% if object == appointment.shift.clinic or object == appointment.shift.doctor %}
-            {% if appointment.checked %}
+            {% if appointment.checked and request.user in object.allowed_raters.all %}
 
                 <form class="rate__form" action="{% url 'patients:rate' appointment.id %}" method="post">
                     {% csrf_token %}
-                    {% if tabs == "doctors" %}
-                        {{True|json_script:"rate__type"}}
-                    {% else %}
-                        {{False|json_script:"rate__type"}}
-                    {% endif %}
+                    <input type="hidden" name="" value="{% if tabs == "doctors" %}1{% else %}0{% endif %}" class="rate__is-doctor">
 
                     <div class="star__container">
                         <input type="checkbox" id="star1" class="star__input">
@@ -39,7 +35,6 @@
 
                 </form>
                 {% endif %}
-
             {% endif %}
     {% endfor %}
             <template id="comment">
@@ -68,6 +63,6 @@
                 </div>
 
             </template>
-            <div class="comments" data-url="{% url 'doctors:rates' doctor.user.name %}"></div>
+            <div class="comments" data-url="{% url 'patients:all_rates' tabs object.id %}"></div>
 
 </div>

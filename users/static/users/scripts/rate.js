@@ -71,6 +71,7 @@ function rate(form)
 
     const body = form.querySelector(".rate__body");
     const stars = form.querySelectorAll(".star__input");
+    const isDoctor = form.querySelector(".rate__is-doctor").value == 1;
 
     let rate;
 
@@ -87,7 +88,8 @@ function rate(form)
         method: 'POST',
         body: JSON.stringify({
             body: body.value,
-            rate: rate
+            rate: rate,
+            is_doctor: isDoctor
         })
     })
     .then(response => response.json())

@@ -1,0 +1,240 @@
+@use 'abstract/colors';
+
+
+.appointments__container
+{
+    padding: 5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 5rem;
+}
+
+.appointments__cards
+{
+    display: flex;
+    justify-content: space-evenly;
+
+}
+
+.appointments__header-card
+{
+    background: white;
+    border-radius: 3rem;
+    height: 15rem;
+    width: 20%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 5px rgba(black, .3);
+}
+
+.appointments__card-title
+{
+    font-size: 4rem;
+    font-weight: bolder;
+}
+
+.appointments__card-type
+{
+    color: colors.$gray;
+    font-size: 1.4rem;
+}
+
+.appointments__body
+{
+    display: grid;
+    grid-template-areas:
+    "delay  now now"
+    "number now now";
+    width: 80%;
+    margin: auto;
+
+
+}
+
+
+.appointments__now
+{
+    display: flex;
+    width: 90%;
+    grid-area: now;
+    flex-direction: column;
+    height: 30rem;
+    border-radius: 4rem;
+    padding: 3rem;
+    box-shadow: 0 2px 6px rgba(black, .3);
+}
+
+.appointments__now-header
+{
+    width: 100%;
+    margin: .3rem 0;
+    font-size: 1rem;
+    color: colors.$gray;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+}
+
+.appointments__now-body
+{
+    width: 80%;
+    height: 60%;
+    font-size: 1.8rem;
+
+}
+
+.appointments__now-body-title
+{
+    width: 80%;
+    margin: 0 1.4rem;
+    font-size: 3rem;
+    color: colors.$black;
+}
+
+.appointments__now-subtitle
+{
+    display: flex;
+    justify-content: space-between;
+
+}
+
+.appointments__now-title
+{
+    width: 80%;
+    margin: 0 1.4rem;
+}
+
+.appointments__now-time
+{
+    font-size: 2.4rem;
+    width: 50%;
+    margin: 0 1.4rem;
+    display: flex;
+    justify-content: flex-end;
+
+}
+
+.appointments__delay, .appointments__number
+{
+    box-shadow: 0 2px 6px rgba(black, .3);
+    background: white;
+    border-radius: 3rem;
+    width: 80%;
+    height: 90%;
+    justify-self: center;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+
+}
+
+.appointments__delay-title
+{
+    font-size: 7rem;
+}
+
+.appointments__delay-delay
+{
+    font-size: 1.8rem;
+    color: colors.$gray;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+
+}
+
+.appointments__delay
+{
+    grid-area: delay;
+}
+
+.appointments__number
+{
+    grid-area: number;
+    align-self: end;
+}
+
+
+.appointment__table-table
+{
+    width: 90%;
+    margin: auto;
+    font-size: clamp(1.4rem, 1.8vw, 2.4rem);
+    border-collapse: collapse;
+
+    th, tr, td
+    {
+        display: flex;
+        width: 100%;
+        justify-content: center;
+        align-items: center;
+    }
+
+    th, td
+    {
+        border: 1px solid colors.$hover-gray;
+        height: 5rem;
+    }
+    border: 2px solid colors.$hover-gray;
+    box-shadow: 0 3px 4px rbga(black, .3);
+    background: white;
+}
+
+.appointment__status
+{
+    font-weight: 400;
+    text-transform: capitalize;
+    position: relative;
+    font-size: clamp(1.4rem, 1.4vw, 2rem);
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &::before
+    {
+        content: '';
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        left: 1.5rem;
+        width: 1.3rem;
+        height: 1.3rem;
+        border-radius: 50%;
+    }
+}
+
+
+.appointment__status--not
+{
+    color: colors.$yellow;
+    &::before
+    {
+        background: colors.$yellow;
+    }
+}
+
+
+.appointment__status--confirmed
+{
+    color: colors.$green;
+    &::before
+    {
+        background: colors.$green;
+    }
+}
+
+
+.appointment__status--cancelled
+{
+    color: colors.$light-red;
+    &::before
+    {
+        background: colors.$red;
+    }
+}
