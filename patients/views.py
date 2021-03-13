@@ -3,7 +3,8 @@ from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib.postgres.search import TrigramSimilarity
 from base.models import Rate
-from doctors.models import Appointment
+from clinics.models import Clinic
+from doctors.models import Appointment, Doctor
 from patients.models import Patient
 from users.decorators import ajax_login_required
 import json
@@ -57,19 +58,40 @@ def rate(request, appointment_id):
         rate=data['rate']
     )
 
-    appointment.delete()
+    if data['is_doctor']:
+        appointment.shift.doctor.allowed_raters.remove(request.user)
+    else:
+        appointment.shift.clinic.allowed_raters.remove(request.user)
+
 
     return JsonResponse({"message": "Rating successfully sent", "rate": rate.serialize()})
 
 
 @ajax_login_required
-def rate_redirect(request):
+def rate_redirect(request, object):
     data = json.loads(request.body)
     appointment = Appointment.objects.get(pk=data['object_id'])
-    doctor_name = appointment.shift.doctor.user.name
-    appointment.delete()
+    model = appointment.shift.doctor if object == "doctors" else appointment.shift.clinic
 
     if data['accept']:
-        return HttpResponseRedirect(reverse('doctors:ratings', args=(doctor_name)))
+        return HttpResponseRedirect(reverse(f'{object}:ratings', args=(model.identifier())))
 
-    return JsonResponse({"message": ""})
+    return JsonResponse({"message": f"You can rate {model.__str__()} in its profile page."})
+
+
+def all_rates(request, object, object_id):
+    return HttpResponseRedirect(reverse('base:index'))
+
+
+def rates(request, object, object_id, page):
+    model = Doctor.objects.get(pk=object_id) if object == "doctors" else Clinic.object.get(pk=object_id)
+
+    # Number of rates returned per request
+    r = 5
+
+    s, e = (r*page, r*(page+1))
+
+    rates = model.ratings.filter(is_doctor_rating=object=="doctors").order_by('-timestamp')[s:e]
+    context = {"rates": [rate.serialize() for rate in rates]}
+
+    return JsonResponse(context)
