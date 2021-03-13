@@ -11,6 +11,7 @@ from clinics.models import Clinic
 from base.models import Notification
 from users.data.time import get_weekday
 from users.decorators import ajax_login_required
+from datetime import datetime, timedelta
 import json
 # Create your views here.
 
@@ -38,6 +39,29 @@ def profile(request, name):
     doctor = get_doctor(name)
     context = {'doctor': doctor}
     return render(request, 'doctors/profile.html', context)
+
+def dashboard(request, name):
+    doctor = get_doctor(name)
+    if request.user.is_authenticated:
+        time = datetime.now() - timedelta(hours=request.user.timezone_delay())
+    else:
+        time = datetime.now()
+
+    shifts = doctor.shifts.filter(day__day=get_weekday(time.day, time.month, time.year))
+    appointments = []
+    for shift in shifts:
+        appointments += Appointment.objects.filter(shift=shift)
+
+    appointments.sort(key=lambda model:model.index)
+
+
+    not_checked = [appointment for appointment in appointments if not appointment.checked]
+    checked = [appointment for appointment in appointments if appointment.checked]
+    confirmed = [appointment for appointment in appointments if appointment.confirmed]
+    cancelled = [appointment for appointment in appointments if appointment.cancelled]
+
+    context = {"doctor": doctor, "appointments": appointments, "checked": checked, "not_checked": not_checked, "confirmed": confirmed, "cancelled": cancelled}
+    return render(request, 'doctors/dashboard.html', context)
 
 
 def schedule_view(request, name):
@@ -225,7 +249,8 @@ def confirm(request, name, year, month, day, index):
 
     # If the user cancel the appointment, it is again free to be taken by another person
     if not data['accept']:
-        appointment.delete()
+        appointment.cancelled = True
+        appointment.save()
         return JsonResponse({"message": "Appointment cancelled successfully"})
 
     # Checking for confirmation
@@ -243,32 +268,33 @@ def check(request, appointment_id):
 
     appointment = Appointment.objects.get(pk=data['id'])
 
-    if request.user.id != appointment.shift.doctor.id:
+    if request.user != appointment.shift.doctor.user:
         return JsonResponse({"message": "Not allowed."})
+
+
+    clinic = appointment.shift.clinic
+    doctor = appointment.shift.doctor
+
+    if not appointment.user in clinic.allowed_raters.all():
+        clinic.allowed_raters.add(appointment.user)
+
+    if not appointment.user in doctor.allowed_raters.all():
+        doctor.allowed_raters.add(appointment.user)
+
 
     Notification.objects.create(
         user=appointment.user,
-        origin="",
+        origin="Bracket",
         object_id=appointment.id,
-        text=f"Rate your appointment with {appointment.shift.doctor.__str__()}",
-        url=reverse('patients:rate_redirect')
+        text=f"Rate your appointment with {doctor.__str__()}",
+        url=reverse('patients:rate_redirect', args=("doctors", ))
     )
 
+    Notification.objects.create(
+        user=appointment.user,
+        origin="Bracket",
+        object_id=appointment.id,
+        text=f"Rate your appointment in {clinic.__str__()}.",
+        url=reverse('patients:rate_redirect', args=("clinics", ))
 
-
-def all_rates(request, name):
-    return HttpResponseRedirect(reverse('base:index'))
-
-    
-def rates(request, name, page):
-    doctor = Doctor.objects.get(user__name=name)
-
-    # Number of rates returned per request
-    r = 5
-
-    s, e = (r*page, r*(page+1))
-
-    rates = doctor.ratings.all().order_by('-timestamp')[s:e]
-    context = {"rates": [rate.serialize() for rate in rates]}
-
-    return JsonResponse(context)
+    )

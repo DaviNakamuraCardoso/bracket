@@ -29,6 +29,7 @@ class Doctor(models.Model):
     areas = models.ManyToManyField(Area, blank=True, related_name='doctors')
     clinics = models.ManyToManyField(Clinic, blank=True, related_name='doctors')
 
+    allowed_raters = models.ManyToManyField(User, blank=True, related_name="doctor_rates")
 
     def serialize(self):
         return {
@@ -128,8 +129,28 @@ class Appointment(models.Model):
     shift = models.ForeignKey(Shift, on_delete=models.CASCADE, related_name='shift_appointments')
     confirmed = models.BooleanField(default=False)
     checked = models.BooleanField(default=False)
+    cancelled = models.BooleanField(default=False)
     area = models.ForeignKey(Area, on_delete=models.CASCADE, blank=True, null=True)
     day = models.IntegerField()
     month = models.IntegerField()
     year = models.IntegerField()
     index = models.IntegerField(null=True, blank=True)
+
+    def formatted_hours(self):
+        s, e = self.shift.doctor.get_appointment_hour(self)
+        return f"{':'.join(s.split(':')[:2])}-{':'.join(e.split(':')[:2])}"
+
+    def formatted_patient(self):
+        if self.to == self.user.__str__():
+            return self.to
+
+        return f"{self.to} (Re: {self.user.__str__()})"
+
+    def status(self):
+        if self.confirmed:
+            return "confirmed"
+
+        if self.cancelled: 
+            return "cancelled"
+
+        return "not confirmed"
