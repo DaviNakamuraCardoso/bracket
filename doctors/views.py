@@ -13,7 +13,7 @@ from users.data.time import get_weekday, format
 from users.decorators import ajax_login_required
 from datetime import datetime, timedelta
 import json
-# Create your views here.
+
 
 def index(request):
 
@@ -40,28 +40,48 @@ def profile(request, name):
     context = {'doctor': doctor}
     return render(request, 'doctors/profile.html', context)
 
+
 def dashboard(request, name):
     doctor = get_doctor(name)
+    context = {"doctor": doctor}
+    return render(request, 'doctors/dashboard.html', context)
+
+
+def dashboard_api(request, name, version):
+    doctor = get_doctor(name)
+
+    # If both the server and client have the same dashboard version, skip
+    if doctor.dashboard_version == version:
+        return JsonResponse({"message": "Same version."})
+
+
+    # Check for non-registered users
     if request.user.is_authenticated:
         time = datetime.now() - timedelta(hours=request.user.timezone_delay())
     else:
         time = datetime.now()
 
-    shifts = doctor.shifts.filter(day__day=get_weekday(time.day, time.month, time.year))
+    # Get the shifts for this day
+    shifts = doctor.shifts.filter(day__day=get_weekday(time.day, time.month, time.year)).order_by('start')
     appointments = []
-    for shift in shifts:
-        appointments += Appointment.objects.filter(shift=shift)
 
-    appointments.sort(key=lambda model:model.index)
+    # Separates the appointments by clinic
+    for clinic in doctor.clinics.all():
+        c = []
+        for shift in shifts.filter(clinic=clinic):
+            a = Appointment.objects.filter(shift=shift)
+
+            c.append([ap.serialize() for ap in a])
+
+        if len(c) == 0:
+            continue
+        appointments.append({"object": clinic.basic_serialize(), "appointments": c})
+
+    return JsonResponse({"appointments": appointments, "version": doctor.dashboard_version})
 
 
-    not_checked = [appointment for appointment in appointments if not appointment.checked]
-    checked = [appointment for appointment in appointments if appointment.checked]
-    confirmed = [appointment for appointment in appointments if appointment.confirmed]
-    cancelled = [appointment for appointment in appointments if appointment.cancelled]
-
-    context = {"doctor": doctor, "appointments": appointments, "checked": checked, "not_checked": not_checked, "confirmed": confirmed, "cancelled": cancelled}
-    return render(request, 'doctors/dashboard.html', context)
+def dashboard_pass(request, name):
+    pass
 
 
 def schedule_view(request, name):
@@ -193,10 +213,8 @@ def accept(request, name):
         # Notifies the user
         return JsonResponse({"message": f"Could not accept {doctor.__str__()}. The doctor probably cancelled the request."})
 
-    # If everything went right, the doctor was added to the clinic
+    # If everything went right, the doctor is added to the clinic
     return JsonResponse({"message": f"Succesfully accepted {doctor.__str__()}."})
-
-
 
 
 @login_required
@@ -231,6 +249,12 @@ def new_appointment(request, name):
         appointment.save()
         confirmation(appointment)
 
+        shift.doctor.dashboard_version += 1
+        shift.clinic.dashboard_version += 1
+
+        shift.doctor.save()
+        shift.clinic.save()
+
         return JsonResponse({"message": f"Appointment scheduled successfully."})
 
     return JsonResponse({"message": "Method must be POST."})
@@ -250,6 +274,13 @@ def confirm(request, name, year, month, day, index):
 
     notification = Notification.objects.get(object_id=int(data['object_id']))
     notification.delete()
+
+    # Change the dashboard for clinic and doctor
+    appointment.shift.doctor.dashboard_verion += 1
+    appointment.shift.doctor.save()
+
+    appointment.shift.clinic.dashboard_verion += 1
+    appointment.shift.clinic.save()
 
     # If the user cancel the appointment, it is again free to be taken by another person
     if not data['accept']:
@@ -279,6 +310,12 @@ def check(request, appointment_id):
     clinic = appointment.shift.clinic
     doctor = appointment.shift.doctor
 
+    clinic.dashboard_version += 1
+    doctor.dashboard_version += 1
+
+    clinic.save()
+    doctor.save()
+
     if not data['check']:
         appointment.cancelled = True
         appointment.save()
@@ -286,9 +323,9 @@ def check(request, appointment_id):
         Notification.objects.create(
             user=appointment.user,
             origin=appointment.shift.clinic.__str__(),
-            text=f""
+            text=data['text']
         )
-        return JsonResponse({"message": "Succesfully cancelled the appoinmtent"})
+        return JsonResponse({"message": "Succesfully cancelled the appoinmtent."})
 
     appointment.checked = True
 
@@ -300,22 +337,5 @@ def check(request, appointment_id):
     if not appointment.user in doctor.allowed_raters.all():
         doctor.allowed_raters.add(appointment.user)
 
-
-    Notification.objects.create(
-        user=appointment.user,
-        origin="Bracket",
-        object_id=appointment.id,
-        text=f"Rate your appointment with {doctor.__str__()}",
-        url=reverse('patients:rate_redirect', args=("doctors", ))
-    )
-
-    Notification.objects.create(
-        user=appointment.user,
-        origin="Bracket",
-        object_id=appointment.id,
-        text=f"Rate your appointment in {clinic.__str__()}.",
-        url=reverse('patients:rate_redirect', args=("clinics", ))
-
-    )
 
     return JsonResponse({"message":  "Appointment checked successfully."})

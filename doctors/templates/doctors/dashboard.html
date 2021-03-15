@@ -8,5 +8,7 @@
 
 
 {% block body %}
-    {% include 'users/dashboard.html' with type="doctor" appointments=appointments %}
+
+
+    {% include 'users/dashboard.html' with type="doctor" doctor=doctor %}
 {% endblock %}

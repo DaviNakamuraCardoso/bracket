@@ -41,6 +41,7 @@ class Clinic(models.Model):
 
     # Users allowed to rate
     allowed_raters = models.ManyToManyField(User, blank=True, related_name="clinic_rates")
+    dashboard_version = models.BigIntegerField(default=1)
 
     def __str__(self):
         return f"{self.name}"

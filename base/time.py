@@ -40,10 +40,10 @@ def intftimedelta(timedelta=None, timestamp=None):
     y = floor(years)
     m = floor(months)
     w = round(weeks)
-    d = round(days)
-    h = round(hours)
-    minu = round(minutes)
-    s = round(seconds)
+    d = floor(days)
+    h = floor(hours)
+    minu = floor(minutes)
+    s = floor(seconds)
 
 
     return {

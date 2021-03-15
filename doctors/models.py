@@ -8,7 +8,6 @@ from base.time import intftimedelta
 from datetime import datetime, timedelta, date, time
 
 
-
 class Area(models.Model):
     area = models.CharField(max_length=128)
     picture = models.ImageField(blank=True, null=True)
@@ -33,6 +32,7 @@ class Doctor(models.Model):
     clinics = models.ManyToManyField(Clinic, blank=True, related_name='doctors')
 
     allowed_raters = models.ManyToManyField(User, blank=True, related_name="doctor_rates")
+    dashboard_version = models.BigIntegerField(default=1)
 
     def serialize(self):
         return {
@@ -140,6 +140,16 @@ class Appointment(models.Model):
     year = models.IntegerField()
     index = models.IntegerField(null=True, blank=True)
 
+
+    def serialize(self):
+        return {
+            "time": self.formatted_hours(),
+            "patient": self.formatted_patient(),
+            "status": self.status(),
+            "delay": self.get_delay(),
+            "id": self.id
+        }
+
     def formatted_hours(self):
         s, e = self.shift.doctor.get_appointment_hour(self)
         return f"{':'.join(s.split(':')[:2])}-{':'.join(e.split(':')[:2])}"
@@ -166,8 +176,14 @@ class Appointment(models.Model):
         e = format(e)
 
 
-        if (now-e).total_seconds() < 0:
-            return "00:00"
+        if (now-e).total_seconds() <= 0:
+            return "-", "empty"
 
         r = intftimedelta(timedelta=(now-e))
-        return f"{'{:02}'.format(r['hours'])}:{'{:02}'.format(r['minutes'])}"
+        hours = r['hours']
+        minutes = r['minutes']
+
+        if hours <= 0:
+            return f"{minutes}min", "minutes"
+
+        return f"{hours}h {'{:02}'.format(minutes)}min", "hours"
