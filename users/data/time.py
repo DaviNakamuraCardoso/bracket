@@ -66,6 +66,7 @@ def tz(timezone):
     global TIMEZONES
     return TIMEZONES[timezone.strip(' ')]
 
+
 def get_calendar(month, year):
     global MONTHS
     d = datetime(year=year, month=month, day=1)

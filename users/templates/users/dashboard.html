@@ -4,123 +4,113 @@
 <script type="module" src="{% static 'users/scripts/dashboard.js' %}"></script>
 <link rel="stylesheet" href="{% static 'users/styles/css/dashboard.css' %}">
 
-<div class="appointments__container">
-    <div class="appointments__header">
-        <div class="appointments__cards">
-
-            <div class="appointments__header-card">
-                <div class="appointments__card-title">
-                    <h1 class="fas-text">{{ appointments|length }}</h1>
-                </div>
-                <div class="appointments__card-type">
-                    <h3>Total</h3>
-                </div>
-            </div>
-
-            <div class="appointments__header-card">
-                <div class="appointments__card-title">
-                    <h1 class="fas-text">{{ confirmed|length }}</h1>
-                </div>
-                <div class="appointments__card-type">
-                    <h3>Confirmed</h3>
-                </div>
-            </div>
-
-            <div class="appointments__header-card">
-                <div class="appointments__card-title">
-                    <h1 class="fas-text">{{ checked|length }}</h1>
-                </div>
-                <div class="appointments__card-type">
-                    <h3>Done</h3>
-                </div>
-            </div>
-
-            <div class="appointments__header-card">
-                <div class="appointments__card-title">
-                    <h1 class="fas-text">{{ cancelled|length }}</h1>
-                </div>
-                <div class="appointments__card-type">
-                    <h3>Cancelled</h3>
-                </div>
-            </div>
 
 
-        </div>
-    </div>
-    {% with not_checked.0 as appointment %}
-    <div class="appointments__body">
-        <div class="appointments__delay">
-            <div class="appointments__delay-header">
-                <h1 class="appointments__delay-title">{{appointment.get_delay}}</h1>
-                <h3 class="appointments__delay-delay">Delay</h3>
+<div class="appointments__container" data-url="{% if type == "doctor" %}{% url 'doctors:dashboard_api' doctor.user.name %}{% endif %}">
 
-            </div>
+    <template id="appointment">
 
+        <div class="appointment">
 
-        </div>
-        <div class="appointments__number">
+            <div class="appointments__header">
+                <div class="appointments__cards">
 
-        </div>
-        <div class="">
-
-        </div>
-        <div class="appointments__now">
-            <div class="appointments__now-header">
-                    <h1 class="appointments__now-title">Right Now</h1>
-                    <div class="appointments__now-subtitle">
-
-                        <h1 class="appointments__now-body-title">{{ appointment.to }}</h1>
-                        <h3 class="appointments__now-time">{{appointment.formatted_hours}}</h3>
+                    <div class="appointments__header-card">
+                        <div class="appointments__card-title">
+                            <h1 class="fas-text"></h1>
+                        </div>
+                        <div class="appointments__card-type">
+                            <h3>Total</h3>
+                        </div>
                     </div>
+
+                    <div class="appointments__header-card">
+                        <div class="appointments__card-title">
+                            <h1 class="fas-text"></h1>
+                        </div>
+                        <div class="appointments__card-type">
+                            <h3>Confirmed</h3>
+                        </div>
+                    </div>
+
+                    <div class="appointments__header-card">
+                        <div class="appointments__card-title">
+                            <h1 class="fas-text"></h1>
+                        </div>
+                        <div class="appointments__card-type">
+                            <h3>Done</h3>
+                        </div>
+                    </div>
+
+                    <div class="appointments__header-card">
+                        <div class="appointments__card-title">
+                            <h1 class="fas-text"></h1>
+                        </div>
+                        <div class="appointments__card-type">
+                            <h3>Cancelled</h3>
+                        </div>
+                    </div>
+
+
+                </div>
             </div>
-            <div class="appointments__now-body">
+
+            <div class="appointments__body">
+                <div class="appointments__delay">
+                    <div class="appointments__delay-header">
+                        <h1 class="appointments__delay-title appointments__delay-"></h1>
+                        <h3 class="appointments__delay-delay">Delay</h3>
+                    </div>
+
+
+                </div>
+                <div class="appointments__number">
+
+                </div>
+                <div class="">
+
+                </div>
+                <div class="appointments__now">
+                    <div class="appointments__now-header">
+                            <h1 class="appointments__now-title">Right Now</h1>
+                            <div class="appointments__now-subtitle">
+
+                                <h1 class="appointments__now-body-title"></h1>
+                                <h3 class="appointments__now-time"></h3>
+                            </div>
+                    </div>
+                    <div class="appointments__now-body">
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="appointments__extension">
+
+                <div class="appointment__table">
+                    <div class="appointment__table-header">
+
+                    </div>
+
+
+                    <div class="appointment__table-body">
+
+                        <table class="appointment__table-table">
+                            <thead class="appointment__head">
+                                <tr>
+                                    <th>Hour</th>
+                                    <th>Patient</th>
+                                    <th>Area</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody class="appointment__body">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
-        {% endwith %}
-
-
-    </div>
-    <div class="appointments__extension">
-        <div class="appointment__table">
-            <div class="appointment__table-header">
-
-            </div>
-
-            <div class="appointment__table-body">
-
-                <table class="appointment__table-table">
-                    <thead>
-                        <tr>
-                            <th>Hour</th>
-                            <th>Patient</th>
-                            <th>Area</th>
-                            <th>{% if type == "doctor" %}Clinic{% else %}Doctor{% endif %}</th>
-                            <th>Status</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for appointment in appointments %}
-                            <tr class="appointment__">
-                                <td>{{appointment.formatted_hours}}</td>
-                                <td>{{appointment.formatted_patient}}</td>
-                                <td>{{appointment.area}}</td>
-                                <td>{% if type == "doctor" %}{{appointment.shift.clinic}}{% else %}{{appointment.shift.doctor }}{% endif %}</td>
-                                <td><div class="appointment__status appointment__status--{{appointment.status}}">
-                                    {{appointment.status}}
-                                </div></td>
-                                <td class="appointment__buttons" data-url="{% url 'doctors:check' appointment.id %}">
-                                    {% csrf_token %}
-                                    <button type="button" name="button" data-value="check" class="appointment__button appointment__button--check">Check</button>
-                                    <button type="button" name="button" data-value="cancel" class="appointment__button appointment__button--cancel">Cancel</button>
-                                </td>
-                            </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-    </div>
-
+    </template>
 </div>

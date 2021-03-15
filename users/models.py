@@ -137,6 +137,8 @@ class User(AbstractBaseUser, PermissionsMixin):
         return [notification.origin for notification in self.notifications.all()]
 
     def timezone_delay(self):
+        if self.city is None:
+            return 0 
         return tz(self.city.timezone)
 
     def basic_serialize(self):

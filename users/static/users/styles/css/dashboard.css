@@ -109,6 +109,19 @@
 
 .appointments__delay-title {
   font-size: 7rem;
+  text-align: center;
+}
+
+.appointments__delay-empty {
+  color: #777;
+}
+
+.appointments__delay-minutes {
+  color: #F5BA42;
+}
+
+.appointments__delay-hours {
+  color: rgba(255, 0, 0, 0.8);
 }
 
 .appointments__delay-delay {
@@ -133,8 +146,9 @@
   margin: auto;
   font-size: clamp(1.4rem, 1.8vw, 2.4rem);
   border-collapse: collapse;
-  border: 2px solid #f0f0f0;
-  box-shadow: 0 3px 4px rbga(black, 0.3);
+  border-bottom: 0.3rem solid #4387f5;
+  border-radius: 1rem 1rem 0 0;
+  box-shadow: 0 0 20px rbga(black, 0.15);
   background: white;
 }
 .appointment__table-table th, .appointment__table-table tr, .appointment__table-table td {
@@ -143,9 +157,28 @@
   justify-content: center;
   align-items: center;
 }
-.appointment__table-table th, .appointment__table-table td {
-  border: 1px solid #f0f0f0;
+.appointment__table-table td {
+  border-bottom: 1px solid #f0f0f0;
   height: 5rem;
+  padding: 0.8rem;
+}
+
+.appointment__head {
+  background: #4387f5;
+  color: white;
+}
+.appointment__head th {
+  height: 5rem;
+  padding: 1rem;
+  font-weight: 900;
+}
+
+.appointment__body tr {
+  color: #777;
+}
+.appointment__body tr:nth-of-type(even) {
+  background: #fafafa;
+  font-weight: 600;
 }
 
 .appointment__status {
@@ -158,6 +191,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  font-weight: bold;
+  width: 70%;
+  border-radius: 0.7em;
 }
 .appointment__status::before {
   content: "";
@@ -172,23 +208,17 @@
 
 .appointment__status--not {
   color: #F5BA42;
-}
-.appointment__status--not::before {
-  background: #F5BA42;
+  background: rgba(245, 186, 66, 0.3);
 }
 
 .appointment__status--confirmed {
   color: rgba(0, 128, 0, 0.8);
-}
-.appointment__status--confirmed::before {
-  background: rgba(0, 128, 0, 0.8);
+  background: rgba(0, 128, 0, 0.3);
 }
 
 .appointment__status--cancelled {
   color: #ff7777;
-}
-.appointment__status--cancelled::before {
-  background: rgba(255, 0, 0, 0.8);
+  background: rgba(255, 119, 119, 0.3);
 }
 
 /*# sourceMappingURL=dashboard.css.map */

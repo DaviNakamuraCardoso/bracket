@@ -1,13 +1,10 @@
 import ping from '../../base/scripts/message.js';
 
+let VERSION = 0;
 
 function main()
 {
-    const appointments = document.querySelectorAll(".appointment__");
-    for (let i = 0; i < appointments.length; i++)
-    {
-        listen(appointments[i]);
-    }
+    getAppointments();
 }
 
 
@@ -44,5 +41,21 @@ function listen(appointment)
     }
 }
 
+
+function getAppointments()
+{
+    const container = document.querySelector(".appointments__container");
+    const url = `${container.dataset.url}/${VERSION}`;
+
+    fetch(url)
+    .then(response => response.json())
+    .then(result => {
+        console.log(result);
+        const template = document.querySelector("#appointment").content.cloneNode(true).children[0];
+        console.log(template); 
+        VERSION = result.version;
+
+    });
+}
 
 document.addEventListener("DOMContentLoaded", main);

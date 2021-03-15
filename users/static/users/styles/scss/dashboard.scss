@@ -135,6 +135,23 @@
 .appointments__delay-title
 {
     font-size: 7rem;
+    text-align: center;
+}
+
+.appointments__delay-empty
+{
+    color: colors.$gray;
+
+}
+
+.appointments__delay-minutes
+{
+    color: colors.$yellow;
+}
+
+.appointments__delay-hours
+{
+    color: colors.$red;
 }
 
 .appointments__delay-delay
@@ -172,16 +189,49 @@
         width: 100%;
         justify-content: center;
         align-items: center;
+
     }
 
-    th, td
+    td
     {
-        border: 1px solid colors.$hover-gray;
+        border-bottom: 1px solid colors.$hover-gray;
         height: 5rem;
+        padding: .8rem;
     }
-    border: 2px solid colors.$hover-gray;
-    box-shadow: 0 3px 4px rbga(black, .3);
+
+
+    border-bottom: .3rem solid colors.$main;
+    border-radius: 1rem 1rem 0 0;
+    box-shadow: 0 0 20px rbga(black, .15);
     background: white;
+}
+
+
+.appointment__head
+{
+    th
+    {
+        height: 5rem;
+        padding: 1rem;
+        font-weight: 900;
+
+    }
+    background: colors.$main;
+    color: white;
+}
+
+.appointment__body
+{
+    tr
+    {
+        color: colors.$gray;
+    }
+    tr:nth-of-type(even)
+    {
+        background: colors.$light-gray;
+
+        font-weight: 600;
+    }
 }
 
 .appointment__status
@@ -195,6 +245,9 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    font-weight: bold;
+    width: 70%;
+    border-radius: .7em;
 
     &::before
     {
@@ -213,28 +266,19 @@
 .appointment__status--not
 {
     color: colors.$yellow;
-    &::before
-    {
-        background: colors.$yellow;
-    }
+    background: rgba(colors.$yellow, .3);
 }
 
 
 .appointment__status--confirmed
 {
     color: colors.$green;
-    &::before
-    {
-        background: colors.$green;
-    }
+    background: rgba(colors.$green, .3);
 }
 
 
 .appointment__status--cancelled
 {
     color: colors.$light-red;
-    &::before
-    {
-        background: colors.$red;
-    }
+    background: rgba(colors.$light-red, .3);
 }
