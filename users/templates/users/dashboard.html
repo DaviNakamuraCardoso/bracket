@@ -5,12 +5,45 @@
 <link rel="stylesheet" href="{% static 'users/styles/css/dashboard.css' %}">
 
 
+<div class="appointments__container" data-url="{% if type == "doctor" %}{% url 'doctors:dashboard_api' doctor.user.name %}{% endif %}" data-type="{{type}}">
 
-<div class="appointments__container" data-url="{% if type == "doctor" %}{% url 'doctors:dashboard_api' doctor.user.name %}{% endif %}">
 
     <template id="appointment">
 
         <div class="appointment">
+
+
+            <div class="appointments__extension">
+
+                <div class="appointment__table">
+                    <div class="appointment__table-header">
+
+                    </div>
+
+
+                    <div class="appointment__table-body">
+
+                        <table class="appointment__table-table">
+                            <thead class="appointment__head">
+                                <tr>
+                                    <th>Hour</th>
+                                    <th>Patient</th>
+                                    <th>Area</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody class="appointment__body">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+    <template id="header">
+
+        <div class="header__wrapper">
 
             <div class="appointments__header">
                 <div class="appointments__cards">
@@ -50,8 +83,6 @@
                             <h3>Cancelled</h3>
                         </div>
                     </div>
-
-
                 </div>
             </div>
 
@@ -72,45 +103,21 @@
                 </div>
                 <div class="appointments__now">
                     <div class="appointments__now-header">
-                            <h1 class="appointments__now-title">Right Now</h1>
-                            <div class="appointments__now-subtitle">
+                        <h1 class="appointments__now-title">Right Now</h1>
+                        <div class="appointments__now-subtitle">
 
-                                <h1 class="appointments__now-body-title"></h1>
-                                <h3 class="appointments__now-time"></h3>
-                            </div>
+                            <h1 class="appointments__now-body-title"></h1>
+                            <h3 class="appointments__now-time"></h3>
+                        </div>
                     </div>
                     <div class="appointments__now-body">
                     </div>
                 </div>
-
-
-            </div>
-            <div class="appointments__extension">
-
-                <div class="appointment__table">
-                    <div class="appointment__table-header">
-
-                    </div>
-
-
-                    <div class="appointment__table-body">
-
-                        <table class="appointment__table-table">
-                            <thead class="appointment__head">
-                                <tr>
-                                    <th>Hour</th>
-                                    <th>Patient</th>
-                                    <th>Area</th>
-                                    <th>Status</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody class="appointment__body">
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
             </div>
         </div>
+    </template>
+    <template id="medical">
+        <h1>Patient Info</h1>
+
     </template>
 </div>

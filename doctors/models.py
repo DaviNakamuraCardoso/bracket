@@ -147,7 +147,12 @@ class Appointment(models.Model):
             "patient": self.formatted_patient(),
             "status": self.status(),
             "delay": self.get_delay(),
-            "id": self.id
+            "area": self.area.__str__(),
+            "id": self.id,
+            "cancelled": self.cancelled,
+            "checked": self.checked,
+            "confirmed": self.confirmed,
+            "index": self.index
         }
 
     def formatted_hours(self):

@@ -71,12 +71,13 @@ def dashboard_api(request, name, version):
         for shift in shifts.filter(clinic=clinic):
             a = Appointment.objects.filter(shift=shift)
 
-            c.append([ap.serialize() for ap in a])
+            c += [ap.serialize() for ap in a]
 
         if len(c) == 0:
             continue
         appointments.append({"object": clinic.basic_serialize(), "appointments": c})
 
+    appointments.sort(key=lambda appointment:appointment['appointments'][0]['index'])
     return JsonResponse({"appointments": appointments, "version": doctor.dashboard_version})
 
 

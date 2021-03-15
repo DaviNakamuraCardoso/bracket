@@ -240,30 +240,17 @@
     text-transform: capitalize;
     position: relative;
     font-size: clamp(1.4rem, 1.4vw, 2rem);
-    width: 100%;
+    width: 60%;
     height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
     font-weight: bold;
-    width: 70%;
     border-radius: .7em;
-
-    &::before
-    {
-        content: '';
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-        left: 1.5rem;
-        width: 1.3rem;
-        height: 1.3rem;
-        border-radius: 50%;
-    }
 }
 
 
-.appointment__status--not
+.appointment__status--not_confirmed
 {
     color: colors.$yellow;
     background: rgba(colors.$yellow, .3);
