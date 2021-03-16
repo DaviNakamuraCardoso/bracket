@@ -5,12 +5,55 @@
 <link rel="stylesheet" href="{% static 'users/styles/css/dashboard.css' %}">
 
 
-<div class="appointments__container" data-url="{% if type == "doctor" %}{% url 'doctors:dashboard_api' doctor.user.name %}{% endif %}" data-type="{{type}}">
+<div class="appointments__container" data-url="{% if type == "doctor" %}{% url 'doctors:dashboard_api' doctor.user.name %}{% else %}{% url 'clinics:dashboard2' clinic.clinic_name %}{% endif %}" data-type="{{type}}">
+
+    <div class="appointments__header">
+        <div class="appointments__cards">
+
+            <div class="appointments__header-card">
+                <div class="appointments__card-title">
+                    <h1 class="fas-text appointments__total"></h1>
+                </div>
+                <div class="appointments__card-type">
+                    <h3>Total</h3>
+                </div>
+            </div>
+
+            <div class="appointments__header-card">
+                <div class="appointments__card-title">
+                    <h1 class="fas-text appointments__confirmed"></h1>
+                </div>
+                <div class="appointments__card-type">
+                    <h3>Confirmed</h3>
+                </div>
+            </div>
+
+            <div class="appointments__header-card">
+                <div class="appointments__card-title">
+                    <h1 class="fas-text appointments__checked"></h1>
+                </div>
+                <div class="appointments__card-type">
+                    <h3>Done</h3>
+                </div>
+            </div>
+
+            <div class="appointments__header-card">
+                <div class="appointments__card-title">
+                    <h1 class="fas-text appointments__cancelled"></h1>
+                </div>
+                <div class="appointments__card-type">
+
+                    <h3 class="">Cancelled</h3>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
     <template id="appointment">
 
         <div class="appointment">
+
 
 
             <div class="appointments__extension">
@@ -45,46 +88,7 @@
 
         <div class="header__wrapper">
 
-            <div class="appointments__header">
-                <div class="appointments__cards">
 
-                    <div class="appointments__header-card">
-                        <div class="appointments__card-title">
-                            <h1 class="fas-text"></h1>
-                        </div>
-                        <div class="appointments__card-type">
-                            <h3>Total</h3>
-                        </div>
-                    </div>
-
-                    <div class="appointments__header-card">
-                        <div class="appointments__card-title">
-                            <h1 class="fas-text"></h1>
-                        </div>
-                        <div class="appointments__card-type">
-                            <h3>Confirmed</h3>
-                        </div>
-                    </div>
-
-                    <div class="appointments__header-card">
-                        <div class="appointments__card-title">
-                            <h1 class="fas-text"></h1>
-                        </div>
-                        <div class="appointments__card-type">
-                            <h3>Done</h3>
-                        </div>
-                    </div>
-
-                    <div class="appointments__header-card">
-                        <div class="appointments__card-title">
-                            <h1 class="fas-text"></h1>
-                        </div>
-                        <div class="appointments__card-type">
-                            <h3>Cancelled</h3>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
             <div class="appointments__body">
                 <div class="appointments__delay">
@@ -116,8 +120,15 @@
             </div>
         </div>
     </template>
+    <template id="counter">
+
+    </template>
     <template id="medical">
         <h1>Patient Info</h1>
 
     </template>
+    <div class="appointments__divisions">
+
+    </div>
+
 </div>

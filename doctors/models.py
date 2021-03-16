@@ -172,6 +172,9 @@ class Appointment(models.Model):
         if self.cancelled:
             return "cancelled"
 
+        if self.checked:
+            return "checked"
+
         return "not confirmed"
 
     def get_delay(self):

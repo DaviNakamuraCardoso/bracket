@@ -87,27 +87,42 @@ def join_clinic(request, clinic_name):
 def dashboard(request, clinic_name):
     clinic = Clinic.objects.get(clinic_name=clinic_name)
 
+
+    context = {"clinic": clinic}
+    return render(request, 'clinics/dashboard.html', context)
+
+
+def dashboard_api(request, clinic_name, version):
+
+    clinic = Clinic.objects.get(clinic_name=clinic_name)
+
     if request.user.is_authenticated:
         time = datetime.now() - timedelta(hours=request.user.timezone_delay())
     else:
         time = datetime.now()
 
+    if clinic.dashboard_version == version:
+        return JsonResponse({"message": "Dashboard up to date."})
+
+
     shifts = clinic.shifts.filter(day__day=get_weekday(time.day, time.month, time.year))
     appointments = []
 
-    for shift in shifts:
-        appointments += Appointment.objects.filter(shift=shift)
+    for doctor in clinic.doctors.all():
+        d = []
+        for shift in shifts.filter(doctor=doctor):
+            d += [a.serialize() for a in Appointment.objects.filter(shift=shift)]
 
-    appointments.sort(key=lambda model:model.index)
+        if len(d) == 0:
+            continue
 
-    not_checked = [appointment for appointment in appointments if not appointment.checked]
-    checked = [appointment for appointment in appointments if appointment.checked]
-    confirmed = [appointment for appointment in appointments if appointment.confirmed]
-    cancelled = [appointment for appointment in appointments if appointment.cancelled]
+        appointments.append({"doctor": doctor.basic_serialize(), 'appointments': d})
 
-    context = {'clinic': clinic, 'appointments': appointments, 'checked': checked, 'confirmed': confirmed, 'cancelled': cancelled, 'not_checked': not_checked}
+    appointments.sort(key= lambda appointment:appointment['appointments'][0]['index'])
 
-    return render(request, 'clinics/dashboard.html', context)
+    context = {"appointments": appointments, "version": clinic.dashboard_version, "message": "Changes detected."}
+
+    return JsonResponse(context)
 
 
 def doctor_in_clinics(request, doctor_name):

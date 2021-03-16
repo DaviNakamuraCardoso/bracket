@@ -1,6 +1,8 @@
 import ping from '../../base/scripts/message.js';
 
+
 let VERSION = 0;
+
 
 function main()
 {
@@ -36,7 +38,6 @@ function listen(appointment)
                 ping(result.message);
 
             });
-
         }
     }
 }
@@ -51,7 +52,22 @@ function getAppointments()
     fetch(url)
     .then(response => response.json())
     .then(result => {
+
+        if (result.message == "Dashboard up to date.")
+        {
+            return;
+        }
+        console.log(result);
         const divisions = result.appointments;
+
+        // Variables to be shown in the counters
+        let confirmed = 0;
+        let cancelled = 0;
+        let checked = 0;
+        let total = 0;
+
+        const divisionsContainer = document.querySelector(".appointments__divisions");
+
 
         for (let i = 0; i < divisions.length; i++)
         {
@@ -59,6 +75,7 @@ function getAppointments()
             const node = serialize(template);
 
             const appointments = divisions[i].appointments;
+            total += appointments.length;
 
             for (let j = 0; j < appointments.length; j++)
             {
@@ -94,31 +111,47 @@ function getAppointments()
 
                 node['body'].append(tr);
 
-                switch(type)
+                switch(appointment.status)
                 {
-                    case "clinic":
+                    case "cancelled":
                     {
-                        const header = document.querySelector("#header").content.cloneNode(true).children[0];
-                        const h = serialize(header);
-                        console.log(header); 
-
+                        cancelled++;
+                        break;
+                    }
+                    case "confirmed":
+                    {
+                        confirmed++;
+                        break;
+                    }
+                    case "checked":
+                    {
+                        checked++;
+                        break;
                     }
                 }
-
             }
 
             switch(type)
             {
-                case "doctor":
+                case "clinic":
                 {
-
-                    break;
+                    const header = document.querySelector("#header").content.cloneNode(true).children[0];
+                    divisionsContainer.prepend(header);
                 }
             }
 
-            container.append(template);
+            divisionsContainer.append(template);
 
         }
+
+
+        const h = serialize(document.querySelector('.appointments__header'));
+
+        h['total'].innerHTML = total;
+        h['checked'].innerHTML = checked;
+        h['cancelled'].innerHTML = cancelled;
+        h['confirmed'].innerHTML = confirmed;
+
 
         VERSION = result.version;
 
@@ -138,4 +171,6 @@ function serialize(node)
     }
     return (object);
 }
+
+
 document.addEventListener("DOMContentLoaded", main);

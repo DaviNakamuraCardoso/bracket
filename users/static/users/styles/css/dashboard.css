@@ -8,6 +8,18 @@
   gap: 5rem;
 }
 
+.appointments__divisions {
+  display: flex;
+  flex-direction: column;
+  gap: 5rem;
+}
+
+.header__wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 5rem;
+}
+
 .appointments__cards {
   display: flex;
   justify-content: space-evenly;
@@ -47,7 +59,7 @@
   width: 90%;
   grid-area: now;
   flex-direction: column;
-  height: 30rem;
+  height: 15rem;
   border-radius: 4rem;
   padding: 3rem;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
@@ -191,6 +203,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  text-align: center;
   font-weight: bold;
   border-radius: 0.7em;
 }
