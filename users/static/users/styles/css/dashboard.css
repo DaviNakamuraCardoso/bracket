@@ -8,6 +8,18 @@
   gap: 5rem;
 }
 
+.appointment {
+  display: flex;
+  flex-direction: column;
+  gap: 5rem;
+}
+
+.appointment__title {
+  width: 90%;
+  height: 10rem;
+  margin: auto;
+}
+
 .appointments__divisions {
   display: flex;
   flex-direction: column;
@@ -185,12 +197,17 @@
   font-weight: 900;
 }
 
-.appointment__body tr {
-  color: #777;
-}
-.appointment__body tr:nth-of-type(even) {
+.appointment__body .appointment__row:nth-of-type(even) {
   background: #fafafa;
   font-weight: 600;
+}
+
+.appointment__row {
+  color: #777;
+}
+
+.appointment__row--inactive {
+  color: rgba(119, 119, 119, 0.6);
 }
 
 .appointment__status {
@@ -221,6 +238,11 @@
 .appointment__status--cancelled {
   color: #ff7777;
   background: rgba(255, 119, 119, 0.3);
+}
+
+.appointment__status--checked {
+  color: #4387f5;
+  background: rgba(67, 135, 245, 0.3);
 }
 
 /*# sourceMappingURL=dashboard.css.map */

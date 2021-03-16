@@ -7,15 +7,14 @@ let VERSION = 0;
 function main()
 {
     getAppointments();
+    setInterval(getAppointments, 10000);
 }
 
 
-function listen(appointment)
+function listen(container, id)
 {
-    const container = appointment.querySelector(".appointment__buttons");
-    const url = container.dataset.url;
-    const csrftoken = appointment.querySelector("[name=csrfmiddlewaretoken]").value;
-    console.log(csrftoken);
+    const url = `${container.dataset.url}/${id}`;
+    const csrftoken = container.querySelector("[name=csrfmiddlewaretoken]").value;
     const request = new Request(
         url,
         {headers:{"X-CSRFToken": csrftoken}}
@@ -36,6 +35,7 @@ function listen(appointment)
             .then(response => response.json())
             .then(result => {
                 ping(result.message);
+                getAppointments();
 
             });
         }
@@ -57,7 +57,8 @@ function getAppointments()
         {
             return;
         }
-        console.log(result);
+
+
         const divisions = result.appointments;
 
         // Variables to be shown in the counters
@@ -67,6 +68,7 @@ function getAppointments()
         let total = 0;
 
         const divisionsContainer = document.querySelector(".appointments__divisions");
+        divisionsContainer.innerHTML = "";
 
 
         for (let i = 0; i < divisions.length; i++)
@@ -75,69 +77,95 @@ function getAppointments()
             const node = serialize(template);
 
             const appointments = divisions[i].appointments;
+            const model = divisions[i].object;
             total += appointments.length;
+
+            node['division-title'].innerHTML = model.title;
 
             for (let j = 0; j < appointments.length; j++)
             {
+                //
                 const tr = document.createElement('tr');
                 const appointment = appointments[j];
 
+                // Create td for all the appointment info
                 const hour = document.createElement('td');
                 const patient = document.createElement('td');
                 const area = document.createElement('td');
                 const status = document.createElement('td');
                 const action = document.createElement('td');
 
-
-                // Content
+                // Status tag
                 const statusContent = document.createElement('div');
 
+                // Action buttons
+                const buttonContainer = document.querySelector("#buttons__container").content.cloneNode(true).children[0];
+
+                // Fill the table row with info
                 hour.innerHTML = appointment.time;
                 patient.innerHTML = appointment.patient;
                 area.innerHTML = appointment.area;
                 statusContent.innerHTML = appointment.status;
 
-
+                // Fill the status and set its class name
                 statusContent.className = 'appointment__status';
                 statusContent.classList.add(`appointment__status--${appointment.status.split(" ").join("_")}`);
 
                 status.append(statusContent);
 
+
+                tr.className = "appointment__row";
+
+                // Append all the data to the row
                 tr.append(hour);
                 tr.append(patient);
                 tr.append(area);
                 tr.append(status);
                 tr.append(action);
 
+                // Append the row to the table
                 node['body'].append(tr);
 
+                // Update counter variables based on the status
                 switch(appointment.status)
                 {
                     case "cancelled":
                     {
+                        tr.classList.add("appointment__row--inactive");
                         cancelled++;
                         break;
                     }
                     case "confirmed":
                     {
+                        action.append(buttonContainer);
+                        listen(buttonContainer, appointment.id);
                         confirmed++;
                         break;
                     }
                     case "checked":
                     {
                         checked++;
+                        tr.classList.add("appointment__row--inactive");
                         break;
                     }
+                    default:
+                    {
+                        action.append(buttonContainer);
+                        listen(buttonContainer, appointment.id);
+                        break;
+
+
+
+                    }
                 }
+
             }
 
-            switch(type)
+
+            if (type == "clinic")
             {
-                case "clinic":
-                {
-                    const header = document.querySelector("#header").content.cloneNode(true).children[0];
-                    divisionsContainer.prepend(header);
-                }
+                const header = document.querySelector("#header").content.cloneNode(true).children[0];
+                node['body-container'].append(header);
             }
 
             divisionsContainer.append(template);
@@ -145,6 +173,12 @@ function getAppointments()
         }
 
 
+        if (type == "doctor")
+        {
+            const header = document.querySelector("#header").content.cloneNode(true).children[0];
+            container.prepend(header);
+
+        }
         const h = serialize(document.querySelector('.appointments__header'));
 
         h['total'].innerHTML = total;
@@ -154,7 +188,6 @@ function getAppointments()
 
 
         VERSION = result.version;
-
 
     });
 }

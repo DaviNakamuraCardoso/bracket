@@ -111,12 +111,12 @@ def dashboard_api(request, clinic_name, version):
     for doctor in clinic.doctors.all():
         d = []
         for shift in shifts.filter(doctor=doctor):
-            d += [a.serialize() for a in Appointment.objects.filter(shift=shift)]
+            d += [a.serialize() for a in Appointment.objects.filter(shift=shift).order_by('index')]
 
         if len(d) == 0:
             continue
 
-        appointments.append({"doctor": doctor.basic_serialize(), 'appointments': d})
+        appointments.append({"object": doctor.basic_serialize(), 'appointments': d})
 
     appointments.sort(key= lambda appointment:appointment['appointments'][0]['index'])
 

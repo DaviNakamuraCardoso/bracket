@@ -166,15 +166,17 @@ class Appointment(models.Model):
         return f"{self.to} (Re: {self.user.__str__()})"
 
     def status(self):
-        if self.confirmed:
-            return "confirmed"
-
-        if self.cancelled:
-            return "cancelled"
 
         if self.checked:
             return "checked"
 
+
+        if self.cancelled:
+            return "cancelled"
+
+        if self.confirmed:
+            return "confirmed"
+            
         return "not confirmed"
 
     def get_delay(self):

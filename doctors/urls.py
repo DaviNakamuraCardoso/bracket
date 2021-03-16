@@ -25,7 +25,8 @@ urlpatterns = [
     path("<str:name>/<int:year>/<int:month>/<int:day>/<int:index>/confirm", views.confirm, name="confirm"),
 
     path("<str:name>/dashboards/<int:version>", views.dashboard_api, name="dashboard_api"),
-    path("<str:name>/dashboards", views.dashboard_pass, name="dashboard_api"), 
+    path("<str:name>/dashboards", views.dashboard_pass, name="dashboard_api"),
+    path("appointments", views.check, name="check_all"), 
     path("appointments/<int:appointment_id>", views.check, name="check")
 
 

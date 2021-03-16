@@ -52,7 +52,7 @@ def dashboard_api(request, name, version):
 
     # If both the server and client have the same dashboard version, skip
     if doctor.dashboard_version == version:
-        return JsonResponse({"message": "Same version."})
+        return JsonResponse({"message": "Dashboard up to date."})
 
 
     # Check for non-registered users
@@ -69,7 +69,7 @@ def dashboard_api(request, name, version):
     for clinic in doctor.clinics.all():
         c = []
         for shift in shifts.filter(clinic=clinic):
-            a = Appointment.objects.filter(shift=shift)
+            a = Appointment.objects.filter(shift=shift).order_by('index')
 
             c += [ap.serialize() for ap in a]
 
@@ -226,8 +226,15 @@ def new_appointment(request, name):
         data = json.loads(request.body)
         patient = None
         shift = Shift.objects.get(pk=data['shift'])
+
+        shift.doctor.dashboard_version += 1
+        shift.clinic.dashboard_version += 1
+
+        shift.doctor.save()
+        shift.clinic.save()
         if data['remove']:
             appointment = Appointment.objects.get(day=data['day'], month=data['month']+1, year=data['year'], index=data['index'], shift=shift)
+
             appointment.delete()
             return JsonResponse({"message": "Appointment cancelled successfully"})
 
@@ -250,12 +257,6 @@ def new_appointment(request, name):
         appointment.save()
         confirmation(appointment)
 
-        shift.doctor.dashboard_version += 1
-        shift.clinic.dashboard_version += 1
-
-        shift.doctor.save()
-        shift.clinic.save()
-
         return JsonResponse({"message": f"Appointment scheduled successfully."})
 
     return JsonResponse({"message": "Method must be POST."})
@@ -267,6 +268,7 @@ def confirm(request, name, year, month, day, index):
 
     data = json.loads(request.body)
 
+
     try:
         appointment = Appointment.objects.get(pk=int(data['object_id']))
     except Appointment.DoesNotExist:
@@ -277,14 +279,15 @@ def confirm(request, name, year, month, day, index):
     notification.delete()
 
     # Change the dashboard for clinic and doctor
-    appointment.shift.doctor.dashboard_verion += 1
+    appointment.shift.doctor.dashboard_version += 1
     appointment.shift.doctor.save()
 
-    appointment.shift.clinic.dashboard_verion += 1
+    appointment.shift.clinic.dashboard_version += 1
     appointment.shift.clinic.save()
 
     # If the user cancel the appointment, it is again free to be taken by another person
     if not data['accept']:
+
         appointment.cancelled = True
         appointment.save()
         return JsonResponse({"message": "Appointment cancelled successfully"})
@@ -296,9 +299,10 @@ def confirm(request, name, year, month, day, index):
 
 
 @ajax_login_required
-def check(request, appointment_id):
+def check(request, appointment_id=0):
     if request.method != "PUT":
         return JsonResponse({"message": "Method must be PUT"})
+
 
     data = json.loads(request.body)
 

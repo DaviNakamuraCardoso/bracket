@@ -51,9 +51,14 @@
 
 
     <template id="appointment">
-
         <div class="appointment">
 
+            <div class="appointment__title">
+                <h1 class="appointment__division-title">Hello</h1>
+
+            </div>
+
+            <div class="appointments__body-container"></div>
 
 
             <div class="appointments__extension">
@@ -121,6 +126,15 @@
         </div>
     </template>
     <template id="counter">
+
+    </template>
+    <template id="buttons__container">
+        <div class="appointment__buttons" data-url="{% url 'doctors:check_all' %}">
+            {% csrf_token %}
+            <button type="button" name="button" class="appointment__button" data-value="check">Check</button>
+            <button type="button" name="button" class="appointment__button" data-value="cancell">Cancel</button>
+
+        </div>
 
     </template>
     <template id="medical">
