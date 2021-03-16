@@ -56,7 +56,8 @@ class Doctor(models.Model):
         return {
             'title': self.__str__(),
             'image': self.user.picture.url,
-            'url': reverse('doctors:profile', args=(self.user.name, ))
+            'url': reverse('doctors:profile', args=(self.user.name, )),
+            'id': self.id 
         }
 
     def __str__(self):
@@ -176,7 +177,7 @@ class Appointment(models.Model):
 
         if self.confirmed:
             return "confirmed"
-            
+
         return "not confirmed"
 
     def get_delay(self):

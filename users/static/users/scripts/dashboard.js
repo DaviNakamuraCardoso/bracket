@@ -76,12 +76,24 @@ function getAppointments()
             const template = document.querySelector("#appointment").content.cloneNode(true).children[0];
             const node = serialize(template);
 
+            const link = document.querySelector("#dashboard__link").content.cloneNode(true).children[0];
+            const l = serialize(link);
+
             const appointments = divisions[i].appointments;
             const model = divisions[i].object;
-            total += appointments.length;
+
+            template.id = model.id;
 
             node['division-title'].innerHTML = model.title;
+            node['division-image'].src = model.image;
 
+            l['image'].src = model.image;
+            link.href = `#${model.id}`;
+
+            const snippet = document.querySelector("#dashboard__snippet");
+            snippet.append(link);
+
+            total += appointments.length;
             for (let j = 0; j < appointments.length; j++)
             {
                 //
@@ -154,13 +166,9 @@ function getAppointments()
                         listen(buttonContainer, appointment.id);
                         break;
 
-
-
                     }
                 }
-
             }
-
 
             if (type == "clinic")
             {
@@ -176,7 +184,7 @@ function getAppointments()
         if (type == "doctor")
         {
             const header = document.querySelector("#header").content.cloneNode(true).children[0];
-            container.prepend(header);
+            divisionsContainer.prepend(header);
 
         }
         const h = serialize(document.querySelector('.appointments__header'));
