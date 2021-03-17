@@ -48,7 +48,7 @@
 
                         {% for clinic in model.clinics %}
                             <li class="nav-li">
-                                    <a href="{{ clinic.url }}">
+                                    <a href="{% url 'clinics:dashboard' clinic.name %}">
                                         <div class="nav-image-cropper">
                                             <img class="nav-image" src="{{ clinic.image }}" alt="{{ clinic.title }} Image">
                                         </div>

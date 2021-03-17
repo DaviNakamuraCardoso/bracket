@@ -57,7 +57,7 @@ class Doctor(models.Model):
             'title': self.__str__(),
             'image': self.user.picture.url,
             'url': reverse('doctors:profile', args=(self.user.name, )),
-            'id': self.id 
+            'id': self.id
         }
 
     def __str__(self):
@@ -182,7 +182,7 @@ class Appointment(models.Model):
 
     def get_delay(self):
         n = datetime.now()
-        now = n - datetime(year=n.year, month=n.month, day=n.day, hour=self.user.timezone_delay())
+        now = n - datetime(year=n.year, month=n.month, day=n.day, hour=self.shift.doctor.user.timezone_delay())
         s, e = self.shift.doctor.get_appointment_hour(self)
         e = format(e)
 
@@ -195,6 +195,6 @@ class Appointment(models.Model):
         minutes = r['minutes']
 
         if hours <= 0:
-            return f"{minutes}min", "minutes"
+            return [f"{minutes}min", "minutes", 0, minutes]
 
-        return f"{hours}h {'{:02}'.format(minutes)}min", "hours"
+        return [f"{hours}h {'{:02}'.format(minutes)}min", "hours", hours, minutes]

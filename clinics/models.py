@@ -72,7 +72,8 @@ class Clinic(models.Model):
             'title': self.__str__(),
             'url': reverse('clinics:profile', args=(self.clinic_name, )),
             'image': self.picture.url,
-            'id': self.id
+            'id': self.id,
+            'name': self.clinic_name
         }
 
     def areas(self):
