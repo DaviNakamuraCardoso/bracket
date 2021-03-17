@@ -1,0 +1,182 @@
+@use 'abstract/colors';
+
+
+.login__main, .signup__container
+{
+    width: 100vw;
+    height: 88vh;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.signup__container
+{
+    display: flex;
+}
+
+.login__form
+{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-self: center;
+}
+
+
+.login__content, .signup__card
+{
+    height: 80%;
+    width: clamp(40rem, 80%, 60rem);
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    box-shadow: 0 1px 3px rgba(black, .4);
+    gap: 5rem;
+}
+
+
+.signup__card
+{
+    align-self: center;
+    justify-self: center;
+    margin: auto;
+    flex-wrap: wrap;
+    width: clamp(40rem, 70%, 90rem);
+}
+
+
+.login__email
+{
+    display: none;
+    height: 50%;
+    width: 80%;
+    margin: 0 auto;
+    justify-content: center;
+    gap: 5rem;
+}
+
+
+.login__header
+{
+    h1
+    {
+        font-weight: 900;
+        font-size: clamp(4rem, 5vw, 5rem);
+        text-align: center;
+    }
+}
+
+
+.login__oauth
+{
+    width: 80%;
+    height: 50%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.login__button
+{
+    width: 100%;
+    height: 7rem;
+    box-shadow: 0 1px 3px rgba(black, .3);
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+
+    img
+    {
+        height: clamp(2.4rem, 3vw, 2.8rem);
+        width: auto;
+    }
+    span
+    {
+        font-size: clamp(1.7rem, 2vw, 2.2rem);
+        font-weight: 900;
+        color: rgba(#808080, .9);
+        width: 60%;
+    }
+}
+
+.login__button--fb
+{
+    background: #3b5998;
+    span
+    {
+
+        color: colors.$white;
+    }
+}
+
+
+.login__button--github
+{
+    background: black;
+    span
+    {
+        color: colors.$white;
+    }
+}
+
+.login__button--email
+{
+    span
+    {
+        color: colors.$main;
+    }
+    cursor: pointer;
+    transition: 1s ease;
+
+    &:hover
+    {
+        background: colors.$main;
+        span
+        {
+            color: white;
+        }
+    }
+
+}
+
+.login__register
+{
+    font-size: clamp(2rem, 2vw, 2.4rem);
+    margin: 0 auto;
+    width: 80%;
+    display: flex;
+    span
+    {
+        width: 100%;
+        text-align: center;
+        color: colors.$gray;
+    }
+    a
+    {
+        font-weight: 900;
+        color: colors.$main;
+        &:hover
+        {
+            text-decoration: underline;
+        }
+    }
+}
+
+.login__banner
+{
+
+}
+
+
+#user-form
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    gap: 5rem;
+}

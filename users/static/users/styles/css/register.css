@@ -1,9 +1,42 @@
 .form__container {
   position: absolute;
+  width: 100%;
+  height: 80%;
+  margin: auto;
+  transition: left 0.7s ease;
 }
 
-.main__div {
+.form__form {
+  height: 100%;
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+}
+.form__form select {
+  max-height: 5rem;
+}
+
+.register__form {
+  width: 100%;
+  height: 80%;
   position: relative;
+  overflow: hidden;
+}
+
+.button__container {
+  height: 20%;
+  display: flex;
+  flex-direction: column;
+  width: 70%;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  justify-content: space-around;
+  margin: auto;
+}
+
+#main__div {
+  position: relative;
+  height: 88vh;
+  width: 100vw;
 }
 
 /*# sourceMappingURL=register.css.map */

@@ -12,7 +12,7 @@ select
     text-transform: capitalize;
     font-size: 2rem;
     padding: 1rem 2rem;
-    width: 123%;
+    width: 83%;
     height: 120%;
     position: relative;
     cursor: pointer;
@@ -58,7 +58,6 @@ form
         border: 1px solid colors.$main;
         color: colors.$main;
         font-size: 2rem;
-        font-style: small-caps;
         padding: 1rem;
         border-radius: 100vw;
         cursor: pointer;
@@ -71,6 +70,13 @@ form
     flex-direction: column;
     justify-content: space-around;
     gap: 1rem;
+}
+
+.register
+{
+    display: flex;
+    align-items: center;
+    align-content: center;
 }
 
 
@@ -89,12 +95,15 @@ form
     font-size: 2rem;
     margin: 0 auto;
     color: $gray;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 
 .field input, .field textarea
 {
-    width: 100%;
+    width: 80%;
     height: 100%;
     padding: 1rem 2rem;
     color: colors.$black;
@@ -107,10 +116,9 @@ form
 .field label
 {
     position: absolute;
-    top: 1rem;
-
-    left: 0;
-    width: 100%;
+    top: 0;
+    left: 10%;
+    width: 80%;
     height: 100%;
     pointer-events: none;
 }
@@ -120,17 +128,18 @@ form
 {
     position: absolute;
     bottom: 50%;
-    left: 2rem;
+    left: 0;
     transform: translateY(50%);
     transition: all 0.5s ease;
     color: colors.$gray;
 }
 
 
+
 .field input:focus + .label-field .content-label, .field textarea:focus + .label-field .content-label
 {
     bottom: 100%;
-    left: 1.2rem;
+    left: -.5rem;
     font-size: 1.6rem;
     color: black;
     z-index: 2;
@@ -146,7 +155,7 @@ form
         .content-label
         {
 
-            left: 1.2rem;
+            left: -.5rem;
             bottom: 100%;
             font-size: 1.6rem;
             color: black;
@@ -161,10 +170,35 @@ form
 .form-wrapper, .choices
 {
     display: flex;
+
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin: 0;
+}
+.form-wrapper
+{
+
+}
+
+.equalizer
+{
     width: 80%;
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem 2rem;
+}
+
+.less
+{
+    width: 44.5%;
     margin: 0;
 }
 
+.more
+{
+    width: 150%;
+}
 .hidden
 {
     display: none;
@@ -177,6 +211,48 @@ form
     .form-list
     {
         margin: auto;
+        width: 80%;
+        display: flex;
+
+        padding: 2rem;
+        padding-top: 4rem;
+        .form-ul
+        {
+            width: 100%;
+            display: flex;
+            gap: 3rem; 
+
+            li
+            {
+
+                background: colors.$hover-gray;
+                border-radius: 100vw;
+                padding: 1.8rem;
+                display: flex;
+                gap: .5rem;
+                align-items: center;
+                span
+                {
+                    color: colors.$gray;
+                    font-size: 2rem;
+                    font-weight: 900;
+                }
+                button
+                {
+                    background: rgba(colors.$red, .4);
+                    cursor: pointer;
+                    width: 3rem;
+                    height: 3rem;
+                    border-radius: 50%;
+                    &::before
+                    {
+                        color: colors.$hover-gray;
+
+                    }
+                }
+            }
+
+        }
     }
 }
 
