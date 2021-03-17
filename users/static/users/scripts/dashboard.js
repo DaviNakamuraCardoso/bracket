@@ -7,7 +7,7 @@ let VERSION = 0;
 function main()
 {
     getAppointments();
-    setInterval(getAppointments, 10000);
+    setInterval(getAppointments, 60000);
 }
 
 
@@ -36,7 +36,6 @@ function listen(container, id)
             .then(result => {
                 ping(result.message);
                 getAppointments();
-
             });
         }
     }
@@ -55,6 +54,31 @@ function getAppointments()
 
         if (result.message == "Dashboard up to date.")
         {
+            const delays = document.querySelectorAll('.appointments__delay-title');
+            for (let i = 0; i < delays.length; i++)
+            {
+                const hour = delays[i].querySelector(".appointments__delay-title-hours");
+                const minute = delays[i].querySelector(".appointments__delay-title-minutes");
+
+                let hours = parseInt(hour.innerHTML) || 0;
+                let minutes = parseInt(minute.innerHTML) || 0;
+
+                if (!minutes && !hours)
+                {
+                    continue;
+                }
+
+                minutes++;
+
+                minute.innerHTML = (minutes >= 60)? "" : `${minutes}min`;
+
+
+                hour.innerHTML = (minutes >= 60)? `${hours+1}h`: (hours >= 1)? `${hours}h` : '';
+
+
+                console.log(hours);
+                console.log(minutes);
+            }
             return;
         }
 
@@ -70,6 +94,10 @@ function getAppointments()
         const divisionsContainer = document.querySelector(".appointments__divisions");
         divisionsContainer.innerHTML = "";
 
+        const snippet = document.querySelector("#dashboard__snippet");
+        snippet.innerHTML = "";
+
+        let curr = [];
 
         for (let i = 0; i < divisions.length; i++)
         {
@@ -82,6 +110,8 @@ function getAppointments()
             const appointments = divisions[i].appointments;
             const model = divisions[i].object;
 
+            let current = [];
+
             template.id = model.id;
 
             node['division-title'].innerHTML = model.title;
@@ -90,8 +120,8 @@ function getAppointments()
             l['image'].src = model.image;
             link.href = `#${model.id}`;
 
-            const snippet = document.querySelector("#dashboard__snippet");
             snippet.append(link);
+
 
             total += appointments.length;
             for (let j = 0; j < appointments.length; j++)
@@ -147,21 +177,20 @@ function getAppointments()
                         cancelled++;
                         break;
                     }
-                    case "confirmed":
-                    {
-                        action.append(buttonContainer);
-                        listen(buttonContainer, appointment.id);
-                        confirmed++;
-                        break;
-                    }
                     case "checked":
                     {
                         checked++;
                         tr.classList.add("appointment__row--inactive");
                         break;
                     }
+                    case "confirmed":
+                    {
+                        confirmed++;
+                    }
                     default:
                     {
+                        current.push(appointment);
+                        curr.push(appointment);
                         action.append(buttonContainer);
                         listen(buttonContainer, appointment.id);
                         break;
@@ -173,6 +202,26 @@ function getAppointments()
             if (type == "clinic")
             {
                 const header = document.querySelector("#header").content.cloneNode(true).children[0];
+                const h = serialize(header);
+
+                // Set up the info for the current appointment, if any
+                h['now-body-title'].innerHTML = current[0]?.patient ?? '-';
+                h['now-time'].innerHTML = current[0]?.time ?? '-';
+
+                // Set up the info for the next appointment, if any
+                h['next-body-title'].innerHTML = current[1]?.patient ?? '-';
+
+                // Set the delay
+
+                const hours = current[0]?.delay[2] || null;
+                const minutes = current[0]?.delay[3] || null;
+
+                let delay;
+                h['delay-title-hours'].innerHTML = (hours) ? `${hours}h` : '';
+                h['delay-title-minutes'].innerHTML = (minutes) ? `${minutes}min` : '';
+
+                h['delay-title'].classList.add(`appointments__delay-${current[0]?.delay[1] ?? 'none'}`);
+
                 node['body-container'].append(header);
             }
 
@@ -183,7 +232,27 @@ function getAppointments()
 
         if (type == "doctor")
         {
+
             const header = document.querySelector("#header").content.cloneNode(true).children[0];
+            const h = serialize(header);
+
+            // Set up the info for the current appointment, if any
+            h['now-body-title'].innerHTML = curr[0]?.patient ?? '-';
+            h['now-time'].innerHTML = curr[0]?.time ?? '-';
+
+            // Set up the info for the next appointment, if any
+            h['next-body-title'].innerHTML = curr[1]?.patient ?? '-';
+
+            // Set the delay
+            const hours = curr[0]?.delay[2] || null;
+            const minutes = curr[0]?.delay[3] || null;
+
+            let delay;
+            h['delay-title-hours'].innerHTML = (hours)? `${hours}h` : '';
+            h['delay-title-minutes'].innerHTML = (minutes)? `${minutes}min` : '';
+
+            h['delay-title'].classList.add(`appointments__delay-${curr[0]?.delay[1] ?? 'none'}`);
+
             divisionsContainer.prepend(header);
 
         }

@@ -15,7 +15,7 @@
   border: 2px solid #f0f0f0;
   padding: 4rem 0;
   background: #fafafa;
-  padding-top: 12vh;
+  padding-top: 15vh;
 }
 
 .appointment__title {
@@ -30,6 +30,7 @@
   width: 15rem;
   height: 15rem;
   border-radius: 50%;
+  border: 2px solid #f0f0f0;
 }
 .appointment__title .appointment__division-title {
   font-size: 4rem;
@@ -61,7 +62,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  box-shadow: 0 4px 5px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 4px 3px rgba(0, 0, 0, 0.3);
 }
 
 .appointments__card-title {
@@ -76,7 +77,7 @@
 
 .appointments__body {
   display: grid;
-  grid-template-areas: "delay  now now" "number now now";
+  grid-template-areas: "delay now" "number now";
   width: 80%;
   margin: auto;
 }
@@ -89,7 +90,8 @@
   height: 15rem;
   border-radius: 4rem;
   padding: 3rem;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  background: white;
+  box-shadow: 0 3px 3px rgba(0, 0, 0, 0.3);
 }
 
 .appointments__now-header {
@@ -108,21 +110,36 @@
   font-size: 1.8rem;
 }
 
-.appointments__now-body-title {
+.appointments__now-body-title, .appointments__next-body-title {
   width: 80%;
   margin: 0 1.4rem;
   font-size: 3rem;
   color: #0a100d;
 }
 
-.appointments__now-subtitle {
+.appointments__now-subtitle, .appointments__next-subtitle {
   display: flex;
   justify-content: space-between;
 }
 
-.appointments__now-title {
+.appointments__now-title, .appointments__next-title {
   width: 80%;
   margin: 0 1.4rem;
+}
+
+.appointments__next-title {
+  color: #777;
+  font-size: clamp(1.4rem, 2vw, 1.8rem);
+  margin: 0 2rem;
+}
+
+.appointments__next-body-title {
+  font-size: clamp(1.4rem, 2vw, 1.8rem);
+  margin: 0 2rem;
+}
+
+.appointments__next-header {
+  width: 90%;
 }
 
 .appointments__now-time {
@@ -133,8 +150,8 @@
   justify-content: flex-end;
 }
 
-.appointments__delay, .appointments__number {
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+.appointments__delay, .appointments__next {
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.3);
   background: white;
   border-radius: 3rem;
   width: 80%;
@@ -147,7 +164,7 @@
 }
 
 .appointments__delay-title {
-  font-size: 7rem;
+  font-size: clamp(2rem, 3vw, 7rem);
   text-align: center;
 }
 
@@ -175,7 +192,7 @@
   grid-area: delay;
 }
 
-.appointments__number {
+.appointments__next {
   grid-area: number;
   align-self: end;
 }
@@ -185,9 +202,8 @@
   margin: auto;
   font-size: clamp(1.4rem, 1.8vw, 2.4rem);
   border-collapse: collapse;
-  border-bottom: 0.3rem solid #777;
+  border-bottom: 0.3rem solid #4387f5;
   border-radius: 1rem 1rem 0 0;
-  box-shadow: 0 0 20px rbga(black, 0.15);
   background: white;
 }
 .appointment__table-table th, .appointment__table-table tr, .appointment__table-table td {
@@ -213,16 +229,12 @@
 }
 
 .appointment__body .appointment__row:nth-of-type(even) {
-  background: #fafafa;
+  background: #f0f0f0;
   font-weight: 600;
 }
 
 .appointment__row {
   color: #777;
-}
-
-.appointment__row--inactive {
-  color: rgba(119, 119, 119, 0.6);
 }
 
 .appointment__status {
@@ -239,25 +251,31 @@
   font-weight: bold;
   border-radius: 0.7em;
 }
-
-.appointment__status--not_confirmed {
-  color: #F5BA42;
-  background: rgba(245, 186, 66, 0.3);
+.appointment__status::before {
+  content: "";
+  position: absolute;
+  width: 2rem;
+  height: 2rem;
+  top: 50%;
+  transform: translateY(-50%);
+  left: -2rem;
+  border-radius: 50%;
 }
 
-.appointment__status--confirmed {
-  color: rgba(0, 128, 0, 0.8);
-  background: rgba(0, 128, 0, 0.3);
+.appointment__status--not_confirmed::before {
+  background: #F5BA42;
 }
 
-.appointment__status--cancelled {
-  color: #ff7777;
-  background: rgba(255, 119, 119, 0.3);
+.appointment__status--confirmed::before {
+  background: rgba(0, 128, 0, 0.8);
 }
 
-.appointment__status--checked {
-  color: #777;
-  background: rgba(119, 119, 119, 0.3);
+.appointment__status--cancelled::before {
+  background: rgba(255, 0, 0, 0.8);
+}
+
+.appointment__status--checked::before {
+  background: #4387f5;
 }
 
 #dashboard__snippet {
