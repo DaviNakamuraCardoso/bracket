@@ -520,8 +520,10 @@ function main()
 	{
 		// Create the canvas element
 		const dimensions = window.getComputedStyle(croppers[i]);
-		const cropperHeight = (parseInt(dimensions.height) == 0) ? 600 : 0.7 * parseInt(dimensions.height);
-		const cropperWidth = (parseInt(dimensions.width) == 0) ? 600 : 0.7 * parseInt(dimensions.width);
+		// const cropperHeight = (parseInt(dimensions.height) == 0) ? 600 : 0.7 * parseInt(dimensions.height);
+		// const cropperWidth = (parseInt(dimensions.width) == 0) ? 600 : 0.7 * parseInt(dimensions.width);
+		const cropperHeight = 600;
+		const cropperWidth = 600; 
 
 		// Get the cropper dimension
 		const dimension = Math.max(100, Math.min(cropperHeight, cropperWidth));

@@ -31,7 +31,6 @@ class UserForm(forms.Form):
     last_name = forms.CharField(max_length=64)
     password = forms.CharField(max_length=64, widget=forms.PasswordInput)
     password_confirmation = forms.CharField(max_length=64, widget=forms.PasswordInput)
-    city = forms.ChoiceField(widget=forms.Select(attrs={'class': 'city-field'}))
 
 
 class DoctorForm(forms.Form):

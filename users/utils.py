@@ -40,16 +40,11 @@ def new_user(request):
     user = User.objects.create_user(
         password=data['password'],
         email=data['email'],
-        city=City.objects.get(pk=data['city']),
         first_name=data['first_name'],
         last_name=data['last_name'],
         name=get_name(data['first_name'], data['last_name']),
 
     )
-
-    if picture := request.FILES['user-picture']:
-
-        user.picture = handle_uploaded_file(request.POST, picture, user, 'user-picture')
 
     user.save()
 

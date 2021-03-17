@@ -5,10 +5,11 @@
 
 
 {% block head %}
-    <script type="module" src="{% static 'users/scripts/signup.js' %}" defer></script>
-    <script type="module" src="{% static 'users/scripts/cropper.js' %}" defer></script>
     <script type="text/javascript" src="{% static 'users/scripts/forms.js' %}"></script>
+    <script type="module" src="{% static 'users/scripts/login.js' %}"></script>
     <link rel="stylesheet" href="{% static 'users/styles/css/cropper.css' %}">
+    <link rel="stylesheet" href="{% static 'users/styles/css/login.css' %}">
+    <link rel="stylesheet" href="{% static 'users/styles/css/forms.css' %}">
 
 {% endblock %}
 
@@ -20,36 +21,94 @@
 
     <div class="signup__container">
 
-        <link rel="stylesheet" href="{% static 'users/styles/css/forms.css' %}">
+        <div class="login__banner">
 
-        <a href="{% provider_login_url "facebook" method="oauth2" %}">Facebrooklyn Officiall</a>
-        <a href="{% provider_login_url 'google' %}">GUGOU</a>
-        <a href="{% provider_login_url 'github' %}">GitHub</a>
+        </div>
+        <div class="signup__card">
 
-        <h3>OR</h3>
+            <div class="login__header">
+                <h1>Signup</h1>
 
-        <button type="button" name="button">Login here</button>
+            </div>
+            <div class="login__oauth">
+                <a href="{% provider_login_url 'google' %}">
+                    <div class="login__button login__button--google">
+                        <img src="{% static 'users/images/google.svg' %}" alt="Google logo">
+                        <span>Register with Google</span>
+                    </div>
+                </a>
+                <a href="{% provider_login_url 'facebook' method="oauth2" %}">
+                    <div class="login__button login__button--fb">
+                        <img src="{% static 'users/images/fb.svg' %}" alt="Facebook logo">
+                        <span>Register with Facebook</span>
+                    </div>
+                </a>
+                <!--
+                <a href="{% provider_login_url 'github' %}">
+                    <div class="login__button login__button--github">
+                        <img src="{% static 'users/images/github.png' %}" alt="Github Logo">
+                        <span>Login with Github</span>
+                    </div>
+                </a>
+            -->
+                <div class="login__button login__button--email">
+                    <span>Email and Password</span>
 
-        <form class="register" action="{% url 'users:signup' %}" method="POST" enctype="multipart/form-data" id="signup">
+                </div>
+
+        </div>
+
+
+        <form class="login__email" action="{% url 'users:signup' %}" method="POST" enctype="multipart/form-data" id="signup">
             {% csrf_token %}
+            {% with user_form as form %}
             <div id="user-form">
-                    {% for field in user_form %}
                     <div class="form-wrapper">
-                        <div class="field">
-                            {{ field }}
-                            <label for="{{ field.id_for_label }}" class="label-field">
-                                <span class="content-label">{{ field.label }}</span>
+                        <div class="field more">
+                            {{ form.email }}
+                            <label for="{{ form.email.id_for_label }}" class="label-field">
+                                <span class="content-label">{{ form.email.label }}</span>
                             </label>
                         </div>
 
                     </div>
+                    <div class="form-wrapper">
 
-                    {% endfor %}
-                    <div class="_cropper" data-name='user-picture'></div>
+                        <div class="field less">
+                            {{ form.first_name }}
+                            <label for="{{ form.first_name.id_for_label }}" class="label-field">
+                                <span class="content-label">{{ form.first_name.label }}</span>
+                            </label>
+                        </div>
+                        <div class="field less">
+                            {{ form.last_name }}
+                            <label for="{{ form.last_name.id_for_label }}" class="label-field">
+                                <span class="content-label">{{ form.last_name.label }}</span>
+                            </label>
+                        </div>
 
+                    </div>
+                    <div class="form-wrapper">
+                        <div class="field less">
+                            {{ form.password }}
+                            <label for="{{form.password.id_for_label}}" class="label-field">
+                                <span class="content-label">{{form.password.label}}</span>
+                            </label>
+
+                        </div>
+                        <div class="field less">
+                            {{ form.password_confirmation}}
+                            <label for="{{form.password_confirmation.id_for_label}}" class="label-field">
+                                <span class="content-label">{{form.password_confirmation.label}}</span>
+                            </label>
+
+                        </div>
+
+                    </div>
 
             </div>
             <input type="submit" name="" value="Join">
+            {% endwith %}
         </form>
     </div>
 {% endblock %}

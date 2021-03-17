@@ -1,35 +1,85 @@
 {% extends 'base/layout.html' %}
 {% load static %}
+{% load socialaccount %}
 
 {% block title %} Login {% endblock %}
 
 {% block head %}
 
     <link href="{% static 'users/styles/css/forms.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'users/styles/css/login.css' %}">
     <script type="text/javascript" src="{% static 'users/scripts/forms.js' %}"></script>
+    <script type="text/javascript" src="{% static 'users/scripts/login.js' %}"></script>
 
 {% endblock %}
 
 {% block body %}
 
-    {% if not request.user.is_authenticated %}
-        <div class="form">
-            <form class="register" method="POST">
-                {% csrf_token %}
-                {% for field in form %}
-                    <div class="field">
-                        {{ field }}
-                        <label for="{{ field.id_for_label }}" class="label-field">
-                            <span class="content-label">{{ field.label }} </span>
-                        </label>
+
+        <div class="login__main">
+            <div class="login__banner">
+
+            </div>
+
+            <div class="login__form">
+                <div class="login__content">
+                    <div class="login__header">
+                        <h1>Log In</h1>
 
                     </div>
+                    <form class="register login__email" method="POST">
+                        {% csrf_token %}
+                        {% for field in form %}
+                            <div class="field">
+                                {{ field }}
+                                <label for="{{ field.id_for_label }}" class="label-field">
+                                    <span class="content-label">{{ field.label }} </span>
+                                </label>
+
+                            </div>
 
 
-                {% endfor %}
-                <input type="submit" value="Log In">
-            </form>
+                        {% endfor %}
+                        <div class="field">
+
+                            <input type="submit" value="Log In">
+                        </div>
+                    </form>
+                    <div class="login__oauth">
+                        <a href="{% provider_login_url 'google' %}">
+                            <div class="login__button login__button--google">
+                                <img src="{% static 'users/images/google.svg' %}" alt="Google logo">
+                                <span>Login with Google</span>
+                            </div>
+                        </a>
+                        <a href="{% provider_login_url 'facebook' method="oauth2" %}">
+                            <div class="login__button login__button--fb">
+                                <img src="{% static 'users/images/fb.svg' %}" alt="Facebook logo">
+                                <span>Login with Facebook</span>
+                            </div>
+                        </a>
+                        <!--
+                        <a href="{% provider_login_url 'github' %}">
+                            <div class="login__button login__button--github">
+                                <img src="{% static 'users/images/github.png' %}" alt="Github Logo">
+                                <span>Login with Github</span>
+                            </div>
+                        </a>
+                    -->
+                        <div class="login__button login__button--email">
+                            <span>Email and Password</span>
+
+                        </div>
+
+                    </div>
+                    <div class="login__register">
+                        <span>Dont't have an account? <a href="{% url 'users:signup' %}">Register here.</a>
+                        </span>
+
+                    </div>
+                </div>
+            </div>
         </div>
-    {% endif %}
+
 
 {% endblock %}

@@ -40,7 +40,7 @@ function listChoices(array, field, list)
     const val = document.createElement('span');
 
     val.innerHTML = field.value;
-    btn.innerHTML = 'x';
+    btn.className = "fas-icon times"; 
 
     btn.addEventListener('click', () => {
 

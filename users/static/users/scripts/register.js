@@ -44,7 +44,7 @@ function update(value, container)
     // If the user has already provided all the necessary info, skip
     const size = user.children.length;
 
-    if (size == 1)
+    if (size == 0)
     {
         // If it is a regular user, redirect to the index page
         if (value == 0)
@@ -96,7 +96,7 @@ function load(n)
     const forms = document.querySelectorAll('.form__container');
     for (let i = 0; i < forms.length; i++)
     {
-        forms[i].style.left = `${(n-i) * 100}%`;
+        forms[i].style.left = `${(i-n) * 100}%`;
     }
 
     const current = forms[n];

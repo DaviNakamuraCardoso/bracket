@@ -69,4 +69,8 @@
   content: "";
 }
 
+.times::before {
+  content: "";
+}
+
 /*# sourceMappingURL=icons.css.map */
