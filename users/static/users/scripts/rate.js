@@ -7,9 +7,7 @@ function main()
     formSubmissions();
 
     let page = loadRates(0);
-
-
-
+    
 }
 
 
@@ -73,6 +71,8 @@ function rate(form)
     const stars = form.querySelectorAll(".star__input");
     const isDoctor = form.querySelector(".rate__is-doctor").value == 1;
 
+
+
     let rate;
 
     for (let i = 0; i < stars.length; i++)
@@ -83,6 +83,7 @@ function rate(form)
             break;
         }
     }
+
 
     fetch(request, {
         method: 'POST',
@@ -150,7 +151,6 @@ function element(rate)
             children['stars'].append(deadStar.cloneNode(true));
         }
     }
-
 
     const comments = document.querySelector(".comments");
 

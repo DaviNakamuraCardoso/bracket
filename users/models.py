@@ -35,6 +35,7 @@ class UserManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
+        
 
 class City(models.Model):
     # Name and state
@@ -138,7 +139,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def timezone_delay(self):
         if self.city is None:
-            return 0 
+            return 0
         return tz(self.city.timezone)
 
     def basic_serialize(self):

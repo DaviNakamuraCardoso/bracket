@@ -8,22 +8,23 @@ let TYPES = [];
 * @name main
 * @function
 * @global
-* @return {void}
+* @returns {void}
 */
 function main()
 {
     // Get the form container and its buttons
     const container = document.querySelector("#main__div");
-    const buttons = container.querySelectorAll('button');
+    const buttons = container.querySelectorAll('.register__button');
+    const buttonContainer = container.querySelector(".button__container");
 
     for (let i = 0; i < buttons.length; i++)
     {
         buttons[i].onclick = () =>
         {
+            buttonContainer.style.display = 'none';
             update(i, container.querySelector('form'));
         }
     }
-
 }
 
 

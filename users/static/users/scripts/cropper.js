@@ -109,6 +109,19 @@ class Canvas
 	};
 
 
+	set()
+	{
+		this.element.height = 100;
+		this.element.width = 100;
+	}
+
+	unset()
+	{
+		this.element.width = 600;
+		this.element.height = 600;
+	}
+
+
 	start(ratio)
 	{
 		if (!this.element.getContext)
@@ -523,7 +536,7 @@ function main()
 		// const cropperHeight = (parseInt(dimensions.height) == 0) ? 600 : 0.7 * parseInt(dimensions.height);
 		// const cropperWidth = (parseInt(dimensions.width) == 0) ? 600 : 0.7 * parseInt(dimensions.width);
 		const cropperHeight = 600;
-		const cropperWidth = 600; 
+		const cropperWidth = 600;
 
 		// Get the cropper dimension
 		const dimension = Math.max(100, Math.min(cropperHeight, cropperWidth));
@@ -575,6 +588,8 @@ function main()
 
 		// Save button
 		const save = document.createElement('button');
+		const saveContent = document.createElement('span');
+		const saveSpan = document.createElement('span');
 
 
 		// Edit button
@@ -611,6 +626,7 @@ function main()
 		restoreSpan.className = 'material-icons';
 		labelSpan.className = 'material-icons';
 		editSpan.className = 'material-icons';
+		saveSpan.className = 'material-icons';
 
 		save.className = 'cropper__button';
 		restore.className = 'cropper__button';
@@ -633,26 +649,29 @@ function main()
 		editContent.innerHTML = 'Edit';
 		editSpan.innerHTML = 'edit';
 
-
-		save.innerHTML = 'Save';
+		saveContent.innerHTML = 'Save';
+		saveSpan.innerHTML = 'save';
 
 		// Appending
 		label.append(labelSpan);
 		label.append(labelContent);
 
-		crop.append(cropSpan);
-		crop.append(cropContent);
+		// crop.append(cropSpan);
+		// crop.append(cropContent);
 
-		restore.append(restoreSpan);
-		restore.append(restoreContent);
+		// restore.append(restoreSpan);
+		// restore.append(restoreContent);
 
 		edit.append(editSpan);
 		edit.append(editContent);
 
+		save.append(saveSpan);
+		save.append(saveContent);
+
 		buttonContainer.append(input);
 		buttonContainer.append(label);
-		buttonContainer.append(crop);
-		buttonContainer.append(restore);
+		// buttonContainer.append(crop);
+		// buttonContainer.append(restore);
 		buttonContainer.append(edit);
 		buttonContainer.append(x);
 		buttonContainer.append(y);
@@ -690,13 +709,15 @@ function main()
 		}
 
 		label.onclick = () => {
+			canvas.unset();
 			canvasElement.style.display = 'block';
 			croppers[i].classList.toggle('show__canvas', true);
 			croppers[i].classList.toggle('show__image', false);
 			htmlDoc.classList.toggle('no_scroll', true);
+			canvas.unset();
 			canvas.restore();
 		}
-
+/*
 		crop.onclick = () => {
 			canvas.getCroppedImageSrc();
 			croppers[i].classList.toggle('show__canvas', true);
@@ -710,9 +731,10 @@ function main()
 			canvas.restore();
 			croppers[i].classList.toggle('show__canvas', true);
 		}
-
+*/
 		save.onclick = () => {
 			canvas.getCroppedImageSrc();
+			canvas.set();
 			croppers[i].classList.toggle('show__canvas', false);
 			croppers[i].classList.toggle('show__image', true);
 			htmlDoc.classList.toggle('no_scroll', false);
@@ -724,6 +746,7 @@ function main()
 		}
 
 		edit.onclick = () => {
+			canvas.unset();
 			croppers[i].classList.toggle('show__canvas', true);
 			croppers[i].classList.toggle('show__image', false);
 			htmlDoc.classList.toggle('no_scroll', true);

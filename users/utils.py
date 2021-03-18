@@ -51,7 +51,7 @@ def new_user(request):
     return user
 
 
-def new_patient(request, user, create=False):
+def new_patient(request, user, create=False ):
     if create:
 
         data = request.POST
@@ -92,7 +92,6 @@ def new_patient(request, user, create=False):
     return patient
 
 
-
 def new_doctor(request, user):
     if 'doctor' in request.POST['types'].split(','):
         data = request.POST
@@ -127,6 +126,7 @@ def new_clinic(request, user):
         address=data['clinic_address']
 
     )
+
     if picture := request.FILES['clinic-picture']:
 
         clinic.picture = handle_uploaded_file(request.POST, picture, clinic, 'clinic-picture')
