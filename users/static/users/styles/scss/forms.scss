@@ -29,7 +29,6 @@ select + .label-field .content-label
     position: absolute;
     bottom: 100%;
     left: 5%;
-    background: white;
     padding: 0 .5rem;
     pointer-events: none;
 }
@@ -107,9 +106,10 @@ form
     height: 100%;
     padding: 1rem 2rem;
     color: colors.$black;
-    border: 1px solid black;
+    border: 1px solid colors.$gray;
     outline: none;
     font-size: 2rem;
+    background: none;
 }
 
 
@@ -136,7 +136,8 @@ form
 
 
 
-.field input:focus + .label-field .content-label, .field textarea:focus + .label-field .content-label
+.field input:focus + .label-field .content-label, .field textarea:focus + .label-field .content-label,
+.field input:focus + datalist + .label-field .content-label
 {
     bottom: 100%;
     left: -.5rem;
@@ -220,7 +221,8 @@ form
         {
             width: 100%;
             display: flex;
-            gap: 3rem; 
+            flex-wrap: wrap;
+            gap: 3rem;
 
             li
             {
