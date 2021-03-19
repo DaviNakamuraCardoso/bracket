@@ -525,9 +525,9 @@ class Canvas
 }
 
 
-function main()
+function main(container)
 {
-	const croppers = document.querySelectorAll('._cropper');
+	const croppers = container.querySelectorAll('._cropper');
 
 
 	for (let i = 0; i < croppers.length; i++)
@@ -757,9 +757,7 @@ function main()
 	}
 }
 
-document.addEventListener("DOMContentLoaded", main);
-
-export default function cropexp()
+export default function cropexp(container)
 {
-	main();
+	main(container);
 }

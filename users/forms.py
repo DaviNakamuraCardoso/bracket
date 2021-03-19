@@ -2,6 +2,7 @@ from django import forms
 from datetime import datetime
 from patients.data import allergies, conditions, drugs
 from doctors.data import areas
+from doctors.models import Area
 from clinics.models import Clinic
 from floppyforms.widgets import Input
 
@@ -36,25 +37,20 @@ class UserForm(forms.Form):
 class DoctorForm(forms.Form):
     degree = forms.CharField(max_length=128)
     number = forms.IntegerField(max_value=99999999999)
-    choices_areas = forms.CharField(max_length=128, widget=Input(datalist=areas.areas), required=False)
+    choices_areas = forms.CharField(max_length=128, widget=Input(datalist=Area.objects.all()), required=False)
     areas = forms.CharField(max_length=2000, widget=forms.HiddenInput)
 
 
 class ClinicForm(forms.Form):
     clinic_email = forms.EmailField(max_length=64, required=False)
     clinic_name = forms.CharField(max_length=64)
-    clinic_city = forms.ChoiceField(widget=forms.Select(attrs={'class': 'city-field'}))
     clinic_address = forms.CharField(max_length=256, label="Address (Street and Locality)")
 
 
 class LoginForm(forms.Form):
-    username = forms.EmailField(max_length=128)
+    username = forms.EmailField(max_length=128, widget=forms.TextInput(attrs={"autofocus": True}))
     password = forms.CharField(max_length=128, widget=forms.PasswordInput)
 
-
-class CheckBox(forms.Form):
-    types = forms.CharField(max_length=128, widget=forms.HiddenInput)
-    checkbox = forms.ChoiceField(choices=[('Patient', 'patient'), ('Doctor', 'doctor'), ('Clinic', 'clinic')], required=False)
 
 
 FORMS_CONTEXT = {
@@ -62,5 +58,4 @@ FORMS_CONTEXT = {
     'user_form': UserForm(),
     'doctor_form': DoctorForm(),
     'clinic_form': ClinicForm(),
-    'checkbox': CheckBox()
 }

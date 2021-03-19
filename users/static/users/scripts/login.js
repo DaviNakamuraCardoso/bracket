@@ -12,6 +12,7 @@ function login()
 
     const form = document.querySelector(".login__email");
     form.style.display = 'flex';
+    form.querySelector("#id_username").focus(); 
 }
 
 

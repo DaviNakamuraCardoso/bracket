@@ -1,17 +1,19 @@
 @use 'abstract/colors';
 
 
-
 .location__picker
 {
     display: flex;
     justify-content: center;
 }
 
+
 .location__button
 {
-    margin: auto; 
+    margin: auto;
 }
+
+
 .location__card
 {
     display: none;
@@ -27,6 +29,7 @@
     flex-direction: column;
     justify-content: space-around;
 }
+
 
 .location__wrapper
 {

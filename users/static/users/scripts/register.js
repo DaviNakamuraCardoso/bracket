@@ -7,23 +7,58 @@ let TYPES = [];
 * @name main
 * @function
 * @global
-* @returns {void}
+* @returns {Void}
 */
 function main()
 {
     // Get the form container and its buttons
+    let page = 0;
     const container = document.querySelector("#main__div");
-    const buttons = container.querySelectorAll('.register__button');
-    const buttonContainer = container.querySelector(".button__container");
+    const form = container.querySelector(".register__form");
+
+    let user = element("user");
+    const type = element("type");
+
+    if (user.children.length != 0)
+    {
+        form.append(user)
+        page++;
+        user.style.left = '0';
+        type.style.left = '100%';
+        user.querySelector('.button__next').onclick = () =>
+        {
+            type.style.left = '0';
+            user.style.left = '100%';
+        }
+    }
+    else
+    {
+        type.style.left = '0';
+    }
+
+    form.append(type);
+
+    const buttonContainer = type.querySelector(".button__container");
+    const buttons = buttonContainer.querySelectorAll(".register__button");
+
 
     for (let i = 0; i < buttons.length; i++)
     {
         buttons[i].onclick = () =>
         {
-            buttonContainer.style.display = 'none';
-            update(i, container.querySelector('form'));
+            update(i, form, page+1);
         }
     }
+
+    const yes = type.querySelector("button");
+    buttonContainer.style.display = 'none';
+
+    yes.onclick = () =>
+    {
+        buttonContainer.style.display = 'flex';
+    }
+
+    cropexp(user);
 }
 
 
@@ -33,47 +68,28 @@ function main()
 * @global
 * @return {void}
 */
-function update(value, container)
+function update(value, container, page)
 {
     // Get all the templates
-    let user = element("user");
     const doctor = element("doctor");
     const clinic = element("clinic");
 
-
-    // If the user has already provided all the necessary info, skip
-    const size = user.children.length;
-
-    if (size == 0)
-    {
-        // If it is a regular user, redirect to the index page
-        if (value == 0)
-        {
-            location.replace('/');
-        }
-
-    }
-    // If we don't have the user address or picture, add the container
-    else
-    {
-        container.append(user);
-    }
 
     switch(value)
     {
 
         // Only doctor
-        case 1:
+        case 0:
             container.append(doctor);
             TYPES.push('doctor');
             break;
         // Only clinic
-        case 2:
+        case 1:
             container.append(clinic);
             TYPES.push('clinic');
             break;
         // Both doctor and clinic
-        case 3:
+        case 2:
             container.append(doctor);
             container.append(clinic);
             TYPES.push('clinic');
@@ -83,13 +99,19 @@ function update(value, container)
 
     // Update the choice fields and location
     choices(container);
-    cropexp();
+    cropexp(clinic);
 
-    load(0);
-
+    load(page);
 }
 
 
+/**
+@name load
+@function
+@global
+@param n {Integer}
+@returns {Void}
+*/
 function load(n)
 {
     const forms = document.querySelectorAll('.form__container');
@@ -111,12 +133,11 @@ function load(n)
     else
     {
         // Create an input with all the selected types
-        const input = document.createElement('input');
+        const input = document.querySelector('[name=types]');
 
         input.name = 'types';
         input.type = 'hidden';
         input.value = TYPES.join();
-        current.append(input);
 
         // Convert the next button into a submit button
         next.type = 'submit';
@@ -128,8 +149,8 @@ function load(n)
 * @name element
 * @function
 * @global
-* @param {String} id
-* @return {Void}
+* @param {string} id
+* @returns {DOMObject} f
 */
 function element(id)
 {
@@ -138,10 +159,8 @@ function element(id)
     const template = document.querySelector(`#${id}__form`);
 
     // Return a new node
-    return (template.content.cloneNode(true));
+    return (template.content.cloneNode(true).children[0]);
 }
-
-
 
 
 // Call the main function

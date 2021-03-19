@@ -1,13 +1,13 @@
 
-{% if request.user.city is None %}
+
 <div class="form__container">
+    {% if request.user.city is None %}
 
-    {% include 'users/location.html' with name="city" %}
-    <div class="_cropper"></div>
+        {% include 'users/location.html' with name="city" %}
+        <div class="_cropper" data-name="user-picture"></div>
 
-    <button type="button" name="button" class="button__next">Next</button>
+        <button type="button" name="button" class="button__next">Next</button>
 
 
+    {% endif %}
 </div>
-
-{% endif %}

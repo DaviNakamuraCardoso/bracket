@@ -11,6 +11,9 @@ import datetime
 def get_name(first, last):
 
     """Gets first and last name and returns an username."""
+    first = formated_name(first)
+    last = formated_name(last)
+    
     n = len(User.objects.filter(first_name=first, last_name=last))
     sufix = f".{(n)}" if n >= 1 else ''
     sep = ''
@@ -18,6 +21,12 @@ def get_name(first, last):
     l = sep.join(last.split(" ")).lower()
 
     return f"{f}.{l}" + sufix
+
+
+def formated_name(name):
+    """Get a name data and return it formatted."""
+    f_name =  ' '.join([part.capitalize() for part in name.split(' ')])
+    return f_name
 
 
 def get_clinic_name(request):
@@ -40,8 +49,8 @@ def new_user(request):
     user = User.objects.create_user(
         password=data['password'],
         email=data['email'],
-        first_name=data['first_name'],
-        last_name=data['last_name'],
+        first_name=formated_name(data['first_name']),
+        last_name= formated_name(data['last_name']),
         name=get_name(data['first_name'], data['last_name']),
 
     )

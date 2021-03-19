@@ -14,17 +14,11 @@
 {% block body %}
 
     <div id="main__div">
-        <div class="button__container">
-            <button type="button" name="button" data-value="1" class="register__button">Common user</button>
-            <button type="button" name="button" data-value="2" class="register__button">I'm a doctor</button>
-            <button type="button" name="button" data-value="3" class="register__button">I have a clinic</button>
-            <button type="button" name="button" data-value="4" class="register__button">I'm a doctor and have a clinic</button>
-
-        </div>
 
         <form class="register register__form" method="post" class="form__container" enctype="multipart/form-data">
             {% csrf_token %}
 
+            <input type="hidden" name="types" value="">
         </form>
 
     </div>
@@ -32,6 +26,24 @@
     <template id="user__form">
         {% include 'users/user.html' %}
     </template>
+
+    <template id="type__form">
+        <div class="form__container">
+            <h1>Are you a doctor and/or have a clinic?</h1>
+            <input type="submit" name="" value="No">
+            <button type="button" name="button" class="button__next">Yes</button>
+
+            <div class="button__container">
+                <button type="button" name="button" data-value="1" class="register__button">I'm a doctor</button>
+                <button type="button" name="button" data-value="2" class="register__button">I have a clinic</button>
+                <button type="button" name="button" data-value="3" class="register__button">I'm a doctor and have a clinic</button>
+            </div>
+
+
+
+        </div>
+    </template>
+
 
     <template id="doctor__form">
         {% include 'users/doctor.html' %}

@@ -3,7 +3,7 @@ from django.http import HttpResponseRedirect, JsonResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout, login, authenticate
 from django.contrib.postgres.search import TrigramSimilarity
-from users.utils import new_clinic, new_doctor, new_patient, new_user, get_name
+from users.utils import new_clinic, new_doctor, new_patient, new_user, get_name, handle_uploaded_file
 from users.data.geolocation import locate
 from users.data.time import get_calendar
 from users.models import City
@@ -33,6 +33,10 @@ def register_view(request):
 
         if user.city is None:
             user.city = City.objects.get(pk=data['city'])
+            user.save()
+
+        if files := request.FILES:
+            user.picture = handle_uploaded_file(data, files['user-picture'], user, 'user-picture')
             user.save()
 
         # Attempt to create all the different types of users

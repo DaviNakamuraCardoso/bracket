@@ -110,7 +110,7 @@ form input[type=submit i]:hover {
 }
 
 .field input:focus + .label-field .content-label, .field textarea:focus + .label-field .content-label,
-.field input:focus + datalist + .label-field .content-label {
+.field input:focus + datalist + .label-field .content-label, input:valid + .label-field .content-label {
   bottom: 100%;
   left: -0.5rem;
   font-size: 1.6rem;

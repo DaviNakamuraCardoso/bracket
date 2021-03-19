@@ -8,6 +8,8 @@ function main()
         input.onkeyup = () => {
             validate(input);
         };
+        input.addEventListener('focusout', () => {validate(input);})
+
     }
 
 }
