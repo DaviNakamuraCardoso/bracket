@@ -10,7 +10,7 @@ urlpatterns = [
 
     # Register and specifics
     path('register', views.register_view, name='register'),
-    path('signup', views.signup_view, name='signup'), 
+    path('signup', views.signup_view, name='signup'),
 
     # Utils
     path('create', views.create_cities, name='create'),
@@ -21,4 +21,5 @@ urlpatterns = [
     # APIs
     path('location/<str:lat>/<str:lng>', views.location, name='location'),
     path('calendar/<int:year>/<int:month>', views.calendar, name='calendar'),
+    path('find', views.find_location, name="find_location")
 ]

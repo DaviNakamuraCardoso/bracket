@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, reverse
 from django.http import HttpResponseRedirect, JsonResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout, login, authenticate
+from django.contrib.postgres.search import TrigramSimilarity
 from users.utils import new_clinic, new_doctor, new_patient, new_user, get_name
 from users.data.geolocation import locate
 from users.data.time import get_calendar
@@ -19,6 +20,7 @@ def signup_view(request):
         return HttpResponseRedirect(reverse('users:register'))
 
     return render(request, 'users/signup.html', FORMS_CONTEXT)
+
 
 def register_view(request):
     user = request.user
@@ -125,8 +127,6 @@ def eliminate(request):
     return HttpResponseRedirect(reverse('doctors:index'))
 
 
-
-
 def create_patient(request):
     global allergies, drugs, conditions
 
@@ -172,3 +172,15 @@ def location(request, lat, lng):
 
 def calendar(request, month, year):
     return JsonResponse(get_calendar(month+1, year))
+
+
+def find_location(request):
+
+    if search := request.GET.get('city'):
+        cities = City.objects.annotate(
+            similarity=TrigramSimilarity('city', search)
+        ).all().order_by('-similarity')[:30]
+
+        return JsonResponse([city.serialize() for city in cities], safe=False)
+
+    return JsonResponse([], safe=False)

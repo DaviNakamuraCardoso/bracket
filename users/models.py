@@ -35,7 +35,7 @@ class UserManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
-        
+
 
 class City(models.Model):
     # Name and state
