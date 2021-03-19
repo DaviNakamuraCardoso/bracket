@@ -73,4 +73,12 @@
   content: "";
 }
 
+.location::before {
+  content: "";
+}
+
+.search__location::before {
+  content: "";
+}
+
 /*# sourceMappingURL=icons.css.map */

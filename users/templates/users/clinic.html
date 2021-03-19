@@ -14,7 +14,10 @@
             </div>
 
         {% endfor %}
-        <div class="_cropper" data-name="clinic-picture"> </div>
+
+        {% include 'users/location.html' with name="clinic_city" %}
+        <div class="_cropper" data-name="clinic-picture"></div>
+
 
         <button type="button" name="button" class="button__next">Next</button>
 

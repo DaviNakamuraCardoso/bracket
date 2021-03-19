@@ -2,13 +2,12 @@
 {% if request.user.city is None %}
 <div class="form__container">
 
-    <div class="form__form">
-        <select class="city-field" id="data"></select>
-    </div>
-    <div class="_cropper">
+    {% include 'users/location.html' with name="city" %}
+    <div class="_cropper"></div>
 
-    </div>
     <button type="button" name="button" class="button__next">Next</button>
+
+
 </div>
 
 {% endif %}

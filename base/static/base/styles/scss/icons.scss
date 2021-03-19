@@ -88,5 +88,15 @@
 
 .times::before
 {
-    content: '\f00d'; 
+    content: '\f00d';
+}
+
+.location::before
+{
+    content: '\f3c5';
+}
+
+.search__location::before
+{
+    content: '\f689'; 
 }

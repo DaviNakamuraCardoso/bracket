@@ -1,0 +1,66 @@
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'users/styles/css/location.css' %}">
+<script type="text/javascript" src="{% static 'users/scripts/geolocation.js' %}"></script>
+
+
+<div class="location__picker">
+
+    {# Button select location #}
+    <button type="button" name="button" class="location__button fas-text location">Select your location</button>
+
+    {# Card that appears when the button is clicked #}
+
+    <div class="location__wrapper">
+
+        <div class="location__card">
+
+            <div class="location__header">
+                <h1 class="location__title">Select your city</h1>
+
+            </div>
+            <div class="location__input">
+
+                {# Use my location button #}
+                <button type="button" name="button" class="location__use">
+                    <span class="fas-text location location__use-span">Use my location</span>
+                </button>
+
+                <div class="location__or">
+                    <h1>Or</h1>
+                </div>
+
+                {# Searchbox for locations #}
+                <form class="register location__form" action="{% url 'users:find_location' %}" method="GET">
+                    {% csrf_token %}
+                    <div class="field">
+                        <input type="text" name="location" value="" class="location__search" id="location__search">
+                        <label for="location__search" class="label-field">
+                            <span class="content-label fas-text search__location">Search</span>
+                        </label>
+                    </div>
+                </form>
+            </div>
+
+            {# Undraw image #}
+            <div class="location__image">
+
+            </div>
+
+            {# Select field and confirm #}
+            <div class="location__actions">
+
+
+                <div class="location__select-wrapper">
+
+                    <select class="location__select" name="{{name}}">
+                        <option value="">Search a city or click "use my location"</option>
+                    </select>
+                    <span class="location__select-arrow"></span>
+                </div>
+
+                <button type="button" name="button" class="location__confirm">Confirm</button>
+            </div>
+        </div>
+    </div>
+</div>
