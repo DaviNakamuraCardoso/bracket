@@ -1,4 +1,3 @@
-import positions from './geolocation.js';
 import choices from './choices.js';
 import cropexp from './cropper.js';
 
@@ -84,7 +83,6 @@ function update(value, container)
 
     // Update the choice fields and location
     choices(container);
-    navigator.geolocation.getCurrentPosition(positions);
     cropexp();
 
     load(0);

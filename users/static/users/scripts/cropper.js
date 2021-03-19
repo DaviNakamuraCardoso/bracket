@@ -25,6 +25,7 @@ const COLORS = {
 	overlay: "rgba(0, 0, 0, 0.6)"
 };
 
+
 function updateCanvasOffset()
 {
 	HTMLCanvasElement.prototype.getMouseCoords = function(event){
