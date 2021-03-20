@@ -558,16 +558,6 @@ function main(container)
 		const htmlDoc = document.querySelector('html');
 
 
-		// Create the crop button
-		const crop = document.createElement('button');
-		const cropSpan = document.createElement('span');
-		const cropContent = document.createElement('span');
-
-		// Restore button
-		const restore = document.createElement('button');
-		const restoreSpan = document.createElement('span');
-		const restoreContent = document.createElement('span');
-
 		// Image input
 		const input = document.createElement('input');
 		const label = document.createElement('label');
@@ -612,8 +602,6 @@ function main(container)
 		height.name = `${input.name}-height`;
 
 		// Adding types
-		crop.type = 'button';
-		restore.type = 'button';
 		edit.type = 'button';
 		save.type = 'button';
 		input.type = 'file';
@@ -623,27 +611,21 @@ function main(container)
 		// class names
 		content.className = 'cropper__content';
 
-		cropSpan.className = 'material-icons';
-		restoreSpan.className = 'material-icons';
 		labelSpan.className = 'material-icons';
 		editSpan.className = 'material-icons';
 		saveSpan.className = 'material-icons';
 
-		save.className = 'cropper__button';
-		restore.className = 'cropper__button';
-		crop.className = 'cropper__button';
+		save.className = 'cropper__button  cropper__button--save';
+		label.className = 'cropper__button cropper__button--label';
+		edit.className = 'cropper__button cropper__button--edit';
 
-		edit.className = 'cropper__button--edit';
+		saveContent.className = 'cropper__span';
+		labelContent.className = 'cropper__span';
+		editContent.className = 'cropper__span'; 
+
 
 
 		// Inner HTML
-		cropContent.innerHTML = 'Crop';
-		cropSpan.innerHTML = 'crop';
-
-
-		restoreContent.innerHTML = 'Restore';
-		restoreSpan.innerHTML = 'restore';
-
 		labelContent.innerHTML = 'Upload Image';
 		labelSpan.innerHTML = 'file_upload';
 
@@ -657,11 +639,6 @@ function main(container)
 		label.append(labelSpan);
 		label.append(labelContent);
 
-		// crop.append(cropSpan);
-		// crop.append(cropContent);
-
-		// restore.append(restoreSpan);
-		// restore.append(restoreContent);
 
 		edit.append(editSpan);
 		edit.append(editContent);
@@ -671,8 +648,6 @@ function main(container)
 
 		buttonContainer.append(input);
 		buttonContainer.append(label);
-		// buttonContainer.append(crop);
-		// buttonContainer.append(restore);
 		buttonContainer.append(edit);
 		buttonContainer.append(x);
 		buttonContainer.append(y);
@@ -718,21 +693,7 @@ function main(container)
 			canvas.unset();
 			canvas.restore();
 		}
-/*
-		crop.onclick = () => {
-			canvas.getCroppedImageSrc();
-			croppers[i].classList.toggle('show__canvas', true);
-			x.value = canvas.valueX;
-			y.value = canvas.valueY;
-			width.value = canvas.valueWidth;
-			height.value = canvas.valueHeight;
-		}
 
-		restore.onclick = () => {
-			canvas.restore();
-			croppers[i].classList.toggle('show__canvas', true);
-		}
-*/
 		save.onclick = () => {
 			canvas.getCroppedImageSrc();
 			canvas.set();

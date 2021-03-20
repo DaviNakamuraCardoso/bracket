@@ -46,16 +46,20 @@ function main()
     {
         buttons[i].onclick = () =>
         {
+            buttonContainer.style.display = 'none';
             update(i, form, page+1);
         }
     }
 
     const yes = type.querySelector("button");
-    buttonContainer.style.display = 'none';
+    buttonContainer.style.left = "100%";
 
     yes.onclick = () =>
     {
-        buttonContainer.style.display = 'flex';
+        buttonContainer.style.left = '0%';
+
+        document.querySelector(".register__question").style.left = "-100%";
+
     }
 
     cropexp(user);
@@ -100,7 +104,6 @@ function update(value, container, page)
     // Update the choice fields and location
     choices(container);
     cropexp(clinic);
-
     load(page);
 }
 
@@ -117,6 +120,7 @@ function load(n)
     const forms = document.querySelectorAll('.form__container');
     for (let i = 0; i < forms.length; i++)
     {
+        forms[i].style.transitionDuration = '0.7s'; 
         forms[i].style.left = `${(i-n) * 100}%`;
     }
 
