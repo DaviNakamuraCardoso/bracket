@@ -1,0 +1,25 @@
+
+
+@mixin flex($width: 100%, $height: 100%, $justify-content: space-around)
+{
+    height: $height;
+    width: $width;
+
+    align-items: center;
+    align-content: center;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 5rem;
+    justify-content: $justify-content;
+}
+
+
+@mixin fullscreen($position: absolute)
+{
+    position: $position;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%; 
+}

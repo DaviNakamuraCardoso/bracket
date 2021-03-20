@@ -1,4 +1,6 @@
 @use "abstract/colors";
+@use "mixins/buttons";
+
 @import url(https://fonts.googleapis.com/icon?family=Material+Icons);
 
 
@@ -21,21 +23,29 @@
 
 }
 
-._cropper
-{
-}
 
 .cropper__button
 {
+    @include buttons.card($width: clamp(200px, 40vw, 500px));
+    display: none;
+
     .material-icons
     {
         display: flex;
         justify-content: center;
         align-content: center;
         align-items: center;
-        width: 2rem;
     }
 
+}
+
+.cropper__button--label
+{
+    padding: 2rem 0;
+    .material-icons
+    {
+        width: 8rem;
+    }
 }
 
 ._cropper .material-icons + span
@@ -48,9 +58,10 @@
 }
 
 
-._cropper :is(.cropper__button, .cropper__button--edit)
+
+._cropper label
 {
-    display: none;
+    display: flex;
 }
 
 ._cropper div
@@ -68,21 +79,7 @@
 }
 
 
-:is(._cropper) input, label, button
-{
-    align-self: center;
-    outline: none;
-    text-align: center;
-}
-
-._cropper button
-{
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
-}
-
-._cropper button span
+.cropper__span
 {
     width: 50%;
     text-align: left;
@@ -91,44 +88,12 @@
     align-items: center;
 }
 
-._cropper .material-icons
+
+.material-icons
 {
     width: 5rem;
     text-align: center;
     transition: transform .2s ease;
-}
-
-
-._cropper input[type="file"]
-{
-    display: none;
-}
-
-._cropper :is(button, label), .cropper__button
-{
-
-    background: white;
-
-    border: none;
-    border-radius: 100vw;
-    width: 35rem;
-    height: 5rem;
-    color: colors.$main;
-    box-shadow: 0 2px 4px rgba(black, .6);
-    text-transform: capitalize;
-    font-family: sans-serif;
-    font-weight: 900;
-    font-size: clamp(1.8rem, 2vw, 2.4rem);
-    cursor: pointer;
-
-}
-
-
-._cropper label, ._cropper button
-{
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
 
@@ -153,15 +118,18 @@
     display: block;
     z-index: 101;
 }
+
+
 .show__image
 {
-    border-radius: 50%;
+    display: flex;
+    .cropper__button--edit,
+    .cropper__button--label
+    {
+        display: flex;
+    }
 }
 
-.show__image .cropper__button--edit
-{
-    display: flex;
-}
 
 .show__canvas
 {
@@ -177,6 +145,13 @@
     -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);
     background-color: rgba(255, 255, 255, .6);
+
+
+    .cropper__button--save,
+    .cropper__button--label
+    {
+        display: flex;
+    }
 }
 
 .blur__canvas
@@ -189,10 +164,6 @@
     filter: blur(10px);
 }
 
-.show__canvas .cropper__button
-{
-    display: flex;
-}
 
 .no_scroll
 {

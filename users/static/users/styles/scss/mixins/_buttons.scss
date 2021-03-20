@@ -1,0 +1,42 @@
+@use '../abstract/colors';
+
+
+@mixin confirm($font-size: clamp(1.5rem, 2.5vw, 2.4rem), $width: 80%)
+{
+    border: 1px solid colors.$main;
+    color: colors.$main;
+    text-transform: none;
+    cursor: pointer;
+    padding: 1rem;
+    border-radius: 100vw;
+    width: $width;
+    font-size: $font-size;
+    background: none;
+    outline: none;
+
+    &:hover, &:focus
+    {
+        background: rgba(colors.$main, .1);
+    }
+}
+
+
+@mixin card($font-weight: 900, $font-size: clamp(1.5rem, 2.5vw, 2.4rem), $width: 80%)
+{
+    box-shadow: 0 1px 3px rgba(black, .3);
+    background: white;
+    padding: 2rem;
+    width: $width;
+    margin: 0 auto;
+    font-size: $font-size;
+    font-weight: $font-weight;
+    color: colors.$dark-gray;
+    cursor: pointer;
+    text-transform: none;
+    transition: transform .3s ease-out;
+
+    &:hover, &:focus
+    {
+        background: colors.$hover-gray;
+    }
+}
