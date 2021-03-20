@@ -42,19 +42,6 @@ form {
   justify-content: space-around;
   gap: 1rem;
 }
-form input[type=submit i] {
-  background: none;
-  outline: none;
-  border: 1px solid #4387f5;
-  color: #4387f5;
-  font-size: 2rem;
-  padding: 1rem;
-  border-radius: 100vw;
-  cursor: pointer;
-}
-form input[type=submit i]:hover {
-  background: rgba(200, 200, 255, 0.3);
-}
 
 .register {
   display: flex;

@@ -17,12 +17,35 @@
   margin: 0 auto;
 }
 
+.cropper__button {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  background: white;
+  padding: 2rem;
+  width: clamp(200px, 40vw, 500px);
+  margin: 0 auto;
+  font-size: clamp(1.5rem, 2.5vw, 2.4rem);
+  font-weight: 900;
+  color: #555;
+  cursor: pointer;
+  text-transform: none;
+  transition: transform 0.3s ease-out;
+  display: none;
+}
+.cropper__button:hover, .cropper__button:focus {
+  background: #f0f0f0;
+}
 .cropper__button .material-icons {
   display: flex;
   justify-content: center;
   align-content: center;
   align-items: center;
-  width: 2rem;
+}
+
+.cropper__button--label {
+  padding: 2rem 0;
+}
+.cropper__button--label .material-icons {
+  width: 8rem;
 }
 
 ._cropper .material-icons + span {
@@ -33,8 +56,8 @@
   align-items: center;
 }
 
-._cropper :is(.cropper__button, .cropper__button--edit) {
-  display: none;
+._cropper label {
+  display: flex;
 }
 
 ._cropper div {
@@ -48,19 +71,7 @@
   background-image: url(https://www.pikpng.com/pngl/m/2-27167_free-png-download-transparent-hanging-snowflakes-png-hanging.png);
 }
 
-:is(._cropper) input, label, button {
-  align-self: center;
-  outline: none;
-  text-align: center;
-}
-
-._cropper button {
-  display: flex;
-  align-items: center;
-  justify-content: space-evenly;
-}
-
-._cropper button span {
+.cropper__span {
   width: 50%;
   text-align: left;
   display: flex;
@@ -68,35 +79,10 @@
   align-items: center;
 }
 
-._cropper .material-icons {
+.material-icons {
   width: 5rem;
   text-align: center;
   transition: transform 0.2s ease;
-}
-
-._cropper input[type=file] {
-  display: none;
-}
-
-._cropper :is(button, label), .cropper__button {
-  background: white;
-  border: none;
-  border-radius: 100vw;
-  width: 35rem;
-  height: 5rem;
-  color: #4387f5;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
-  text-transform: capitalize;
-  font-family: sans-serif;
-  font-weight: 900;
-  font-size: clamp(1.8rem, 2vw, 2.4rem);
-  cursor: pointer;
-}
-
-._cropper label, ._cropper button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 ._cropper button:hover .material-icons,
@@ -116,10 +102,10 @@
 }
 
 .show__image {
-  border-radius: 50%;
+  display: flex;
 }
-
-.show__image .cropper__button--edit {
+.show__image .cropper__button--edit,
+.show__image .cropper__button--label {
   display: flex;
 }
 
@@ -137,6 +123,10 @@
   backdrop-filter: blur(10px);
   background-color: rgba(255, 255, 255, 0.6);
 }
+.show__canvas .cropper__button--save,
+.show__canvas .cropper__button--label {
+  display: flex;
+}
 
 .blur__canvas {
   content: "";
@@ -145,10 +135,6 @@
   width: 100%;
   height: 100%;
   filter: blur(10px);
-}
-
-.show__canvas .cropper__button {
-  display: flex;
 }
 
 .no_scroll {
