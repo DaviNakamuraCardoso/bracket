@@ -1,4 +1,6 @@
 @use 'abstract/_colors';
+@use 'mixins/buttons';
+@use 'mixins/div';
 
 /* ___ Dust Pallete ___ */
 $main: #4387f5;
@@ -135,7 +137,7 @@ td
 {
     position: fixed;
     margin-top: 10vh;
-    width: 40vw;
+    width: clamp(70rem, 60vw, 100rem);
     height: 90vh;
     display: flex;
     top: 0;
@@ -246,21 +248,40 @@ td
     color: #5a5a5a;
 }
 
+.schedule-form
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 65%;
+}
+
 .schedule
 {
+    @include div.flex($justify-content: flex-start);
+    gap: 3rem;
     font-size: 1.2rem;
-    display: grid;
-    justify-content: space-between;
     position: relative;
-    padding: 10rem 3rem 3rem 3rem;
+    padding: 5rem 0rem 1rem 0rem;
     text-align: left;
     .schedule-info, .schedule-form, .schedule-title, .schedule-form-info
     {
         opacity: 0;
-
     }
 }
 
+.select-field
+{
+    @include div.flex();
+    width: 100%;
+}
+
+
+#patient
+{
+    padding: .5rem 0 .5rem 2rem;
+    width: 75%;
+}
 
 .schedule.visible
 {
@@ -291,6 +312,8 @@ td
     align-content: center;
     align-items: center;
     gap: 1em;
+    width: 80%;
+
     img
     {
         width: 5rem;
@@ -305,6 +328,7 @@ td
     display: flex;
     flex-direction: column;
     justify-content: center;
+    width: 80%;
     gap: 1em;
 }
 
@@ -315,6 +339,7 @@ td
     text-decoration-style: dashed;
     font-size: 1.6rem;
     font-style: italic;
+    word-break: break-all;
     i::before
     {
         color: colors.$gray;
@@ -359,16 +384,12 @@ td
 
 .schedule-cancel
 {
-    padding: 2rem;
-    font-size: 2rem;
-    border-radius: .7rem;
-    color: red;
-    border: 1px solid red;
-    cursor: pointer;
-    &:hover
-    {
-        background: rgba(255, 200, 200, .3);
-    }
+    @include buttons.confirm($color: colors.$red);
+}
+
+.schedule-submit
+{
+    @include buttons.confirm();
 }
 
 
@@ -396,8 +417,10 @@ td
 
 .schedule-form-info
 {
+
     flex-direction: column;
     justify-content: space-around;
+    height: 65%;
 
 }
 

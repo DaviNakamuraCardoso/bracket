@@ -1,13 +1,52 @@
+@import url(https://fonts.googleapis.com/icon?family=Material+Icons);
 /* Main Colors */
 /* Base colors */
 /* Success, atention and caution */
 .location__picker {
   display: flex;
   justify-content: center;
+  width: 100%;
 }
 
 .location__button {
   margin: auto;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  background: white;
+  padding: 2rem;
+  width: clamp(300px, 70vw, 600px);
+  margin: 0 auto;
+  font-size: clamp(1.5rem, 2.5vw, 2.4rem);
+  font-weight: 900;
+  color: #555;
+  cursor: pointer;
+  text-transform: none;
+  transition: transform 0.3s ease-out;
+  display: flex;
+  align-content: center;
+  align-content: center;
+}
+.location__button .material-icons {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  transition: transform 0.2s linear;
+  width: 4rem;
+  margin: 0 1rem;
+}
+.location__button .material-icons + span {
+  width: 60%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  align-content: flex-end;
+}
+.location__button:hover, .location__button:focus {
+  background: #f0f0f0;
+}
+.location__button:hover .material-icons, .location__button:focus .material-icons {
+  transform: translateY(-25%);
 }
 
 .location__card {
@@ -22,7 +61,12 @@
   background: white;
   box-shadow: 0 2px 3px rgba(0, 0, 0, 0.3);
   flex-direction: column;
-  justify-content: space-around;
+  gap: 2rem;
+  padding-top: 2%;
+}
+
+.location__image {
+  height: 30%;
 }
 
 .location__wrapper {
@@ -45,6 +89,18 @@
   display: flex;
 }
 
+.location__header {
+  height: 10%;
+  width: 100%;
+  align-items: center;
+  align-content: center;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 5rem;
+  justify-content: space-around;
+}
+
 .location__title {
   font-size: clamp(3rem, 3.5vw, 5rem);
   text-align: center;
@@ -54,6 +110,7 @@
   height: 30%;
   display: flex;
   flex-direction: column;
+  justify-content: space-around;
   gap: 2rem;
 }
 
@@ -61,6 +118,7 @@
   height: 20%;
   display: flex;
   flex-direction: column;
+  justify-content: space-around;
   gap: 3rem;
 }
 
@@ -87,22 +145,43 @@
 }
 
 .location__use {
-  background: white;
-  width: 70%;
-  color: #555;
-  padding: 2rem;
-  font-weight: bold;
-  font-size: clamp(1.1rem, 3vw, 1.9rem);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
-  text-transform: none;
+  background: white;
+  padding: 2rem;
+  width: 80%;
+  margin: 0 auto;
+  font-size: clamp(1.5rem, 2.5vw, 2.4rem);
+  font-weight: 900;
+  color: #555;
   cursor: pointer;
-  transition: 0.3s;
+  text-transform: none;
+  transition: transform 0.3s ease-out;
+  display: flex;
+  align-content: center;
+  align-content: center;
 }
-.location__use:hover {
+.location__use .material-icons {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  transition: transform 0.2s linear;
+  width: 4rem;
+  margin: 0 1rem;
+}
+.location__use .material-icons + span {
+  width: 60%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  align-content: flex-end;
+}
+.location__use:hover, .location__use:focus {
   background: #f0f0f0;
 }
-.location__use:hover .location__use-span::before {
-  transform: translateY(-4rem);
+.location__use:hover .material-icons, .location__use:focus .material-icons {
+  transform: translateY(-25%);
 }
 
 .location__use-span {
@@ -157,14 +236,18 @@
 
 .location__confirm {
   border: 1px solid #4387f5;
-  border-radius: 100vw;
-  padding: 1rem;
   color: #4387f5;
-  cursor: pointer;
-  font-size: clamp(1.8rem, 3vw, 2.4rem);
   text-transform: none;
+  cursor: pointer;
+  padding: 1rem;
+  border-radius: 100vw;
+  width: 80%;
+  font-size: clamp(1.5rem, 2.5vw, 2.4rem);
+  background: none;
+  outline: none;
+  margin: 0 auto;
 }
-.location__confirm:hover {
+.location__confirm:hover, .location__confirm:focus {
   background: rgba(67, 135, 245, 0.1);
 }
 

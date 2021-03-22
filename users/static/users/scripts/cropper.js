@@ -542,6 +542,7 @@ function main(container)
 		// Get the cropper dimension
 		const dimension = Math.max(100, Math.min(cropperHeight, cropperWidth));
 		const canvasElement = document.createElement('canvas');
+		const canvasWrapper = document.createElement('div');
 
 		// Ratio X and Y, if any
 		const ratioX = croppers[i].dataset.ratiox || 1;
@@ -611,6 +612,8 @@ function main(container)
 		// class names
 		content.className = 'cropper__content';
 
+		canvasWrapper.className = 'canvas__wrapper';
+
 		labelSpan.className = 'material-icons';
 		editSpan.className = 'material-icons';
 		saveSpan.className = 'material-icons';
@@ -621,7 +624,7 @@ function main(container)
 
 		saveContent.className = 'cropper__span';
 		labelContent.className = 'cropper__span';
-		editContent.className = 'cropper__span'; 
+		editContent.className = 'cropper__span';
 
 
 
@@ -655,7 +658,9 @@ function main(container)
 		buttonContainer.append(height);
 
 		// Appending all the elements to the main div
-		content.append(canvasElement);
+		canvasWrapper.append(canvasElement);
+		content.append(canvasWrapper);
+
 		content.append(buttonContainer);
 		content.append(save);
 

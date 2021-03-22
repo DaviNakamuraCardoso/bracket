@@ -17,25 +17,24 @@
     flex-direction: column;
     gap: 5rem;
     width: 100%;
-    height: 20rem;
+    height: 10rem;
     justify-content: space-around;
     margin: 0 auto;
+
+}
+
+.canvas__wrapper
+{
+    width: 100%;
 
 }
 
 
 .cropper__button
 {
-    @include buttons.card($width: clamp(200px, 40vw, 500px));
+    @include buttons.card($width: clamp(300px, 70vw, 600px));
     display: none;
 
-    .material-icons
-    {
-        display: flex;
-        justify-content: center;
-        align-content: center;
-        align-items: center;
-    }
 
 }
 
@@ -45,17 +44,11 @@
     .material-icons
     {
         width: 8rem;
+        margin-right: -1rem;
     }
 }
 
-._cropper .material-icons + span
-{
-    width: 60%;
-    display: flex;
-    text-align: center;
-    justify-content: center;
-    align-items: center;
-}
+
 
 
 
@@ -70,6 +63,11 @@
     justify-content: space-evenly;
 }
 
+._cropper input[type="file"]
+{
+    display: none;
+}
+
 
 ._cropper canvas
 {
@@ -79,36 +77,11 @@
 }
 
 
-.cropper__span
-{
-    width: 50%;
-    text-align: left;
-    display: flex;
-    height: 100%;
-    align-items: center;
-}
-
-
-.material-icons
-{
-    width: 5rem;
-    text-align: center;
-    transition: transform .2s ease;
-}
-
-
-._cropper button:hover .material-icons,
-._cropper label:hover .material-icons
-{
-    transform: translateY(-15%);
-}
-
 
 ._canvas
 {
     border: 1px solid black;
     display: none;
-
 }
 
 
@@ -119,6 +92,18 @@
     z-index: 101;
 }
 
+.show__image > .canvas__wrapper
+{
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+._cropper.show__image
+{
+    height: 25rem;
+}
 
 .show__image
 {
@@ -127,6 +112,10 @@
     .cropper__button--label
     {
         display: flex;
+    }
+    .cropper__content
+    {
+        height: 60rem;
     }
 }
 

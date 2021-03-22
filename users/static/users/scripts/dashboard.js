@@ -1,4 +1,4 @@
-import ping from '../../base/scripts/message.js';
+import ping, {Load} from '../../base/scripts/message.js';
 
 
 let VERSION = 0;
@@ -6,7 +6,11 @@ let VERSION = 0;
 
 function main()
 {
+
+
+    // Creates the page
     getAppointments();
+
     setInterval(getAppointments, 60000);
 }
 
@@ -48,6 +52,14 @@ function getAppointments()
     const url = `${container.dataset.url}/${VERSION}`;
     const type = container.dataset.type;
 
+    let load;
+    if (VERSION == 0)
+    {
+        // Starts the loading animation
+        const main = document.querySelector("main");
+        load = new Load(main);
+        load.start();
+    }
     fetch(url)
     .then(response => response.json())
     .then(result => {
@@ -81,6 +93,8 @@ function getAppointments()
             }
             return;
         }
+
+
 
 
         const divisions = result.appointments;
@@ -263,6 +277,11 @@ function getAppointments()
         h['cancelled'].innerHTML = cancelled;
         h['confirmed'].innerHTML = confirmed;
 
+
+        if (VERSION == 0)
+        {
+            load.stop();
+        }
 
         VERSION = result.version;
 

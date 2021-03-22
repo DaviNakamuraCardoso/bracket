@@ -1,16 +1,21 @@
 @use 'abstract/colors';
+@use 'mixins/buttons';
+@use 'mixins/div';
 
 
 .location__picker
 {
     display: flex;
     justify-content: center;
+    width: 100%;
 }
 
 
 .location__button
 {
     margin: auto;
+    @include buttons.card($width: clamp(300px, 70vw, 600px));
+
 }
 
 
@@ -27,9 +32,14 @@
     background: white;
     box-shadow: 0 2px 3px rgba(black, .3);
     flex-direction: column;
-    justify-content: space-around;
+    gap: 2rem;
+    padding-top: 2%;
 }
 
+.location__image
+{
+    height: 30%;
+}
 
 .location__wrapper
 {
@@ -46,6 +56,7 @@
 }
 
 
+// Show the card and wrapper when the  button is clicked
 .location__wrapper--show
 {
     display: flex;
@@ -53,9 +64,14 @@
     {
         display: flex;
     }
+
 }
 
 
+.location__header
+{
+    @include div.flex($height: 10%);
+}
 .location__title
 {
     font-size: clamp(3rem, 3.5vw, 5rem);
@@ -67,6 +83,7 @@
     height: 30%;
     display: flex;
     flex-direction: column;
+    justify-content: space-around;
     gap: 2rem;
 }
 
@@ -75,6 +92,7 @@
     height: 20%;
     display: flex;
     flex-direction: column;
+    justify-content: space-around;
     gap: 3rem;
 }
 
@@ -110,27 +128,7 @@
 
 .location__use
 {
-    background: white;
-    width: 70%;
-    color: colors.$dark-gray;
-    padding: 2rem;
-    font-weight: bold;
-    font-size: clamp(1.1rem, 3vw, 1.9rem);
-    box-shadow: 0 1px 3px rgba(black, .3);
-    text-transform: none;
-    cursor: pointer;
-    transition: .3s;
-
-    &:hover
-    {
-        background: colors.$hover-gray;
-        .location__use-span::before
-        {
-            transform: translateY(-4rem);
-
-        }
-
-    }
+    @include buttons.card();
 
 }
 
@@ -197,17 +195,7 @@
 
 .location__confirm
 {
-    border: 1px solid colors.$main;
-    border-radius: 100vw;
-    padding: 1rem;
-    color: colors.$main;
-    cursor: pointer;
-    font-size: clamp(1.8rem, 3vw, 2.4rem);
-    text-transform: none;
-    &:hover
-    {
-        background: rgba(colors.$main, .1);
-    }
+    @include buttons.confirm();
 }
 
 

@@ -6,11 +6,11 @@
 .form__container
 {
     @include div.flex($justify-content: center);
-
     position: absolute;
     left: 100%;
     transition: left .7s ease;
     transition-delay: .4s;
+
 }
 
 
@@ -21,13 +21,42 @@
 }
 
 
+.form__header
+{
+    width: 100%;
+    @include div.flex($justify-content: flex-start, $height: 60%);
+    padding: 5rem;
+
+}
+
+.form__body
+{
+    padding: 5rem;
+    @include div.flex($height: 40%); 
+}
+
+.user__form
+{
+    justify-content: space-between;
+}
+
+.form__title
+{
+    font-size: clamp(2.7rem, 5vw, 4rem);
+
+}
+
 .register__question
 {
     @include div.flex($justify-content: flex-start);
     @include div.fullscreen();
 
-    padding-top: 10rem;
-    font-size: clamp(2.5rem, 3vw, 3.2rem);
+    h1
+    {
+
+        font-size: clamp(2.8rem, 5vw, 3.5rem);
+    }
+    text-align: center;
 
     transition: left .7s ease;
 }
@@ -45,7 +74,7 @@
 
 .button__container
 {
-    @include div.flex($justify-content: center);
+    @include div.flex($justify-content: flex-start);
     @include div.fullscreen();
 
     transition: left .7s ease;
@@ -65,4 +94,5 @@
 #main__div
 {
     @include div.fullscreen();
+    top: 16vh;
 }

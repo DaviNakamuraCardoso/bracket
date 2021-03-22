@@ -1,4 +1,5 @@
 @import url(https://fonts.googleapis.com/icon?family=Material+Icons);
+@import url(https://fonts.googleapis.com/icon?family=Material+Icons);
 /* Main Colors */
 /* Base colors */
 /* Success, atention and caution */
@@ -12,16 +13,20 @@
   flex-direction: column;
   gap: 5rem;
   width: 100%;
-  height: 20rem;
+  height: 10rem;
   justify-content: space-around;
   margin: 0 auto;
+}
+
+.canvas__wrapper {
+  width: 100%;
 }
 
 .cropper__button {
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
   background: white;
   padding: 2rem;
-  width: clamp(200px, 40vw, 500px);
+  width: clamp(300px, 70vw, 600px);
   margin: 0 auto;
   font-size: clamp(1.5rem, 2.5vw, 2.4rem);
   font-weight: 900;
@@ -29,16 +34,33 @@
   cursor: pointer;
   text-transform: none;
   transition: transform 0.3s ease-out;
+  display: flex;
+  align-content: center;
+  align-content: center;
   display: none;
-}
-.cropper__button:hover, .cropper__button:focus {
-  background: #f0f0f0;
 }
 .cropper__button .material-icons {
   display: flex;
   justify-content: center;
   align-content: center;
   align-items: center;
+  transition: transform 0.2s linear;
+  width: 4rem;
+  margin: 0 1rem;
+}
+.cropper__button .material-icons + span {
+  width: 60%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  align-content: flex-end;
+}
+.cropper__button:hover, .cropper__button:focus {
+  background: #f0f0f0;
+}
+.cropper__button:hover .material-icons, .cropper__button:focus .material-icons {
+  transform: translateY(-25%);
 }
 
 .cropper__button--label {
@@ -46,14 +68,7 @@
 }
 .cropper__button--label .material-icons {
   width: 8rem;
-}
-
-._cropper .material-icons + span {
-  width: 60%;
-  display: flex;
-  text-align: center;
-  justify-content: center;
-  align-items: center;
+  margin-right: -1rem;
 }
 
 ._cropper label {
@@ -65,29 +80,14 @@
   justify-content: space-evenly;
 }
 
+._cropper input[type=file] {
+  display: none;
+}
+
 ._cropper canvas {
   justify-self: start;
   align-self: center;
   background-image: url(https://www.pikpng.com/pngl/m/2-27167_free-png-download-transparent-hanging-snowflakes-png-hanging.png);
-}
-
-.cropper__span {
-  width: 50%;
-  text-align: left;
-  display: flex;
-  height: 100%;
-  align-items: center;
-}
-
-.material-icons {
-  width: 5rem;
-  text-align: center;
-  transition: transform 0.2s ease;
-}
-
-._cropper button:hover .material-icons,
-._cropper label:hover .material-icons {
-  transform: translateY(-15%);
 }
 
 ._canvas {
@@ -101,12 +101,26 @@
   z-index: 101;
 }
 
+.show__image > .canvas__wrapper {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+._cropper.show__image {
+  height: 25rem;
+}
+
 .show__image {
   display: flex;
 }
 .show__image .cropper__button--edit,
 .show__image .cropper__button--label {
   display: flex;
+}
+.show__image .cropper__content {
+  height: 60rem;
 }
 
 .show__canvas {

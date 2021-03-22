@@ -106,7 +106,12 @@ function main()
         button.onclick = () => { wrapper.classList.toggle('location__wrapper--show', true); };
         myLocation.onclick = () => { navigator.geolocation.getCurrentPosition(locations); };
         search.onsubmit = () => { return getLocations(search, container); };
-        confirm.onclick = () => { wrapper.classList.toggle('location__wrapper--show', false); };
+        confirm.onclick = () => {
+            wrapper.classList.toggle('location__wrapper--show', false);
+
+            button.querySelector(".location__text").innerHTML = select.options[select.selectedIndex].innerHTML || 'Select your city';
+
+        };
 
 
     }
