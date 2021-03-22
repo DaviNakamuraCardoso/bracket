@@ -1,4 +1,3 @@
-
 document.addEventListener("DOMContentLoaded", () =>
 {
     const icons = document.querySelectorAll(".icon");
