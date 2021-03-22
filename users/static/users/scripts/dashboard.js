@@ -63,7 +63,7 @@ function getAppointments()
     fetch(url)
     .then(response => response.json())
     .then(result => {
-
+        
         if (result.message == "Dashboard up to date.")
         {
             const delays = document.querySelectorAll('.appointments__delay-title');
@@ -93,8 +93,6 @@ function getAppointments()
             }
             return;
         }
-
-
 
 
         const divisions = result.appointments;

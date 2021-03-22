@@ -49,10 +49,20 @@ function doctorsLoad(template)
 
 function loadDay(template, element)
 {
+    // Get the selected day, hour and doctor
     const day = element.querySelector('.ball').innerHTML;
     const month = MONTHS.indexOf(template.querySelector(".month-title").innerHTML);
     const year = template.querySelector(".year-title").innerHTML;
     const doctor = template.querySelector(".doctor").value;
+
+    // Get the day planner
+    const dayPlanner = template.querySelector(".day-planner");
+    const hours = template.querySelector('.hours');
+    const appointments = template.querySelector(".appointments");
+    const schedule = template.querySelector(".schedule");
+
+    const load = new Load(dayPlanner);
+    load.start();
 
     const button = template.querySelector(".button__close");
     fetch(`/doctors/${doctor}/${year}/${month}/${day}`)
@@ -67,10 +77,6 @@ function loadDay(template, element)
         }
 
         let dayInfo = result.day;
-        const dayPlanner = template.querySelector(".day-planner");
-        const hours = template.querySelector('.hours');
-        const appointments = template.querySelector(".appointments");
-        const schedule = template.querySelector(".schedule");
         hours.innerHTML = '';
         appointments.innerHTML = '';
 
@@ -137,6 +143,7 @@ function loadDay(template, element)
             }
         }
 
+        load.stop();
         updateAllAppointments(template);
 
     });
@@ -170,10 +177,6 @@ function updateAllAppointments(template)
                 fetch(`/doctors/${doctor}/${year}/${month}/${day}/${index}`)
                 .then(response => response.json())
                 .then(result => {
-
-
-                    console.log(result);
-
 
                     const shift = result.shift;
                     const clinic = shift.clinic;

@@ -65,11 +65,12 @@ def dashboard_api(request, name, version):
     shifts = doctor.shifts.filter(day__day=get_weekday(time.day, time.month, time.year)).order_by('start')
     appointments = []
 
+
     # Separates the appointments by clinic
     for clinic in doctor.clinics.all():
         c = []
         for shift in shifts.filter(clinic=clinic):
-            a = Appointment.objects.filter(shift=shift).order_by('index')
+            a = Appointment.objects.filter(shift=shift, day=time.day, month=time.month, year=time.year).order_by('index')
 
             c += [ap.serialize() for ap in a]
 
@@ -259,14 +260,15 @@ def new_appointment(request, name):
 
         for date in cicle(frequency, delta, time_object):
 
+            d = date
             while True:
-                l_day = date.day
-                l_month = date.month
-                l_year = date.year
+                l_day = d.day
+                l_month = d.month
+                l_year = d.year
 
                 try:
                     exist = Appointment.objects.get(day=l_day, month=l_month, year=l_year, shift=shift, index=index)
-                    date = date + timedelta(days=frequency)
+                    d = d + timedelta(days=frequency)
                 except Appointment.DoesNotExist:
 
                     appointment = Appointment.objects.create(
@@ -274,10 +276,10 @@ def new_appointment(request, name):
                         patient=patient,
                         to=data['patient'],
                         shift=shift,
-                        day=date.day,
-                        month=date.month,
-                        year=date.year,
-                        index=data['index'],
+                        day=d.day,
+                        month=d.month,
+                        year=d.year,
+                        index=index,
                         area=Area.objects.get(area=data['area'])
                     )
 
@@ -336,7 +338,6 @@ def check(request, appointment_id=0):
     data = json.loads(request.body)
 
     appointment = Appointment.objects.get(pk=appointment_id)
-
 
     if request.user != appointment.shift.doctor.user:
         return JsonResponse({"message": "Not allowed."})
