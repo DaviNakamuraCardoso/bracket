@@ -114,3 +114,13 @@ def get_weekday(day, month, year):
     date = datetime(year=year, month=month, day=day)
 
     return date.strftime("%A")
+
+def cicle(freq, delta, timeobj):
+    r = []
+    if freq == 0:
+        return [timeobj]
+        
+    for i in range(0, round(delta*30.25), freq):
+        r.append(timeobj + timedelta(days=i))
+
+    return r

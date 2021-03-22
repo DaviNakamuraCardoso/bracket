@@ -10,7 +10,8 @@ from users.models import City
 from users.forms import FORMS_CONTEXT, LoginForm, ClinicForm
 from users.data.sorted_cities import latitude_sorted
 from django.conf import settings
-# Create your views here.
+import requests
+
 
 def signup_view(request):
     if request.method == 'POST':
@@ -33,10 +34,6 @@ def register_view(request):
 
         if user.city is None:
             user.city = City.objects.get(pk=data['city'])
-            user.save()
-
-        if files := request.FILES:
-            user.picture = handle_uploaded_file(data, files['user-picture'], user, 'user-picture')
             user.save()
 
         # Attempt to create all the different types of users

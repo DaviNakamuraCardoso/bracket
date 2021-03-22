@@ -9,7 +9,7 @@ from doctors.forms import ShiftForm
 from patients.utils import confirmation
 from clinics.models import Clinic
 from base.models import Notification
-from users.data.time import get_weekday, format
+from users.data.time import get_weekday, format, cicle
 from users.decorators import ajax_login_required
 from datetime import datetime, timedelta
 import json
@@ -222,10 +222,16 @@ def accept(request, name):
 def new_appointment(request, name):
     if request.method == "POST":
 
+
         doctor = get_doctor(name)
         data = json.loads(request.body)
         patient = None
         shift = Shift.objects.get(pk=data['shift'])
+
+        month = int(data['month']) + 1
+        year = int(data['year'])
+        day = int(data['day'])
+        index = int(data['index'])
 
         shift.doctor.dashboard_version += 1
         shift.clinic.dashboard_version += 1
@@ -233,29 +239,52 @@ def new_appointment(request, name):
         shift.doctor.save()
         shift.clinic.save()
         if data['remove']:
-            appointment = Appointment.objects.get(day=data['day'], month=data['month']+1, year=data['year'], index=data['index'], shift=shift)
+            appointment = Appointment.objects.get(day=day, month=month, year=year, index=data['index'], shift=shift)
 
             appointment.delete()
             return JsonResponse({"message": "Appointment cancelled successfully"})
+
+
 
         if data['patient'] == request.user.first_name + " " + request.user.last_name:
             patient = request.user.patient
 
 
-        appointment = Appointment.objects.create(
-            user=request.user,
-            patient=patient,
-            to=data['patient'],
-            shift=shift,
-            day=data['day'],
-            month=data['month']+1,
-            year=data['year'],
-            index=data['index'],
-            area=Area.objects.get(area=data['area'])
+        frequency = int(data['frequency'])
+        delta = int(data['next'])
+        time_object = datetime(year=year, month=month, day=day)
 
-        )
-        appointment.save()
-        confirmation(appointment)
+        if frequency % 7 != 0:
+            return JsonResponse({"message": "Invalid frequency"})
+
+        for date in cicle(frequency, delta, time_object):
+
+            while True:
+                l_day = date.day
+                l_month = date.month
+                l_year = date.year
+
+                try:
+                    exist = Appointment.objects.get(day=l_day, month=l_month, year=l_year, shift=shift, index=index)
+                    date = date + timedelta(days=frequency)
+                except Appointment.DoesNotExist:
+
+                    appointment = Appointment.objects.create(
+                        user=request.user,
+                        patient=patient,
+                        to=data['patient'],
+                        shift=shift,
+                        day=date.day,
+                        month=date.month,
+                        year=date.year,
+                        index=data['index'],
+                        area=Area.objects.get(area=data['area'])
+                    )
+
+                    appointment.save()
+                    confirmation(appointment)
+                    break
+
 
         return JsonResponse({"message": f"Appointment scheduled successfully."})
 

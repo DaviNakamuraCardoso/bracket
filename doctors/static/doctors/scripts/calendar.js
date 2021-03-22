@@ -1,5 +1,5 @@
 import startCalendar, {DAYS, MONTHS, thisDay, pad} from '../../users/scripts/calendar.js';
-import ping from '../../base/scripts/message.js';
+import ping, {Load} from '../../base/scripts/message.js';
 
 document.addEventListener('DOMContentLoaded', () => {
     const d = new Date();
@@ -154,12 +154,14 @@ function updateAllAppointments(template)
     const month = MONTHS.indexOf(template.querySelector(".month-title").innerHTML);
     const year = template.querySelector(".year-title").innerHTML;
     const doctor = template.querySelector(".doctor").value;
+    const load = new Load(schedule);
 
     appointments.forEach(appointment => {
         if (!appointment.classList.contains('closed'))
         {
             appointment.onclick = () => {
 
+                load.start();
 
                 appointments.forEach(appointment => appointment.classList.toggle('chosen__appointment', false));
                 appointment.classList.toggle('chosen__appointment', true);
@@ -177,7 +179,7 @@ function updateAllAppointments(template)
                     const clinic = shift.clinic;
 
                     children['hour'].innerHTML = `${stripSeconds(result.hour[0])}-${stripSeconds(result.hour[1])}`;
-                    children['day'].innerHTML = `${shift.day}, ${day}/${month}/${year}`;
+                    children['day'].innerHTML = `${shift.day}, ${day}/${month+1}/${year}`;
 
                     children['clinic'].innerHTML = clinic.title;
                     children['clinic_image'].src = clinic.image;
@@ -227,6 +229,7 @@ function updateAllAppointments(template)
                         children['submit'].disabled = true;
                         children['cancel'].disabled = true;
 
+                        load.start();
                         fetch(request, {
                             method: 'POST',
                             mode: 'same-origin',
@@ -237,6 +240,8 @@ function updateAllAppointments(template)
                                 'year': year,
                                 'patient': children['user'].value,
                                 'area': children['areas'].value,
+                                'next': children['next'].value,
+                                'frequency': children['frequency'].value,
                                 'shift': shift.id,
                                 'remove': remove
 
@@ -253,7 +258,7 @@ function updateAllAppointments(template)
                                 children['form-info'].style.display = 'flex';
 
                                 children['area-info'].innerHTML = children['areas'].value;
-                                children['user-info'].innerHTML = children['user'].value; 
+                                children['user-info'].innerHTML = children['user'].value;
                             }
                             else
                             {
@@ -266,6 +271,7 @@ function updateAllAppointments(template)
 
                             children['submit'].disabled = false;
                             children['cancel'].disabled = false;
+                            load.stop();
 
                         });
                         return false;
@@ -276,6 +282,7 @@ function updateAllAppointments(template)
                     children['cancel'].onclick = fetchSchedule;
 
                     schedule.classList.toggle('visible', true);
+                    load.stop();
 
                 });
             }

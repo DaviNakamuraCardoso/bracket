@@ -88,6 +88,42 @@
                         </div>
 
                     </div>
+                    <h2>Schedule multiple appointments</h2>
+                    <div class="form-wrapper">
+                        <div class="select-field">
+                            <select class="schedule-frequency" name="frequency" id="frequency">
+                                <option value="0">---</option>
+                                <option value="7">Once a week</option>
+                                <option value="14">Once each 15 days</option>
+                                <option value="35">Once a month</option>
+                                <option value="91">Once each 3 months</option>
+                                <option value="182">Once each 6 months</option>
+                                <option value="364">Once a year</option>
+                            </select>
+                            <label for="frequency" class="label-field">
+                                <span class="content-label">Frequency</span>
+                            </label>
+
+                        </div>
+                    </div>
+                    <div class="form-wrapper">
+                        <div class="select-field">
+
+                            <select class="schedule-next" name="next" id="next">
+                                <option value="0">---</option>
+                                <option value="1">Month</option>
+                                <option value="3">3 months</option>
+                                <option value="6">6 months</option>
+                                <option value="12">Year</option>
+                                <option value="24">2 years</option>
+                            </select>
+                            <label for="next" class="label-field">
+                                <span class="content-label">For the next...</span>
+                            </label>
+                        </div>
+                    </div>
+
+
                     <input type="submit" class="schedule-submit" value="Schedule">
                 </form>
                 <div class="schedule-form-info">

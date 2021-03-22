@@ -7,7 +7,10 @@
 <div class="location__picker">
 
     {# Button select location #}
-    <button type="button" name="button" class="location__button fas-text location">Select your location</button>
+    <button type="button" name="button" class="location__button">
+        <span class="material-icons"> explore </span>
+        <span class="location__text">Select a city</span>
+    </button>
 
     {# Card that appears when the button is clicked #}
 
@@ -23,7 +26,8 @@
 
                 {# Use my location button #}
                 <button type="button" name="button" class="location__use">
-                    <span class="fas-text location location__use-span">Use my location</span>
+                    <span class="material-icons">my_location</span>
+                    <span class="location__use-span">Use my location</span>
                 </button>
 
                 <div class="location__or">

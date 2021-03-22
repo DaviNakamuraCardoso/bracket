@@ -87,7 +87,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     city = models.ForeignKey(City, on_delete=models.CASCADE, related_name='citizens', blank=True, null=True)
 
     # Picture
-    picture = models.ImageField(default='default.jpeg')
+    picture = models.ImageField(blank=True, null=True)
 
 
     # Date fields
@@ -126,7 +126,10 @@ class User(AbstractBaseUser, PermissionsMixin):
             image = self.socialaccount_set.all()[0].get_avatar_url()
 
         except IndexError:
-            image = self.picture.url
+            try:
+                image = self.picture.url
+            except ValueError:
+                image = f'https://ui-avatars.com/api/?name={self.first_name}+{self.last_name}&background=4387f5&color=fff&bold=true'
 
 
         return image
