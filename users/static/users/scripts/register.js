@@ -28,7 +28,7 @@ function main()
         user.querySelector('.button__next').onclick = () =>
         {
             type.style.left = '0';
-            user.style.left = '100%';
+            user.style.left = '-100%';
         }
     }
     else
@@ -120,7 +120,7 @@ function load(n)
     const forms = document.querySelectorAll('.form__container');
     for (let i = 0; i < forms.length; i++)
     {
-        forms[i].style.transitionDuration = '0.7s'; 
+        forms[i].style.transitionDuration = '0.7s';
         forms[i].style.left = `${(i-n) * 100}%`;
     }
 

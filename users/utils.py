@@ -13,9 +13,9 @@ def get_name(first, last):
     """Gets first and last name and returns an username."""
     first = formated_name(first)
     last = formated_name(last)
-    
+
     n = len(User.objects.filter(first_name=first, last_name=last))
-    sufix = f".{(n)}" if n >= 1 else ''
+    sufix = f".{(n+1)}" if n >= 1 else ''
     sep = ''
     f = sep.join(first.split(" ")).lower()
     l = sep.join(last.split(" ")).lower()
@@ -114,6 +114,8 @@ def new_doctor(request, user):
             for area in data['areas'].split(','):
                 doctor.areas.add(Area.objects.get(area=area))
 
+        user.is_doctor = True 
+        user.save()
 
         return doctor
     return None

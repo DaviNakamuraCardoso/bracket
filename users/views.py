@@ -18,6 +18,8 @@ def signup_view(request):
         user = new_user(request)
 
         login(request=request, user=user, backend=settings.AUTHENTICATION_BACKENDS[0])
+
+
         return HttpResponseRedirect(reverse('users:register'))
 
     return render(request, 'users/signup.html', FORMS_CONTEXT)
