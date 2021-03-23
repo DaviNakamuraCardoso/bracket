@@ -10,8 +10,23 @@
 
 {% block body %}
 
-    <h1>New Schedule</h1>
-    {% if request.user.id == doctor.user.id %}
-        {% include 'doctors/schedule_form.html' %}
-    {% endif %}
+    <div class="schedule__all">
+        <div class="schedule__header">
+            <h1>My Schedule</h1>
+        </div>
+        <div class="schedule__body">
+            {% include 'doctors/snippets/schedule.html' %}
+
+        </div>
+
+
+    </div>
+
+    <div class="schedule__new">
+
+        <h1>New Schedule</h1>
+        {% if request.user.id == doctor.user.id %}
+            {% include 'doctors/schedule_form.html' %}
+        {% endif %}
+    </div>
 {% endblock %}

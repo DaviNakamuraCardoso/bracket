@@ -223,7 +223,6 @@ def accept(request, name):
 def new_appointment(request, name):
     if request.method == "POST":
 
-
         doctor = get_doctor(name)
         data = json.loads(request.body)
         patient = None
@@ -239,12 +238,12 @@ def new_appointment(request, name):
 
         shift.doctor.save()
         shift.clinic.save()
+
         if data['remove']:
             appointment = Appointment.objects.get(day=day, month=month, year=year, index=data['index'], shift=shift)
 
             appointment.delete()
             return JsonResponse({"message": "Appointment cancelled successfully"})
-
 
 
         if data['patient'] == request.user.first_name + " " + request.user.last_name:
@@ -298,7 +297,6 @@ def confirm(request, name, year, month, day, index):
         return JsonResponse({"message": "Method must be PUT."})
 
     data = json.loads(request.body)
-
 
     try:
         appointment = Appointment.objects.get(pk=int(data['object_id']))

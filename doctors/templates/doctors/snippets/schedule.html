@@ -1,0 +1,12 @@
+{% load static %}
+
+<div class="schedule__container">
+
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript" src="{% static 'doctors/scripts/scheduleCharts.js' %}"></script>
+
+
+    <script type="text/javascript"> </script>
+    <div id="timeline" data-api="{% url 'doctors:schedule_api' doctor.user.name %}"></div>
+
+</div>

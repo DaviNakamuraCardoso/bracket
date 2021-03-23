@@ -1,11 +1,23 @@
 /* Variables */
 select, input {
   font-family: sans-serif;
-  border: none; }
+  border: none;
+}
 
-input[type='number'] {
+input[type=number] {
   padding: 0;
-  width: 35px; }
+  width: 35px;
+}
+
+.schedule__all {
+  flex-direction: column;
+  display: flex;
+  justify-content: center;
+}
+
+.schedule__header {
+  width: 80%;
+}
 
 .container {
   display: flex;
@@ -13,7 +25,8 @@ input[type='number'] {
   max-width: 1200px;
   flex-wrap: wrap;
   width: 80vw;
-  flex-direction: column; }
+  flex-direction: column;
+}
 
 #next {
   border: 1px solid #370CF2;
@@ -21,8 +34,18 @@ input[type='number'] {
   width: 50px;
   height: 50px;
   border-radius: 50%;
-  align-self: center; }
+  align-self: center;
+}
 
+#timeline {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  height: clamp(60rem, 50vh, 80rem);
+  width: 90%;
+  font-weight: bold;
+}
 .time::-webkit-calendar-picker-indicator {
   background: transparent;
   bottom: 0;
@@ -33,34 +56,41 @@ input[type='number'] {
   position: absolute;
   right: 0;
   top: 0;
-  width: 100%; }
+  width: 100%;
+}
 
 .time {
   overflow: hidden;
-  position: relative; }
+  position: relative;
+}
 
 .form-wrapper {
-  display: flex; }
+  display: flex;
+}
 
 #form-container {
   display: none;
   flex-direction: column;
   height: 100vh;
-  justify-content: space-around; }
+  justify-content: space-around;
+}
 
 .form-wrapper {
   display: flex;
-  margin: 2rem 0; }
+  margin: 2rem 0;
+}
 
 .field {
   display: flex;
-  font-size: 1.5rem; }
+  font-size: 1.5rem;
+}
 
 .field input, .field select {
   color: #666;
   text-align: center;
   margin: 0 1rem;
-  font-size: 1.5rem; }
+  font-size: 1.5rem;
+}
 
 .day-container {
   position: relative;
@@ -70,7 +100,8 @@ input[type='number'] {
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-wrap: wrap; }
+  flex-wrap: wrap;
+}
 
 .day-card {
   position: relative;
@@ -83,7 +114,8 @@ input[type='number'] {
   box-shadow: 0 15px 25px rgba(0, 0, 0, 0.2);
   transition: 0.5s;
   display: flex;
-  justify-content: space-around; }
+  justify-content: space-around;
+}
 
 .day-circle {
   position: relative;
@@ -91,7 +123,8 @@ input[type='number'] {
   height: 100%;
   background: #F2D80C;
   clip-path: circle(270px at center 0);
-  padding: 8rem 0; }
+  padding: 8rem 0;
+}
 
 .day-close {
   position: absolute;
@@ -109,14 +142,16 @@ input[type='number'] {
   color: white;
   font-size: 1.7rem;
   font-weight: bolder;
-  z-index: 8; }
+  z-index: 8;
+}
 
 .day-title {
   text-align: center;
   color: white;
   font-size: 4.5rem;
   text-transform: uppercase;
-  align-self: center; }
+  align-self: center;
+}
 
 .day-content {
   position: absolute;
@@ -125,13 +160,16 @@ input[type='number'] {
   bottom: 10px;
   color: #666;
   padding: 1.5rem;
-  font-size: 1rem; }
+  font-size: 1rem;
+}
 
 .day-container .day-card:hover {
   transform: scale(1.1);
-  opacity: 1; }
+  opacity: 1;
+}
 
 .day-checkbox {
-  padding: 10px; }
+  padding: 10px;
+}
 
 /*# sourceMappingURL=schedule.css.map */

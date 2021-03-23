@@ -36,7 +36,7 @@ class Doctor(models.Model):
 
     def serialize(self):
         return {
-            "image": self.user.picture.url,
+            "image": self.user.get_image(),
             "title": self.__str__(),
             "name": self.user.name,
             "address": self.user.city.__str__(),
@@ -55,7 +55,7 @@ class Doctor(models.Model):
     def basic_serialize(self):
         return {
             'title': self.__str__(),
-            'image': self.user.picture.url,
+            'image': self.user.get_image(),
             'url': reverse('doctors:profile', args=(self.user.name, )),
             'id': self.id
         }
@@ -103,7 +103,9 @@ class Shift(models.Model):
             'clinic': clinic_serialize,
             'areas': [area.area for area in self.areas.all()],
             'day': self.day.day,
-            'id': self.id
+            'id': self.id,
+            'start': (self.start.hour, self.start.minute),
+            'end': (self.end.hour, self.end.minute)
         }
 
     def get_appointments(self):

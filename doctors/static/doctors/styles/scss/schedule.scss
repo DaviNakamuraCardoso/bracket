@@ -2,7 +2,7 @@
 $main: #370CF2;
 $complementary: #F2D80C;
 
-select, input 
+select, input
 {
     font-family: sans-serif;
     border: none;
@@ -10,14 +10,27 @@ select, input
 
 input[type='number']
 {
-    padding: 0; 
+    padding: 0;
     width: 35px;
+}
+
+.schedule__all
+{
+    flex-direction: column;
+    display: flex;
+    justify-content: center;
+}
+
+
+.schedule__header
+{
+    width: 80%;
 }
 
 .container
 {
-    display: flex; 
-    margin: auto; 
+    display: flex;
+    margin: auto;
     max-width: 1200px;
     flex-wrap: wrap;
     width: 80vw;
@@ -26,9 +39,9 @@ input[type='number']
 
 
 
-#next 
+#next
 {
-    border: 1px solid $main; 
+    border: 1px solid $main;
     color: $main;
     width: 50px;
     height: 50px;
@@ -36,6 +49,20 @@ input[type='number']
     align-self: center;
 }
 
+#timeline
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    height: clamp(60rem, 50vh, 80rem);
+    width: 90%;
+    font-weight: bold; 
+    div
+    {
+    }
+
+}
 
 .time::-webkit-calendar-picker-indicator {
   background: transparent;
@@ -47,24 +74,24 @@ input[type='number']
         position: absolute;
         right: 0;
         top: 0;
-        width: 100%; 
-        
+        width: 100%;
+
 }
-.time 
+.time
 {
-    overflow: hidden; 
+    overflow: hidden;
     position: relative;
 }
 
 
-.form-wrapper 
+.form-wrapper
 {
-    display: flex; 
+    display: flex;
 }
 
 #form-container
 {
-    display: none; 
+    display: none;
     flex-direction: column;
     height: 100vh;
     justify-content: space-around;
@@ -73,11 +100,11 @@ input[type='number']
 
 .form-wrapper
 {
-    display: flex; 
-    margin: 2rem 0; 
+    display: flex;
+    margin: 2rem 0;
 
 }
-.field 
+.field
 {
     display: flex;
     font-size: 1.5rem;
@@ -88,97 +115,95 @@ input[type='number']
     text-align: center;
     margin: 0 1rem;
     font-size: 1.5rem;
-    
+
 
 }
 
 .day-container
 {
-    position: relative; 
+    position: relative;
     width: auto;
-    max-width: 90vw; 
-    padding: 20px; 
-    display: flex; 
-    justify-content: center; 
-    align-items: center; 
-    flex-wrap: wrap; 
+    max-width: 90vw;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
 }
 
-.day-card 
+.day-card
 {
-    position: relative; 
-    width: 450px; 
-    height: 630px; 
-    background: #fff; 
-    margin: 20px; 
-    border-radius: 20px; 
-    overflow:hidden; 
+    position: relative;
+    width: 450px;
+    height: 630px;
+    background: #fff;
+    margin: 20px;
+    border-radius: 20px;
+    overflow:hidden;
     box-shadow: 0 15px 25px rgba(0, 0, 0, 0.2);
-    transition: 0.5s; 
-    display: flex; 
+    transition: 0.5s;
+    display: flex;
     justify-content: space-around;
-    
+
 }
 
-.day-circle 
+.day-circle
 {
-    position: relative; 
-    width: 100%; 
-    height: 100%; 
-    background: $complementary; 
-    clip-path: circle(270px at center 0); 
-    padding: 8rem 0; 
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: $complementary;
+    clip-path: circle(270px at center 0);
+    padding: 8rem 0;
 
 }
 .day-close
 {
-    position: absolute; 
-    right: 10px; 
+    position: absolute;
+    right: 10px;
     top: 10px;
     cursor: pointer;
-    width: 40px; 
-    height: 40px; 
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
     background: #DB4A11;
-    display: flex; 
-    align-items: center; 
+    display: flex;
+    align-items: center;
     justify-content: center;
     text-align: center;
     color: white;
     font-size: 1.7rem;
     font-weight: bolder;
-    z-index: 8; 
-    
+    z-index: 8;
+
 }
-.day-title 
+.day-title
 {
     text-align: center;
     color: white;
     font-size: 4.5rem;
-    text-transform: uppercase;  
+    text-transform: uppercase;
     align-self: center;
 }
-.day-content 
+.day-content
 {
-    position: absolute; 
+    position: absolute;
     display: flex;
     flex-direction: column;
-    bottom: 10px; 
+    bottom: 10px;
     color: #666;
     padding: 1.5rem;
     font-size: 1rem;
 }
 
 
-.day-container .day-card:hover 
+.day-container .day-card:hover
 {
-    transform: scale(1.1); 
+    transform: scale(1.1);
     opacity: 1;
 }
 
-.day-checkbox 
+.day-checkbox
 {
-    padding: 10px; 
+    padding: 10px;
 }
-
-
