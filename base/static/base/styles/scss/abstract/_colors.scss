@@ -1,10 +1,24 @@
-// Declaration of the website colors
-
+/* Main Colors */
 $main: #4387f5;
 $complementary: #EC5272;
 
+
+
+/* Base colors */
 $black: #0a100d;
-$white: #fafafa;
+$white: #f9f9f9;
+
+
+
 $gray: #777;
 $light-gray: #fafafa;
 $hover-gray: #f0f0f0;
+$dark-gray: #555;
+
+/* Success, atention and caution */
+$green: rgba(green, .8);
+$light-green: rgba(#33ff33, 1);
+$yellow: #F5BA42;
+$light-yellow: rgba(#F5BA42, .3);
+$red: rgba(red, .8);
+$light-red: rgba(#ff7777, 1);

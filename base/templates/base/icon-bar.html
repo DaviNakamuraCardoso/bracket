@@ -1,120 +1,133 @@
 {% load static %}
 
 <link rel="stylesheet" href="{% static 'base/styles/css/icon-bar.css' %}">
+<script src="{% static 'base/scripts/notifications.js' %}" type="module"></script>
 
-            <!-- Notifications -->
-            <li class="drop nav-item">
-                <div class="drop icon">
-                    <i class="drop fas fa-bell" id="bell">
-                        {% if request.user.notifications.all %}
-                            <span class="notifi-number"></span>
-                        {% endif %}
-                    </i>
-                </div>
-                <div class="dropdown" id="box">
-                    {% csrf_token %}
-                    <input type="hidden" id="notification__url" value="{% url 'base:notifications' request.user.name %}">
-                    <h2 class="drop drop-t">Notifications</h2>
-                    <div class="drop__first">
-                        {% for notification in request.user.sorted_notifications %}
-                            <div class="drop drop__notification" id="notification__{{notification.id}}">
 
-                                {% if not notification.read %}
-                                    <div class="drop__circle"></div>
-                                {% endif %}
-                                <div class="drop drop__front">
-                                    <div class="drop__text">
+    <!-- Notifications -->
+    <li class="drop nav-item">
+        <div class="drop icon">
+            <i class="drop fas fa-bell" id="bell">
+                {% if request.user.notifications.all %}
+                    <span class="notifi-number"></span>
+                {% endif %}
+            </i>
+        </div>
+        <div class="dropdown" id="box">
+            {% csrf_token %}
+            <input type="hidden" id="notification__url" value="{% url 'base:notifications' request.user.name %}">
+            <h2 class="drop drop__header">Notifications</h2>
+            <div class="drop__first">
+                {% for notification in request.user.sorted_notifications %}
+                    <div class="drop drop__notification" id="notification__{{notification.id}}">
 
-                                        <h4 class="drop drop__title">{{ notification.origin|truncatechars:15 }}</h4>
-                                        <p class="drop drop__timestamp">{{ notification.time }}</p>
-
-                                    </div>
-
-                                </div>
-                                <div class="drop__arrow fas-icon right"></div>
-
-                            </div>
-
-                    {% endfor %}
-                    <template id="notification__front">
-                        <div class="drop__notification">
-
+                        {% if not notification.read %}
                             <div class="drop__circle"></div>
-                            <div class="drop__front">
-                                <div class="drop__text">
+                        {% endif %}
+                        <div class="drop drop__front">
+                            <div class="drop__text">
 
-                                    <h4 class="drop__title"></h4>
-                                    <p class="drop__timestamp"></p>
+                                <h4 class="drop drop__title">{{ notification.origin|truncatechars:15 }}</h4>
+                                <p class="drop drop__timestamp">{{ notification.time }}</p>
 
-                                </div>
                             </div>
-                            <div class="drop__arrow fas-icon right"></div>
+
                         </div>
-                    </template>
+                        <div class="drop__arrow fas-icon right"></div>
+
                     </div>
 
-                    <div class="drop__second">
-                        <button type="button" name="button" class="drop__return fas-icon left"></button>
-                        {% for notification in request.user.sorted_notifications %}
+            {% endfor %}
+            <template id="notification__front">
+                <div class="drop__notification">
 
-                            <div class="drop__back">
+                    <div class="drop__circle"></div>
+                    <div class="drop__front">
+                        <div class="drop__text">
 
-                                <h1 class="drop__title">{{ notification.origin }}</h1>
-                                <p class="drop__text">{{ notification.text }}</p>
-                                <div class="drop__buttons">
-                                    <button class="drop__button--accept drop__button" data-url="{{ notification.url }}" data-val="accept">Accept</button>
-                                    <button class="drop__button--deny drop__button" data-url="{{ notification.url }}" data-val="deny">Deny</button>
-                                    <input type="hidden" id="object-id" value="{{notification.object_id}}">
-                                </div>
+                            <h4 class="drop__title"></h4>
+                            <p class="drop__timestamp"></p>
 
-                            </div>
-                        {% endfor %}
-                        <template id="notification__back">
-                            <div class="drop__back">
-
-                                    <h1 class="drop__title"></h1>
-                                    <p class="drop__text"></p>
-                                    <div class="drop__buttons">
-                                        <button class="drop__button--accept drop__button" data-url="" data-val="accept">Accept</button>
-                                        <button class="drop__button--deny drop__button" data-url="" data-val="deny">Deny</button>
-                                        <input type="hidden" id="object-id" value="" class="drop__input">
-                                    </div>
-                            </div>
-                        </template>
-                    </div>
-                </div>
-            </li>
-
-            <li class="drop nav-item">
-                <div class="drop icon">
-                    <div class="drop image-cropper">
-
-                        <img src="{{ request.user.get_image }}" width="50px" height="50px" class="drop drop-pic">
-                    </div>
-                </div>
-
-                <div class="drop dropdown">
-                    <h2 class="drop drop-t">Signed in as <strong>{{ request.user.first_name }} {{ request.user.last_name }}</strong></h2>
-
-                    <!-- Medical Info -->
-                    <a class="drop drop-link" href="{% url 'patients:profile' request.user.name %}">
-                        <div class="drop drop-item">
-                            <div class="drop drop-text">
-                                    <i class="drop fas fa-clipboard"></i>
-                                    <p class="drop drop-text">Medical Info</p>
-                            </div>
-                        </div>
-                    </a>
-
-
-                    <!-- Logout -->
-                    <div class="drop drop-item">
-                        <div class="drop text">
-                            <a class="drop drop-link" href="{% url 'users:logout' %}">
-                                <i class="drop fas fa-sign-out-alt"></i>
-                                <p class="drop drop-text">Logout</p>
-                            </a>
                         </div>
                     </div>
+                    <div class="drop__arrow fas-icon right"></div>
                 </div>
-            </li>
+            </template>
+            </div>
+
+            <div class="drop__second">
+                <button type="button" name="button" class="drop__return fas-icon left"></button>
+                {% for notification in request.user.sorted_notifications %}
+
+                    <div class="drop__back">
+
+                        <h1 class="drop__title">{{ notification.origin }}</h1>
+                        <p class="drop__text">{{ notification.text }}</p>
+                        <div class="drop__buttons">
+                            <button class="drop__button--accept drop__button" data-url="{{ notification.url }}" data-val="accept">Accept</button>
+                            <button class="drop__button--deny drop__button" data-url="{{ notification.url }}" data-val="deny">Deny</button>
+                            <input type="hidden" id="object-id" value="{{notification.object_id}}">
+                        </div>
+
+                    </div>
+                {% endfor %}
+                <template id="notification__back">
+                    <div class="drop__back">
+
+                            <h1 class="drop__title"></h1>
+                            <p class="drop__text"></p>
+                            <div class="drop__buttons">
+                                <button class="drop__button--accept drop__button" data-url="" data-val="accept">Accept</button>
+                                <button class="drop__button--deny drop__button" data-url="" data-val="deny">Deny</button>
+                                <input type="hidden" id="object-id" value="" class="drop__input">
+                            </div>
+                    </div>
+                </template>
+            </div>
+        </div>
+    </li>
+
+    <li class="drop nav-item">
+        <div class="drop icon">
+            <div class="drop image-cropper">
+
+                <img src="{{ request.user.get_image }}" width="50px" height="50px" class="drop drop-pic">
+            </div>
+        </div>
+
+        <div class="drop dropdown" id="user">
+            <h2 class="drop drop__header">Signed in as <strong>{{ request.user.first_name }} {{ request.user.last_name }}</strong></h2>
+
+            <!-- Medical Info -->
+            <a class="drop drop__link" href="{% url 'patients:profile' request.user.name %}">
+                <div class="drop drop__item">
+                    <span class="drop__span user">My Profile</span>
+                </div>
+            </a>
+
+            {# Dashboard, if any #}
+            {% if request.user.is_doctor %}
+                <a class="drop drop__link" href="{% url 'doctors:dashboard' request.user.name %}">
+                    <div class="drop drop__item">
+                        <span class="drop drop__span dashboard">My Dashboard</span>
+                    </div>
+                </a>
+                <a class="drop drop__link" href="{% url 'doctors:schedule' request.user.name %}">
+                    <div class="drop drop__item">
+                        <span class="drop drop__span schedule">My Schedule</span>
+
+                    </div>
+                </a>
+            {% endif %}
+
+
+
+
+            <!-- Logout -->
+            <a class="drop drop__link" href="{% url 'users:logout' %}">
+                <div class="drop drop__item">
+                    <span class="drop__span logout">Logout</span>
+                </div>
+            </a>
+        </div>
+    </li>

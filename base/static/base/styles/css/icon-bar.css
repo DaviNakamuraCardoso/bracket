@@ -1,3 +1,108 @@
+@charset "UTF-8";
+/* Main Colors */
+/* Base colors */
+/* Success, atention and caution */
+.mail::before {
+  content: "";
+}
+
+.address::before {
+  content: "";
+}
+
+.phone::before {
+  content: "";
+}
+
+.rating::before {
+  content: "";
+}
+
+.university::before {
+  content: "";
+}
+
+.clinic::before {
+  content: "";
+}
+
+.plus::before {
+  content: "";
+}
+
+.right::before {
+  content: "";
+}
+
+.left::before {
+  content: "";
+}
+
+.search::before {
+  content: "";
+}
+
+.star::before {
+  content: "";
+}
+
+.times::before {
+  content: "";
+}
+
+.location::before {
+  content: "";
+}
+
+.search__location::before {
+  content: "";
+}
+
+.user::before {
+  content: "";
+}
+
+.logout::before {
+  content: "";
+}
+
+.doctor::before {
+  content: "";
+}
+
+.dashboard::before {
+  content: "";
+}
+
+.schedule::before {
+  content: "";
+}
+
+.fas-icon::before {
+  font-weight: 900;
+  font-family: "Font Awesome 5 Free";
+  font-style: normal;
+  font-variant: normal;
+  text-rendering: auto;
+  text-align: center;
+}
+
+.fas-icon::before {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.fas-text::before {
+  margin-right: 0.4em;
+}
+
+.icon__content::before {
+  content: attr(data-before);
+}
+
 .drop-number {
   background: red;
   font-family: monospace;
@@ -11,22 +116,26 @@
 
 .dropdown {
   position: absolute;
-  width: 300px;
+  width: 330px;
   top: 10vh;
   transform: translateX(-90%);
   box-shadow: 0px 3px 4px rgba(0, 0, 0, 0.3);
-  border-radius: 30px;
+  border-radius: 2rem;
   max-height: 0px;
   min-height: 0px;
   overflow: hidden;
-  overflow-y: auto;
   background: white;
   z-index: 10;
 }
 
 .dropdown.open {
-  max-height: 600px;
-  min-height: 400px;
+  max-height: 800px;
+  min-height: 300px;
+  overflow-y: auto;
+}
+
+#box {
+  width: 420px;
 }
 
 .drop__first {
@@ -44,18 +153,10 @@
   background: #4387f5;
 }
 
-.drop-t {
-  font-size: 1.6rem;
-  padding: 10px;
-  color: #777;
-}
-.drop-t strong {
-  color: #4387f5;
-}
-
 .drop__notification {
   padding: 15px 5px;
   position: relative;
+  height: 120px;
   justify-content: flex-start;
   display: flex;
   flex-direction: row;
@@ -84,6 +185,9 @@
   transform: translateY(-50%);
   opacity: 0;
 }
+.drop__arrow::before {
+  font-size: 3rem;
+}
 
 .drop__front {
   text-align: left;
@@ -95,10 +199,10 @@
   left: 0;
   top: 0;
   transform: translateX(100%);
-  width: 300px;
+  width: 420px;
   height: 100%;
-  min-height: 400px;
-  max-height: 600px;
+  min-height: 300px;
+  max-height: 800px;
   transition: all 0.7s ease;
 }
 
@@ -175,20 +279,64 @@
   background: rgba(255, 200, 200, 0.3);
 }
 
+.drop__title {
+  font-size: clamp(1.8rem, 2vw, 2.4rem);
+}
+
 .drop__timestamp {
   color: #777;
+  font-size: clamp(1.8rem, 2vw, 2.4rem);
 }
 
-.drop-text {
-  color: #777;
-  width: 100%;
-  flex-direction: row;
+#user {
   display: flex;
+  flex-direction: column;
 }
 
-.drop-link {
-  display: flex;
+#user.open {
+  min-height: 600px;
 }
+
+.drop__header {
+  width: 90%;
+  margin: 0 auto;
+  padding: 3rem 0;
+  border-bottom: 1px solid rgba(119, 119, 119, 0.2);
+  font-size: clamp(2rem, 3vw, 2.8rem);
+  color: #0a100d;
+}
+.drop__header strong {
+  color: #4387f5;
+}
+
+.drop__link {
+  display: flex;
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  color: #555;
+  padding: 1.5rem 0;
+  justify-content: center;
+}
+.drop__link:hover {
+  background: #f0f0f0;
+}
+
+.drop__item {
+  width: 70%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.drop__span::before {
+  margin-right: 2rem;
+  font-weight: 900;
+  font-family: "Font Awesome 5 Free";
+  font-style: normal;
+  font-variant: normal;
+  text-rendering: auto;
+  text-align: center;
+}
+
 .reply-btn-container {
   margin: auto;
   display: flex;

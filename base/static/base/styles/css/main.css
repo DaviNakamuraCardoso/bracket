@@ -1,3 +1,6 @@
+/* Main Colors */
+/* Base colors */
+/* Success, atention and caution */
 * {
   padding: 0;
   margin: 0;
@@ -8,6 +11,8 @@ html {
   font-size: 62.5%;
   scroll-behavior: smooth;
   min-height: 100vh;
+  background: #f9f9f9;
+  background-color: #f9f9f9;
 }
 
 body {
@@ -114,7 +119,7 @@ body::-webkit-scrollbar {
   width: 100vw;
   height: 12vh;
   top: 0;
-  background: #fafafa;
+  background: #f9f9f9;
   border-bottom: 2px solid #f0f0f0;
 }
 

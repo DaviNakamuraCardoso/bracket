@@ -1,6 +1,8 @@
 @use 'abstract/colors';
+@use './icons';
 
 
+$notification-width: 420px;
 .drop-number
 {
     background: red;
@@ -17,27 +19,33 @@
 .dropdown
 {
     position: absolute;
-    width: 300px;
+    width: 330px;
     top: 10vh;
     transform: translateX(-90%);
-    box-shadow: 0px 3px 4px rgba(0, 0, 0, .3);
-    border-radius: 30px;
+    box-shadow: 0px 3px 4px rgba(black, .3);
+    border-radius: 2rem;
     max-height: 0px;
     min-height: 0px;
     overflow: hidden;
-    overflow-y: auto;
 
     background: white;
     z-index: 10;
+
+
 }
 
 
 .dropdown.open
 {
-    max-height: 600px;
-    min-height: 400px;
+    max-height: 800px;
+    min-height: 300px;
+    overflow-y: auto;
 }
 
+#box
+{
+    width: $notification-width;
+}
 
 .drop__first
 {
@@ -62,23 +70,13 @@
 }
 
 
-.drop-t
-{
-    font-size: 1.6rem;
-    padding: 10px;
-    // border-bottom: $white_border;
-    color: colors.$gray;
-    strong
-    {
-        color: colors.$main;
-    }
-}
 
 .drop__notification
 {
     // border-bottom: $white_border;
     padding: 15px 5px;
     position: relative;
+    height: 120px;
     justify-content: flex-start;
     display: flex;
     flex-direction: row;
@@ -114,6 +112,10 @@
     top: 50%;
     transform: translateY(-50%);
     opacity: 0;
+    &::before
+    {
+        font-size: 3rem;
+    }
 
 }
 
@@ -128,10 +130,10 @@
     left: 0;
     top: 0;
     transform: translateX(100%);
-    width: 300px;
+    width: $notification-width;
     height: 100%;
-    min-height: 400px;
-    max-height: 600px;
+    min-height: 300px;
+    max-height: 800px;
     transition: all .7s ease;
 }
 
@@ -224,37 +226,69 @@
 {
     // color: $gray;
     // font-size: $medium;
+    font-size: clamp(1.8rem, 2vw, 2.4rem);
 }
 
 .drop__timestamp
 {
     color: colors.$gray;
     // font-size: $small;
+    font-size: clamp(1.8rem, 2vw, 2.4rem);
 }
 
-.drop-text
+#user
 {
-    color: colors.$gray;
-    // font-size: $medium;
-    width: 100%;
-    flex-direction: row;
     display: flex;
+    flex-direction: column;
+}
+#user.open
+{
 
-
+    min-height: 600px;
 }
 
-.drop-link
+.drop__header
 {
-    display: flex;
-    i
+    width: 90%;
+    margin: 0 auto;
+    padding: 3rem 0;
+    border-bottom: 1px solid rgba(colors.$gray, .2) ;
+    font-size: clamp(2rem, 3vw, 2.8rem);
+    color: colors.$black;
+    strong
     {
-        // padding: 0 $small;
-        // color: $gray;
+        color: colors.$main;
     }
-
 }
 
 
+.drop__link
+{
+    display: flex;
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    color: colors.$dark-gray;
+    padding: 1.5rem 0;
+    justify-content: center;
+    &:hover
+    {
+        background: colors.$hover-gray;
+    }
+}
+
+.drop__item
+{
+    width: 70%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: flex-start;
+}
+
+
+.drop__span
+{
+    @include icons.text($margin: 2rem);
+
+}
 
 .reply-btn-container
 {

@@ -1,4 +1,51 @@
-.fas-icon::before, .fas-text::before
+$contents: (
+    mail: '\f0e0',
+    address: '\f3c5',
+    phone: '\f095',
+    rating: '\f005',
+    university: '\f19c',
+    clinic: '\f7f2',
+    plus: '\f067',
+    right: '\f054',
+    left: '\f053',
+    search: '\f002',
+    star: '\f005',
+    times: '\f00d',
+    location: '\f3c5',
+    search__location: '\f689',
+    user: '\f007',
+    logout: '\f2f5',
+    doctor: '\f0f0',
+    dashboard: '\f200',
+    schedule: '\f274', 
+
+);
+
+
+@each $class, $content in $contents
+{
+    .#{$class}::before
+    {
+        content: $content;
+    }
+}
+
+@mixin text($margin: .4rem)
+{
+    &::before
+    {
+        margin-right: $margin;
+        font-weight: 900;
+        font-family: "Font Awesome 5 Free";
+        font-style: normal;
+        font-variant: normal;
+        text-rendering: auto;
+        text-align: center;
+    }
+}
+
+
+.fas-icon::before
 {
     font-weight: 900;
     font-family: "Font Awesome 5 Free";
@@ -22,81 +69,7 @@
     margin-right: .4em;
 }
 
-
-
-
-.mail::before
-{
-    content: '\f0e0';
-}
-.address::before
-{
-    content: '\f3c5';
-}
-.phone::before
-{
-    content: '\f095';
-}
-.rating::before
-{
-    content: '\f005';
-}
-.university::before
-{
-    content: '\f19c';
-}
-.clinic::before
-{
-    content: '\f7f2';
-}
-
-.plus::before
-{
-    content: '\f067';
-}
-
-
-
-.right::before
-{
-    content: '\f054';
-
-}
-
-.left::before
-{
-
-    content: '\f053';
-}
-
 .icon__content::before
 {
     content: attr(data-before);
-}
-
-
-.search::before
-{
-    z-index: 9;
-    content: '\f002';
-}
-.star::before
-{
-    content: '\f005';
-}
-
-
-.times::before
-{
-    content: '\f00d';
-}
-
-.location::before
-{
-    content: '\f3c5';
-}
-
-.search__location::before
-{
-    content: '\f689'; 
 }

@@ -1,7 +1,10 @@
+/* Main Colors */
+/* Base colors */
+/* Success, atention and caution */
 #sidebar {
   position: fixed;
   top: 10vh;
-  background: #fafafa;
+  background: #f9f9f9;
   flex-direction: column;
   width: 0;
   display: inline-table;
@@ -62,7 +65,7 @@
 }
 
 #sidebar__menu {
-  background: #fafafa;
+  background: #f9f9f9;
   position: fixed;
   z-index: 2;
   top: 0;
