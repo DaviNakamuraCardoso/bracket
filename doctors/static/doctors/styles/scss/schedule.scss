@@ -51,18 +51,28 @@ input[type='number']
 
 #timeline
 {
+    position: -webkit-sticky;
+    position: fixed;
+    top: 12vh;
+    left: 60%;
+    transform-origin: center;
+
+    z-index: 10;
+    transform: rotateZ(90deg) translateX(30vh);
+    background: white;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 0 auto;
-    height: clamp(60rem, 50vh, 80rem);
-    width: 90%;
-    font-weight: bold; 
+    margin: 0;
+    height: 20vw;
+    width: 80vh;
+    font-weight: bold;
     div
     {
     }
 
 }
+
 
 .time::-webkit-calendar-picker-indicator {
   background: transparent;
@@ -89,14 +99,11 @@ input[type='number']
     display: flex;
 }
 
-#form-container
+.shift__form
 {
     display: none;
-    flex-direction: column;
-    height: 100vh;
-    justify-content: space-around;
-
 }
+
 
 .form-wrapper
 {
@@ -131,7 +138,7 @@ input[type='number']
     flex-wrap: wrap;
 }
 
-.day-card
+.shift__form.visible
 {
     position: relative;
     width: 450px;

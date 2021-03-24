@@ -1,7 +1,6 @@
 {% load static %}
 
 <div class="container">
-    <script src="{% static 'doctors/scripts/schedule.js' %}"></script>
     <form method="POST" action="{% url 'doctors:schedule' request.user.name %}">
         {% csrf_token %}
         <div class="checkbox-container" id="days-checkbox">
@@ -21,89 +20,7 @@
         <input type="submit">
 
     </form>
-
-    <div id="form-container">
-
-        <button class="day-close" type="button">X</button>
-
-        <div class="day-circle">
-
-            <h2 class="day-title">02</h2>
-        </div>
-        <div class="day-content">
-
-                <div class="form-wrapper">
-                    <div class="field">
-                        <label for="{{ form.clinic.id_for_label }}">{{ form.clinic.label }}</label>
-                        {{ form.clinic }}
-                    </div>
-                </div>
-                <div class="form-wrapper">
-                    <div class="field">
-                        <label for="{{ form.areas.id_for_label">
-                            <span>{{ form.areas.label }}</span>
-                        </label>
-                        <input name="areas" id="areas" type="hidden">
-                        {% for value, title in form.areas.field.choices %}
-
-                            <div class="checkbox-div">
-                                <label class="checkbox-label">
-                                    <input type="checkbox" name="areas_{{ value }}" value="{{ value }}" class="checkbox-input day-checkbox" id="checkbox_{{ title }}">
-                                    <span class="checkbox-span">{{ title }}</span>
-                                </label>
-                            </div>
-                        {% endfor %}
-                    </div>
-
-                </div>
-
-            <div class="form-wrapper">
-                <div class="field">
-                    <label for="{{ form.duration.id_for_label }}">{{ form.duration.label }}</label>
-                     {{form.duration_hours}}
-                     <label for="{{ form.duration_hours.id_for_label}}">{{ form.duration_hours.label }}</label>
-                     {{form.duration_minutes}}
-                     <label for="{{ form.duration_minutes.id_for_label}}">{{ form.duration_minutes.label }}</label>
-                     {{forms.duration}}
-                </div>
-            </div>
-
-            <div class="form-wrapper">
-                <div class="field">
-                    <label for="{{ form.start.id_for_label }}" class="label-field">
-                        <span>{{ form.start.label }}</span>
-                    </label>
-                    {{ form.start }}
+    {% include 'doctors/snippets/shift.html' with form=form %}
 
 
-                </div>
-                <div class="field">
-                    <label for="{{ form.end.id_for_label }}" class="label-field">
-                        <span>{{ form.end.label }}</span>
-                    </label>
-                    {{ form.end }}
-
-                </div>
-            </div>
-            <div class="form-wrapper">
-                <div class="field">
-                    <label for="{{ form.break_time.id_for_label }}">
-
-                        <span>{{ form.break_time.label }}</span>
-                    </label>
-                    {{ form.break_time }}
-
-                </div>
-                <div class="field">
-
-                    <label for="{{ form.break_end.id_for_label }}">
-                        <span>{{ form.break_end.label }}</span>
-                    </label>
-                    {{ form.break_end }}
-                </div>
-            </div>
-
-        </div>
-
-    </div>
 </div>

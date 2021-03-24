@@ -96,13 +96,34 @@ def schedule_view(request, name):
         'end': "18:00:00",
         'clinic': doctor.clinics.all()[0]
     })
+
     if request.method == 'POST':
         make_schedule(request)
+        return HttpResponseRedirect(reverse('doctors:schedule'))
 
-    return render(request, 'doctors/schedule.html', {
+
+    all_shifts = sorted(doctor.shifts.all(), key=lambda shift:shift.day.id)
+    shifts = []
+
+    for instance in all_shifts:
+        shift = ShiftForm(instance=instance, user=request.user, initial={
+            'start': instance.start,
+            'end': instance.end,
+            'clinic': instance.clinic,
+            'break_time': instance.break_time,
+            'break_end': instance.break_end,
+            'duration': instance.duration,
+            'day': instance.day
+        })
+        shifts.append(shift)
+
+    context = {
         'doctor': doctor,
-        'form': form
-    })
+        'form': form,
+        'shifts': shifts
+    }
+
+    return render(request, 'doctors/schedule.html', context)
 
 
 def schedule_days(request, name, clinic, area):
@@ -138,6 +159,7 @@ def day_planner(request, name, year, month, day):
     for shift in shifts:
         day_appointments += shift.get_appointments()
 
+    #
     day_appointments.sort(key=lambda value:format(value[0]).total_seconds())
     appointments = Appointment.objects.filter(day=day, month=month, year=year, shift__doctor=doctor)
     user_appointments = Appointment.objects.filter(day=day, month=month, year=year, shift__doctor=doctor, user=request.user)

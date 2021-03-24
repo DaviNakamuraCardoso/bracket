@@ -5,7 +5,8 @@ const PALETTE = [
     '#6FFACB',
     '#996FFB'
 ]
-function main()
+
+function buildChart()
 {
     google.charts.load("current", {packages:["timeline"]});
     google.charts.setOnLoadCallback(drawChart);
@@ -54,21 +55,38 @@ function main()
                 timeline: { rowLabelStyle: {fontName: 'Helvetica', fontSize: 24 },
                 barLabelStyle: { fill: "#ffffff", fontName: 'Garamond', fontSize: 14 },
                 showBarLabels: false},
+                chartArea: {
+                    top: 6,
+                    right: 6,
+                    bottom: 6,
+                    left: 6,
+                    height: '100%',
+                    width: '100%'
+                },
+                orientation: 'vertical',
             }
             dataTable.addRows(rows);
-
             chart.draw(dataTable, options);
 
-            container.querySelectorAll('g')[3].querySelectorAll('text').forEach(text => {text.style.fill = 'white'; });
-
             google.visualization.events.addListener(chart, 'select', () => {
-                console.log(chart.getSelection());
-                console.log("Clicked");
-            }); 
+                let index = chart.getSelection()[0].row;
+                const edit = document.querySelector('.schedule__shifts');
+                const shifts = edit.querySelectorAll(".shift__form");
+
+                for (let i = 0; i < shifts.length; i++)
+                {
+                    shifts[i].classList.toggle('visible', i == index);
+                }
+
+                shifts[index].querySelector(".day-title").innerHTML = rows[index][0];
+            });
+
+            google.visualization.events.addListener(chart, 'onmouseover', e => {
+                e.row;                 
+
+            });
         });
-
-
     }
 }
 
-    document.addEventListener("DOMContentLoaded", main);
+export default buildChart;
